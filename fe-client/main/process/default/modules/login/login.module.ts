@@ -14,4 +14,4 @@ import { LoginComponent } from '@L3Process/default/modules/login/login.component
   providers: [],
   bootstrap: [LoginComponent]
 })
-export class FeHomeModule { }
+export class FeLoginModule { }
