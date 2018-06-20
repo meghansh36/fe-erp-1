@@ -1,17 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { LoginComponent } from '@L3Process/default/modules/login/login.component';
 
-import { HomeComponent } from '@L3Process/default/modules/home/home.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+  bootstrap: [LoginComponent]
 })
 export class FeHomeModule { }
