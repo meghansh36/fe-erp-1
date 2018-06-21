@@ -6,6 +6,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var dynamicStatic = require('express-dynamic-static')();
 var book = require('./routes/book');
+var fe = express();
 var app = express();
 
 var clientIdentifier;

@@ -1,1 +1,38 @@
-<div> Form Builder Component </div>
+<div class="container form-builder">
+    <div class="row">
+        <div class="col-md-2 component-column">
+            <!-- <div class="card">
+                <div class="card-header">
+                    Fields
+                </div>
+                <div class="card-body" >
+                    <form-drag></form-drag>
+                </div>
+            </div> -->
+            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                <ngb-panel title="Basic Fields">
+                    <ng-template ngbPanelContent>
+                        <form-drag [elementListToLoad]="basic"></form-drag>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel title="Advanced Fields">
+                    <ng-template ngbPanelContent>
+                        <form-drag [elementListToLoad]="advanced"></form-drag>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>    
+
+        </div>
+        <div class="col-md-10 drop-column">
+                <div class="card">
+                    <div class="card-header">
+                        Drag And Drop Fields
+                    </div>
+                    <div class="card-body" dnd-droppable (onDropSuccess) = "completeDrop($event)">
+                        placeholder
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</div>

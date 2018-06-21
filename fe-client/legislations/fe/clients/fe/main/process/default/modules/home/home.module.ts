@@ -1,3 +1,3 @@
-import { LgHomeModule } from '@L2Process/defualt/modules/home/home.module';
+import { LgHomeModule } from '@L2Process/default/modules/home/home.module';
 
-export class HomeModule { }
+export class HomeModule extends LgHomeModule { }
