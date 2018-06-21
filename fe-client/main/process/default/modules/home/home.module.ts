@@ -12,6 +12,7 @@ import { routes } from '@L3Process/default/modules/home/home.routing';
 
 const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 
+
 @NgModule({
   declarations: [
     HomeComponent

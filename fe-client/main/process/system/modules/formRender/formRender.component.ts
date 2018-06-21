@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RenderService } from '@L3Process/system/modules/formRender/render/services/render.service';
 
 @Component({
   selector: 'form-render',
   templateUrl: './formRender.component.html',
   styleUrls: ['./formRender.component.css']
 })
-export class FeFormRenderComponent {
+export class FeFormRenderComponent implements OnInit {
+  private config = [];
+  constructor(private renderService: RenderService){}
+
+  ngOnInit() {
+    this.config = this.renderService.json[0].component;
+  }
 }
