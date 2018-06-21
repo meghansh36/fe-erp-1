@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+
 passport.serializeUser(function(user, cb) {
   cb(null, user);
 });
@@ -19,4 +20,5 @@ passport.use(new LocalStrategy(
         }
     }));
     
-module.exports = passport.initialize();
+
+    module.exports = passport.initialize();
