@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { FeTxtComponent } from '../components/formElements/txt/txt.component';
-import { FeNumComponent } from '../components/formElements/num/num.component';
-import { FePwdComponent } from '../components/formElements/pwd/pwd.component';
-import { FeTxaComponent } from '../components/formElements/txa/txa.component';
-import { FeEmlComponent } from '../components/formElements/eml/eml.component';
-import { FePhnComponent } from '../components/formElements/phn/phn.component';
-import { FeAdrComponent } from '../components/formElements/adr/adr.component';
-import { FeCurComponent } from '../components/formElements/cur/cur.component';
-import { FeDtiComponent } from '../components/formElements/dti/dti.component';
-import { FeTimComponent } from '../components/formElements/tim/tim.component';
-import { FeHidComponent } from '../components/formElements/hid/hid.component';
-import { FeDatComponent } from '../components/formElements/dat/dat.component';
-import { FeMonComponent } from '../components/formElements/mon/mon.component';
+import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
+import { NumComponent } from '@L3Process/system/modules/formBuilder/components/formElements/num/num.component';
+import { PwdComponent } from '@L3Process/system/modules/formBuilder/components/formElements/pwd/pwd.component';
+import { TxaComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txa/txa.component';
+import { EmlComponent } from '@L3Process/system/modules/formBuilder/components/formElements/eml/eml.component';
+import { PhnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/phn/phn.component';
+import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
+import { CurComponent } from '@L3Process/system/modules/formBuilder/components/formElements/cur/cur.component';
+import { DtiComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dti/dti.component';
+import { TimComponent } from '@L3Process/system/modules/formBuilder/components/formElements/tim/tim.component';
+import { HidComponent } from '@L3Process/system/modules/formBuilder/components/formElements/hid/hid.component';
+import { DatComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dat/dat.component';
+import { MonComponent } from '@L3Process/system/modules/formBuilder/components/formElements/mon/mon.component';
 
 @Injectable()
 export class FeFormBuilderService {
@@ -19,43 +19,43 @@ export class FeFormBuilderService {
   basicElements = [
     {
       name: 'input',
-      // component: FeTxtComponent,
+       component: TxtComponent,
       label: 'Text Field',
       icon: 'title'
     },
     {
       name: 'number',
-      // component: FeNumComponent,
+       component: NumComponent,
       label: 'Number',
       icon: 'plus_one'
     },
     {
       name: 'password',
-      // component: FePwdComponent,
+       component: PwdComponent,
       label: 'Password',
       icon: 'priority_high'
     },
     {
       name: 'textarea',
-      // component: FeTxaComponent,
+       component: TxaComponent,
       label: 'Text Area',
       icon: 'text_format'
     },
     {
       name: 'hidden',
-      // component: FeHidComponent,
+       component: HidComponent,
       label: 'Hidden',
       icon: 'check_box_outline_blank'
     },
     {
       name: 'date',
-      // component: FeDatComponent,
+       component: DatComponent,
       label: 'Date',
       icon: 'date_range'
     },
     {
       name: 'month',
-      // component: FeMonComponent,
+       component: MonComponent,
       label: 'Month',
       icon: 'date_range'
     }
@@ -64,37 +64,37 @@ export class FeFormBuilderService {
   advancedElements = [
     {
       name: 'email',
-      // component: FeEmlComponent,
+       component: EmlComponent,
       label: 'Email',
       icon: 'email'
     },
     {
       name: 'phone',
-      // component: FePhnComponent,
+       component: PhnComponent,
       label: 'Phone',
       icon: 'call'
     },
     {
       name: 'address',
-      // component: FeAdrComponent,
+       component: AdrComponent,
       label: 'Address',
       icon: 'location_on'
     },
     {
       name: 'currency',
-      // component: FeCurComponent,
+       component: CurComponent,
       label: 'Currency',
       icon: 'attach_money'
     },
     {
       name: 'datettime',
-      // component: FeDtiComponent,
+       component: DtiComponent,
       label: 'Date/Time',
       icon: 'add_alarm'
     },
     {
       name: 'time',
-      // component: FeTimComponent,
+       component: TimComponent,
       label: 'Time',
       icon: 'access_time'
     }

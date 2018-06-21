@@ -14,8 +14,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/fe",
-            "baseHref": "/client/fe",
-            "deployUrl": "/client/fe",
             "index": "fe-client/legislations/fe/clients/fe/index.html",
             "main": "fe-client/scripts/main.ts",
             "polyfills": "fe-client/scripts/polyfills.ts",
