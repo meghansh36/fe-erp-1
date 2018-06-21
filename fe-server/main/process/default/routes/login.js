@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 
-// router.get('/success', (req, res) => res.send("You have successfully logged in"));
 
-// router.get('/error', (req, res) => res.send("error logging in"));
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err) => {
         if (err) {
@@ -21,5 +19,14 @@ router.post('/login', (req, res, next) => {
         }
     })(req, res, next);
 });
+
+
+router.get('/logout', function(req, res){
+    req.logout();
+    res.json({
+        success:true,
+        message: 'Logout seuccessful'
+    });
+  });
 
 module.exports = router;
