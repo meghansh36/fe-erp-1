@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./form-builder.component.css']
 })
 export class FeFormBuilderComponent {
+
+  basic: String = 'basic';
+  advanced: String = 'advanced';
+  completeDrop(event) {
+    console.log('item dropped', event);
+  }
 }

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var dynamicStatic = require('express-dynamic-static')();
 var book = require('./routes/book');
+var fe = express();
 var app = express();
 
 var clientIdentifier;
@@ -12,6 +13,16 @@ var clientIdentifier;
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
+
+fe.use('/',express.static(__dirname+ '/dist/fe'))
+
+app.use("/client/fe", fe)
+
+app.get('/', function(req,res,next){
+  res.send("hello root");
+})
+
+
 /* app.use('/client/:id', function(req,res,next){
   //console.log(path.join(__dirname, 'dist/' + clientIdentifier))
   console.log(req.params.id)
@@ -27,7 +38,7 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use('/',express.static(path.join(__dirname, 'dist/hisysmc')))
 app.use('/hisysmc', express.static(path.join(__dirname, 'dist/hisysmc')));
 app.use('/shopclues', express.static(path.join(__dirname, 'dist/shopclues'))); */
-app.use(dynamicStatic)
+/* app.use(dynamicStatic)
 app.use('/api', book);
 
 //main get Route 
@@ -38,24 +49,25 @@ app.use('/client/:id', function(req,res,next){
   }
   dynamicStatic.setPath(path.resolve(__dirname, 'dist/'+clientIdentifier)) 
   res.sendFile("index.html", {root: "./dist/" + clientIdentifier })
-})
+}) */
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
+/* catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   console.log(err)
-//   //res.render('error');
-// });
+  // render the error page
+  res.status(err.status || 500);
+  console.log(err)
+  //res.render('error');
+}); */
+
 module.exports = app;

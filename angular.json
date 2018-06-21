@@ -14,6 +14,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/fe",
+            "baseHref": "/client/fe",
+            "deployUrl": "/client/fe",
             "index": "fe-client/legislations/fe/clients/fe/index.html",
             "main": "fe-client/scripts/main.ts",
             "polyfills": "fe-client/scripts/polyfills.ts",
@@ -24,7 +26,9 @@
             ],
             "styles": [
               "fe-client/styles/app-global-styles.css",
-              "fe-client/legislations/fe/clients/fe/styles/client-global-styles.css"
+              "fe-client/legislations/fe/clients/fe/styles/client-global-styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           },

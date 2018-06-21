@@ -1,16 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FeFormDragComponent } from './components/form-drag/form-drag.component';
+import { FeFormBuilderService } from './services/form-builder.service';
+import { FeFormBuilderComponent } from './form-builder.component';
+import { DndModule } from 'ng2-dnd';
 
-import { FormBuilderComponent } from '@L3Process/system/modules/form-builder/form-builder.component';
 
 @NgModule({
   declarations: [
-    FormBuilderComponent
+    FeFormBuilderComponent,
+    FeFormDragComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgbModule.forRoot(),
+    DndModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [FormBuilderComponent]
+  providers: [FeFormBuilderService],
+  bootstrap: [FeFormBuilderComponent]
 })
 export class FeFormBuilderModule { }
