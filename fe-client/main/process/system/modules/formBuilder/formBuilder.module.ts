@@ -4,17 +4,18 @@ import { FormDragComponent } from '@L3Process/system/modules/formBuilder/compone
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
 import { DndModule } from 'ng2-dnd';
 import { FormBuilderComponent } from '@L3Process/system/modules/formBuilder/formBuilder.component';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { FormBuilderRoutes } from "@L3Process/system/modules/formBuilder/formBuilder.routing"
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     FormBuilderComponent,
     FormDragComponent
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     NgbModule.forRoot(),
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    FormBuilderRoutes
   ],
   providers: [FormBuilderService],
   bootstrap: [FormBuilderComponent]
