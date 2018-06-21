@@ -25,7 +25,12 @@
             "styles": [
               "fe-client/styles/app-global-styles.css",
               "fe-client/legislations/fe/clients/fe/styles/client-global-styles.css",
+<<<<<<< HEAD
               "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+=======
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/material-design-icons/iconfont/material-icons.css"
+>>>>>>> 8f7dc2e5b2cb532a66b1e756383b93fee4fa767c
             ],
             "scripts": []
           },
