@@ -11,7 +11,7 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 passport.use(new LocalStrategy(
-      {usernameField:"user", passwordField:"pass"},
+       {usernameField:"username", passwordField:"password"},
         function (username, password, done) {
         if (username === 'foo' && password === 'bar') {
             done(null, true);
