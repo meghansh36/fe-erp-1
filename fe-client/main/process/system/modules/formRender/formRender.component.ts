@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RenderService } from './render/services/render.service';
+import { RenderService } from '@L3Process/system/modules/formRender/render/services/render.service';
 
 @Component({
   selector: 'form-render',

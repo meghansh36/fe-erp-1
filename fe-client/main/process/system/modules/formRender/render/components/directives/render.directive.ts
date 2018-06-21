@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, Directive, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TXTComponent } from '../TXT/txt.component';
+import { TXTComponent } from '@L3Process/system/modules/formRender/render/components/TXT/txt.component';
 
 const components = {
     input: TXTComponent
@@ -9,7 +9,7 @@ const components = {
 @Directive({
     selector: '[dynamicField]',
 })
-export class DynamicFieldDirective implements OnInit {
+export class FeDynamicFieldDirective implements OnInit {
     @Input() config;
 
     @Input() group: FormGroup;

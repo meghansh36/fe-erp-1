@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Inject, ViewChild, Renderer2 } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { ElementDirective } from './directives/element.directive';
+import { ElementDirective } from '@L3Process/system/modules/formRender/render/components/TXT/directives/element.directive';
 
 @Component({
   selector: 'app-input',
@@ -8,7 +8,7 @@ import { ElementDirective } from './directives/element.directive';
   styleUrls: ['./txt.component.css'],
   providers: [Inject]
 })
-export class TXTComponent implements OnInit {
+export class FeTXTComponent implements OnInit {
   @ViewChild(ElementDirective) element: ElementDirective;
 
   @Input() config;

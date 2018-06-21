@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Inject, ViewChild, Renderer2 } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { ElementDirective } from './directives/element.directive';
+import { ElementDirective } from '@L3Process/system/modules/formRender/render/components/BTN/directives/element.directive';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-button',
   templateUrl: './btn.component.html',
   styleUrls: ['./btn.component.css'],
   providers: [Inject]
 })
-export class BTNComponent implements OnInit {
+export class FeBTNComponent implements OnInit {
   @ViewChild(ElementDirective) element: ElementDirective;
 
   @Input() config;
@@ -46,3 +46,8 @@ export class BTNComponent implements OnInit {
   }
 
 }
+/*
+    display: flex;
+    flex-flow: column wrap;
+    flex-direction: unset;
+*/

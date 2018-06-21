@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
-import { RenderService } from './services/render.service';
-import { AllCompService } from './services/all-comp.service';
-import { RenderDirective } from './render.directive';
-import { TXTComponent } from './components/TXT/txt.component';
-import { BTNComponent } from './components/BTN/btn.component';
-import { TextareaComponent } from './components/textarea/textarea.component';
+import { RenderService } from '@L3Process/system/modules/formRender/render/services/render.service';
+import { AllCompService } from '@L3Process/system/modules/formRender/render/services/all-comp.service';
+import { RenderDirective } from '@L3Process/system/modules/formRender/render/render.directive';
+import { TXTComponent } from '@L3Process/system/modules/formRender/render/components/TXT/txt.component';
+import { BTNComponent } from '@L3Process/system/modules/formRender/render/components/BTN/btn.component';
+//import { TextareaComponent } from '@L3Process/system/modules/formRender//components/textarea/textarea.component';
 
 const components = {
   input: TXTComponent,
@@ -18,7 +18,7 @@ const components = {
   templateUrl: './render.component.html',
   styleUrls: ['./render.component.css'],
 })
-export class RenderComponent implements OnInit {
+export class FeRenderComponent implements OnInit {
   @Input() config: any[] = [];
 
   @ViewChild(RenderDirective) host: RenderDirective;
@@ -58,7 +58,7 @@ export class RenderComponent implements OnInit {
   createGroup() {
     const group = this.formBuilder.group({});
     this.config.forEach(control => {
-      group.addControl(control.property.formcontrol, this.formBuilder.control())
+      group.addControl(control.property.formcontrol, this.formBuilder.control(''))
     });
     return group;
   }

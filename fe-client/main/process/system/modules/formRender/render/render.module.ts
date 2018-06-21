@@ -1,9 +1,9 @@
 import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RenderComponent } from './render.component';
-import { TXTComponent } from './components/TXT/txt.component';
-import { ElementDirective } from './components/TXT/directives/element.directive';
+import { RenderComponent } from '@L3Process/system/modules/formRender/render/render.component';
+import { TXTComponent } from '@L3Process/system/modules/formRender/render/components/TXT/txt.component';
+import { ElementDirective } from '@L3Process/system/modules/formRender/render/components/TXT/directives/element.directive';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],
@@ -11,4 +11,4 @@ import { ElementDirective } from './components/TXT/directives/element.directive'
   exports: [RenderComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class RenderModule {}
+export class FeRenderModule {}

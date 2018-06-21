@@ -3,7 +3,7 @@ import { Directive, ViewContainerRef } from '@angular/core';
 @Directive({
   selector: '[appRender]'
 })
-export class RenderDirective {
+export class FeRenderDirective {
 
   constructor(public ViewContainerRef: ViewContainerRef) { }
 

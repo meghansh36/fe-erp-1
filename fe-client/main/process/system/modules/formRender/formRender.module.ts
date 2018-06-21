@@ -1,30 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule ,ReactiveFormsModule}   from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
-import { FeFormRenderComponent } from '@L1Process/system/modules/formRender/formRender.component';
+import { FormRenderComponent } from '@L3Process/system/modules/formRender/formRender.component';
 
-import { RenderModule } from './render/render.module';
-import { RenderService } from './render/services/render.service';
-import { AllCompService } from './render/services/all-comp.service'
-import { TXTComponent } from './render/components/TXT/txt.component';
-import { TextareaComponent } from './render/components/textarea/textarea.component';
-import { BTNComponent } from './render/components/BTN/btn.component';
+import { RenderModule } from '@L3Process/system/modules/formRender/render/render.module';
+import { RenderService } from '@L3Process/system/modules/formRender/render/services/render.service';
+import { AllCompService } from '@L3Process/system/modules/formRender/render/services/all-comp.service'
+import { TXTComponent } from '@L3Process/system/modules/formRender/render/components/TXT/txt.component';
+//import { TextareaComponent } from '@L3Process/system/modules/formRender/render/components/textarea/textarea.component';
+import { BTNComponent } from '@L3Process/system/modules/formRender/render/components/BTN/btn.component';
 
+import { routes } from '@L3Process/system/modules/formRender/formRender.routing';
 @NgModule({
   declarations: [
-    FeFormRenderComponent,
-    TextareaComponent,
+    FormRenderComponent,
     BTNComponent
   ],
   imports: [
-    BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    RenderModule
+    RenderModule,
+    RouterModule.forChild(routes)
   ],
   providers: [RenderService,AllCompService],
-  bootstrap: [FeFormRenderComponent],
   entryComponents: [TXTComponent,BTNComponent]
 })
 export class FeFormRenderModule { }

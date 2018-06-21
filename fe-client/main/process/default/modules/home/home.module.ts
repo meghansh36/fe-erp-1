@@ -23,6 +23,6 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
     routing
   ],
   providers: [],
-  //bootstrap: [HomeComponent]
+  bootstrap: [HomeComponent]
 })
 export class FeHomeModule { }
