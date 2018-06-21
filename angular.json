@@ -24,7 +24,8 @@
             ],
             "styles": [
               "fe-client/styles/app-global-styles.css",
-              "fe-client/legislations/fe/clients/fe/styles/client-global-styles.css"
+              "fe-client/legislations/fe/clients/fe/styles/client-global-styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },

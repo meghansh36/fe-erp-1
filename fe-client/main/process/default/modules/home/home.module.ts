@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HomeComponent } from '@L3Process/default/modules/home/home.component';
 
+
 @NgModule({
   declarations: [
     HomeComponent
@@ -11,6 +12,6 @@ import { HomeComponent } from '@L3Process/default/modules/home/home.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+  //bootstrap: [HomeComponent]
 })
 export class FeHomeModule { }

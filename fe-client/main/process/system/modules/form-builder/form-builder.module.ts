@@ -13,4 +13,4 @@ import { FormBuilderComponent } from '@L3Process/system/modules/form-builder/for
   providers: [],
   bootstrap: [FormBuilderComponent]
 })
-export class FeFormBuilderModule { }
+export class FeFormRenderModule { }

@@ -1,12 +1,12 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { HomeModule } from '@L3Process/default/modules/home/home.module';
+import { FeFormRenderModule } from '@L1Process/system/modules/form-render/form-render.module';
 import { environment } from '../environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(HomeModule)
+platformBrowserDynamic().bootstrapModule(FeFormRenderModule)
   .catch(err => console.log(err));
