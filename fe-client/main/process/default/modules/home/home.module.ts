@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from '@L3Process/default/modules/home/home.component';
 
+
 @NgModule({
   declarations: [
     HomeComponent
