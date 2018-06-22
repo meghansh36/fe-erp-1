@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { LoginService } from '@L3Process/default/modules/login/services/login.service';
 
-@Injectable()
-export class LoginGuardService implements CanActivate {
+@Injectable({
+    providedIn:'root'
+})
+export class FeLoginGuardService implements CanActivate {
 
   constructor(public _auth: LoginService, public _router: Router) {}
 
@@ -13,7 +15,7 @@ export class LoginGuardService implements CanActivate {
 
   canActivate(): boolean {
     if (!this._auth.isLoggedIn()) {
-      this._router.navigate(['login']);
+      this._router.navigate(['/login']);
       return false;
     }
     return true;

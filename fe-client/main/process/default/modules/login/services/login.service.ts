@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
+//import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators/map';
+import { map } from 'rxjs/operators'
 
 export interface userDetails {
   username:string;
@@ -27,14 +27,19 @@ export class FeLoginService {
   private token:string;
 
   constructor(private _http: HttpClient,
-            public _jwtHelper: JwtHelperService,
+            //public _jwtHelper: JwtHelperService,
             private _router: Router) { }
 
-
+  /**
+   * save jwt token to local storage
+   */
   private saveToken(token:string):void{
     localStorage.setItem('token', token);
     this.token = token;
   }
+  /**
+   * get jwt token from LocalStorage
+   */
 
   private getToken():string{
     if(!this.token){
@@ -42,6 +47,7 @@ export class FeLoginService {
     }
     return this.token;
   }
+
   /**
    * decode jwt's payload part and returns
    */
@@ -62,10 +68,11 @@ export class FeLoginService {
               .pipe(
                 map((data:tokenResponse)=>{
                 if(data.token){
+                  console.log(userData);
+                  console.log('LoginUser');
+                  console.log(data.token);
                   this.saveToken(data.token);
-                }
-                console.log(data);
-                return data;
+                }        
                 })
               );
   }
