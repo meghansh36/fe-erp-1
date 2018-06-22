@@ -12,7 +12,7 @@ export class FeRenderService {
       id: 'FRM000001',
       name: 'form',
       code: 'FRM000001',
-      leble: 'My From',
+      label: 'My From',
       component: [
         {
           name: 'input',
@@ -103,9 +103,33 @@ export class FeRenderService {
             height: '',
             width: '100%',
             maxlength: 10,
-            placeholder:'Enter Phone Number',
-            validators: [{ 'name': 'required', 'value': true },{'name':'length','value':'10'}],
+            placeholder: 'Enter Phone Number',
+            validators: [{ 'name': 'required', 'value': true }, { 'name': 'length', 'value': '10' }],
             type: 'number'
+          }
+        },
+        {
+          name: 'time',
+          code: 'FLD000006',
+          property: {
+            lable: 'Time',
+            id: 'FRM000001-FLD0000056',
+            formcontrol: 'time-form',
+            validators: [],
+          }
+        },
+        {
+          name: 'file',
+          code: 'FLD000006',
+          property: {
+            lable: 'Upload',
+            id: 'FRM000001-FLD0000056',
+            formcontrol: 'file-form',
+            height: '',
+            width: '100%',
+            placeholder: 'Enter Phone Number',
+            validators: [],
+            type: 'file'
           }
         },
         {
