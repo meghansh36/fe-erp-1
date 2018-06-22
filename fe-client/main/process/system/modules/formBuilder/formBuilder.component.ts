@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 
 @Component({
   selector: 'form-builder',
@@ -6,10 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./formBuilder.component.css']
 })
 export class FeFormBuilderComponent {
-
+   cond: Boolean = false;
   basic: String = 'basic';
   advanced: String = 'advanced';
-  completeDrop(event) {
-    console.log('item dropped', event);
+  modalRef: NgbModalRef;
+  constructor(private bootstrapService: NgbModal, private masterFormService: FormMasterService ) {}
+
+  open(content) {
+    console.log(content);
+    this.modalRef = this.bootstrapService.open(content, {size: 'lg'});
+    this.masterFormService.setModalRef(this.modalRef);
   }
 }

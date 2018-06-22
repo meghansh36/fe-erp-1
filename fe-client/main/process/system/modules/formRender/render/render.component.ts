@@ -6,11 +6,13 @@ import { AllCompService } from '@L3Process/system/modules/formRender/render/serv
 import { RenderDirective } from '@L3Process/system/modules/formRender/render/render.directive';
 import { TXTComponent } from '@L3Process/system/modules/formRender/render/components/TXT/txt.component';
 import { BTNComponent } from '@L3Process/system/modules/formRender/render/components/BTN/btn.component';
+import { TXAComponent } from '@L3Process/system/modules/formRender/render/components/TXA/txa.component';
 //import { TextareaComponent } from '@L3Process/system/modules/formRender//components/textarea/textarea.component';
 
 const components = {
   input: TXTComponent,
-  button: BTNComponent
+  button: BTNComponent,
+  textarea: TXAComponent
 };
 
 @Component({
