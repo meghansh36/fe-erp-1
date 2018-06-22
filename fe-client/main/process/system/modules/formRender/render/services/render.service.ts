@@ -19,12 +19,12 @@ export class FeRenderService {
           code: 'FLD000001',
           property: {
             id: 'FRM000001-FRM000001',
-            class: ['col-8'],
+            style: [],
             formcontrol: 'username-form',
             type: 'text',
             label: 'Username',
             height: '',
-            width: '',
+            width: '100%',
             placeholder: 'Enter your Username',
             validators: [
               {
@@ -47,12 +47,12 @@ export class FeRenderService {
           code: 'FLD000001',
           property: {
             id: 'FRM000001-FRM000002',
-            class: ['col-8'],
+            style: [],
             formcontrol: 'name-form',
             type: 'text',
             label: 'Name',
             height: '',
-            width: '',
+            width: '100%',
             placeholder: 'Enter your Name',
             validators: [
               {
@@ -78,8 +78,9 @@ export class FeRenderService {
             formcontrol: 'password-form',
             type: 'password',
             label: 'Password',
-            height: '30px',
-            width: '250px',
+            style: [],
+            height: '',
+            width: '100%',
             placeholder: 'Enter your Password',
             validators: [
               {
@@ -108,7 +109,7 @@ export class FeRenderService {
             width: '',
             disabled: false,
             value: 'submit',
-            class: ['btn','btn-primary']
+            class: ['btn', 'btn-primary']
           }
         },
         {

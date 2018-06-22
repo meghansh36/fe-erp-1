@@ -21,7 +21,7 @@ export class FeTXTComponent implements OnInit {
   private height: string;
   private type: string;
   private id: string;
-  private elementClass = [];
+  private elementStyle = [];
 
   constructor(private render: Renderer2, private formBuilder: FormBuilder) { }
 
@@ -35,18 +35,19 @@ export class FeTXTComponent implements OnInit {
     let height = this.config.height;
     let validators = this.config.validators;
     let id = this.config.id;
-    this.elementClass = this.config.class;
+    this.elementStyle = this.config.style;
     //----------------------------------------------------------
     this.element.ElementRef.nativeElement.style.width = width;
     this.element.ElementRef.nativeElement.style.height = height;
     this.element.ElementRef.nativeElement.id = id;
     this.element.ElementRef.nativeElement.type = type;
-    if (this.elementClass) {
-      this.elementClass.forEach((c) => {
-        this.render.addClass(this.element.ElementRef.nativeElement, c);
+    if (this.elementStyle) {
+      this.elementStyle.forEach((c) => {
+        this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
       });
     }
     this.element.ElementRef.nativeElement.placeholder = placeholder;
+    this.group.controls[this.name].setValidators([Validators.required, Validators.minLength(8)]);
   }
 
 }

@@ -14,8 +14,7 @@ import { BTNComponent } from '@L3Process/system/modules/formRender/render/compon
 import { routes } from '@L3Process/system/modules/formRender/formRender.routing';
 @NgModule({
   declarations: [
-    FormRenderComponent,
-    BTNComponent
+    FormRenderComponent
   ],
   imports: [
     ReactiveFormsModule,
