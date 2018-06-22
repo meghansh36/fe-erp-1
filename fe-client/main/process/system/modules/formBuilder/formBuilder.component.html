@@ -28,7 +28,7 @@
                     <div class="card-header">
                         Drag And Drop Fields
                     </div>
-                    <div class="card-body" dnd-droppable (onDropSuccess) = "open(content)">
+                    <div class="card-body" dnd-droppable (onDropSuccess) = "open($event,content)">
                         placeholder
                     </div>
                 </div>

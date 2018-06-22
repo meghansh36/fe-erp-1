@@ -12,7 +12,7 @@ export class FeRenderService {
       id: 'FRM000001',
       name: 'form',
       code: 'FRM000001',
-      leble: 'My From',
+      label: 'My From',
       component: [
         {
           name: 'input',

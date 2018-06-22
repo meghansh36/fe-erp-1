@@ -14,8 +14,8 @@ export class FeFormBuilderComponent {
   modalRef: NgbModalRef;
   constructor(private bootstrapService: NgbModal, private masterFormService: FormMasterService ) {}
 
-  open(content) {
-    console.log(content);
+  open(event, content) {
+    console.log(event);
     this.modalRef = this.bootstrapService.open(content, {size: 'lg'});
     this.masterFormService.setModalRef(this.modalRef);
   }
