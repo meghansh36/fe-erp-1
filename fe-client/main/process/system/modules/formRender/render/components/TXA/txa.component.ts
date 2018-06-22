@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, Inject, ViewChild, Renderer2 } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { ElementDirective } from '@L3Process/system/modules/formRender/render/components/TXT/directives/element.directive';
+import { TextAreaElementDirective } from '@L3Process/system/modules/formRender/render/components/TXA/directives/element.directive';
 
 @Component({
   selector: 'app-input',
-  templateUrl: './txt.component.html',
-  styleUrls: ['./txt.component.css'],
+  templateUrl: './txa.component.html',
+  styleUrls: ['./txa.component.css'],
   providers: [Inject]
 })
-export class FeTXTComponent implements OnInit {
-  @ViewChild(ElementDirective) element: ElementDirective;
+export class FeTXAComponent implements OnInit {
+  @ViewChild(TextAreaElementDirective) element: TextAreaElementDirective;
 
   @Input() config;
   @Input() group;
@@ -17,6 +17,8 @@ export class FeTXTComponent implements OnInit {
   private name: string;
   private lable: string;
   private placeholder: string;
+  private cols: string;
+  private rows: string;
   private width: string;
   private height: string;
   private type: string;
@@ -31,23 +33,19 @@ export class FeTXTComponent implements OnInit {
     this.name = this.config.formcontrol;
     let type = this.config.type;
     let placeholder = this.config.placeholder;
-    let width = this.config.width;
-    let height = this.config.height;
+    this.cols = this.config.col;
+    this.rows = this.config.row;
     let validators = this.config.validators;
     let id = this.config.id;
     this.elementStyle = this.config.style;
     //----------------------------------------------------------
-    this.element.ElementRef.nativeElement.style.width = width;
-    this.element.ElementRef.nativeElement.style.height = height;
-    this.element.ElementRef.nativeElement.id = id;
-    this.element.ElementRef.nativeElement.type = type;
     if (this.elementStyle) {
       this.elementStyle.forEach((c) => {
         this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
       });
     }
     this.element.ElementRef.nativeElement.placeholder = placeholder;
-    this.group.controls[this.name].setValidators([Validators.required, Validators.minLength(8)]);
+    this.group.controls[this.name].setValidators([Validators.required, Validators.minLength(20)]);
   }
   //----------------------------------------------------------
 
