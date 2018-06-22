@@ -13,6 +13,8 @@ import { BTNComponent } from '@L3Process/system/modules/formRender/render/compon
 import { SELComponent } from '@L3Process/system/modules/formRender/render/components/SEL/sel.component';
 import { DATComponent } from '@L3Process/system/modules/formRender/render/components/DAT/dat.component';
 import { NUMComponent } from '@L3Process/system/modules/formRender/render/components/NUM/num.component';
+import { FILComponent } from '@L3Process/system/modules/formRender/render/components/FIL/fil.component';
+import { TIMComponent } from '@L3Process/system/modules/formRender/render/components/TIM/tim.component';
 
 import { routes } from '@L3Process/system/modules/formRender/formRender.routing';
 @NgModule({
@@ -26,6 +28,6 @@ import { routes } from '@L3Process/system/modules/formRender/formRender.routing'
     RouterModule.forChild(routes)
   ],
   providers: [RenderService,AllCompService],
-  entryComponents: [TXTComponent,BTNComponent,TXAComponent,SELComponent,DATComponent,NUMComponent]
+  entryComponents: [TXTComponent,BTNComponent,TXAComponent,SELComponent,DATComponent,NUMComponent,FILComponent,TIMComponent]
 })
 export class FeFormRenderModule { }

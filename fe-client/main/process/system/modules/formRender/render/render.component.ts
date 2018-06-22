@@ -9,7 +9,9 @@ import { BTNComponent } from '@L3Process/system/modules/formRender/render/compon
 import { TXAComponent } from '@L3Process/system/modules/formRender/render/components/TXA/txa.component';
 import { SELComponent } from '@L3Process/system/modules/formRender/render/components/SEL/sel.component';
 import { DATComponent } from '@L3Process/system/modules/formRender/render/components/DAT/dat.component';
-import { NUMComponent } from '@L3Process/system/modules/formRender/render/components/NUM/num.component'
+import { NUMComponent } from '@L3Process/system/modules/formRender/render/components/NUM/num.component';
+import { FILComponent } from '@L3Process/system/modules/formRender/render/components/FIL/fil.component';
+import { TIMComponent } from '@L3Process/system/modules/formRender/render/components/TIM/tim.component';
 
 const components = {
   input: TXTComponent,
@@ -17,7 +19,9 @@ const components = {
   textarea: TXAComponent,
   select: SELComponent,
   date: DATComponent,
-  number: NUMComponent
+  number: NUMComponent,
+  file: FILComponent,
+  time: TIMComponent
 };
 
 @Component({
