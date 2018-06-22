@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';  
+//import { HttpClient } from '@angular/common/http';  
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 //import { Observable } from 'rxjs/Observable';
-//import { AuthenticationService } from '../services/authentication.service';
+import { LoginService } from '@L3Process/default/modules/login/services/login.service';
 
 
 @Component({
@@ -22,23 +22,25 @@ export class FeLoginComponent implements OnInit {
 
   submitted:boolean = false;
   
-   constructor(private http: HttpClient, private router: Router) { }
+   constructor(private _auth:LoginService,private _router:Router) { }
 
   ngOnInit() {
-    // this.http.get('/profile')
-    // .subscribe(res=>{console.log("Get login");
-    // });
   }
 
-  login(username,password){
+  login(){
     this.submitted=true;
     this.userData.username = this.loginForm.value.username;
     this.userData.password = this.loginForm.value.password;
-    
- //   this.auth.login(this.userData);
-
-    this.router.navigateByUrl('/profile');
     console.log(this.userData);
+
+    this._auth.loginUser(this.userData)
+      .subscribe(
+        res =>{
+          console.log(res)
+          this._router.navigate(['/'])
+        },
+        err => console.log(err)
+      )
   }
     
 }
