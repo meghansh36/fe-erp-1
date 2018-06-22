@@ -10,12 +10,16 @@ import { TXAComponent } from '@L3Process/system/modules/formRender/render/compon
 import { BTNComponent } from '@L3Process/system/modules/formRender/render/components/BTN/btn.component';
 import { DATComponent } from '@L3Process/system/modules/formRender/render/components/DAT/dat.component';
 import { NUMComponent } from '@L3Process/system/modules/formRender/render/components/NUM/num.component';
+import { FILComponent } from '@L3Process/system/modules/formRender/render/components/FIL/fil.component';
+import { TIMComponent } from '@L3Process/system/modules/formRender/render/components/TIM/tim.component';
 import { ElementDirective } from '@L3Process/system/modules/formRender/render/components/TXT/directives/element.directive';
 import { ButtonElementDirective } from '@L3Process/system/modules/formRender/render/components/BTN/directives/element.directive';
 import { TextAreaElementDirective } from '@L3Process/system/modules/formRender/render/components/TXA/directives/element.directive';
 import { SelectElementDirective } from '@L3Process/system/modules/formRender/render/components/SEL/directives/element.directive';
 import { DATElementDirective } from '@L3Process/system/modules/formRender/render/components/DAT/directives/element.directive';
 import { NUMElementDirective } from '@L3Process/system/modules/formRender/render/components/NUM/directives/element.directive';
+import { FILElementDirective } from '@L3Process/system/modules/formRender/render/components/FIL/directives/element.directive';
+import { TIMElementDirective } from '@L3Process/system/modules/formRender/render/components/TIM/directives/element.directive';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, NgbModule],
@@ -27,12 +31,16 @@ import { NUMElementDirective } from '@L3Process/system/modules/formRender/render
     SELComponent,
     NUMComponent,
     DATComponent,
+    FILComponent,
+    TIMComponent,
     ElementDirective,
     ButtonElementDirective,
     TextAreaElementDirective,
     SelectElementDirective,
     DATElementDirective,
-    NUMElementDirective
+    NUMElementDirective,
+    FILElementDirective,
+    TIMElementDirective
   ],
   exports: [RenderComponent],
   schemas: [NO_ERRORS_SCHEMA]
