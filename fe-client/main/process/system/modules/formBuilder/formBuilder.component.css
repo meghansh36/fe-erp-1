@@ -3,3 +3,6 @@
 .form-builder{
     border: 1px solid black;
 }
+ng::after{
+    z-index: 1000;
+}
