@@ -1,29 +1,23 @@
 var express = require('express');
 var router = express.Router();
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-// router.post('/login',
-//   passport.authenticate('local'),
-//   function(req, res) {
-//     res.json({
-//         success:true,
-//         message: 'Login seuccessful'
-//     });
-//   }
-// );
-
 router.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local',{session: false}, function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { return res.json({
-      success:true,
+      success:false,
       message: 'Login Failed' });
      }
-    req.logIn(user, function(err) {
+    req.logIn(user,{session: false}, function(err) {
       if (err) { return next(err); }
+
+      const token = jwt.sign(user, 'your_jwt_secret');
       return res.json({
-        success:true,
-        message: 'Login seuccessful'});
+        sucess:true,
+        message: 'Login Successful',
+        token});
     });
   })(req, res, next);
 });
