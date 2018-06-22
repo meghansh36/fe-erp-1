@@ -21,43 +21,49 @@ export class FeFormBuilderService {
       name: 'input',
        component: TxtComponent,
       label: 'Text Field',
-      icon: 'title'
+      icon: 'title',
+      type: 'text'
     },
     {
       name: 'number',
        component: NumComponent,
       label: 'Number',
-      icon: 'plus_one'
+      icon: 'plus_one',
+      type: 'number'
     },
     {
       name: 'password',
        component: PwdComponent,
       label: 'Password',
-      icon: 'priority_high'
+      icon: 'priority_high',
+      type: 'password'
     },
     {
       name: 'textarea',
        component: TxaComponent,
       label: 'Text Area',
-      icon: 'text_format'
+      icon: 'text_format',
     },
     {
       name: 'hidden',
        component: HidComponent,
       label: 'Hidden',
-      icon: 'check_box_outline_blank'
+      icon: 'check_box_outline_blank',
+      type: 'hidden'
     },
     {
       name: 'date',
        component: DatComponent,
       label: 'Date',
-      icon: 'date_range'
+      icon: 'date_range',
+      type: 'date'
     },
     {
       name: 'month',
        component: MonComponent,
       label: 'Month',
-      icon: 'date_range'
+      icon: 'date_range',
+      type: 'month'
     }
   ];
 
@@ -66,37 +72,43 @@ export class FeFormBuilderService {
       name: 'email',
        component: EmlComponent,
       label: 'Email',
-      icon: 'email'
+      icon: 'email',
+      type: 'email'
     },
     {
       name: 'phone',
        component: PhnComponent,
       label: 'Phone',
-      icon: 'call'
+      icon: 'call',
+      type: 'number'
     },
     {
       name: 'address',
        component: AdrComponent,
       label: 'Address',
-      icon: 'location_on'
+      icon: 'location_on',
+      type: 'text'
     },
     {
       name: 'currency',
        component: CurComponent,
       label: 'Currency',
-      icon: 'attach_money'
+      icon: 'attach_money',
+      type: 'text'
     },
     {
       name: 'datettime',
        component: DtiComponent,
       label: 'Date/Time',
-      icon: 'add_alarm'
+      icon: 'add_alarm',
+      type: 'datetime'
     },
     {
       name: 'time',
        component: TimComponent,
       label: 'Time',
-      icon: 'access_time'
+      icon: 'access_time',
+      type: 'time'
     }
   ];
   constructor() { }

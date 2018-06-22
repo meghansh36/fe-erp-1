@@ -24,12 +24,12 @@
 
         </div>
         <div class="col-md-10 drop-column">
-                <div class="card">
+                <div class="card" >
                     <div class="card-header">
                         Drag And Drop Fields
                     </div>
-                    <div class="card-body" dnd-droppable (onDropSuccess) = "open($event,content)">
-                        placeholder
+                    <div class="card-body" dnd-droppable (onDropSuccess) = "dropComplete($event,content)">
+                        <ng-template #host></ng-template>
                     </div>
                 </div>
         </div>
