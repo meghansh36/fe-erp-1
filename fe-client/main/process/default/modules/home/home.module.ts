@@ -8,6 +8,7 @@ import { FormBuilderModule } from '@L3Process/system/modules/formBuilder/formBui
 import { FormRenderModule } from '@L3Process/system/modules/formRender/formRender.module';
 import { LoginModule } from '@L3Process/default/modules/login/login.module';
 import { routes } from '@L3Process/default/modules/home/home.routing';
+import { HttpClientModule } from '@angular/common/http';
 
 const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 
