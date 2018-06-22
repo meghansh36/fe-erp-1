@@ -8,6 +8,7 @@ import { FormBuilderComponent } from '@L3Process/system/modules/formBuilder/form
 import { FormBuilderRoutes } from "@L3Process/system/modules/formBuilder/formBuilder.routing"
 import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/compo
     CommonModule,
     NgbModule.forRoot(),
     DndModule.forRoot(),
-    FormBuilderRoutes
+    FormBuilderRoutes,
+    FormsModule
   ],
   providers: [FormBuilderService, FormMasterService],
   bootstrap: [FormBuilderComponent]
