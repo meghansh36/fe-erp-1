@@ -1,6 +1,6 @@
 <div class="form-components">
   <ul class="list-group">
-    <li class="list-group-item component-listItem" *ngFor="let component of elementList" dnd-draggable [dragEnabled]="true" [dragData]="component">
+    <li class="list-group-item component-listItem" *ngFor="let component of elementList; let i = index" dnd-draggable [dragEnabled]="true" [dragData]="component">
       <i class="material-icons md-18">{{component.icon}}</i>{{component.label}}
     </li>
   </ul>
