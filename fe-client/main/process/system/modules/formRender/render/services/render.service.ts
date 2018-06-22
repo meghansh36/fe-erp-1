@@ -105,6 +105,7 @@ export class FeRenderService {
             id: 'FRM000001-FLD000004',
             formcontrol: 'button-form',
             type: 'button',
+            action: 'submit',
             height: '',
             width: '',
             disabled: false,
