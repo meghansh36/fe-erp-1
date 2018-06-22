@@ -1,9 +1,9 @@
-import { Directive, ViewContainerRef,ElementRef,Attribute } from '@angular/core';
+import { Directive, ViewContainerRef,ElementRef,Attribute} from '@angular/core';
 
 @Directive({
-  selector: '[appElement]'
+  selector: '[appButtonElement]'
 })
-export class FeElementDirective {
+export class FeButtonElementDirective {
 
   constructor(public ViewContainerRef: ViewContainerRef,public ElementRef: ElementRef,@Attribute('attribute') public param:String) { }
 

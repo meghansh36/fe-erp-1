@@ -31,21 +31,11 @@ export class FeRenderComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private renderService: RenderService, private allComp: AllCompService, private comFact: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    /*this.renderService.json[0].component.forEach((w) => {
-      this.allComp.elements.forEach((e) => {
-        if (w.name == e.name) {
-          this.current_component = e.component;
-          let componentFactory = this.comFact.resolveComponentFactory(this.current_component);
-          let compRef = this.vc.createComponent(componentFactory);
-          compRef.instance.setProperties(w.property);
-        }
-      });
-    })*/
     this.form = this.createGroup();
-    this.config.forEach((ele) => {
+    this.config.forEach((ele, i) => {
       this.allComp.elements.forEach((e) => {
         if (ele.name == e.name) {
-          const component = components[this.config[0].name];
+          const component = components[this.config[i].name];
           const factory = this.comFact.resolveComponentFactory<any>(component);
           this.current_component = this.vc.createComponent(factory);
           this.current_component.instance.config = ele.property;
