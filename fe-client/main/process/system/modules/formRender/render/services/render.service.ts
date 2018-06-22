@@ -48,12 +48,12 @@ export class FeRenderService {
           property: {
             id: 'FRM000001-FRM000002',
             style: [],
-            formcontrol: 'name-form',
-            type: 'text',
-            lable: 'Name',
+            formcontrol: 'password-form',
+            type: 'password',
+            lable: 'Password',
             height: '',
             width: '100%',
-            placeholder: 'Enter your Name',
+            placeholder: 'Enter your Password',
             validators: [
               {
                 'name': 'required',
@@ -71,13 +71,74 @@ export class FeRenderService {
           }
         },
         {
+          name: 'select',
+          code: 'FLD000004',
+          property: {
+            lable: 'Gender',
+            options: ['male', 'female', 'others'],
+            style: [{ 'name': 'width', 'value': '221px' }],
+            id: 'FRM000001-FLD000004',
+            formcontrol: 'select-form',
+            validators: [{ 'name': 'required', 'value': true }]
+          }
+        },
+        {
+          name: 'date',
+          code: 'FLD000005',
+          property: {
+            lable: 'Date',
+            id: 'FRM000001-FLD000004',
+            formcontrol: 'date-form',
+            validators: [{ 'name': 'required', 'value': true }],
+            type: 'date'
+          }
+        },
+        {
+          name: 'number',
+          code: 'FLD000006',
+          property: {
+            lable: 'Phone',
+            id: 'FRM000001-FLD000005',
+            formcontrol: 'number-form',
+            height: '',
+            width: '100%',
+            maxlength: 10,
+            placeholder: 'Enter Phone Number',
+            validators: [{ 'name': 'required', 'value': true }, { 'name': 'length', 'value': '10' }],
+            type: 'number'
+          }
+        },
+        {
+          name: 'time',
+          code: 'FLD000006',
+          property: {
+            lable: 'Time',
+            id: 'FRM000001-FLD0000056',
+            formcontrol: 'time-form',
+            validators: [],
+          }
+        },
+        {
+          name: 'file',
+          code: 'FLD000006',
+          property: {
+            lable: 'Upload',
+            id: 'FRM000001-FLD0000056',
+            formcontrol: 'file-form',
+            height: '',
+            width: '100%',
+            placeholder: 'Enter Phone Number',
+            validators: [],
+            type: 'file'
+          }
+        },
+        {
           name: 'textarea',
           code: 'FLD000003',
           property: {
             id: 'FRM000001-FLD000003',
-            col: '100px',
-            row: '150px',
-            type: 'text',
+            cols: '100',
+            rows: '6',
             style: [],
             lable: 'Description',
             formcontrol: 'textarea-form',

@@ -17,13 +17,10 @@ export class FeTXAComponent implements OnInit {
   private name: string;
   private lable: string;
   private placeholder: string;
-  private cols: string;
-  private rows: string;
   private width: string;
   private height: string;
   private type: string;
   private id: string;
-  private elementStyle = [];
 
   constructor(private render: Renderer2, private formBuilder: FormBuilder) { }
 
@@ -31,19 +28,20 @@ export class FeTXAComponent implements OnInit {
     //getting all the properties of Input component
     let lable = this.lable = this.config.lable;
     this.name = this.config.formcontrol;
-    let type = this.config.type;
     let placeholder = this.config.placeholder;
-    this.cols = this.config.col;
-    this.rows = this.config.row;
+    let cols = this.config.cols;
+    let rows = this.config.rows;
     let validators = this.config.validators;
     let id = this.config.id;
-    this.elementStyle = this.config.style;
+    let elementStyle = [] = this.config.style;
     //----------------------------------------------------------
-    if (this.elementStyle) {
-      this.elementStyle.forEach((c) => {
+    if (elementStyle) {
+      elementStyle.forEach((c) => {
         this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
       });
     }
+    this.element.ElementRef.nativeElement.cols = cols;
+    this.element.ElementRef.nativeElement.rows = rows;
     this.element.ElementRef.nativeElement.placeholder = placeholder;
     this.group.controls[this.name].setValidators([Validators.required, Validators.minLength(20)]);
   }

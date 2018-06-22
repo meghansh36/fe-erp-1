@@ -7,12 +7,21 @@ import { RenderDirective } from '@L3Process/system/modules/formRender/render/ren
 import { TXTComponent } from '@L3Process/system/modules/formRender/render/components/TXT/txt.component';
 import { BTNComponent } from '@L3Process/system/modules/formRender/render/components/BTN/btn.component';
 import { TXAComponent } from '@L3Process/system/modules/formRender/render/components/TXA/txa.component';
-//import { TextareaComponent } from '@L3Process/system/modules/formRender//components/textarea/textarea.component';
+import { SELComponent } from '@L3Process/system/modules/formRender/render/components/SEL/sel.component';
+import { DATComponent } from '@L3Process/system/modules/formRender/render/components/DAT/dat.component';
+import { NUMComponent } from '@L3Process/system/modules/formRender/render/components/NUM/num.component';
+import { FILComponent } from '@L3Process/system/modules/formRender/render/components/FIL/fil.component';
+import { TIMComponent } from '@L3Process/system/modules/formRender/render/components/TIM/tim.component';
 
 const components = {
   input: TXTComponent,
   button: BTNComponent,
-  textarea: TXAComponent
+  textarea: TXAComponent,
+  select: SELComponent,
+  date: DATComponent,
+  number: NUMComponent,
+  file: FILComponent,
+  time: TIMComponent
 };
 
 @Component({

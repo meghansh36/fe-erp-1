@@ -1,0 +1,2 @@
+import { FeSelectElementDirective } from '@L1Process/system/modules/formRender/render/components/SEL/directives/element.directive';
+export class LgSelectElementDirective extends FeSelectElementDirective{}
