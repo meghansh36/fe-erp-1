@@ -49,5 +49,6 @@ export class FeTXTComponent implements OnInit {
     this.element.ElementRef.nativeElement.placeholder = placeholder;
     this.group.controls[this.name].setValidators([Validators.required, Validators.minLength(8)]);
   }
+  //----------------------------------------------------------
 
 }
