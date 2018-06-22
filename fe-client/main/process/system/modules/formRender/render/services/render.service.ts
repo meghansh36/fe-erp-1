@@ -22,7 +22,7 @@ export class FeRenderService {
             style: [],
             formcontrol: 'username-form',
             type: 'text',
-            label: 'Username',
+            lable: 'Username',
             height: '',
             width: '100%',
             placeholder: 'Enter your Username',
@@ -48,37 +48,9 @@ export class FeRenderService {
           property: {
             id: 'FRM000001-FRM000002',
             style: [],
-            formcontrol: 'name-form',
-            type: 'text',
-            label: 'Name',
-            height: '',
-            width: '100%',
-            placeholder: 'Enter your Name',
-            validators: [
-              {
-                'name': 'required',
-                'value': true,
-              },
-              {
-                'name': 'min-length',
-                'value': 8
-              },
-              {
-                'name': 'max-length',
-                'value': 15
-              }
-            ]
-          }
-        },
-        {
-          name: 'input',
-          code: 'FLD000001',
-          property: {
-            id: 'FRM000001-FRM000003',
             formcontrol: 'password-form',
             type: 'password',
-            label: 'Password',
-            style: [],
+            lable: 'Password',
             height: '',
             width: '100%',
             placeholder: 'Enter your Password',
@@ -99,42 +71,85 @@ export class FeRenderService {
           }
         },
         {
-          name: 'button',
-          code: 'FLD000002',
+          name: 'select',
+          code: 'FLD000004',
           property: {
+            lable: 'Gender',
+            options: ['male', 'female', 'others'],
+            style: [{ 'name': 'width', 'value': '221px' }],
             id: 'FRM000001-FLD000004',
-            formcontrol: 'button-form',
-            type: 'button',
+            formcontrol: 'select-form',
+            validators: [{ 'name': 'required', 'value': true }]
+          }
+        },
+        {
+          name: 'date',
+          code: 'FLD000005',
+          property: {
+            lable: 'Date',
+            id: 'FRM000001-FLD000004',
+            formcontrol: 'date-form',
+            validators: [{ 'name': 'required', 'value': true }],
+            type: 'date'
+          }
+        },
+        {
+          name: 'number',
+          code: 'FLD000006',
+          property: {
+            lable: 'Phone',
+            id: 'FRM000001-FLD000005',
+            formcontrol: 'number-form',
             height: '',
-            width: '',
-            disabled: false,
-            value: 'submit',
-            class: ['btn', 'btn-primary']
+            width: '100%',
+            maxlength: 10,
+            placeholder:'Enter Phone Number',
+            validators: [{ 'name': 'required', 'value': true },{'name':'length','value':'10'}],
+            type: 'number'
           }
         },
         {
           name: 'textarea',
           code: 'FLD000003',
           property: {
-            id: 'FRM000001-FLD000005',
-            col: '30px',
-            row: '50px',
+            id: 'FRM000001-FLD000003',
+            cols: '100',
+            rows: '6',
+            style: [],
+            lable: 'Description',
             formcontrol: 'textarea-form',
-            placeholder: 'Enter introduction',
+            placeholder: 'Enter Description',
             validators: [
               {
-                'required': 'required'
+                'name': 'required',
+                'value': true,
               },
               {
-                'min-length': '50'
+                'name': 'min-length',
+                'value': 50
               },
               {
-                'max-length': '150'
+                'name': 'max-length',
+                'value': 150
               }
             ]
           }
+        },
+        {
+          name: 'button',
+          code: 'FLD000002',
+          property: {
+            id: 'FRM000001-FLD000004',
+            formcontrol: 'button-form',
+            type: 'button',
+            action: 'submit',
+            height: '',
+            width: '',
+            disabled: false,
+            value: 'submit',
+            class: ['btn', 'btn-primary']
+          }
         }
-
       ]
     }
   ]

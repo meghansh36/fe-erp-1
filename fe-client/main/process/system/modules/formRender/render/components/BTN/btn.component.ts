@@ -14,30 +14,29 @@ export class FeBTNComponent implements OnInit {
   @Input() config;
   @Input() group;
 
-  private width: string;
-  private formcontrol: string;
-  private height: string;
-  private type: string;
-  private id: string;
-  private value: string;
   private elementClass = [];
 
   constructor(private render: Renderer2, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     //getting all the properties of Input componen
-    let value = this.value = this.config.value;
+    let value = this.config.value;
     let width = this.config.width;
     let height = this.config.height;
     let validators = this.config.validators;
     let id = this.config.id;
+    let action = this.config.action;
     this.elementClass = this.config.class;
     //----------------------------------------------------------
+    if (action) {
+      this.render.listen(this.element.ElementRef.nativeElement, 'click', (event) => {
+        this.group.valid ? console.log(this.group.value) : console.log("Invalid Form");
+      });
+    }
     this.element.ElementRef.nativeElement.style.width = width;
     this.element.ElementRef.nativeElement.style.height = height;
     this.element.ElementRef.nativeElement.id = id;
     this.element.ElementRef.nativeElement.innerHTML = value;
-    this.element.ElementRef.nativeElement
     const parent = this.render.parentNode(this.element.ElementRef.nativeElement);
     this.render.setStyle(parent, 'width', '-webkit-fill-available');
     this.render.setStyle(parent, 'display', 'grid');
@@ -46,11 +45,7 @@ export class FeBTNComponent implements OnInit {
         this.render.addClass(this.element.ElementRef.nativeElement, c);
       });
     }
+    //----------------------------------------------------------
   }
 
 }
-/*
-    display: flex;
-    flex-flow: column wrap;
-    flex-direction: unset;
-*/
