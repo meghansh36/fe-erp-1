@@ -30,7 +30,7 @@ export class FeBTNComponent implements OnInit {
     //----------------------------------------------------------
     if (action) {
       this.render.listen(this.element.ElementRef.nativeElement, 'click', (event) => {
-        this.group.valid ? console.log("Valid Form") : console.log("Invalid Form");
+        this.group.valid ? console.log(this.group.value) : console.log("Invalid Form");
       });
     }
     this.element.ElementRef.nativeElement.style.width = width;

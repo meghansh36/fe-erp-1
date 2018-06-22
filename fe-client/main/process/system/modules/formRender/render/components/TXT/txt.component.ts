@@ -15,19 +15,18 @@ export class FeTXTComponent implements OnInit {
   @Input() group;
 
   private name: string;
-  private label: string;
+  private lable: string;
   private placeholder: string;
   private width: string;
   private height: string;
   private type: string;
   private id: string;
-  private elementStyle = [];
 
   constructor(private render: Renderer2, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     //getting all the properties of Input component
-    let label = this.label = this.config.label;
+    let lable = this.lable = this.config.lable;
     this.name = this.config.formcontrol;
     let type = this.config.type;
     let placeholder = this.config.placeholder;
@@ -35,14 +34,14 @@ export class FeTXTComponent implements OnInit {
     let height = this.config.height;
     let validators = this.config.validators;
     let id = this.config.id;
-    this.elementStyle = this.config.style;
+    let elementStyle = [] = this.config.style;
     //----------------------------------------------------------
     this.element.ElementRef.nativeElement.style.width = width;
     this.element.ElementRef.nativeElement.style.height = height;
     this.element.ElementRef.nativeElement.id = id;
     this.element.ElementRef.nativeElement.type = type;
-    if (this.elementStyle) {
-      this.elementStyle.forEach((c) => {
+    if (elementStyle) {
+      elementStyle.forEach((c) => {
         this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
       });
     }
