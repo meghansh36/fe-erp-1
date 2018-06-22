@@ -7,6 +7,9 @@ import { FormBuilderComponent } from '@L3Process/system/modules/formBuilder/form
 import { FormBuilderRoutes } from "@L3Process/system/modules/formBuilder/formBuilder.routing"
 import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
+<<<<<<< HEAD
+import { FormsModule } from '@angular/forms';
+=======
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 import { TxaComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txa/txa.component';
@@ -23,6 +26,7 @@ import { CurComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
 import { FieldOptionsComponent } from './components/field-options/field-options.component';
 
+>>>>>>> cab00f2a8566679a04904e983059e5d6e7eae50b
 
 @NgModule({
   declarations: [
@@ -48,7 +52,8 @@ import { FieldOptionsComponent } from './components/field-options/field-options.
     CommonModule,
     NgbModule,
     DndModule.forRoot(),
-    FormBuilderRoutes
+    FormBuilderRoutes,
+    FormsModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,

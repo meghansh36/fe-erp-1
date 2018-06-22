@@ -7,8 +7,10 @@
   <div class="modal-body">
 
     <div class="container-fluid">
+    <form (ngSubmit)='onSubmit(f)' #f='ngForm'>
       <div class="row">
         <div class="col-md-8">
+
           <ngb-tabset>
             <ngb-tab title='Display'>
               <ng-template ngbTabContent>
@@ -16,18 +18,20 @@
                   <div class="row">
                     <div class="col-md-10">
 
-                      <form class='form-group'>
+
 
                         <!-- Label -->
 
                         <label for="label">Label</label>
-                        <input type="text" class="form-control" id='label' placeholder="text">
+                        <input type="text" class="form-control" id='label' placeholder="text" required #label='ngModel'  name='label' ngModel>
 
 
                         <!-- Hide Label CheckBox -->
 
                         <div class="form-check mb-2 mt-3">
-                          <input class="form-check-input" type="checkbox" value="" id="hideLabel">
+                          <input  name='hideLabel' class="form-check-input" type="checkbox" value="hide" id="hideLabel"
+                          name='hideLabel' ngModel #hideLabel='ngModel'
+                          >
                           <label class="form-check-label" for="hideLabel">
                             Hide Label
                           </label>
@@ -37,74 +41,97 @@
 
                         <!-- Drop down Menu of Label Position -->
 
-                        <div ngbDropdown class="d-inline-block">
-                          <button type='button' class="btn" id="LabelPosition" ngbDropdownToggle>Label Position</button>
-                          <div ngbDropdownMenu aria-labelledby="LabelPosition">
-                            <button type='button' class="dropdown-item">Top</button>
-                            <button type='button' class="dropdown-item">Bottom</button>
-                            <button type='button' class="dropdown-item">Left(Left Aligned)</button>
-                            <button type='button' class="dropdown-item">Left(Right Aligned)</button>
-                            <button type='button' class="dropdown-item">Right(Right Aligned)</button>
-                            <button type='button' class="dropdown-item">Right(Left Aligned)</button>
-                          </div>
-                        </div>
-                        <br/>
+                            <label for="labelPosition">Label Position</label>
+                            <select ngModel #labelPosition='ngModel'
+                            id="labelPosition" class="form-control"
+                            name='labelPosition' required>
+                              <option value='top'>Top</option>
+                              <option value='bottom'>Bottom</option>
+                              <option value='left-L' >Left(Left Aligned)</option>
+                              <option value='left-R' >Left(Right Aligned)</option>
+                              <option value='right-R'>Right(Right Aligned)</option>
+                              <option value='right-L'>Right(Left Aligned)</option>
+                            </select>
+
+
+
 
                         <!-- input box for Label Width -->
-                        <label for="label-width" class='mt-3'>Label Width</label>
-                        <input type="text" class="form-control" id='label-width' placeholder='20'>
+                        <label for="label-width" class='mt-3' >Label Width</label>
+                        <input
+                        required ngModel #labelWidth='ngModel'
+                        type="text" class="form-control"
+                        id='label-width'
+                        placeholder='enter Label width'
+                        name='labelWidth'>
 
 
                         <!-- input box for Label Margin -->
                         <label for="label-margin" class='mt-3'>Label Margin</label>
-                        <input type="text" class="form-control" id='label-margin' placeholder='20'>
+                        <input type="text" class="form-control" id='label-margin' placeholder='enter label'
+                        ngModel #labelMargin='ngModel'
+                        name='labelMargin'>
 
 
                         <!-- Input Box for Placeholder -->
                         <label for="placeholder" class='mt-3'>Placeholder</label>
-                        <input type="text" class="form-control" id='placeholder' placeholder='placeholder'>
+                        <input type="text" class="form-control" id='placeholder' placeholder='placeholder'
+                        ngModel #placeholder='ngModel' name='placeholder'>
 
                         <!-- Input box for Description -->
                         <label for="desc" class='mt-3'>Description</label>
-                        <input type="text" class="form-control" id='desc' placeholder='description for this field'>
+                        <input type="text" class="form-control" id='desc' placeholder='description for this field'
+                        ngModel #desc='ngModel' name='description'>
 
 
                         <!-- Input Box for ToolTip -->
                         <label for='tooltip' class='mt-3'>Tooltip</label>
-                        <input type="text" class="form-control" id='tooltip' placeholder='to add tooltip to this field'>
+                        <input type="text" class="form-control" id='tooltip' placeholder='to add tooltip to this field'
+                        ngModel #tooltip='ngModel' name='tooltip'>
 
 
                         <!-- Text Area for Error Label -->
                         <label for="error-label" class='mt-3'>Error Label</label>
-                        <textarea class="form-control" rows="3" id="error-label" placeholder='Error Label'></textarea>
+                        <textarea class="form-control" rows="3" id="error-label" placeholder='Error Label'
+                        ngModel #errorLabel='ngModel'
+                        name='errorLabel'
+                        >
+                      </textarea>
 
 
                         <!-- Input box for Input masking -->
                         <label for='mask' class='mt-3'>Input Mask</label>
-                        <input type="text" class="form-control" id='mask' placeholder='input mask'>
+                        <input type="text" class="form-control" id='mask' placeholder='input mask'
+                        ngModel #inputMask='ngModel' name='ngModel'>
 
                         <!-- Input box for Prefix -->
                         <label for='prefix' class='mt-3'>Prefix</label>
-                        <input type="text" class="form-control" id='prefix' placeholder="example '$','@'">
+                        <input type="text" class="form-control" id='prefix' placeholder="example '$','@'"
+                        ngModel #prefix='ngModel' name='prefix'>
 
                         <!-- input box for suffix -->
-                        <label for='suffix' class='mt-3'>Input Mask</label>
-                        <input type="text" class="form-control" id='suffix' placeholder="example '$','@'">
+                        <label for='suffix' class='mt-3'>Suffix</label>
+                        <input type="text" class="form-control" id='suffix' placeholder="example '$','@'"
+                        ngModel #suffix='ngModel'
+                        name='suffix'>
 
                         <!-- input box for custom classes -->
                         <label for='custom' class='mt-3'>Custom CssClass</label>
-                        <input type="text" class="form-control" id='custom' placeholder="add custom classes">
+                        <input type="text" class="form-control" id='custom' placeholder="add custom classes"
+                        ngModel #customCss='ngModel' name='customCss'>
 
 
                         <!-- Input box for Tab index  -->
                         <label for='tab-index' class='mt-3'>Tab Index</label>
-                        <input type="text" class="form-control" id='tab-index' placeholder='tab Index'>
+                        <input type="text" class="form-control" id='tab-index' placeholder='tab Index'
+                        ngModel #tabIndex='ngModel' name='tabIndex'>
 
 
 
                         <!-- check boxes for clear value when Hidden -->
                         <div class="form-check  mt-3">
-                          <input class="form-check-input" type="checkbox" value="" id="clear">
+                          <input class="form-check-input" type="checkbox" value="clearValue" id="clear"
+                          ngModel #clearValue='ngModel' name='clearValue'>
                           <label class="form-check-label" for="clear">
                             Clear value when Hidden
                           </label>
@@ -122,12 +149,13 @@
 
                         <!-- check box for disabled -->
                         <div class="form-check mb-2 mt-3">
-                          <input class="form-check-input" type="checkbox" value="" id="disabled">
+                          <input class="form-check-input" type="checkbox" value="disabled" id="disabled"
+                          ngModel #disabled='ngModel' name='disabled'>
                           <label class="form-check-label" for="disabled">
                             Disabled
                           </label>
                         </div>
-                      </form>
+
 
                     </div>
                   </div>
@@ -146,42 +174,45 @@
                     <div class="col-md-10">
 
                       <!-- Dropdown for Default Value -->
-                      <div ngbDropdown class="d-inline-block mt-4">
-                        <button type='button' class="btn" id="LabelPosition" ngbDropdownToggle>Default Value Type</button>
-                        <div ngbDropdownMenu aria-labelledby="LabelPosition">
-                          <button type='button' class="dropdown-item">None</button>
-                          <button type='button' class="dropdown-item">String</button>
-                          <button type='button' class="dropdown-item">Sql Query</button>
-                          <button type='button' class="dropdown-item">Js Function</button>
-                          <button type='button' class="dropdown-item">JSON Logic</button>
+                      <label for="defaultValue" class='mt-3'>Default Value</label>
+                            <select id="defaultValue" class="form-control"
+                            [ngModel]="'none'" #defaultValue='ngModel' name='ngModel'>
+                              <option >none</option>
+                              <option >String</option>
+                              <option >Sql Query</option>
+                              <option >JS Function</option>
+                              <option >JSON Logic</option>
+                              </select>
 
-                        </div>
-                      </div>
-                      <br/>
                       <!-- Text Area for Sql Query -->
-                      <label for="Sql" class='mt-3'>Sql Query</label>
-                      <textarea class="form-control" rows="3" id="error-label" placeholder='Sql'></textarea>
+                      <label for="Sql" class='mt-1'>Sql Query</label>
+                      <textarea class="form-control" rows="3" id="error-label" placeholder='Sql'
+                      ngModel #sqlQuery='ngModel' name='sqlQuery'></textarea>
 
                       <!-- Text Area for JS Function -->
 
                       <label for="JsFunc" class='mt-3'>JS Function</label>
-                      <textarea class="form-control" rows="3" id="JsFunc" placeholder='Enter Js Function'></textarea>
+                      <textarea class="form-control" rows="3" id="JsFunc" placeholder='Enter Js Function'
+                      ngModel #JsFunction='ngModel' name='JsFunc'></textarea>
 
 
                       <!-- Text Area for JSON Logic -->
                       <label for="JSON" class='mt-3'>JSON Logic</label>
-                      <textarea class="form-control" rows="3" id="JSON" placeholder='Enter JSON Logic'></textarea>
+                      <textarea class="form-control" rows="3" id="JSON" placeholder='Enter JSON Logic'
+                      ngModel #jsonLogic='ngModel'
+                      name='jsonLogic'></textarea>
 
                       <!-- Check box for non-persistence of data     -->
                       <div class="form-check  mt-3">
-                        <input class="form-check-input" type="checkbox" value="" id="non-persistent">
+                        <input class="form-check-input" type="checkbox" value="non-persistent" id="non-persistent"
+                        ngModel #nonPersistence='ngModel' name='nonPersistence'>
                         <label class="form-check-label" for="non-persistent">
                           Non-Persistent
                         </label>
                       </div>
                       <!-- input for autocomplete -->
                       <form action=' '>
-                        <input name='auto' type='text' id="auto-complete" autocomplete='on' />
+                        <input name='auto' type='text' id="auto-complete" autocomplete='on' ngMoldel name='autoComplete'/>
                       </form>
                     </div>
                   </div>
@@ -199,13 +230,34 @@
                   <div class="row">
                     <div class="col-md-10">
 
+                        <label for="appliedValidation" class="mt-3">Applied Validation</label>
+                        <select ngModel #validation='ngModel' name='appliedValidation'
+                        id="appliedValidation" class="form-control">
+                          <option >Required</option>
+                          <option >Number +</option>
+                          <option >Number -</option>
+                          <option >email</option>
+                          <option >Multiple Email</option>
+                          <option >Alphabet</option>
+                          <option >Alphanumeric</option>
+                        </select>
+
+
+
+
+
+
+
+
                       <!-- input text for minimum length -->
                       <label for='min-length' class='mt-3'>Minimum Length</label>
-                      <input type="number" class="form-control" id='min-lenght' placeholder='minimum length'>
+                      <input type="number" class="form-control" id='min-lenght' placeholder='minimum length'
+                      ngModel #minLength='ngModel' name='minLenght'>
 
                       <!-- input text for maximum length -->
                       <label for='max-length' class='mt-3'>Maximum Length</label>
-                      <input type="number" class="form-control" id='max-lenght' placeholder='maximum length'>
+                      <input type="number" class="form-control" id='max-lenght' placeholder='maximum length'
+                      #maxLength='ngModel' ngModel name='maxLength'>
 
                       <!-- input text for Regular Expression -->
                       <label for='regular' class='mt-3'>Regular Expression</label>
@@ -315,7 +367,7 @@
             </div>
             <div class="row">
               <div class="col-md-4">
-                <button type="button" class="btn btn-primary mt-3">Save</button>
+                <button  class="btn btn-primary mt-3">Save</button>
               </div>
               <div class="col-md-8">
                 <button type="button" class="btn btn-danger mt-3" (click)="close()">Remove</button>
@@ -325,6 +377,7 @@
 
         </div>
       </div>
+    </form>
     </div>
 
   </div>
