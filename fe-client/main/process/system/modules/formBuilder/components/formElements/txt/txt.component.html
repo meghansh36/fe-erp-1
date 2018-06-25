@@ -7,7 +7,25 @@
       </ul>
     </span>
     <div class="form-group field">
-      <label for="">test</label>
-      <input type="text" placeholder="test" class="form-control">
+      <label for="">{{label}}</label>
+      <div class="input-group" >
+      <div class="input-group-prepend" *ngIf='prefix'>
+        <span class="input-group-text" id="basic-addon1">{{prefix}}</span>
+      </div>
+      <input type="text" placeholder={{placeholder}} class="form-control">
+      <div class="input-group-append" *ngIf='suffix'>
+        <span class="input-group-text">{{suffix}}</span>
+      </div>
+
     </div>
   </div>
+  <div *ngIf='tooltip'>
+    <a class='card-tooltip' placement="right" [ngbTooltip]='tooltip'>
+        <i class="material-icons"> help </i>
+      </a>
+   </div>
+   <p>
+         {{description}}
+    </p>
+</div>
+ 
