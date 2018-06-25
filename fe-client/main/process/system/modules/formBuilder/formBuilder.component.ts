@@ -2,6 +2,8 @@ import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef} from 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { window } from 'rxjs/operators';
+import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
+
 // import { FieldRenderDirective } from '@L3Process/system/modules/formBuilder/directives/fieldRender.directive';
 
 @Component({
@@ -12,30 +14,38 @@ import { window } from 'rxjs/operators';
 export class FeFormBuilderComponent {
 
   @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
-
+  @ViewChild('content') content;
   cond: Boolean = false;
   basic: String = 'basic';
   advanced: String = 'advanced';
   modalRef: NgbModalRef;
+
   component: any;
   constructor(private bootstrapService: NgbModal,
               private masterFormService: FormMasterService,
-              private componentFactoryResolver: ComponentFactoryResolver ) {}
+              private componentFactoryResolver: ComponentFactoryResolver,
+              private fieldControlService: FieldControlService
+              ) {}
 
-  dropComplete(event, content) {
+  dropComplete(event) {
     console.log(event);
-    this.modalRef = this.bootstrapService.open(content, {size: 'lg'});
-    this.masterFormService.setModalRef(this.modalRef);
+    this.openModal();
     this.component = event.dragData;
     this.createComponentFunc(this.component);
   }
+  openModal() {
+    console.log('modal');
+    this.modalRef = this.bootstrapService.open(this.content, {size: 'lg'});
+    this.masterFormService.setModalRef(this.modalRef);
+  }
+
 
   createComponentFunc(componentObj) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     const viewContainerRef = this.host;
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    console.log(componentRef);
+    this.fieldControlService.setFieldRef(componentRef, this);
   }
 
 }

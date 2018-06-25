@@ -1,12 +1,12 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { FeButtonComponent } from '../../components/feButton/feButton.component';
-import { FeTextComponent } from '../../components/feText/feText.component';
-import { FeSelectComponent } from '../../components/feSelect/feSelect.component';
+import { FeButtonComponent } from '../../feButton/feButton.component';
+import { FeTextComponent } from '../../feText/feText.component';
+import { FeSelectComponent } from '../../feSelect/feSelect.component';
 
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
+import { Field } from '../../../models/field.interface';
+import { FieldConfig } from '../../../models/field-config.interface';
 
 const components: {[type: string]: Type<Field>} = {
   BTN: FeButtonComponent,
