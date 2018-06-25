@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '@L3Process/default/modules/home/home.component';
@@ -12,6 +12,8 @@ import { routes } from '@L3Process/default/modules/home/home.routing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FormGeneratorModule } from '@L1Process/system/modules/formGenerator/formGenerator.module';
+import 'hammerjs';
+
 
 const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 
@@ -26,7 +28,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
     FormGeneratorModule,
     NgbModule.forRoot(),
     routing,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [HomeComponent]

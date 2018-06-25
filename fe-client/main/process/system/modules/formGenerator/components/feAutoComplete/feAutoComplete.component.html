@@ -1,0 +1,6 @@
+<div class="fe-field fe-text TXT form-group " [formGroup]="group">
+    <label for="{{ config.id }}">{{ config.label }}</label>
+    <input id="typeahead-basic" type="text" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id"
+        class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" />
+    <small style="color:red">{{error}}</small>
+</div>
