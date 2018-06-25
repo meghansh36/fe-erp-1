@@ -25,7 +25,7 @@ const routing: ModuleWithProviders = RouterModule.forChild(routes);
     HttpClientModule,
     routing
   ],
-  providers: [LoginService,LoginGuardService],
+  providers: [LoginService, LoginGuardService]
 })
 export class FeLoginModule { }
 
