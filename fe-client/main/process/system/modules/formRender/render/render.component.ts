@@ -4,25 +4,6 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { RenderService } from '@L3Process/system/modules/formRender/render/services/render.service';
 import { AllCompService } from '@L3Process/system/modules/formRender/render/services/all-comp.service';
 import { RenderDirective } from '@L3Process/system/modules/formRender/render/render.directive';
-import { TXTComponent } from '@L3Process/system/modules/formRender/render/components/TXT/txt.component';
-import { BTNComponent } from '@L3Process/system/modules/formRender/render/components/BTN/btn.component';
-import { TXAComponent } from '@L3Process/system/modules/formRender/render/components/TXA/txa.component';
-import { SELComponent } from '@L3Process/system/modules/formRender/render/components/SEL/sel.component';
-import { DATComponent } from '@L3Process/system/modules/formRender/render/components/DAT/dat.component';
-import { NUMComponent } from '@L3Process/system/modules/formRender/render/components/NUM/num.component';
-import { FILComponent } from '@L3Process/system/modules/formRender/render/components/FIL/fil.component';
-import { TIMComponent } from '@L3Process/system/modules/formRender/render/components/TIM/tim.component';
-
-const components = {
-  input: TXTComponent,
-  button: BTNComponent,
-  textarea: TXAComponent,
-  select: SELComponent,
-  date: DATComponent,
-  number: NUMComponent,
-  file: FILComponent,
-  time: TIMComponent
-};
 
 @Component({
   selector: 'app-render',
@@ -46,8 +27,7 @@ export class FeRenderComponent implements OnInit {
     this.config.forEach((ele, i) => {
       this.allComp.elements.forEach((e) => {
         if (ele.name == e.name) {
-          const component = components[this.config[i].name];
-          const factory = this.comFact.resolveComponentFactory<any>(component);
+          const factory = this.comFact.resolveComponentFactory<any>(e.component);
           this.current_component = this.vc.createComponent(factory);
           this.current_component.instance.config = ele.property;
           this.current_component.instance.group = this.form;

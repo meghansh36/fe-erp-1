@@ -1,26 +1,22 @@
 import { Component, OnInit, Input, Inject, ViewChild, Renderer2 } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { TextAreaElementDirective } from '@L3Process/system/modules/formRender/render/components/TXA/directives/element.directive';
+import { SelectElementDirective } from '@L3Process/system/modules/formRender/render/components/SEL/directives/element.directive';
 
 @Component({
-  selector: 'app-textarea',
-  templateUrl: './txa.component.html',
-  styleUrls: ['./txa.component.css'],
+  selector: 'app-select',
+  templateUrl: './msl.component.html',
+  styleUrls: ['./msl.component.css'],
   providers: [Inject]
 })
-export class FeTXAComponent implements OnInit {
-  @ViewChild(TextAreaElementDirective) element: TextAreaElementDirective;
+export class FeMSLComponent implements OnInit {
+  @ViewChild(SelectElementDirective) element: SelectElementDirective;
 
   @Input() config;
   @Input() group;
 
-  private name: string;
   private lable: string;
-  private placeholder: string;
-  private width: string;
-  private height: string;
-  private type: string;
-  private id: string;
+  private name: string;
+  private options = [];
 
   constructor(private render: Renderer2, private formBuilder: FormBuilder) { }
 
@@ -28,11 +24,9 @@ export class FeTXAComponent implements OnInit {
     //getting all the properties of Input component
     let lable = this.lable = this.config.lable;
     this.name = this.config.formcontrol;
-    let placeholder = this.config.placeholder;
-    let cols = this.config.cols;
-    let rows = this.config.rows;
     let validators = this.config.validators;
     let id = this.config.id;
+    this.options = this.config.options;
     let elementStyle = [] = this.config.style;
     //----------------------------------------------------------
     if (elementStyle) {
@@ -40,10 +34,7 @@ export class FeTXAComponent implements OnInit {
         this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
       });
     }
-    this.element.ElementRef.nativeElement.cols = cols;
-    this.element.ElementRef.nativeElement.rows = rows;
-    this.element.ElementRef.nativeElement.placeholder = placeholder;
-    this.group.controls[this.name].setValidators([Validators.required, Validators.minLength(20)]);
+    this.group.controls[this.name].setValidators([Validators.required]);
   }
   //----------------------------------------------------------
 

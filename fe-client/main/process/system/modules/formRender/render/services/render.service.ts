@@ -123,13 +123,67 @@ export class FeRenderService {
           code: 'FLD000006',
           property: {
             lable: 'Upload',
-            id: 'FRM000001-FLD0000056',
+            id: 'FRM000001-FLD000006',
             formcontrol: 'file-form',
             height: '',
             width: '100%',
             placeholder: 'Enter Phone Number',
             validators: [],
             type: 'file'
+          }
+        },
+       /* {
+          name: 'checkbox',
+          code: 'FLD000007',
+          property: {
+            lable: 'Checkbox',
+            id: 'FRM000001-FLD000007',
+            options: ['option-1', 'option-2', 'option-3'],
+            formcontrol: 'check-form',
+            height: '',
+            width: '100%',
+            validators: [],
+            type: 'checkbox'
+          }
+        }*/,
+        {
+          name: 'autocomplete',
+          code: 'FLD000011',
+          property: {
+            id: 'FRM000001-FRM000011',
+            style: [{ 'name': 'width', 'value': '100%' }, { 'name': 'display', 'value': 'block' }],
+            formcontrol: 'auto-form',
+            type: 'text',
+            lable: 'Autocomplete',
+            height: '',
+            width: '100%',
+            placeholder: 'Enter your Country',
+            validators: [
+              {
+                'name': 'required',
+                'value': true,
+              },
+              {
+                'name': 'min-length',
+                'value': 8
+              },
+              {
+                'name': 'max-length',
+                'value': 15
+              }
+            ]
+          }
+        },
+        {
+          name: 'multi',
+          code: 'FLD000008',
+          property: {
+            lable: 'Multi-select',
+            options: ['male', 'female', 'others'],
+            style: [{ 'name': 'width', 'value': '221px' }],
+            id: 'FRM000001-FLD000008',
+            formcontrol: 'multi-form',
+            validators: [{ 'name': 'required', 'value': true }]
           }
         },
         {
