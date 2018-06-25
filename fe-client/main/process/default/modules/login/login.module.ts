@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { LoginComponent } from '@L3Process/default/modules/login/login.component';
 import { LoginService } from '@L3Process/default/modules/login/services/login.service';
+import { LoginGuardService } from '@L3Process/default/modules/login/services/loginGuard.service';
+
 
 import { routes } from '@L3Process/default/modules/login/login.routing';
 
@@ -23,7 +25,7 @@ const routing: ModuleWithProviders = RouterModule.forChild(routes);
     HttpClientModule,
     routing
   ],
-  providers: [LoginService],
+  providers: [LoginService,LoginGuardService],
 })
 export class FeLoginModule { }
 
