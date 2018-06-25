@@ -29,9 +29,10 @@ export class FeFormBuilderComponent {
 
   dropComplete(event) {
     console.log(event);
-    this.openModal();
     this.component = event.dragData;
     this.createComponentFunc(this.component);
+    this.openModal();
+    
   }
   openModal() {
     console.log('modal');

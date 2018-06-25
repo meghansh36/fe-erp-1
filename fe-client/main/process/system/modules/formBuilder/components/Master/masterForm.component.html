@@ -23,7 +23,7 @@
                         <!-- Label -->
 
                         <label for="label" class='requiredClass'>Label</label>
-                        <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label'>
+                        <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label' (ngModelChange)='update($event)'>
 
 
 
@@ -84,18 +84,18 @@
                         <!-- Input Box for Placeholder -->
                         <label for="placeholder" class='mt-3'>Placeholder</label>
                         <input type="text" class="form-control" id='placeholder' placeholder='placeholder'
-                        [(ngModel)]='componentData.placeholder' ngModel name='placeholder'>
+                        [(ngModel)]='componentData.placeholder' ngModel name='placeholder' (ngModelChange)='update($event)'>
 
                         <!-- Input box for Description -->
                         <label for="desc" class='mt-3'>Description</label>
                         <input type="text" class="form-control" id='desc' placeholder='description for this field'
-                        [(ngModel)]='componentData.description' ngModel name='description'>
+                        [(ngModel)]='componentData.description' ngModel name='description' (ngModelChange)='update($event)'>
 
 
                         <!-- Input Box for ToolTip -->
                         <label for='tooltip' class='mt-3'>Tooltip</label>
                         <input type="text" class="form-control" id='tooltip' placeholder='to add tooltip to this field'
-                        [(ngModel)]='componentData.tooltip' ngModel name='tooltip'>
+                        [(ngModel)]='componentData.tooltip' ngModel name='tooltip' (ngModelChange)='update($event)'>
 
 
                         <!-- Text Area for Error Label -->
@@ -115,13 +115,14 @@
                         <!-- Input box for Prefix -->
                         <label for='prefix' class='mt-3'>Prefix</label>
                         <input type="text" class="form-control" id='prefix' placeholder="example '$','@'"
-                        [(ngModel)]='componentData.prefix' ngModel name='prefix'>
+                        [(ngModel)]='componentData.prefix' ngModel name='prefix' (ngModelChange)='update($event)'>
 
                         <!-- input box for suffix -->
                         <label for='suffix' class='mt-3'>Suffix</label>
                         <input type="text" class="form-control" id='suffix' placeholder="example '$','@'"
                         [(ngModel)]='componentData.suffix' ngModel
-                        name='suffix'>
+                        name='suffix'
+                        (ngModelChange)='update($event)'>
 
                         <!-- input box for custom classes -->
                         <label for='custom' class='mt-3'>Custom CssClass</label>
@@ -386,28 +387,8 @@
             </h4>
             <div class="card-body">
 
-               <div>
-                 <div *ngIf='!componentData.hideLabel'>
-                 <p>
-                       {{componentData.label}}
-                 </p>
-                </div>
-                 <br>
 
-
-                 <div *ngIf='tooltipBoolean'>
-                  <a class='card-tooltip' placement="right" [ngbTooltip]="componentData.tooltip">
-                      <i class="material-icons">
-                          help
-                      </i>
-                    </a>
-                 </div>
-
-
-                 <p>
-                       {{componentData.description}}
-                  </p>
-               </div>
+               <ng-template #preview></ng-template>
 
             </div>
             </div>
