@@ -4,16 +4,19 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 export class FeFormMasterService {
 
   modalReference: NgbModalRef;
-  display: Boolean;
-  constructor() { }
+  currentEventType;
 
+  constructor() { }
 
   setModalRef(temp) {
     this.modalReference = temp;
+
   }
 
   getModalRef() {
     return this.modalReference;
   }
+
+
 
 }

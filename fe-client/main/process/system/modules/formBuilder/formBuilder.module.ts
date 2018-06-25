@@ -8,6 +8,7 @@ import { FormBuilderComponent } from '@L3Process/system/modules/formBuilder/form
 import { FormBuilderRoutes } from '@L3Process/system/modules/formBuilder/formBuilder.routing';
 import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, FormControl } from '@angular/forms';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
@@ -42,7 +43,8 @@ import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/f
     DtiComponent,
     DatComponent,
     CurComponent,
-    AdrComponent
+    AdrComponent,
+
   ],
   imports: [
     CommonModule,
