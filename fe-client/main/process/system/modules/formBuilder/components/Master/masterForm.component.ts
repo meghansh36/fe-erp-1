@@ -32,6 +32,8 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
   currentEvent;
 
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService) {
+    this.componentData.name = 'alok';
+    this.Json.components.push(this.componentData.name);
 
   }
 

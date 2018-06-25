@@ -20,12 +20,15 @@
       "@L3Root/*" : ["./*"],
       "@L3Main/*" : ["./main/*"],
       "@L3Process/*" : ["./main/process/*"],
+      "@L3Forms/*" : ["./main/forms/*"],
       "@L2Root/*" : ["../../*"],
       "@L2Main/*" : ["../../main/*"],
       "@L2Process/*" : ["../../main/process/*"],
+      "@L2Forms/*" : ["../../main/forms/*"],
       "@L1Root/*" : ["../../../../*"],
       "@L1Main/*" : ["../../../../main/*"],
-      "@L1Process/*" : ["../../../../main/process/*"]
+      "@L1Process/*" : ["../../../../main/process/*"],
+      "@L1Forms/*" : ["../../../../main/forms/*"]
     }
   },
   "include": [

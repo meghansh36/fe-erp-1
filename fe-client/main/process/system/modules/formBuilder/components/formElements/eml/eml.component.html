@@ -1,5 +1,13 @@
-<div class="form-group">
+<div class="fieldWrapper">
+  <span class="fieldOptions">
+    <ul>
+      <li (click) = "openModal()"><i class="material-icons icon-size">settings</i></li>
+      <li><i class="material-icons icon-size">open_with</i></li>
+      <li (click)="close($event)"><i class="material-icons icon-size">clear</i></li>
+    </ul>
+  </span>
+  <div class="form-group">
     <label for="">testEml</label>
     <input type="email" placeholder="test Email" class="form-control">
   </div>
-  
+</div>  

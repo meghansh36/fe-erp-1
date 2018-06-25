@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { NUMElementDirective } from '@L3Process/system/modules/formRender/render/components/NUM/directives/element.directive';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-number',
   templateUrl: './num.component.html',
   styleUrls: ['./num.component.css'],
   providers: [Inject]

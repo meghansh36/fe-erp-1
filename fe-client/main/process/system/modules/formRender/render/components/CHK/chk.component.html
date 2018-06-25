@@ -1,4 +1,7 @@
 <div class="form-group col-md" [formGroup]="group">
     <label for="exampleInputEmail1">{{lable}}</label>
-    <input appCheckboxElement class="form-control"  type='checkbox' [formControlName]="name"  aria-describedby="emailHelp">
+    <div class="input-group mb-3">
+        <input type="checkbox" appCHKElement *ngFor="let opt of options" value="{{opt}}" class="form-control" [formControlName]="name"
+            aria-describedby="emailHelp">{{opt}}
+    </div>
 </div>
