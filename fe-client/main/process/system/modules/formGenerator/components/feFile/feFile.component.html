@@ -1,0 +1,12 @@
+<div class="feField feSelect SEL form-group" [formGroup]="group">
+  <label for="{{ config.id }}">{{ config.label }}</label>
+  <div class="input-group">
+    <div class="custom-file">
+      <input type="file" class="form-control custom-file-input" [formControlName]="config.flexiLabel">
+      <label class="custom-file-label" for="inputGroupFile02">{{config.label}}</label>
+    </div>
+    <div class="input-group-append">
+      <span class="input-group-text" id="">Submit</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="fe-field fe-text TXT form-group " [formGroup]="group">
+    <label for="{{ config.id }}">{{ config.label }}</label>
+    <div *ngFor="let opt of config.options">
+        <input type="radio" value="{{opt}}" [formControlName]="config.flexiLabel" [attr.id]="config.id"> {{opt}}
+    </div>
+</div>

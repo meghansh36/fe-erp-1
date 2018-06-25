@@ -1,17 +1,38 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { FeButtonComponent } from '../../feButton/feButton.component';
-import { FeTextComponent } from '../../feText/feText.component';
-import { FeSelectComponent } from '../../feSelect/feSelect.component';
+import { FeButtonComponent } from '../../components/feButton/feButton.component';
+import { FeTextComponent } from '../../components/feText/feText.component';
+import { FeTextAreaComponent } from '../../components/feTextArea/feTextArea.component';
+import { FeSelectComponent } from '../../components/feSelect/feSelect.component';
+import { FeMultiSelectComponent } from '../../components/feMultiSelect/feMultiSelect.component';
+import { FeDateComponent } from '../../components/feDate/feDate.component';
+import { FeTimeComponent } from '../../components/feTime/feTime.component';
+import { FeAutoCompleteComponent } from '../../components/feAutoComplete/feAutoComplete.component';
+import { FeNumberComponent } from '../../components/feNumber/feNumber.component';
+import { FeCheckBoxComponent } from '../../components/feCheckBox/feCheckBox.component';
+import { FeRadioComponent } from '../../components/feRadio/feRadio.component';
+import { FeFieldSetComponent } from '../../components/feFieldSet/feFieldSet.component';
+import { FeEmailComponent } from '../../components/feEmail/feEmail.component';
+import { FeFilComponent } from '../../components/feFile/feFile.component';
 
 import { Field } from '../../../models/field.interface';
 import { FieldConfig } from '../../../models/field-config.interface';
 
-const components: {[type: string]: Type<Field>} = {
+const components: { [type: string]: Type<Field> } = {
   BTN: FeButtonComponent,
   TXT: FeTextComponent,
-  SEL: FeSelectComponent
+  SEL: FeSelectComponent,
+  TXA: FeTextAreaComponent,
+  DAT: FeDateComponent,
+  TIM: FeTimeComponent,
+  ACS: FeAutoCompleteComponent,
+  NUM: FeNumberComponent,
+  CHK: FeCheckBoxComponent,
+  RAD: FeRadioComponent,
+  MSL: FeMultiSelectComponent,
+  EML: FeEmailComponent,
+  FIL: FeFilComponent
 };
 
 @Directive({
@@ -29,7 +50,7 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
   constructor(
     private resolver: ComponentFactoryResolver,
     private container: ViewContainerRef
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.component) {
@@ -39,6 +60,7 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
   }
 
   ngOnInit() {
+    console.log('config', this.config);
     if (!components[this.config.type]) {
       const supportedTypes = Object.keys(components).join(', ');
       throw new Error(

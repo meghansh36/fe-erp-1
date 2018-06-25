@@ -1,0 +1,4 @@
+<div class="fe-field fe-text TXT form-group " [formGroup]="group">
+    <label for="{{ config.id }}">{{ config.label }}</label>
+    <ngb-timepicker class="form-control" [(ngModel)]="time" [formControlName]="config.flexiLabel" aria-describedby="emailHelp" [attr.id]="config.id"></ngb-timepicker>
+</div>

@@ -1,4 +1,5 @@
 <div class="fe-field fe-text TXT form-group " [formGroup]="group">
     <label for="{{ config.id }}">{{ config.label }}</label>
     <input type="text" class="form-control" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id">
+    <small style="color:red">{{error}}</small>
 </div>
