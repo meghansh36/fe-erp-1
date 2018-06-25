@@ -1,3 +1,4 @@
+import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 import { Component, ViewEncapsulation, OnInit, DoCheck} from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -31,9 +32,9 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
   tooltipBoolean = false;
   currentEvent;
 
-  constructor(private modalService: NgbModal, private masterFormService: FormMasterService) {
-    this.componentData.name = 'alok';
+  constructor(private modalService: NgbModal, private masterFormService: FormMasterService,public fieldControlService:FieldControlService) {
     this.Json.components.push(this.componentData.name);
+    // console.log(this.fieldControlService.getFieldRef().ref);
 
   }
 
@@ -48,11 +49,12 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
      this.tooltipBoolean=false;
 
    }
+   console.log(this.fieldControlService.getFieldRef().ref);
   }
 
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
-    this.currentEvent=this.masterFormService.getCurrentEvent();
+
   }
 
   close() {
@@ -60,11 +62,12 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
   }
 
   onSubmit(form){
-    form.name=this.currentEvent.dragData.name;
-    form.type=this.currentEvent.dragData.type;
-    this.Json.components.push(form);
 
+    this.Json.components.push(form);
+     console.log(this.componentData)
+     console.log(form);
     JSON.stringify(this.Json);
+
 
     this.modalRef.close();
 

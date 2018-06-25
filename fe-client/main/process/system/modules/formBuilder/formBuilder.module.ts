@@ -8,7 +8,7 @@ import { FormBuilderComponent } from '@L3Process/system/modules/formBuilder/form
 import { FormBuilderRoutes } from '@L3Process/system/modules/formBuilder/formBuilder.routing';
 import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
-import { FormsModule } from '@angular/forms';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, FormControl } from '@angular/forms';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';

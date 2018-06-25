@@ -8,17 +8,15 @@ export class FeFormMasterService {
 
   constructor() { }
 
-  setModalRef(temp,event) {
+  setModalRef(temp) {
     this.modalReference = temp;
-    this.currentEventType = event;
+
   }
 
   getModalRef() {
     return this.modalReference;
   }
 
-  getCurrentEvent(){
-    return this.currentEventType;
-  }
+
 
 }
