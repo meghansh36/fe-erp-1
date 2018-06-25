@@ -1,6 +1,7 @@
 import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef} from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
+import { window } from 'rxjs/operators';
 // import { FieldRenderDirective } from '@L3Process/system/modules/formBuilder/directives/fieldRender.directive';
 
 @Component({
@@ -30,10 +31,11 @@ export class FeFormBuilderComponent {
   }
 
   createComponentFunc(componentObj) {
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
-    let viewContainerRef = this.host;
-    var componentRef = viewContainerRef.createComponent(componentFactory);
-    console.log(componentRef.instance);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
+    const viewContainerRef = this.host;
+
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    console.log(componentRef);
   }
 
 }
