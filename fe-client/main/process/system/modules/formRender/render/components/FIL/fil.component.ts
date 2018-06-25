@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { FILElementDirective } from '@L3Process/system/modules/formRender/render/components/FIL/directives/element.directive';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-file',
   templateUrl: './fil.component.html',
   styleUrls: ['./fil.component.css'],
   providers: [Inject]

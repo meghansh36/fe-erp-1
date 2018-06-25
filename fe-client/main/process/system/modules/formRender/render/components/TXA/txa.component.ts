@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { TextAreaElementDirective } from '@L3Process/system/modules/formRender/render/components/TXA/directives/element.directive';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-textarea',
   templateUrl: './txa.component.html',
   styleUrls: ['./txa.component.css'],
   providers: [Inject]

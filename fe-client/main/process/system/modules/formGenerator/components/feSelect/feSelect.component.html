@@ -1,0 +1,7 @@
+<div class="feField feSelect SEL form-group" [formGroup]="group">
+  <label for="{{ config.id }}">{{ config.label }}</label>
+  <select [formControlName]="config.flexiLabel">
+    <option value="">{{ config.placeholder }}</option>
+    <option *ngFor="let option of config.options" value="{{ option }}"> {{ option }} </option>
+  </select>
+</div>
