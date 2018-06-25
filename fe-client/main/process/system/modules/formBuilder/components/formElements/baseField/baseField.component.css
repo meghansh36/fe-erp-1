@@ -1,0 +1,27 @@
+.fieldWrapper {
+    position: relative;
+}
+
+.fieldOptions{
+    position: absolute;
+    top: 0%;
+    right:0%;
+}
+.fieldOptions ul {
+    list-style: none;
+    display: inline;
+}
+.fieldOptions ul>li {
+    display: inline;
+    padding-right: 16px;
+}
+
+.field{
+    top:0%;
+    left: 0%;
+}
+
+.icon-size{
+    font-size: 16px;
+}
+

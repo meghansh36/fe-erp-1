@@ -1,5 +1,16 @@
-<div class="form-group">
-  <label for="">testMon</label>
-  <input type="month" placeholder="test Mon" class="form-control">
-</div>
+<div class="fieldWrapper">
+  <span class="fieldOptions">
+    <ul>
+      <li (click) = "openModal()"><i class="material-icons icon-size">settings</i></li>
+      <li><i class="material-icons icon-size">open_with</i></li>
+      <li (click)="close($event)"><i class="material-icons icon-size">clear</i></li>
+    </ul>
+  </span>
+
+  <div class="form-group">
+    <label for="">testMon</label>
+    <input type="month" placeholder="test Mon" class="form-control">
+  </div>
+</div>  
+
 

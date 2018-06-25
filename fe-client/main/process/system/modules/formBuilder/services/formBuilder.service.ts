@@ -16,6 +16,8 @@ import { MonComponent } from '@L3Process/system/modules/formBuilder/components/f
 @Injectable()
 export class FeFormBuilderService {
 
+  referenceArray: Object[];
+
   basicElements = [
     {
       name: 'input',
@@ -121,4 +123,5 @@ export class FeFormBuilderService {
       return this.advancedElements;
     }
   }
+
 }

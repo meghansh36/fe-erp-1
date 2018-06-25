@@ -19,14 +19,15 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 @NgModule({
   declarations: [
     HomeComponent,
-    FRM0000001Component
+    FRM0000001Component,
   ],
   imports: [
     BrowserModule,
     FormGeneratorModule,
     NgbModule.forRoot(),
     routing,
-    HttpClientModule
+    HttpClientModule,
+    FormRenderModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

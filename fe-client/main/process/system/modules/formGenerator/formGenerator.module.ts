@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { FeFieldDirective } from './directives/feField/feField.directive';
+import { FeFieldDirective } from './components/directives/feField/feField.directive';
 import { FeFormComponent } from './components/feForm/feForm.component';
 import { FeButtonComponent } from './components/feButton/feButton.component';
 import { FeTextComponent } from './components/feText/feText.component';

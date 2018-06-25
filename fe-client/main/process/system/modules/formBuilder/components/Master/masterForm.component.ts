@@ -31,13 +31,11 @@ export class FeMasterFormComponent implements OnInit{
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService) {
     this.componentData.name = 'alok';
     this.Json.components.push(this.componentData.name);
-    console.log(this.Json.components[0]);
 
   }
 
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
-    console.log(this.modalRef);
   }
 
   close() {
