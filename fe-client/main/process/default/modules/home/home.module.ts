@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '@L3Process/default/modules/home/home.component';
@@ -30,6 +30,6 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
     FormRenderModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+ bootstrap: [HomeComponent]
 })
 export class FeHomeModule { }
