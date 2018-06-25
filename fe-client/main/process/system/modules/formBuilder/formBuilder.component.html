@@ -29,7 +29,10 @@
                         Drag And Drop Fields
                     </div>
                     <div class="card-body" dnd-droppable (onDropSuccess) = "dropComplete($event,content)">
-                        <ng-template #host></ng-template>
+                        <ng-container class="testclass">
+                            <ng-template #host></ng-template>
+                        </ng-container>
+                        
                     </div>
                 </div>
         </div>

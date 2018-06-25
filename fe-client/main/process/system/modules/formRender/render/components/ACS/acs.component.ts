@@ -70,6 +70,7 @@ export class FeACSComponent implements OnInit {
 
   selectInp(event: MouseEvent) {
     //this.country = event.target.innerHTML.trim();
+   // this.country = event.target.innerHTML.trim();
     this.searched = [];
   }
 

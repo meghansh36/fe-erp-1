@@ -21,7 +21,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 @NgModule({
   declarations: [
     HomeComponent,
-    FRM0000001Component
+    FRM0000001Component,
   ],
   imports: [
     BrowserModule,
@@ -29,8 +29,9 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
     NgbModule.forRoot(),
     routing,
     HttpClientModule,
+    FormRenderModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+ bootstrap: [HomeComponent]
 })
 export class FeHomeModule { }

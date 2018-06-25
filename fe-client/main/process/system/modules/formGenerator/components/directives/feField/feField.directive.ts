@@ -16,8 +16,8 @@ import { FeFieldSetComponent } from '../../components/feFieldSet/feFieldSet.comp
 import { FeEmailComponent } from '../../components/feEmail/feEmail.component';
 import { FeFilComponent } from '../../components/feFile/feFile.component';
 
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
+import { Field } from '../../../models/field.interface';
+import { FieldConfig } from '../../../models/field-config.interface';
 
 const components: { [type: string]: Type<Field> } = {
   BTN: FeButtonComponent,

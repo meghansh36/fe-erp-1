@@ -30,7 +30,7 @@ export class FeDATComponent implements OnInit {
     //----------------------------------------------------------
     this.group.controls[this.name].setValidators([Validators.required]);
     /*  this.element.ElementRef.nativeElement.type = type;
-  
+
       if (elementStyle) {
         elementStyle.forEach((c) => {
           this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
