@@ -26,6 +26,7 @@
                         <input type="text" class="form-control" id='label' placeholder="text" required #label='ngModel'  name='label' ngModel>
 
 
+
                         <!-- Hide Label CheckBox -->
 
                         <div class="form-check mb-2 mt-3">
@@ -140,7 +141,8 @@
 
                         <!-- Check box for Hidden -->
                         <div class="form-check mb-2 mt-3">
-                          <input class="form-check-input" type="checkbox" value="" id="hidden">
+                          <input class="form-check-input" type="checkbox" value="hidden" id="hidden"
+                          ngModel #hidden='ngModel' name='hidden'>
                           <label class="form-check-label" for="hidden">
                             Hidden
                           </label>
@@ -261,19 +263,22 @@
 
                       <!-- input text for Regular Expression -->
                       <label for='regular' class='mt-3'>Regular Expression</label>
-                      <input type="number" class="form-control" id='regular' placeholder='Regular Expression Pattern'>
+                      <input type="number" class="form-control" id='regular' placeholder='Regular Expression Pattern'
+                      ngModel #regularExpression='ngModel' name='regularExpression'>
 
                       <!-- input text for custom error message -->
                       <label for='custom' class='mt-3'>Custom Error Message</label>
-                      <input type="number" class="form-control" id='custom' placeholder='custom error message'>
+                      <input type="number" class="form-control" id='custom' placeholder='custom error message'
+                      name='customErrorMessage' #custom='ngModel' ngModel>
 
                       <!-- text area for custom Validation Function -->
                       <label for="valid" class='mt-3'>Custom Validation Function</label>
-                      <textarea class="form-control" rows="3" id="valid" placeholder='Add custom validation function'></textarea>
+                      <textarea class="form-control" rows="3" id="valid" placeholder='Add custom validation function' name='customValidation' #customValidation='ngModle' ngModel></textarea>
 
                       <!-- text area for custom JSON logic      -->
                       <label for="custom-JSON" class='mt-3'>JSON Logic</label>
-                      <textarea class="form-control" rows="3" id="custom-JSON" placeholder='Enter custom JSON Logic'></textarea>
+                      <textarea class="form-control" rows="3" id="custom-JSON" placeholder='Enter custom JSON Logic'
+                      ngModel #customJsonLogic='ngModel' name='ustomJsonLogic'></textarea>
                     </div>
                   </div>
                 </div>
@@ -293,20 +298,28 @@
                     <div class="col-md-10">
 
 
+
                       <label for='margin-top' class='mt-3'>Margin Top</label>
-                      <input type="Text" class="form-control" id='margin-top' placeholder='margin top'>
+                      <input type="Text" class="form-control" id='margin-top' placeholder='margin top'
+                      name='marginTop' ngModel #marginTop='ngModel'>
+
 
 
                       <label for='margin-right' class='mt-3'>Margin Right</label>
-                      <input type="number" class="form-control" id='margin-right' placeholder='margin right'>
+                      <input type="number" class="form-control" id='margin-right' placeholder='margin right'
+                      name='marginRight' ngModel #marginRight='ngModel'>
+
+
 
                       <label for='margin-bottom' class='mt-3'>Margin Bottom</label>
-                      <input type="text" class="form-control" id='margin-bottom' placeholder='Margin bottom'>
+                      <input type="text" class="form-control" id='margin-bottom' placeholder='Margin bottom'
+                      name='marginBottom' ngModel #marginBottom='ngModel'>
 
 
 
                       <label for='margin-left' class='mt-3'>Margin Left</label>
-                      <input type="text" class="form-control" id='margin-left' placeholder='Margin Left'>
+                      <input type="text" class="form-control" id='margin-left' placeholder='Margin Left'
+                      name='marginLeft' ngModel #marginLeft='ngModel'>
 
 
                     </div>
@@ -331,12 +344,14 @@
 
                       <!-- text area for custom Function -->
                       <label for="custom-func" class='mt-3'>Custom Function</label>
-                      <textarea class="form-control" rows="3" id="custom-func" placeholder='Enter custom function'></textarea>
+                      <textarea class="form-control" rows="3" id="custom-func" placeholder='Enter custom function'
+                      ngModel #customFunction='ngModel' name='customFunction'></textarea>
 
 
                       <!-- text area for json logic  -->
                       <label for="json-logic" class='mt-3'>JSON Logic</label>
-                      <textarea class="form-control" rows="3" id="json logic" placeholder='Enter JSON Logic'></textarea>
+                      <textarea class="form-control" rows="3" id="json logic" placeholder='Enter JSON Logic'
+                      name='jsonLogic' ngModel #jsonLogic='ngModel'></textarea>
 
 
                     </div>
@@ -358,16 +373,25 @@
             </h4>
             <div class="card-body">
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem blanditiis aspernatur quas unde, nobis praesentium
-                rem dignissimos maiores sit
-              </p>
+               <div>
+                 <p *ngIf='!hideLabel.value'>
+                   label.value
+                 </p><br>
+                   <p class='tooltip'>
+
+                   </p>
+
+
+                 <p>
+                   desc.value
+                  </p>
+               </div>
 
             </div>
             </div>
             <div class="row">
               <div class="col-md-4">
-                <button  class="btn btn-primary mt-3">Save</button>
+                <a class='btn btn-primary'>Save</a>
               </div>
               <div class="col-md-8">
                 <button type="button" class="btn btn-danger mt-3" (click)="close()">Remove</button>
