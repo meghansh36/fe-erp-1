@@ -4,3 +4,10 @@
   margin-top: 50%!important;
 
 }
+
+.requiredClass:after {
+  content:"*";color:red;
+}
+.card-tooltip{
+  cursor: pointer;
+}
