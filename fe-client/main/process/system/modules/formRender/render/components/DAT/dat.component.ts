@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { DATElementDirective } from '@L3Process/system/modules/formRender/render/components/DAT/directives/element.directive';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-date',
   templateUrl: './dat.component.html',
   styleUrls: ['./dat.component.css'],
   providers: [Inject]
@@ -29,15 +29,16 @@ export class FeDATComponent implements OnInit {
     let type = this.config.type;
     //----------------------------------------------------------
     this.group.controls[this.name].setValidators([Validators.required]);
-  /*  this.element.ElementRef.nativeElement.type = type;
+    /*  this.element.ElementRef.nativeElement.type = type;
+  
+      if (elementStyle) {
+        elementStyle.forEach((c) => {
+          this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
+        });
+      }
+      this.group.controls[this.name].setValidators([Validators.required]);
+    }*/
+    //----------------------------------------------------------
 
-    if (elementStyle) {
-      elementStyle.forEach((c) => {
-        this.render.setStyle(this.element.ElementRef.nativeElement, c.name, c.value);
-      });
-    }
-    this.group.controls[this.name].setValidators([Validators.required]);
-  }*/
-  //----------------------------------------------------------
-
+  }
 }

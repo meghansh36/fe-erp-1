@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { SelectElementDirective } from '@L3Process/system/modules/formRender/render/components/SEL/directives/element.directive';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-select',
   templateUrl: './sel.component.html',
   styleUrls: ['./sel.component.css'],
   providers: [Inject]
