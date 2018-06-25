@@ -45,7 +45,7 @@ export class FeFormBuilderComponent {
     const viewContainerRef = this.host;
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    this.fieldControlService.setFieldRef(componentRef, this);
+    this.fieldControlService.setFieldRef(componentRef, this, componentObj);
   }
 
 }
