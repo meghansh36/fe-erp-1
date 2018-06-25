@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { TIMElementDirective } from '@L3Process/system/modules/formRender/render/components/TIM/directives/element.directive';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-time',
   templateUrl: './tim.component.html',
   styleUrls: ['./tim.component.css'],
   providers: [Inject]
