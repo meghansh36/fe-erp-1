@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
-import { FeFormSchemaService } from '@L1Process/system/modules/formGenerator/services/formSchema.service';
+import { FeFormSchemaService } from '../services/formSchema.service';
 
 export class DefaultFormComponent implements OnInit, AfterViewInit  {
     @ViewChild(FeFormComponent) form: FeFormComponent;
