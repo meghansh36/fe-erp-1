@@ -24,7 +24,7 @@ export class FeFormBuilderComponent {
   dropComplete(event, content) {
     console.log(event);
     this.modalRef = this.bootstrapService.open(content, {size: 'lg'});
-    this.masterFormService.setModalRef(this.modalRef);
+    this.masterFormService.setModalRef(this.modalRef,event);
     this.component = event.dragData;
     this.createComponentFunc(this.component);
   }

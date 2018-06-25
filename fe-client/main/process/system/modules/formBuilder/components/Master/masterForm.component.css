@@ -5,6 +5,9 @@
 
 }
 
- .form-control .required:after {
+.requiredClass:after {
   content:"*";color:red;
+}
+.card-tooltip{
+  cursor: pointer;
 }

@@ -7,7 +7,7 @@
   <div class="modal-body">
 
     <div class="container-fluid">
-    <form (ngSubmit)='onSubmit(f)' #f='ngForm'>
+    <form (ngSubmit)='onSubmit(f.value)' #f='ngForm'>
       <div class="row">
         <div class="col-md-8">
 
@@ -22,8 +22,8 @@
 
                         <!-- Label -->
 
-                        <label for="label">Label</label>
-                        <input type="text" class="form-control" id='label' placeholder="text" required #label='ngModel'  name='label' ngModel>
+                        <label for="label" class='requiredClass'>Label</label>
+                        <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label'>
 
 
 
@@ -31,7 +31,7 @@
 
                         <div class="form-check mb-2 mt-3">
                           <input  name='hideLabel' class="form-check-input" type="checkbox" value="hide" id="hideLabel"
-                          name='hideLabel' ngModel #hideLabel='ngModel'
+                          name='hideLabel' [(ngModel)]='componentData.hideLabel' ngModel
                           >
                           <label class="form-check-label" for="hideLabel">
                             Hide Label
@@ -42,10 +42,10 @@
 
                         <!-- Drop down Menu of Label Position -->
 
-                            <label for="labelPosition">Label Position</label>
-                            <select ngModel #labelPosition='ngModel'
+                            <label for="labelPosition" class='requiredClass'>Label Position</label>
+                            <select [(ngModel)]='componentData.labelPosition' ngModel
                             id="labelPosition" class="form-control"
-                            name='labelPosition' required>
+                            name='labelPosition' required ngModel>
                               <option value='top'>Top</option>
                               <option value='bottom'>Bottom</option>
                               <option value='left-L' >Left(Left Aligned)</option>
@@ -58,43 +58,50 @@
 
 
                         <!-- input box for Label Width -->
-                        <label for="label-width" class='mt-3' >Label Width</label>
+                        <div *ngIf="componentData.labelPosition=='left-L'
+                        ||componentData.labelPosition=='left-R'||
+                        componentData.labelPosition=='right-L'||
+                        componentData.labelPosition=='right-R'">
+                        <label for="label-width" class='mt-3 requiredClass' >Label Width</label>
                         <input
-                        required ngModel #labelWidth='ngModel'
+                        required [(ngModel)]='componentData.labelWidth' ngModel
                         type="text" class="form-control"
                         id='label-width'
                         placeholder='enter Label width'
-                        name='labelWidth'>
+                        name='labelWidth' >
 
 
                         <!-- input box for Label Margin -->
-                        <label for="label-margin" class='mt-3'>Label Margin</label>
+
+
+                        <label for="label-margin" class='mt-3 requiredClass'>Label Margin</label>
                         <input type="text" class="form-control" id='label-margin' placeholder='enter label'
-                        ngModel #labelMargin='ngModel'
-                        name='labelMargin'>
+                        [(ngModel)]='componentData.labelMargin' ngModel
+                        name='labelMargin' >
+                        </div>
 
 
                         <!-- Input Box for Placeholder -->
                         <label for="placeholder" class='mt-3'>Placeholder</label>
                         <input type="text" class="form-control" id='placeholder' placeholder='placeholder'
-                        ngModel #placeholder='ngModel' name='placeholder'>
+                        [(ngModel)]='componentData.placeholder' ngModel name='placeholder'>
 
                         <!-- Input box for Description -->
                         <label for="desc" class='mt-3'>Description</label>
                         <input type="text" class="form-control" id='desc' placeholder='description for this field'
-                        ngModel #desc='ngModel' name='description'>
+                        [(ngModel)]='componentData.description' ngModel name='description'>
 
 
                         <!-- Input Box for ToolTip -->
                         <label for='tooltip' class='mt-3'>Tooltip</label>
                         <input type="text" class="form-control" id='tooltip' placeholder='to add tooltip to this field'
-                        ngModel #tooltip='ngModel' name='tooltip'>
+                        [(ngModel)]='componentData.tooltip' ngModel name='tooltip'>
 
 
                         <!-- Text Area for Error Label -->
                         <label for="error-label" class='mt-3'>Error Label</label>
                         <textarea class="form-control" rows="3" id="error-label" placeholder='Error Label'
-                        ngModel #errorLabel='ngModel'
+                        [(ngModel)]='componentData.errorLabel' ngModel
                         name='errorLabel'
                         >
                       </textarea>
@@ -103,36 +110,36 @@
                         <!-- Input box for Input masking -->
                         <label for='mask' class='mt-3'>Input Mask</label>
                         <input type="text" class="form-control" id='mask' placeholder='input mask'
-                        ngModel #inputMask='ngModel' name='ngModel'>
+                        [(ngModel)]='componentData.inputMask' ngModel name='inputMask'>
 
                         <!-- Input box for Prefix -->
                         <label for='prefix' class='mt-3'>Prefix</label>
                         <input type="text" class="form-control" id='prefix' placeholder="example '$','@'"
-                        ngModel #prefix='ngModel' name='prefix'>
+                        [(ngModel)]='componentData.prefix' ngModel name='prefix'>
 
                         <!-- input box for suffix -->
                         <label for='suffix' class='mt-3'>Suffix</label>
                         <input type="text" class="form-control" id='suffix' placeholder="example '$','@'"
-                        ngModel #suffix='ngModel'
+                        [(ngModel)]='componentData.suffix' ngModel
                         name='suffix'>
 
                         <!-- input box for custom classes -->
                         <label for='custom' class='mt-3'>Custom CssClass</label>
                         <input type="text" class="form-control" id='custom' placeholder="add custom classes"
-                        ngModel #customCss='ngModel' name='customCss'>
+                        [(ngModel)]='componentData.customCssClass' ngModel name='customCss'>
 
 
                         <!-- Input box for Tab index  -->
                         <label for='tab-index' class='mt-3'>Tab Index</label>
                         <input type="text" class="form-control" id='tab-index' placeholder='tab Index'
-                        ngModel #tabIndex='ngModel' name='tabIndex'>
+                        [(ngModel)]='componentData.tabIndex' ngModel name='tabIndex'>
 
 
 
                         <!-- check boxes for clear value when Hidden -->
                         <div class="form-check  mt-3">
                           <input class="form-check-input" type="checkbox" value="clearValue" id="clear"
-                          ngModel #clearValue='ngModel' name='clearValue'>
+                          [(ngModel)]='componentData.clearValue' ngModel name='clearValue'>
                           <label class="form-check-label" for="clear">
                             Clear value when Hidden
                           </label>
@@ -142,7 +149,7 @@
                         <!-- Check box for Hidden -->
                         <div class="form-check mb-2 mt-3">
                           <input class="form-check-input" type="checkbox" value="hidden" id="hidden"
-                          ngModel #hidden='ngModel' name='hidden'>
+                          [(ngModel)]='componentData.hidden' ngModel name='hidden'>
                           <label class="form-check-label" for="hidden">
                             Hidden
                           </label>
@@ -152,7 +159,7 @@
                         <!-- check box for disabled -->
                         <div class="form-check mb-2 mt-3">
                           <input class="form-check-input" type="checkbox" value="disabled" id="disabled"
-                          ngModel #disabled='ngModel' name='disabled'>
+                          [(ngModel)]='componentData.disabled' ngModel name='disabled'>
                           <label class="form-check-label" for="disabled">
                             Disabled
                           </label>
@@ -176,9 +183,9 @@
                     <div class="col-md-10">
 
                       <!-- Dropdown for Default Value -->
-                      <label for="defaultValue" class='mt-3'>Default Value</label>
+                      <label for="defaultValue" class='mt-3 requiredClass'>Default Value</label>
                             <select id="defaultValue" class="form-control"
-                            [ngModel]="'none'" #defaultValue='ngModel' name='ngModel'>
+                            [ngModel]="'none'"  name='defaultValue' [(ngModel)]='componentData.defaultValue' ngModel>
                               <option >none</option>
                               <option >String</option>
                               <option >Sql Query</option>
@@ -187,35 +194,44 @@
                               </select>
 
                       <!-- Text Area for Sql Query -->
-                      <label for="Sql" class='mt-1'>Sql Query</label>
+                      <div *ngIf="componentData.defaultValue=='Sql Query'">
+                      <label for="Sql" class='mt-1 requiredClass'>Sql Query</label>
                       <textarea class="form-control" rows="3" id="error-label" placeholder='Sql'
-                      ngModel #sqlQuery='ngModel' name='sqlQuery'></textarea>
+                      [(ngModel)]='componentData.sqlQuery' ngModel name='sqlQuery'></textarea>
+                      </div>
 
                       <!-- Text Area for JS Function -->
 
-                      <label for="JsFunc" class='mt-3'>JS Function</label>
+                      <div *ngIf="componentData.defaultValue=='JS Function'">
+                      <label for="JsFunc" class='mt-3 requiredClass'>JS Function</label>
                       <textarea class="form-control" rows="3" id="JsFunc" placeholder='Enter Js Function'
-                      ngModel #JsFunction='ngModel' name='JsFunc'></textarea>
+                      [(ngModel)]='componentData.jsFunction' ngModel name='JsFunc'></textarea>
+                      </div>
 
 
+                      <div *ngIf="componentData.defaultValue=='JSON Logic'">
                       <!-- Text Area for JSON Logic -->
-                      <label for="JSON" class='mt-3'>JSON Logic</label>
+                      <label for="JSON" class='mt-3 requiredClass'>JSON Logic</label>
                       <textarea class="form-control" rows="3" id="JSON" placeholder='Enter JSON Logic'
-                      ngModel #jsonLogic='ngModel'
+                      [(ngModel)]='componentData.jsonLogic' ngModel
                       name='jsonLogic'></textarea>
+                      </div>
 
                       <!-- Check box for non-persistence of data     -->
                       <div class="form-check  mt-3">
                         <input class="form-check-input" type="checkbox" value="non-persistent" id="non-persistent"
-                        ngModel #nonPersistence='ngModel' name='nonPersistence'>
+                        [(ngModel)]='componentData.nonPersistent' ngModel name='nonPersistence'>
                         <label class="form-check-label" for="non-persistent">
                           Non-Persistent
                         </label>
                       </div>
+
                       <!-- input for autocomplete -->
+                      <div *ngIf="componentData.nonPersistent=='non-persistent'">
                       <form action=' '>
                         <input name='auto' type='text' id="auto-complete" autocomplete='on' ngMoldel name='autoComplete'/>
                       </form>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -233,7 +249,7 @@
                     <div class="col-md-10">
 
                         <label for="appliedValidation" class="mt-3">Applied Validation</label>
-                        <select ngModel #validation='ngModel' name='appliedValidation'
+                        <select [(ngModel)]='componentData.appliedValidation' ngModel name='appliedValidation'
                         id="appliedValidation" class="form-control">
                           <option >Required</option>
                           <option >Number +</option>
@@ -246,39 +262,35 @@
 
 
 
-
-
-
-
-
-                      <!-- input text for minimum length -->
+                        <!-- input text for minimum length -->
                       <label for='min-length' class='mt-3'>Minimum Length</label>
                       <input type="number" class="form-control" id='min-lenght' placeholder='minimum length'
-                      ngModel #minLength='ngModel' name='minLenght'>
+                      [(ngModel)]='componentData.minimumLength' ngModel name='minimumLenght'>
 
                       <!-- input text for maximum length -->
                       <label for='max-length' class='mt-3'>Maximum Length</label>
                       <input type="number" class="form-control" id='max-lenght' placeholder='maximum length'
-                      #maxLength='ngModel' ngModel name='maxLength'>
+                      ngModel [(ngModel)]='componentData.maximumLength' name='maximumLength'>
 
                       <!-- input text for Regular Expression -->
                       <label for='regular' class='mt-3'>Regular Expression</label>
                       <input type="number" class="form-control" id='regular' placeholder='Regular Expression Pattern'
-                      ngModel #regularExpression='ngModel' name='regularExpression'>
+                      [(ngModel)]='componentData.regularExpression' ngModel name='regularExpression'>
 
                       <!-- input text for custom error message -->
                       <label for='custom' class='mt-3'>Custom Error Message</label>
                       <input type="number" class="form-control" id='custom' placeholder='custom error message'
-                      name='customErrorMessage' #custom='ngModel' ngModel>
+                      name='customErrorMessage' ngModel
+                      [(ngModel)]='componentData.customErrorFunction'>
 
                       <!-- text area for custom Validation Function -->
                       <label for="valid" class='mt-3'>Custom Validation Function</label>
-                      <textarea class="form-control" rows="3" id="valid" placeholder='Add custom validation function' name='customValidation' #customValidation='ngModle' ngModel></textarea>
+                      <textarea class="form-control" rows="3" id="valid" placeholder='Add custom validation function' name='customValidationFunction' ngModel [(ngModel)]='componentData.customValidationFunction'></textarea>
 
                       <!-- text area for custom JSON logic      -->
                       <label for="custom-JSON" class='mt-3'>JSON Logic</label>
                       <textarea class="form-control" rows="3" id="custom-JSON" placeholder='Enter custom JSON Logic'
-                      ngModel #customJsonLogic='ngModel' name='ustomJsonLogic'></textarea>
+                      [(ngModel)]='componentData.JSONLogic' ngModel name='JSONLogic'></textarea>
                     </div>
                   </div>
                 </div>
@@ -301,25 +313,25 @@
 
                       <label for='margin-top' class='mt-3'>Margin Top</label>
                       <input type="Text" class="form-control" id='margin-top' placeholder='margin top'
-                      name='marginTop' ngModel #marginTop='ngModel'>
+                      name='marginTop' [(ngModel)]='componentData.marginTop' ngModel>
 
 
 
                       <label for='margin-right' class='mt-3'>Margin Right</label>
                       <input type="number" class="form-control" id='margin-right' placeholder='margin right'
-                      name='marginRight' ngModel #marginRight='ngModel'>
+                      name='marginRight' ngModel [(ngModel)]='componentData.marginRight'>
 
 
 
                       <label for='margin-bottom' class='mt-3'>Margin Bottom</label>
                       <input type="text" class="form-control" id='margin-bottom' placeholder='Margin bottom'
-                      name='marginBottom' ngModel #marginBottom='ngModel'>
+                      name='marginBottom' ngModel>
 
 
 
                       <label for='margin-left' class='mt-3'>Margin Left</label>
                       <input type="text" class="form-control" id='margin-left' placeholder='Margin Left'
-                      name='marginLeft' ngModel #marginLeft='ngModel'>
+                      name='marginLeft' [(ngModel)]='componentData.marginLeft' ngModel>
 
 
                     </div>
@@ -331,10 +343,11 @@
 
 
 
-
+<!--
             <!-- ************************** -->
             <!-- tabs for conditional -->
-            <!-- **************************** -->
+            **************************** -->
+
             <ngb-tab title='Conditional'>
               <ng-template ngbTabContent>
                 <div class="container">
@@ -345,13 +358,13 @@
                       <!-- text area for custom Function -->
                       <label for="custom-func" class='mt-3'>Custom Function</label>
                       <textarea class="form-control" rows="3" id="custom-func" placeholder='Enter custom function'
-                      ngModel #customFunction='ngModel' name='customFunction'></textarea>
+                      [(ngModel)]='componentData.customFunction' ngModel name='customFunction'></textarea>
 
 
                       <!-- text area for json logic  -->
                       <label for="json-logic" class='mt-3'>JSON Logic</label>
                       <textarea class="form-control" rows="3" id="json logic" placeholder='Enter JSON Logic'
-                      name='jsonLogic' ngModel #jsonLogic='ngModel'></textarea>
+                      name='conditionalJsonLogic' [(ngModel)]='componentData.conditionalJsonLogic' ngModel></textarea>
 
 
                     </div>
@@ -374,16 +387,25 @@
             <div class="card-body">
 
                <div>
-                 <p *ngIf='!hideLabel.value'>
-                   label.value
-                 </p><br>
-                   <p class='tooltip'>
+                 <div *ngIf='!componentData.hideLabel'>
+                 <p>
+                       {{componentData.label}}
+                 </p>
+                </div>
+                 <br>
 
-                   </p>
+
+                 <div *ngIf='tooltipBoolean'>
+                  <a class='card-tooltip' placement="right" [ngbTooltip]="componentData.tooltip">
+                      <i class="material-icons">
+                          help
+                      </i>
+                    </a>
+                 </div>
 
 
                  <p>
-                   desc.value
+                       {{componentData.description}}
                   </p>
                </div>
 
@@ -391,10 +413,10 @@
             </div>
             <div class="row">
               <div class="col-md-4">
-                <a class='btn btn-primary'>Save</a>
+                <button class='btn btn-primary mt-2' type='submit'>Save</button>
               </div>
               <div class="col-md-8">
-                <button type="button" class="btn btn-danger mt-3" (click)="close()">Remove</button>
+                <button type="button" class="btn btn-danger mt-2 " (click)="close()">Remove</button>
               </div>
             </div>
 
@@ -405,6 +427,7 @@
     </div>
 
   </div>
+
 <!-- </ng-template> -->
 
 <!-- <pre>{{closeResult}}</pre> -->

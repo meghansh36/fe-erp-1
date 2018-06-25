@@ -22,7 +22,7 @@ import { DtiComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { DatComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dat/dat.component';
 import { CurComponent } from '@L3Process/system/modules/formBuilder/components/formElements/cur/cur.component';
 import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
-import { FieldOptionsComponent } from './components/field-options/field-options.component';
+// import { FieldOptionsComponent } from './components/field-options/field-options.component';
 
 
 @NgModule({
@@ -43,7 +43,7 @@ import { FieldOptionsComponent } from './components/field-options/field-options.
     DatComponent,
     CurComponent,
     AdrComponent,
-    FieldOptionsComponent
+    // FieldOptionsComponent
   ],
   imports: [
     CommonModule,

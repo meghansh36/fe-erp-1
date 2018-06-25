@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit} from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, DoCheck} from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { clearOverrides } from '@angular/core/src/view';
@@ -15,7 +15,7 @@ import { builderFieldCompInterface } from './masterForm.interface';
 }
 )
 
-export class FeMasterFormComponent implements OnInit{
+export class FeMasterFormComponent implements OnInit,DoCheck{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
 
@@ -28,16 +28,29 @@ export class FeMasterFormComponent implements OnInit{
 
 
   modalRef: NgbModalRef;
-  constructor(private modalService: NgbModal, private masterFormService: FormMasterService) {
-    this.componentData.name = 'alok';
-    this.Json.components.push(this.componentData.name);
-    console.log(this.Json.components[0]);
+  tooltipBoolean = false;
+  currentEvent;
 
+  constructor(private modalService: NgbModal, private masterFormService: FormMasterService) {
+
+  }
+
+  ngDoCheck() {
+  if(this.componentData.tooltip){
+
+    this.tooltipBoolean=true;
+
+   }
+   else
+   {
+     this.tooltipBoolean=false;
+
+   }
   }
 
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
-    console.log(this.modalRef);
+    this.currentEvent=this.masterFormService.getCurrentEvent();
   }
 
   close() {
@@ -45,6 +58,15 @@ export class FeMasterFormComponent implements OnInit{
   }
 
   onSubmit(form){
-    console.log(form);
+    form.name=this.currentEvent.dragData.name;
+    form.type=this.currentEvent.dragData.type;
+    this.Json.components.push(form);
+
+    JSON.stringify(this.Json);
+
+    this.modalRef.close();
+
+
+
   }
 }

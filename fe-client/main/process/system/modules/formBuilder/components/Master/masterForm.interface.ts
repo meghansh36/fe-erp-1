@@ -2,9 +2,7 @@
 
 export interface builderFieldCompInterface{
   name:string,
-  code:string,
-  id:string,
-  text:string
+  type:string
   label:string
   hideLabel:boolean,
   labelPosition:string,
@@ -17,7 +15,7 @@ export interface builderFieldCompInterface{
   inputMask:string,
   prefix:string,
   suffix:string,
-  customCssClass:string[],
+  customCssClass:string,
   tabIndex:string,
   clearValue:boolean,
   hidden:boolean,
@@ -27,7 +25,7 @@ export interface builderFieldCompInterface{
   jsFunction:string,
   jsonLogic:string,
   nonPersistent:string,
-  appliedValidation:string[],
+  appliedValidation:string,
   minimumLength:number,
   maximumLength:number,
   regularExpression:string,
