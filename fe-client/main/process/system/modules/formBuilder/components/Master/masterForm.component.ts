@@ -1,5 +1,5 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { Component, ViewEncapsulation, OnInit, DoCheck, ComponentFactoryResolver, ViewContainerRef, ViewChild} from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, DoCheck, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { clearOverrides } from '@angular/core/src/view';
@@ -14,7 +14,7 @@ import { builderFieldCompInterface } from './masterForm.interface';
 }
 )
 
-export class FeMasterFormComponent implements OnInit,DoCheck{
+export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
   componentData= <builderFieldCompInterface>{};
@@ -23,6 +23,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
   tooltipBoolean = false;
   currentEvent;
   instance;
+  showEdit:boolean;
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
     public fieldControlService:FieldControlService, private componentFactoryResolver: ComponentFactoryResolver,
@@ -52,7 +53,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
      console.log(this.componentData);
      console.log(form);
     JSON.stringify(this.Json);
-    this.masterFormService.savedInstance(this.componentData);
+    this.masterFormService.savedInstance(form);
 
     this.modalRef.close();
   }
@@ -63,6 +64,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
+    
   }
 
   update(event) {
@@ -80,4 +82,11 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
     this.instance.description = this.componentData.description;
     this.instance.tooltip = this.componentData.tooltip;
   }
+
+  ngOnDestroy()
+  {
+    console.log("destroy called");
+    this.instance.showEdit=true;
+  }
+
 }

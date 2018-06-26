@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+@Injectable()
 export class FeFormMasterService {
 
   modalReference: NgbModalRef;
@@ -18,14 +19,12 @@ export class FeFormMasterService {
     this.instanceProp = instance;
   }
 
-  retrieveInstance() {
+  retrieveSelectedComponentProperties() {
     return this.instanceProp;
   }
 
   getModalRef() {
     return this.modalReference;
   }
-
-
-
+  
 }

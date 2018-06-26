@@ -15,7 +15,7 @@ router.post('/login', function(req, res, next) {
     req.logIn(user,{session: false}, function(err) {
       if (err) { return next(err); }
 
-      const token = jwt.sign({user:user}, 'your_jwt_secret',{ expiresIn: '3m' });
+      const token = jwt.sign({user:user}, 'your_jwt_secret',{ expiresIn: '60m' });
       return res.json({
         success:true,
         message: 'Login Successful',

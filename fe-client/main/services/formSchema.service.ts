@@ -29,14 +29,17 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 8
+            'name': 'minLength',
+            'value': 8,
+            'message': 'This Field should have minimum length of 8'
           },
           {
-            'name': 'max-length',
-            'value': 15
+            'name': 'maxLength',
+            'value': 15,
+            'message': 'This Field should have maximum length of 15'
           }
         ]
       },

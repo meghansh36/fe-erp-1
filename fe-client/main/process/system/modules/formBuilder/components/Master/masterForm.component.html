@@ -18,11 +18,15 @@
                   <div class="row">
                     <div class="col-md-10">
 
+                       <!-- Label for Flexiele -->
+                       <label for="flexieleLabel" class='requiredClass mt-3' >Flexiele Label</label>
+                       <input type="text" class="form-control" id='flexieleLabel' placeholder="text" required ngModel  name='flexieleLabel' [(ngModel)]='componentData.flexieleLabel'>
+                       
 
 
                         <!-- Label -->
 
-                        <label for="label" class='requiredClass'>Label</label>
+                        <label for="label" class='requiredClass mt-2'>Label</label>
                         <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label' (ngModelChange)='update($event)'>
 
 
@@ -380,8 +384,8 @@
 
         </div>
 
-        <div class="col-md-4">
-          <div class="card preview-card">
+        <div class="col-md-4 masterCard">
+          <div class="card preview-card" >
             <h4 class="card-header">
               Preview
             </h4>

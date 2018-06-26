@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
-import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-
 @Component({
   selector: 'pwd-input',
   templateUrl: './pwd.component.html',
@@ -9,9 +7,6 @@ import { FieldControlService } from '@L3Process/system/modules/formBuilder/servi
 })
 export class FePwdComponent extends FeBaseField implements OnInit {
 
-  constructor(private fieldControlService: FieldControlService) {
-    super();
-  }
   ngOnInit() {
     this.setRef(this.fieldControlService.getFieldRef().ref);
   }

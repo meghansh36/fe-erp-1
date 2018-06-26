@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
-import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 
 @Component({
   selector: 'txt-input',
@@ -9,48 +7,54 @@ import { FormMasterService } from '@L3Process/system/modules/formBuilder/service
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
 export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
-  placeholder = '';
+  /* placeholder = '';
+  showEdit:boolean=false;
   label = 'text';
   prefix ;
   suffix;
   tooltip;
-  description;
-  constructor(private fieldControlService: FieldControlService, private masterFormService: FormMasterService) {
-    super();
-  }
+  description; */
+  properties = {};
   ngOnInit() {
     this.setRef(this.fieldControlService.getFieldRef().ref);
+    console.log("in ng on init")
   }
 
   ngDoCheck() {
-    const instance = this.masterFormService.retrieveInstance();
-    if(instance){
-      this.update(instance);
-    }
+    const selectedComponentProperties = this.masterFormService.retrieveSelectedComponentProperties();
+    if (selectedComponentProperties) {
+      console.log("should work")
+      this.update(selectedComponentProperties);
   }
+}
 
 
   openModal() {
     this.fieldControlService.getFieldRef().parent.openModal();
   }
 
-  update(instance) {
+  update(selectedComponentProperties) {
+    console.log("in update function of txt component")
+    /* this.placeholder = selectedComponentProperties.placeholder;
+    this.prefix = selectedComponentProperties.prefix;
 
-    this.placeholder = instance.placeholder;
-    this.prefix = instance.prefix;
-
-    if ( !instance.hideLabel) {
-      this.label = instance.label;
+    if ( !selectedComponentProperties.hideLabel) {
+      this.label = selectedComponentProperties.label;
     } else {
       this.label = '';
     }
 
-    this.suffix = instance.suffix;
-    this.description = instance.description;
-    this.tooltip = instance.tooltip;
+    this.suffix = selectedComponentProperties.suffix;
+    this.description = selectedComponentProperties.description;
+    this.tooltip = selectedComponentProperties.tooltip; */
+
+    this.properties = {
+      ...selectedComponentProperties
+    };
+
+    console.log(this.properties);
 
   }
 
+  }
 
-
-}
