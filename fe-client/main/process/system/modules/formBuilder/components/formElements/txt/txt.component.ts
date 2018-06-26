@@ -27,7 +27,6 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     if(instance){
       this.update(instance);
     }
-    
   }
 
 
