@@ -3,7 +3,7 @@
 export interface builderFieldCompInterface{
   name:string,
   type:string,
-  flexieleLabel:string,
+  flexiLabel:string,
   label:string,
   hideLabel:boolean,
   labelPosition:string,

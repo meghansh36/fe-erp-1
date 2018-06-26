@@ -18,7 +18,7 @@ export class FeFormSchemaService {
         type: 'TXT',
         code: 'FLD000001',
         flexiLabel: 'username',
-        id: 'FRM000001-FRM000001',
+        id: 'FRM000001-FLD000001',
         style: [],
         formcontrol: 'username-form',
         label: 'Username',
@@ -29,21 +29,24 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 8
+            'name': 'minLength',
+            'value': 8,
+            'message': 'This Field should have minimum length of 8'
           },
           {
-            'name': 'max-length',
-            'value': 15
+            'name': 'maxLength',
+            'value': 15,
+            'message': 'This Field should have maximum length of 15'
           }
         ]
       },
       {
         code: 'FLD000002',
         flexiLabel: 'password',
-        id: 'FRM000001-FRM000002',
+        id: 'FRM000001-FLD000002',
         style: [],
         formcontrol: 'password-form',
         type: 'TXT',
@@ -69,7 +72,7 @@ export class FeFormSchemaService {
       {
         code: 'FLD000014',
         flexiLabel: 'email',
-        id: 'FRM000001-FRM000014',
+        id: 'FRM000001-FLD000014',
         style: [],
         formcontrol: 'email-form',
         type: 'EML',
@@ -88,7 +91,7 @@ export class FeFormSchemaService {
         type: 'NUM',
         code: 'FLD000009',
         flexiLabel: 'number',
-        id: 'FRM000001-FRM000009',
+        id: 'FRM000001-FLD000009',
         style: [],
         formcontrol: 'number-form',
         label: 'Number',
@@ -114,7 +117,7 @@ export class FeFormSchemaService {
         type: 'ACS',
         code: 'FLD000008',
         flexiLabel: 'autocomplete',
-        id: 'FRM000001-FRM000008',
+        id: 'FRM000001-FLD000008',
         style: [],
         formcontrol: 'auto-form',
         label: 'Country',
@@ -220,7 +223,7 @@ export class FeFormSchemaService {
         type: 'TXA',
         code: 'FLD000006',
         flexiLabel: 'description',
-        id: 'FRM000001-FRM000006',
+        id: 'FRM000001-FLD000006',
         style: [],
         formcontrol: 'description-form',
         label: 'Description',

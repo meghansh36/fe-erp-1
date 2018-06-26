@@ -22,6 +22,8 @@ import { FeFilComponent } from './components/feFile/feFile.component';
 import { ShowErrorComponent } from './directives/validations/showError.component';
 
 
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -45,7 +47,6 @@ import { ShowErrorComponent } from './directives/validations/showError.component
     FeFieldSetComponent,
     FeEmailComponent,
     FeFilComponent,
-    ShowErrorComponent
   ],
   exports: [
     FeFormComponent

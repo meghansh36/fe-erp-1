@@ -3,6 +3,7 @@ import { FormDragComponent } from '@L3Process/system/modules/formBuilder/compone
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
+import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
 import { DndModule } from 'ng2-dnd';
 import { FormBuilderComponent } from '@L3Process/system/modules/formBuilder/formBuilder.component';
 import { FormBuilderRoutes } from '@L3Process/system/modules/formBuilder/formBuilder.routing';
@@ -24,6 +25,7 @@ import { DtiComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { DatComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dat/dat.component';
 import { CurComponent } from '@L3Process/system/modules/formBuilder/components/formElements/cur/cur.component';
 import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
+
 
 
 @NgModule({
@@ -56,7 +58,7 @@ import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/f
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
                     DatComponent, CurComponent, AdrComponent],
-  providers: [FormBuilderService, FormMasterService, FieldControlService],
+  providers: [FormBuilderService, FormMasterService, FieldControlService, FormJsonService],
   bootstrap: [FormBuilderComponent]
 })
 export class FeFormBuilderModule { }
