@@ -1,5 +1,16 @@
-<router-outlet></router-outlet>
-
-    <div class='form-display-test' style='width: 70%; margin: 0 auto;'>
-        <FRM0000001></FRM0000001>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <a routerLink="/login" routerLinkActive="active">Login</a>
+        </div>
+        <div class="col-sm">
+            <a routerLink="/formBuilder" routerLinkActive="active">Form Builder</a>
+        </div>
+        <div class="col-sm">
+            <a routerLink="/default" routerLinkActive="active">Form Generator Test</a>
+        </div>
     </div>
+</div>
+
+
+<router-outlet></router-outlet>

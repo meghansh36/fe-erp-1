@@ -71,11 +71,11 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
     console.log('running event');
     this.instance.placeholder = this.componentData.placeholder;
     this.instance.prefix = this.componentData.prefix;
-
+    console.log(this.componentData.hideLabel);
     if ( !this.componentData.hideLabel) {
       this.instance.label = this.componentData.label;
     } else {
-      this.instance.label = '';
+      this.instance.label = undefined;
     }
 
     this.instance.suffix = this.componentData.suffix;

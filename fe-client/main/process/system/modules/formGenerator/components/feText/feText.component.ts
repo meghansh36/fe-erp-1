@@ -15,7 +15,8 @@ export class FeTextComponent implements Field, OnInit {
   group: FormGroup;
   error: string;
   ngOnInit() {
-    this.group.controls[this.config.flexiLabel].setValidators([Validators.required, Validators.minLength(8)]);
+    this.group.controls[this.config.flexiLabel].setValidators([Validators.required]);
+   /* this.group.controls[this.config.flexiLabel].setValidators([Validators.required, Validators.minLength(8)]);
     this.group.controls[this.config.flexiLabel].valueChanges.subscribe((data) => {
       console.log(this.group.controls[this.config.flexiLabel].valid);
       const controlErrors: ValidationErrors = this.group.get(this.config.flexiLabel).errors;
@@ -27,7 +28,7 @@ export class FeTextComponent implements Field, OnInit {
       else {
         this.error = '';
       }
-    })
+    })*/
   }
 
 }

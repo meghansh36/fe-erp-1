@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
-import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 
 @Component({
   selector: 'txt-input',
@@ -15,20 +13,17 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix;
   tooltip;
   description;
-  constructor(private fieldControlService: FieldControlService, private masterFormService: FormMasterService) {
-    super();
-  }
+  
   ngOnInit() {
     this.setRef(this.fieldControlService.getFieldRef().ref);
   }
 
   ngDoCheck() {
     const instance = this.masterFormService.retrieveInstance();
-    if(instance){
+    if (instance) {
       this.update(instance);
-    }
-    
   }
+}
 
 
   openModal() {
@@ -52,6 +47,5 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
 
   }
 
+  }
 
-
-}

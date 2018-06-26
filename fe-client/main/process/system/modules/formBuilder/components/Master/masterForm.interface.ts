@@ -2,8 +2,8 @@
 
 export interface builderFieldCompInterface{
   name:string,
-  type:string
-  label:string
+  type:string,
+  label:string,
   hideLabel:boolean,
   labelPosition:string,
   labelWidth:number,

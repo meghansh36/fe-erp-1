@@ -1,8 +1,8 @@
 import { FormMasterService } from "@L3Process/system/modules/formBuilder/services/formMaster.service";
-
+import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 
 export class FeBaseField {
-    constructor() {}
+    constructor(public fieldControlService: FieldControlService, public masterFormService: FormMasterService) {}
     refObj;
 
     setRef(reference) {
