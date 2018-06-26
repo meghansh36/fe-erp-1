@@ -20,6 +20,8 @@ import { FeFieldSetComponent } from './components/feFieldSet/feFieldSet.componen
 import { FeEmailComponent } from './components/feEmail/feEmail.component';
 import { FeFilComponent } from './components/feFile/feFile.component';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +44,7 @@ import { FeFilComponent } from './components/feFile/feFile.component';
     FeMultiSelectComponent,
     FeFieldSetComponent,
     FeEmailComponent,
-    FeFilComponent
+    FeFilComponent,
   ],
   exports: [
     FeFormComponent

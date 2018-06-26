@@ -1,8 +1,8 @@
 import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef} from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
-import { window } from 'rxjs/operators';
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
+import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
 
 // import { FieldRenderDirective } from '@L3Process/system/modules/formBuilder/directives/fieldRender.directive';
 
@@ -24,7 +24,8 @@ export class FeFormBuilderComponent {
   constructor(private bootstrapService: NgbModal,
               private masterFormService: FormMasterService,
               private componentFactoryResolver: ComponentFactoryResolver,
-              private fieldControlService: FieldControlService
+              private fieldControlService: FieldControlService,
+              private formJsonService: FormJsonService
               ) {}
 
   dropComplete(event) {
@@ -47,6 +48,7 @@ export class FeFormBuilderComponent {
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
+    this.formJsonService.addComponentToMasterJSON(componentRef);
   }
 
 }

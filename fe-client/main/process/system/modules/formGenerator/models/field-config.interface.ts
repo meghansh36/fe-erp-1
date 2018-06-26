@@ -10,5 +10,6 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
+  validators?: Object[];
   value?: any;
 }
