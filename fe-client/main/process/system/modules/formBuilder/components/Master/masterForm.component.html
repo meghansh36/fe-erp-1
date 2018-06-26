@@ -18,11 +18,15 @@
                   <div class="row">
                     <div class="col-md-10">
 
+                       <!-- Label for Flexiele -->
+                       <label for="flexieleLabel" class='requiredClass mt-3' >Label</label>
+                       <input type="text" class="form-control" id='flexieleLabel' placeholder="text" required ngModel  name='flexieleLabel' [(ngModel)]='componentData.flexieleLabel'>
+                       
 
 
                         <!-- Label -->
 
-                        <label for="label" class='requiredClass'>Label</label>
+                        <label for="label" class='requiredClass mt-3'>Label</label>
                         <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label' (ngModelChange)='update($event)'>
 
 
