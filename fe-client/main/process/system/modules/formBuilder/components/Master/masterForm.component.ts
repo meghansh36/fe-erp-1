@@ -6,8 +6,7 @@ import { clearOverrides } from '@angular/core/src/view';
 import { builderFieldCompInterface } from './masterForm.interface';
 
 
-@Component(
-{
+@Component({
   selector: 'form-master',
   templateUrl: './masterForm.component.html',
   styleUrls: ['./masterForm.component.css'],
@@ -18,9 +17,8 @@ import { builderFieldCompInterface } from './masterForm.interface';
 export class FeMasterFormComponent implements OnInit,DoCheck{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
-
-
   componentData= <builderFieldCompInterface>{};
+<<<<<<< Updated upstream
 
   modalRef: NgbModalRef;
   tooltipBoolean = false;
@@ -30,9 +28,16 @@ export class FeMasterFormComponent implements OnInit,DoCheck{
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
     public fieldControlService:FieldControlService, private componentFactoryResolver: ComponentFactoryResolver,
     ) {
+=======
+  modalRef: NgbModalRef;
+
+  constructor(private modalService: NgbModal, private masterFormService: FormMasterService) {
+    this.componentData.name = 'alok';
+>>>>>>> Stashed changes
     this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
 
+    console.log(this.Json.components[0]);
   }
 
   ngDoCheck() {}
