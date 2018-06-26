@@ -32,7 +32,7 @@
                         <div class="form-check mb-2 mt-3">
                           <input  name='hideLabel' class="form-check-input" type="checkbox" value="hide" id="hideLabel"
                           name='hideLabel' [(ngModel)]='componentData.hideLabel' ngModel
-                          >
+                          (ngModelChange)='update($event)'>
                           <label class="form-check-label" for="hideLabel">
                             Hide Label
                           </label>
