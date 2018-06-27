@@ -50,10 +50,12 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   }
 
   onSubmit(form) {
+    form.name=this.instance.fieldControlService.component.name;
+    form.type=this.instance.fieldControlService.component.type;
 
+    console.log(form);
     this.Json.components.push(form);
-     console.log(this.componentData);
-     console.log(form);
+    console.log(this.instance);
     JSON.stringify(this.Json);
     this.masterFormService.savedInstance(form);
 
