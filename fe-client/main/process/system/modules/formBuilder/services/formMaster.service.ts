@@ -1,36 +1,44 @@
 import { Injectable } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
+import * as _ from 'lodash';
+import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
 @Injectable()
 export class FeFormMasterService {
 
   modalReference: NgbModalRef;
   properties;
   currentEventType;
-  instanceProp;
+  key;
 
-  constructor() { }
+  constructor(private masterJsonService: FormJsonService) { }
 
   setModalRef(temp) {
     this.modalReference = temp;
   }
-  savedInstance(props) {
-    this.instanceProp = props;
-  }
 
-  retrieveSelectedComponentProperties() {
-    return this.instanceProp;
-  }
   getModalRef() {
     return this.modalReference;
   }
 
   setProperties(props) {
-    this.properties = props;
+    const masterJSON = this.masterJsonService.getMasterJSON();
+    console.log("master json", masterJSON);
+    masterJSON.components[this.key].instance.properties = _.assignIn({}, props);
+    this.masterJsonService.setMasterJSON(masterJSON);
   }
 
-  getProperties() {
-    return this.properties;
+  getProperties(key) {
+    //console.log(this.properties);
+    const masterJSON = this.masterJsonService.getMasterJSON();
+    return masterJSON.components[key].instance.properties;
+  }
+
+  setCurrentKey(key) {
+    this.key = key;
+  }
+
+  getCurrentKey() {
+   return this.key;
   }
 
 }

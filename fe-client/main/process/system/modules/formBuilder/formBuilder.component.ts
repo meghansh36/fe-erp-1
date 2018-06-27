@@ -41,14 +41,19 @@ export class FeFormBuilderComponent {
     this.masterFormService.setModalRef(this.modalRef);
   }
 
+  generateNewKey() {
+    return  '_' + Math.random().toString(36).substr(2, 9);
+  }
 
   createComponentFunc(componentObj) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     const viewContainerRef = this.host;
-
+    const key = this.generateNewKey();
+    this.masterFormService.setCurrentKey(key);
     const componentRef = viewContainerRef.createComponent(componentFactory);
+    console.log('in form builder', componentRef.instance.uniqueKey);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(componentRef);
+    this.formJsonService.addComponentToMasterJSON(key, componentRef);
   }
 
 }
