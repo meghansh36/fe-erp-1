@@ -23,4 +23,10 @@ export class FeFormJsonService {
         console.log(key);
         this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: component});
     }
+
+    removeComponent(key) {
+        console.log('key to remove', key);
+        console.log(_.unset(this.MasterJSON.components, key));
+        console.log(this.MasterJSON);
+    }
 }
