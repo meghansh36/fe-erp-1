@@ -6,7 +6,7 @@ import { FormMasterService } from '@L3Process/system/modules/formBuilder/service
 import { clearOverrides } from '@angular/core/src/view';
 import { builderFieldCompInterface } from './masterForm.interface';
 import * as _ from 'lodash';
-
+import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
 @Component(
 {
   selector: 'form-master',
@@ -22,15 +22,17 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   // @ViewChild('f')tempData;
 
 
-  componentData= <builderFieldCompInterface>{};
+  componentData = <builderFieldCompInterface>{};
 
   modalRef: NgbModalRef;
   instance;
-  showEdit:boolean;
+  showEdit: boolean;
   currentKey;
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
-    public fieldControlService:FieldControlService, private componentFactoryResolver: ComponentFactoryResolver,
+              public fieldControlService: FieldControlService,
+              private componentFactoryResolver: ComponentFactoryResolver,
+              private formJsonService: FormJsonService
     ) {
     this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
@@ -59,7 +61,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
     this.masterFormService.setCurrentKey(this.currentKey);
     this.masterFormService.setProperties(form);
-
+    this.formJsonService.buildFinalJSON();
     this.modalRef.close();
   }
 

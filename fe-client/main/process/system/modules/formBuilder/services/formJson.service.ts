@@ -9,7 +9,9 @@ export class FeFormJsonService {
         flexiLabel: '',
         label: '',
         components: {}
-    }
+    };
+
+    finalJSON;
 
     getMasterJSON() {
         return this.MasterJSON;
@@ -20,13 +22,27 @@ export class FeFormJsonService {
     }
 
     addComponentToMasterJSON(key, component) {
-        console.log(key);
         this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: component});
     }
 
     removeComponent(key) {
-        console.log('key to remove', key);
-        console.log(_.unset(this.MasterJSON.components, key));
-        console.log(this.MasterJSON);
+        _.unset(this.MasterJSON.components, key);
+    }
+
+    buildFinalJSON() {
+        const finalJSON = {
+            ...this.MasterJSON
+        };
+
+        const tempComponents = [];
+
+        for (const key in this.MasterJSON.components) {
+            if (key) {
+                tempComponents.push(this.MasterJSON.components[key].instance.properties);
+            }
+        }
+
+        finalJSON.components = tempComponents;
+        this.finalJSON = finalJSON;
     }
 }
