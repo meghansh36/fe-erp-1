@@ -20,14 +20,19 @@
 
                        <!-- Label for Flexiele -->
                        <label for="flexieleLabel" class='requiredClass mt-3' >Flexiele Label</label>
-                       <input type="text" class="form-control" id='flexieleLabel' placeholder="text" required ngModel  name='flexieleLabel' [(ngModel)]='componentData.flexieleLabel'>
-                       
+                       <input type="text" class="form-control" id='flexieleLabel' placeholder="text" required ngModel  name='flexieleLabel' [(ngModel)]='componentData.flexieleLabel'
+                       #flexieleLabel='ngModel'>
+                      <div class="alert alert-danger" *ngIf='flexieleLabel.touched && flexieleLabel.invalid'>FlexieleLabel is required.</div>
+
+
 
 
                         <!-- Label -->
 
                         <label for="label" class='requiredClass mt-2'>Label</label>
-                        <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label' (ngModelChange)='update($event)'>
+                        <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label' (ngModelChange)='update($event)'
+                        #label='ngModel'>
+                        <div class="alert alert-danger" *ngIf='label.touched && label.invalid'>Label is required.</div>
 
 
 
@@ -49,7 +54,8 @@
                             <label for="labelPosition" class='requiredClass'>Label Position</label>
                             <select [(ngModel)]='componentData.labelPosition' ngModel
                             id="labelPosition" class="form-control"
-                            name='labelPosition' required ngModel>
+                            name='labelPosition' required ngModel
+                            #labelPosition='ngModel'>
                               <option value='top'>Top</option>
                               <option value='bottom'>Bottom</option>
                               <option value='left-L' >Left(Left Aligned)</option>
@@ -57,6 +63,7 @@
                               <option value='right-R'>Right(Right Aligned)</option>
                               <option value='right-L'>Right(Left Aligned)</option>
                             </select>
+                            <div class="alert alert-danger" *ngIf='labelPosition.touched && labelPosition.invalid'>LabelPosition is required.</div>
 
 
 
@@ -72,16 +79,20 @@
                         type="text" class="form-control"
                         id='label-width'
                         placeholder='enter Label width'
-                        name='labelWidth' >
+                        name='labelWidth'
+                        #labelWidth='ngModel' >
+                        <div class="alert alert-danger" *ngIf='labelWidth.touched && labelWidth.invalid'>FlexieleLabel is required.</div>
 
 
                         <!-- input box for Label Margin -->
 
 
                         <label for="label-margin" class='mt-3 requiredClass'>Label Margin</label>
-                        <input type="text" class="form-control" id='label-margin' placeholder='enter label'
+                        <input type="text" class="form-control" id='label-margin' placeholder='enter label margin'
                         [(ngModel)]='componentData.labelMargin' ngModel
-                        name='labelMargin' >
+                        name='labelMargin'
+                        #labelMargin='ngModel' required >
+                        <div class="alert alert-danger" *ngIf='labelMargin.touched && labelMargin.invalid'>labelMargin is required.</div>
                         </div>
 
 
@@ -188,7 +199,7 @@
                     <div class="col-md-10">
 
                       <!-- Dropdown for Default Value -->
-                      <label for="defaultValue" class='mt-3 requiredClass'>Default Value</label>
+                      <label for="defaultValue" class='mt-3'>Default Value</label>
                             <select id="defaultValue" class="form-control"
                             [ngModel]="'none'"  name='defaultValue' [(ngModel)]='componentData.defaultValue' ngModel>
                               <option >none</option>
@@ -202,7 +213,11 @@
                       <div *ngIf="componentData.defaultValue=='Sql Query'">
                       <label for="Sql" class='mt-1 requiredClass'>Sql Query</label>
                       <textarea class="form-control" rows="3" id="error-label" placeholder='Sql'
-                      [(ngModel)]='componentData.sqlQuery' ngModel name='sqlQuery'></textarea>
+                      [(ngModel)]='componentData.sqlQuery' ngModel name='sqlQuery'
+                      #sqlquery='ngModel'
+                      required></textarea>
+
+                      <div class="alert alert-danger" *ngIf='sqlquery.touched && sqlquery.invalid'>Sql Query is required.</div>
                       </div>
 
                       <!-- Text Area for JS Function -->
@@ -210,7 +225,11 @@
                       <div *ngIf="componentData.defaultValue=='JS Function'">
                       <label for="JsFunc" class='mt-3 requiredClass'>JS Function</label>
                       <textarea class="form-control" rows="3" id="JsFunc" placeholder='Enter Js Function'
-                      [(ngModel)]='componentData.jsFunction' ngModel name='JsFunc'></textarea>
+                      [(ngModel)]='componentData.jsFunction' ngModel name='JsFunc'
+                      #jsFunc='ngModel'
+                      required></textarea>
+
+                      <div class="alert alert-danger" *ngIf='jsFunc.touched && jsFunc.invalid'>JS function is required.</div>
                       </div>
 
 
@@ -219,7 +238,11 @@
                       <label for="JSON" class='mt-3 requiredClass'>JSON Logic</label>
                       <textarea class="form-control" rows="3" id="JSON" placeholder='Enter JSON Logic'
                       [(ngModel)]='componentData.jsonLogic' ngModel
-                      name='jsonLogic'></textarea>
+                      name='jsonLogic'
+                      #jsonLogic='ngModel'
+                      required></textarea>
+
+                      <div class="alert alert-danger" *ngIf='jsonLogic.touched && jsonLogic.invalid'>JSON Logic is required.</div>
                       </div>
 
                       <!-- Check box for non-persistence of data     -->
@@ -398,7 +421,7 @@
             </div>
             <div class="row">
               <div class="col-md-4">
-                <button class='btn btn-primary mt-2' type='submit'>Save</button>
+                <button class='btn btn-primary mt-2' type='submit' [disabled]='f.invalid'>Save</button>
               </div>
               <div class="col-md-8">
                 <button type="button" class="btn btn-danger mt-2 " (click)="close()">Remove</button>
