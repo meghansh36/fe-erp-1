@@ -2,5 +2,15 @@
     <label for="{{ config.id }}">{{ config.label }}</label>
     <input id="typeahead-basic" type="text" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id"
         class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" />
-    <small style="color:red">{{error}}</small>
+    <div class="container">
+        <span *ngFor="let err of errors">
+            <small class="invalid-feedback" *ngIf="(group.controls[config.flexiLabel].touched ||
+                    group.controls[config.flexiLabel].dirty) &&
+                     group.controls[config.flexiLabel].invalid &&  
+                     group.controls[config.flexiLabel].errors[err.name]
+                     ">
+                {{err.message}}
+            </small>
+        </span>
+    </div>
 </div>
