@@ -6,6 +6,8 @@ import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/
 @Injectable()
 export class FeBaseField {
 
+    uniqueKey;
+
     applicableProperties = {
   name: true,
   type: true,
@@ -58,6 +60,7 @@ export class FeBaseField {
     }
 
     close() {
+        this.formJsonService.removeComponent(this.uniqueKey);
         this.refObj.destroy();
     }
 
