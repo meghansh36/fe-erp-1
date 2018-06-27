@@ -8,16 +8,23 @@ import { FeBaseField } from '../baseField/baseField.component';
 })
 export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   showEdit = true;
-  properties: {};
+  properties={
+  label: 'test',
+  prefix: '',
+  suffix: '',
+  description: '',
+  placeholder: 'test',
+  tooltip: ''};
+
   ngOnInit() {
-    this.properties = {
-      label: 'test',
-      prefix: '',
-      suffix: '',
-      description: '',
-      placeholder: 'test',
-      tooltip: ''
-    };
+    // this.properties = {
+    //   label: 'test',
+    //   prefix: '',
+    //   suffix: '',
+    //   description: '',
+    //   placeholder: 'test',
+    //   tooltip: ''
+    // };
     this.setRef(this.fieldControlService.getFieldRef().ref);
   }
 
@@ -30,8 +37,8 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
 
 
   openModal() {
-    this.fieldControlService.getFieldRef().parent.openModal();
     this.masterFormService.setProperties(this.properties);
+    this.fieldControlService.getFieldRef().parent.openModal();
   }
 
   update(propsFromMasterForm) {
@@ -39,6 +46,7 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     this.properties = {
       ...propsFromMasterForm
     };
+    console.log("txt comp",this.properties);
   }
 
   }

@@ -30,6 +30,7 @@ export class FeFormMasterService {
   }
 
   getProperties() {
+    console.log(this.properties);
     return this.properties;
   }
 

@@ -38,6 +38,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   ngDoCheck() {}
 
   ngOnInit() {
+    console.log("ngOninit called in master ");
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
     console.log(component);
@@ -66,27 +67,33 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
     this.instance.showEdit = false;
+    if(this.masterFormService.getProperties()){
     this.instance.properties=this.masterFormService.getProperties();
+    }
+    console.log('create maseter comp',this.instance.properties);
+    this.componentData=this.instance.properties;
+
   }
 
   update(event) {
-    console.log('running event');
 
-    console.log(this.componentData.hideLabel);
-    if ( !this.componentData.hideLabel) {
-      this.instance.label = this.componentData.label;
-    } else {
-      this.instance.label = undefined;
-    }
+    // if ( !this.componentData.hideLabel) {
+    //   this.instance.properties.label = this.componentData.label;
+    // } else {
+    //   this.instance.properties.label = undefined;
+    // }
 
-    this.instance.suffix = this.componentData.suffix;
-    this.instance.description = this.componentData.description;
-    this.instance.tooltip = this.componentData.tooltip;
+    // this.instance.properties.suffix = this.componentData.suffix;
+    // this.instance.properties.description = this.componentData.description;
+    // this.instance.properties.tooltip = this.componentData.tooltip;
+
+    if (this.componentData.hideLabel) {this.componentData.label = undefined;}
+
+    this.instance.properties = {
+      ...this.componentData
+    };
+    console.log("master component update ",this.instance.properties);
   }
 
-  ngOnDestroy()
-  {
-    console.log("destroy called");
-  }
 
 }
