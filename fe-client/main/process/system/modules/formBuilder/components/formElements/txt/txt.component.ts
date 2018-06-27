@@ -14,7 +14,7 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix;
   tooltip;
   description; */
-  properties = {};
+  properties = {placeholder: 'temp placeholder'};
   ngOnInit() {
     this.setRef(this.fieldControlService.getFieldRef().ref);
     console.log("in ng on init")

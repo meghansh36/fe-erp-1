@@ -58,14 +58,12 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 8
-          },
-          {
-            'name': 'max-length',
-            'value': 15
+            'name': 'pattern',
+            'value': '^[a-z0-9_-]{8,15}$',
+            'message': 'The Pattern is not correct'
           }
         ]
       },
@@ -84,6 +82,12 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
+          },
+          {
+            'name': 'email',
+            'value': true,
+            'message': 'This is not vaid email format'
           }
         ]
       },
@@ -102,14 +106,17 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 8
+            'name': 'minLength',
+            'value': 8,
+            'message': 'This Field should have minimum length of 8'
           },
           {
-            'name': 'max-length',
-            'value': 15
+            'name': 'maxLength',
+            'value': 15,
+            'message': 'This Field should have maximum length of 15'
           }
         ]
       },
