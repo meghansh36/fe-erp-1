@@ -28,12 +28,14 @@
 
 
                         <!-- Label -->
-
+                      <div *ngIf='applicableProperties.label'>
                         <label for="label" class='requiredClass mt-2'>Label</label>
                         <input type="text" class="form-control" id='label' placeholder="text" required ngModel  name='label' [(ngModel)]='componentData.label' (ngModelChange)='update($event)'
                         #label='ngModel'>
+                        <div *ngIf='!componentData.label'>
                         <div class="alert alert-danger" *ngIf='label.touched && label.invalid'>Label is required.</div>
-
+                      </div>
+                    </div>
 
 
                         <!-- Hide Label CheckBox -->
@@ -50,7 +52,7 @@
 
 
                         <!-- Drop down Menu of Label Position -->
-
+                        <div *ngIf='applicableProperties.labelPosition'>
                             <label for="labelPosition" class='requiredClass'>Label Position</label>
                             <select [(ngModel)]='componentData.labelPosition' ngModel
                             id="labelPosition" class="form-control"
@@ -64,11 +66,12 @@
                               <option value='right-L'>Right(Left Aligned)</option>
                             </select>
                             <div class="alert alert-danger" *ngIf='labelPosition.touched && labelPosition.invalid'>LabelPosition is required.</div>
-
+                         </div>
 
 
 
                         <!-- input box for Label Width -->
+                        <div *ngIf='applicableProperties.labelWidth'>
                         <div *ngIf="componentData.labelPosition=='left-L'
                         ||componentData.labelPosition=='left-R'||
                         componentData.labelPosition=='right-L'||
@@ -94,65 +97,87 @@
                         #labelMargin='ngModel' required >
                         <div class="alert alert-danger" *ngIf='labelMargin.touched && labelMargin.invalid'>labelMargin is required.</div>
                         </div>
+                        </div>
 
 
                         <!-- Input Box for Placeholder -->
+                        <div *ngIf='applicableProperties.placeholder'>
                         <label for="placeholder" class='mt-3'>Placeholder</label>
                         <input type="text" class="form-control" id='placeholder' placeholder='placeholder'
                         [(ngModel)]='componentData.placeholder' ngModel name='placeholder' (ngModelChange)='update($event)'>
+                       </div>
+
 
                         <!-- Input box for Description -->
+                        <div *ngIf='applicableProperties.description'>
                         <label for="desc" class='mt-3'>Description</label>
                         <input type="text" class="form-control" id='desc' placeholder='description for this field'
                         [(ngModel)]='componentData.description' ngModel name='description' (ngModelChange)='update($event)'>
-
+                        </div>
 
                         <!-- Input Box for ToolTip -->
+                        <div *ngIf='applicableProperties.tooltip'>
                         <label for='tooltip' class='mt-3'>Tooltip</label>
                         <input type="text" class="form-control" id='tooltip' placeholder='to add tooltip to this field'
                         [(ngModel)]='componentData.tooltip' ngModel name='tooltip' (ngModelChange)='update($event)'>
+                        </div>
 
 
                         <!-- Text Area for Error Label -->
+                      <div *ngIf='applicableProperties.errorLabel'>
                         <label for="error-label" class='mt-3'>Error Label</label>
                         <textarea class="form-control" rows="3" id="error-label" placeholder='Error Label'
                         [(ngModel)]='componentData.errorLabel' ngModel
                         name='errorLabel'
                         >
                       </textarea>
+                    </div>
 
 
                         <!-- Input box for Input masking -->
+                      <div *ngIf='applicableProperties.inputMask'>
                         <label for='mask' class='mt-3'>Input Mask</label>
                         <input type="text" class="form-control" id='mask' placeholder='input mask'
                         [(ngModel)]='componentData.inputMask' ngModel name='inputMask'>
+                      </div>
+
 
                         <!-- Input box for Prefix -->
+                        <div *ngIf='applicableProperties.prefix'>
                         <label for='prefix' class='mt-3'>Prefix</label>
                         <input type="text" class="form-control" id='prefix' placeholder="example '$','@'"
                         [(ngModel)]='componentData.prefix' ngModel name='prefix' (ngModelChange)='update($event)'>
+                      </div>
 
                         <!-- input box for suffix -->
+
+                        <div *ngIf='applicableProperties.suffix'>
                         <label for='suffix' class='mt-3'>Suffix</label>
                         <input type="text" class="form-control" id='suffix' placeholder="example '$','@'"
                         [(ngModel)]='componentData.suffix' ngModel
                         name='suffix'
                         (ngModelChange)='update($event)'>
+                        </div>
 
                         <!-- input box for custom classes -->
+                        <div *ngIf='applicableProperties.customCssClass'>
                         <label for='custom' class='mt-3'>Custom CssClass</label>
                         <input type="text" class="form-control" id='custom' placeholder="add custom classes"
                         [(ngModel)]='componentData.customCssClass' ngModel name='customCss'>
+                        </div>
 
 
                         <!-- Input box for Tab index  -->
+                        <div *ngIf='applicableProperties.tabIndex'>
                         <label for='tab-index' class='mt-3'>Tab Index</label>
                         <input type="text" class="form-control" id='tab-index' placeholder='tab Index'
                         [(ngModel)]='componentData.tabIndex' ngModel name='tabIndex'>
+                        </div>
 
 
 
                         <!-- check boxes for clear value when Hidden -->
+                        <div *ngIf='applicableProperties.clearValue'>
                         <div class="form-check  mt-3">
                           <input class="form-check-input" type="checkbox" value="clearValue" id="clear"
                           [(ngModel)]='componentData.clearValue' ngModel name='clearValue'>
@@ -160,9 +185,11 @@
                             Clear value when Hidden
                           </label>
                         </div>
+                        </div>
 
 
                         <!-- Check box for Hidden -->
+                        <div *ngIf='applicableProperties.hidden'>
                         <div class="form-check mb-2 mt-3">
                           <input class="form-check-input" type="checkbox" value="hidden" id="hidden"
                           [(ngModel)]='componentData.hidden' ngModel name='hidden'>
@@ -170,15 +197,18 @@
                             Hidden
                           </label>
                         </div>
+                        </div>
 
 
                         <!-- check box for disabled -->
+                        <div *ngIf='applicableProperties.disabled'>
                         <div class="form-check mb-2 mt-3">
                           <input class="form-check-input" type="checkbox" value="disabled" id="disabled"
                           [(ngModel)]='componentData.disabled' ngModel name='disabled'>
                           <label class="form-check-label" for="disabled">
                             Disabled
                           </label>
+                        </div>
                         </div>
 
 
@@ -199,6 +229,7 @@
                     <div class="col-md-10">
 
                       <!-- Dropdown for Default Value -->
+                      <div *ngIf='applicableProperties.defaultvalue'>
                       <label for="defaultValue" class='mt-3'>Default Value</label>
                             <select id="defaultValue" class="form-control"
                             [ngModel]="'none'"  name='defaultValue' [(ngModel)]='componentData.defaultValue' ngModel>
@@ -208,8 +239,10 @@
                               <option >JS Function</option>
                               <option >JSON Logic</option>
                               </select>
+                          </div>
 
                       <!-- Text Area for Sql Query -->
+
                       <div *ngIf="componentData.defaultValue=='Sql Query'">
                       <label for="Sql" class='mt-1 requiredClass'>Sql Query</label>
                       <textarea class="form-control" rows="3" id="error-label" placeholder='Sql'
@@ -246,12 +279,14 @@
                       </div>
 
                       <!-- Check box for non-persistence of data     -->
+                      <div *ngIf='applicableProperties.nonPersistent'>
                       <div class="form-check  mt-3">
                         <input class="form-check-input" type="checkbox" value="non-persistent" id="non-persistent"
                         [(ngModel)]='componentData.nonPersistent' ngModel name='nonPersistence'>
                         <label class="form-check-label" for="non-persistent">
                           Non-Persistent
                         </label>
+                      </div>
                       </div>
 
                       <!-- input for autocomplete -->
