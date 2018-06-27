@@ -7,15 +7,7 @@ import { FeBaseField } from '../baseField/baseField.component';
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
 export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
-  /* placeholder = '';
-  showEdit:boolean=false;
-  label = 'text';
-  prefix ;
-  suffix;
-  tooltip;
-  description; */
   showEdit = true;
-  name = 'xyz';
   properties: {};
   ngOnInit() {
     this.properties = {
@@ -39,6 +31,7 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
 
   openModal() {
     this.fieldControlService.getFieldRef().parent.openModal();
+    this.masterFormService.setProperties(this.properties);
   }
 
   update(propsFromMasterForm) {

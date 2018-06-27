@@ -5,6 +5,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 export class FeFormMasterService {
 
   modalReference: NgbModalRef;
+  properties;
   currentEventType;
   instanceProp;
 
@@ -12,18 +13,24 @@ export class FeFormMasterService {
 
   setModalRef(temp) {
     this.modalReference = temp;
-
   }
-
-  savedInstance(instance) {
-    this.instanceProp = instance;
+  savedInstance(props) {
+    this.instanceProp = props;
   }
 
   retrieveSelectedComponentProperties() {
     return this.instanceProp;
   }
-
   getModalRef() {
     return this.modalReference;
   }
+
+  setProperties(props) {
+    this.properties = props;
+  }
+
+  getProperties() {
+    return this.properties;
+  }
+
 }
