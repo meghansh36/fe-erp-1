@@ -109,14 +109,9 @@ export class FeFormSchemaService {
             'message': 'This Field is required'
           },
           {
-            'name': 'minLength',
-            'value': 8,
-            'message': 'This Field should have minimum length of 8'
-          },
-          {
-            'name': 'maxLength',
-            'value': 15,
-            'message': 'This Field should have maximum length of 15'
+            'name': 'ageRange',
+            'value': 50,
+            'message': 'Value should be less than 50'
           }
         ]
       },
@@ -135,14 +130,7 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
-          },
-          {
-            'name': 'min-length',
-            'value': 8
-          },
-          {
-            'name': 'max-length',
-            'value': 15
+            'message': 'This Field is required'
           }
         ]
       },
@@ -207,7 +195,10 @@ export class FeFormSchemaService {
         id: 'FRM000001-FLD000004',
         formcontrol: 'date-form',
         placeholder: 'dd-mm-yyyy',
-        validators: [{ 'name': 'required', 'value': true }],
+        customValidator: {
+          'yearlimit': function(control:AbstractControl):{[key:string]:boolean}|null{if(control.value!==undefined&&(isNaN(control.value.year)||control.value.year<2010)){return{'yearlimit':true};}return null;},
+          'message': 'Year should be greater than 2010'
+        }
       },
       {
         type: 'TIM',
@@ -241,14 +232,17 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 50
+            'name': 'minLength',
+            'value': 50,
+            'message': 'Minimum length required is 50'
           },
           {
-            'name': 'max-length',
-            'value': 150
+            'name': 'maxLength',
+            'value': 150,
+            'message': 'Maximum length required is 150'
           }
         ]
       },

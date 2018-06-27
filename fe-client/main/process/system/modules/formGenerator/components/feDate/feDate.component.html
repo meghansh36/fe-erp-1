@@ -2,4 +2,15 @@
     <label for="{{ config.id }}">{{ config.label }}</label>
     <input class="form-control" [formControlName]="config.flexiLabel" [attr.placeholder]="config.placeholder" [attr.id]="config.id"
         ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+    <div class="container">
+        <span *ngFor="let err of customVal">
+            <small class="alert-danger" *ngIf="(group.controls[config.flexiLabel].touched ||
+                group.controls[config.flexiLabel].dirty) &&
+                 group.controls[config.flexiLabel].invalid &&  
+                 group.controls[config.flexiLabel].errors[err.name]
+                 ">
+                {{ err.message }}
+            </small>
+        </span>
+    </div>
 </div>
