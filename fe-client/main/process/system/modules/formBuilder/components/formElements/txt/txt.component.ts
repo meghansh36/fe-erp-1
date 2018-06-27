@@ -7,13 +7,6 @@ import { FeBaseField } from '../baseField/baseField.component';
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
 export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
-  /* placeholder = '';
-  showEdit:boolean=false;
-  label = 'text';
-  prefix ;
-  suffix;
-  tooltip;
-  description; */
   showEdit = true;
   name = 'xyz';
   properties: {};

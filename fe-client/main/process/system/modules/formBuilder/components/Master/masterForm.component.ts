@@ -89,7 +89,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   ngOnDestroy()
   {
     console.log("destroy called");
-    this.instance.showEdit=true;
   }
 
 }
