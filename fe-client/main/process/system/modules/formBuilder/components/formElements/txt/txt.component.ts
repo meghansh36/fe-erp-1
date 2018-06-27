@@ -8,7 +8,6 @@ import { FeBaseField } from '../baseField/baseField.component';
 })
 export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   showEdit = true;
-  name = 'xyz';
   properties: {};
   ngOnInit() {
     this.properties = {
@@ -32,6 +31,7 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
 
   openModal() {
     this.fieldControlService.getFieldRef().parent.openModal();
+    this.masterFormService.setProperties(this.properties);
   }
 
   update(propsFromMasterForm) {
