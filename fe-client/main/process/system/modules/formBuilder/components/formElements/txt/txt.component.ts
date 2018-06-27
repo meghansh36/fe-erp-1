@@ -18,12 +18,13 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   ngOnInit() {
     this.setRef(this.fieldControlService.getFieldRef().ref);
     console.log("in ng on init")
+    console.log("this is ",this.properties);
   }
 
   ngDoCheck() {
     const selectedComponentProperties = this.masterFormService.retrieveSelectedComponentProperties();
     if (selectedComponentProperties) {
-      console.log("should work")
+     console.log("should work")
       this.update(selectedComponentProperties);
   }
 }
