@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, OnInit, OnChanges } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
@@ -11,7 +11,7 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
   templateUrl: './formBuilder.component.html',
   styleUrls: ['./formBuilder.component.css']
 })
-export class FeFormBuilderComponent implements OnChanges{
+export class FeFormBuilderComponent{
 
   @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
   @ViewChild('content') content;
