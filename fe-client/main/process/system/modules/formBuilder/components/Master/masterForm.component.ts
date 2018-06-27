@@ -66,6 +66,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
     this.instance.showEdit = false;
+    this.instance.properties=this.masterFormService.getProperties();
   }
 
   update(event) {
