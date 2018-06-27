@@ -24,8 +24,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   componentData= <builderFieldCompInterface>{};
 
   modalRef: NgbModalRef;
-  tooltipBoolean = false;
-  currentEvent;
   instance;
   showEdit:boolean;
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
@@ -67,13 +65,16 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
+<<<<<<< HEAD
+
+=======
     this.instance.showEdit = false;
+>>>>>>> cb45931af7362f783052471ea043893d801d5890
   }
 
   update(event) {
     console.log('running event');
-    this.instance.placeholder = this.componentData.placeholder;
-    this.instance.prefix = this.componentData.prefix;
+
     console.log(this.componentData.hideLabel);
     if ( !this.componentData.hideLabel) {
       this.instance.label = this.componentData.label;
