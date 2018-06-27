@@ -6,7 +6,7 @@ import { FormMasterService } from '@L3Process/system/modules/formBuilder/service
 import { clearOverrides } from '@angular/core/src/view';
 import { builderFieldCompInterface } from './masterForm.interface';
 import * as _ from 'lodash';
-
+import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
 @Component(
 {
   selector: 'form-master',
@@ -19,17 +19,64 @@ import * as _ from 'lodash';
 export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
+  // @ViewChild('f')tempData;
 
 
-  componentData= <builderFieldCompInterface>{};
+  componentData = <builderFieldCompInterface>{};
 
   modalRef: NgbModalRef;
   instance;
-  showEdit:boolean;
+  showEdit: boolean;
   currentKey;
+  applicableProperties={
+  label:true,
+  labelPosition:true,
+  labelWidth:true,
+  labelMargin:true,
+  placeholder:true,
+  description:true,
+  tooltip:true,
+  errorLabel:true,
+  inputMask:true,
+  prefix:true,
+  suffix:true,
+  customCssClass:true,
+  tabIndex:true,
+  clearValue:true,
+  hidden:true,
+  disabled:true,
+  defaultValue:true,
+  sqlQuery:true,
+  jsFunction:true,
+  jsonLogic:true,
+  nonPersistent:true,
+  appliedValidation:true,
+  minimumLength:true,
+  maximumLength:true,
+  regularExpression:true,
+  customErrorFunction:true,
+  customValidationFunction:true,
+  JSONLogic:true,
+  marginTop:true,
+  marginRight:true,
+  marginBottom:true,
+  marginLeft:true,
+  customFunction:true,
+  conditionalJsonLogic:true,
+  }
+
+
+
+
+
+
+
+
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
-    public fieldControlService:FieldControlService, private componentFactoryResolver: ComponentFactoryResolver,
+              public fieldControlService: FieldControlService,
+              private componentFactoryResolver: ComponentFactoryResolver,
+              private formJsonService: FormJsonService
     ) {
     this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
@@ -49,15 +96,16 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   }
 
   onSubmit(form) {
-    form.name=this.instance.fieldControlService.component.name;
-    form.type=this.instance.fieldControlService.component.type;
+    form.name = this.instance.fieldControlService.component.name;
+    form.type = this.instance.fieldControlService.component.type;
 
     console.log(form);
     this.Json.components.push(form);
     JSON.stringify(this.Json);
+
     this.masterFormService.setCurrentKey(this.currentKey);
     this.masterFormService.setProperties(form);
-
+    this.formJsonService.buildFinalJSON();
     this.modalRef.close();
   }
 
