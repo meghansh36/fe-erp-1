@@ -18,6 +18,7 @@ export class FeBaseComponent implements Field, OnInit {
     constructor(public validator: FeValidatorsService) { }
 
     ngOnInit() {
+        console.log("FeBaseComponent ngOnInit");
         this.applyDefaultValidations();
     }
 
