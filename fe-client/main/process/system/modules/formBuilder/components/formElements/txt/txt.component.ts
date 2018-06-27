@@ -14,17 +14,29 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix;
   tooltip;
   description; */
+<<<<<<< HEAD
   properties = {placeholder: 'temp placeholder'};
+=======
+  showEdit = true;
+  name = 'xyz';
+  properties: {};
+>>>>>>> fc744462464a5970e3193edf689fe4d45e3d29ee
   ngOnInit() {
+    this.properties = {
+      label: 'test',
+      prefix: '',
+      suffix: '',
+      description: '',
+      placeholder: 'test',
+      tooltip: ''
+    };
     this.setRef(this.fieldControlService.getFieldRef().ref);
-    console.log("in ng on init")
   }
 
   ngDoCheck() {
-    const selectedComponentProperties = this.masterFormService.retrieveSelectedComponentProperties();
-    if (selectedComponentProperties) {
-      console.log("should work")
-      this.update(selectedComponentProperties);
+    const propsFromMasterForm = this.masterFormService.retrieveSelectedComponentProperties();
+    if (propsFromMasterForm) {
+      this.update(propsFromMasterForm);
   }
 }
 
@@ -33,27 +45,11 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     this.fieldControlService.getFieldRef().parent.openModal();
   }
 
-  update(selectedComponentProperties) {
-    console.log("in update function of txt component")
-    /* this.placeholder = selectedComponentProperties.placeholder;
-    this.prefix = selectedComponentProperties.prefix;
-
-    if ( !selectedComponentProperties.hideLabel) {
-      this.label = selectedComponentProperties.label;
-    } else {
-      this.label = '';
-    }
-
-    this.suffix = selectedComponentProperties.suffix;
-    this.description = selectedComponentProperties.description;
-    this.tooltip = selectedComponentProperties.tooltip; */
+  update(propsFromMasterForm) {
 
     this.properties = {
-      ...selectedComponentProperties
+      ...propsFromMasterForm
     };
-
-    console.log(this.properties);
-
   }
 
   }
