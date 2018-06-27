@@ -19,6 +19,7 @@ import * as _ from 'lodash';
 export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
+  // @ViewChild('f')tempData;
 
 
   componentData= <builderFieldCompInterface>{};
@@ -55,6 +56,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     console.log(form);
     this.Json.components.push(form);
     JSON.stringify(this.Json);
+
     this.masterFormService.setCurrentKey(this.currentKey);
     this.masterFormService.setProperties(form);
 

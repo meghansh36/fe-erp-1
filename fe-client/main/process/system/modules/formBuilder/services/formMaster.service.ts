@@ -9,6 +9,7 @@ export class FeFormMasterService {
   properties;
   currentEventType;
   key;
+  Json;
 
   constructor(private masterJsonService: FormJsonService) { }
 
@@ -40,5 +41,8 @@ export class FeFormMasterService {
   getCurrentKey() {
    return this.key;
   }
+
+
+
 
 }
