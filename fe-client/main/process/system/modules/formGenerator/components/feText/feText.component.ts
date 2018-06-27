@@ -1,44 +1,31 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
-import { FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { CustomValidators } from 'ng4-validators';
-
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
-import { FeValidatorsService } from '../../services/validators.service';
+import { FeBaseComponent } from '../feBase.component';
 
 @Component({
   selector: 'fe-text',
   styleUrls: ['feText.component.css'],
   templateUrl: 'feText.component.html'
 })
-export class FeTextComponent implements Field, OnInit {
-  config: FieldConfig;
-  group: FormGroup;
-  error: string;
-  name: string;
-  private errors = [];
-  
-  constructor(private validator: FeValidatorsService) { }
+export class FeTextComponent extends FeBaseComponent {
 
+  public defaultClasses: any;
   ngOnInit() {
-    let errors = [];
-    if (this.config.validators) {
-     this.validator.getValidator(this.config.validators);
-      //this.group.controls[this.config.flexiLabel].setValidators(errors);
+    super.ngOnInit()
+    this.initStyle();
+  }
+
+  initStyle() {
+    let type = this.config.type;
+    let labelPosition = 'top';
+    if( this.config.labelPosition ) {
+      labelPosition = this.config.labelPosition;
     }
-    /* this.group.controls[this.config.flexiLabel].setValidators([Validators.required, Validators.minLength(8)]);
-     this.group.controls[this.config.flexiLabel].valueChanges.subscribe((data) => {
-       console.log(this.group.controls[this.config.flexiLabel].valid);
-       const controlErrors: ValidationErrors = this.group.get(this.config.flexiLabel).errors;
-       if (controlErrors != null) {
-         Object.keys(controlErrors).forEach(keyError => {
-           this.error = 'Key control: ' + this.config.flexiLabel + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError];
-         });
-       }
-       else {
-         this.error = '';
-       }
-     })*/
+    let classes:any = { 
+      fieldWrapperClasses: `field-wrapper ${type}-field-wrapper field-label-${labelPosition}`,
+      fieldLableContainerClasses: `field-container field-label-container ${type}-label-containe`,
+      fielContainerdClasses: `field-container form-field-container ${type}-container`
+    };
+    this.defaultClasses = classes;
   }
 
 }

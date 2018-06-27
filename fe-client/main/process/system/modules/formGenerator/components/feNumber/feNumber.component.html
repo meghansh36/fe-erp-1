@@ -1,5 +1,9 @@
 <div class="fe-field fe-text TXT form-group " [formGroup]="group">
     <label for="{{ config.id }}">{{ config.label }}</label>
     <input type="number" class="form-control" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id">
-    <small style="color:red">{{error}}</small>
+    <div class="container">
+        <span *ngFor="let err of errors">
+            <small class="alert-danger" *ngIf="group.controls[config.flexiLabel].touched &&group.controls[config.flexiLabel].errors && group.controls[config.flexiLabel].errors[err.name]">{{err.message}}</small>
+        </span>
+    </div>
 </div>

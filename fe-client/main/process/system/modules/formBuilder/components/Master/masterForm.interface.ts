@@ -1,6 +1,7 @@
 
 
 export interface builderFieldCompInterface{
+  code:string,
   name:string,
   type:string,
   flexiLabel:string,

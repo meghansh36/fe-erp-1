@@ -12,4 +12,5 @@ export interface FieldConfig {
   validation?: ValidatorFn[];
   validators?: Object[];
   value?: any;
+  labelPosition?:string
 }

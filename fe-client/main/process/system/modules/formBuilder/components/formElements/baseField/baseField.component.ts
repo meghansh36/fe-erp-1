@@ -5,7 +5,52 @@ import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/
 
 @Injectable()
 export class FeBaseField {
-    constructor(public fieldControlService: FieldControlService, public masterFormService: FormMasterService, public formJsonService: FormJsonService) {}
+
+    applicableProperties = {
+  name: true,
+  type: true,
+  flexiLabel: true,
+  label: true,
+  hideLabel: true,
+  labelPosition: true,
+  labelWidth: true,
+  labelMargin: true,
+  placeholder: true,
+  description: true,
+  tooltip: true,
+  errorLabel: true,
+  inputMask: true,
+  prefix: true,
+  suffix: true,
+  customCssClass: true,
+  tabIndex: true,
+  clearValue: true,
+  hidden: true,
+  disabled: true,
+  defaultValue: true,
+  sqlQuery: true,
+  jsFunction: true,
+  jsonLogic: true,
+  nonPersistent: true,
+  appliedValidation: true,
+  minimumLength: true,
+  maximumLength: true,
+  regularExpression: true,
+  customErrorFunction: true,
+  customValidationFunction: true,
+  JSONLogic: true,
+  marginTop: true,
+  marginRight: true,
+  marginBottom: true,
+  marginLeft: true,
+  customFunction: true,
+  conditionalJsonLogic: true,
+
+    };
+
+    constructor(public fieldControlService: FieldControlService,
+        public masterFormService: FormMasterService,
+        public formJsonService: FormJsonService) {}
     refObj;
 
     setRef(reference) {

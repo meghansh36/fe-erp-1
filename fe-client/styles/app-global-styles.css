@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*---------------------{  Style for managing form field label position. */
+.field-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  
+  .field-label-top {
+    flex-direction: column;
+  }
+  
+  .field-label-bottom {
+    flex-direction: column-reverse;
+  }
+  
+  .field-label-right {
+    flex-direction: row-reverse;
+  }
+  
+  .field-label-left {
+    flex-direction: row;
+  }
+  
+  .field-label-left .field-container, .field-label-right .field-container {
+    width: 50%;
+  }
+  
+  .field-label-right .field-label  {
+    float: right;
+  }
+
+  /*-------------------------}          */
+  

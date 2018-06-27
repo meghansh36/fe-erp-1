@@ -1,4 +1,10 @@
 <div class="fe-field fe-text TXT form-group " [formGroup]="group">
-    <label for="{{ config.id }}">{{ config.label }}</label>
-    <input type="text" class="form-control" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id">
+    <div [ngClass] = "defaultClasses.fieldWrapperClasses" >
+           <div [ngClass] = "defaultClasses.fieldLableContainerClasses">
+                <label for="{{ config.id }}" class="field-label TXT-label" [hidden] = "config.hideLabel">{{ config.label }}</label>
+           </div> 
+           <div [ngClass] = "defaultClasses.fielContainerdClasses">
+                <input type="text" class="form-control form-field TXT-field" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id">
+           </div>
+    </div>
 </div>

@@ -23,37 +23,10 @@ export class FeFormSchemaService {
         formcontrol: 'username-form',
         label: 'Username',
         height: '',
+        hideLabel: false,
+        labelPosition: 'left',
         width: '100%',
         placeholder: 'Enter your Username',
-        validators: [
-          {
-            'name': 'required',
-            'value': true,
-            'message': 'This Field is required'
-          },
-          {
-            'name': 'minLength',
-            'value': 8,
-            'message': 'This Field should have minimum length of 8'
-          },
-          {
-            'name': 'maxLength',
-            'value': 15,
-            'message': 'This Field should have maximum length of 15'
-          }
-        ]
-      },
-      {
-        code: 'FLD000002',
-        flexiLabel: 'password',
-        id: 'FRM000001-FLD000002',
-        style: [],
-        formcontrol: 'password-form',
-        type: 'TXT',
-        label: 'Password',
-        height: '',
-        width: '100%',
-        placeholder: 'Enter your Password',
         validators: [
           {
             'name': 'required',
@@ -66,6 +39,31 @@ export class FeFormSchemaService {
           {
             'name': 'max-length',
             'value': 15
+          }
+        ]
+      },
+      {
+        code: 'FLD000002',
+        flexiLabel: 'password',
+        id: 'FRM000001-FLD000002',
+        style: [],
+        formcontrol: 'password-form',
+        type: 'TXT',
+        label: 'Password',
+        labelPosition: 'right',
+        height: '',
+        width: '100%',
+        placeholder: 'Enter your Password',
+        validators: [
+          {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          },
+          {
+            'name': 'pattern',
+            'value': '^[a-z0-9_-]{8,15}$',
+            'message': 'The Pattern is not correct'
           }
         ]
       },
@@ -84,6 +82,12 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
+          },
+          {
+            'name': 'email',
+            'value': true,
+            'message': 'This is not vaid email format'
           }
         ]
       },
@@ -102,14 +106,17 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 8
+            'name': 'minLength',
+            'value': 8,
+            'message': 'This Field should have minimum length of 8'
           },
           {
-            'name': 'max-length',
-            'value': 15
+            'name': 'maxLength',
+            'value': 15,
+            'message': 'This Field should have maximum length of 15'
           }
         ]
       },
@@ -147,7 +154,7 @@ export class FeFormSchemaService {
         placeholder: '--SELECT--',
         options: ['male', 'female', 'others'],
         style: [{ 'name': 'width', 'value': '221px' }],
-        id: 'FRM000001-FLD000004',
+        id: 'FRM000001-FLD000003',
         formcontrol: 'select-form',
         validators: [{ 'name': 'required', 'value': true }]
       },
@@ -223,7 +230,7 @@ export class FeFormSchemaService {
         type: 'TXA',
         code: 'FLD000006',
         flexiLabel: 'description',
-        id: 'FRM000001-FLD000006',
+        id: 'FRM000001-FRM000006',
         style: [],
         formcontrol: 'description-form',
         label: 'Description',

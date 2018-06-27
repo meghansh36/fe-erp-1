@@ -27,7 +27,6 @@ export class FeFormComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     this.form = this.createGroup();
-    console.log(this.form);
   }
 
   ngOnChanges() {
