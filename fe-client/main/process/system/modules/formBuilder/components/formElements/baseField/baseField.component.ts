@@ -6,6 +6,8 @@ import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/
 @Injectable()
 export class FeBaseField {
 
+    uniqueKey;
+
     applicableProperties = {
   name: true,
   type: true,
