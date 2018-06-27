@@ -14,13 +14,9 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix;
   tooltip;
   description; */
-<<<<<<< HEAD
-  properties = {placeholder: 'temp placeholder'};
-=======
   showEdit = true;
   name = 'xyz';
   properties: {};
->>>>>>> fc744462464a5970e3193edf689fe4d45e3d29ee
   ngOnInit() {
     this.properties = {
       label: 'test',
