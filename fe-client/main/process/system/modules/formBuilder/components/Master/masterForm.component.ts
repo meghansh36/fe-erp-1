@@ -1,5 +1,6 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { Component, ViewEncapsulation, OnInit, DoCheck, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, DoCheck,
+  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { clearOverrides } from '@angular/core/src/view';
@@ -66,7 +67,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
-    
+    this.instance.showEdit = false;
   }
 
   update(event) {

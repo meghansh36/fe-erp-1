@@ -7,34 +7,24 @@
       </ul>
     </span>
     <div class="form-group field">
-      <label for="">{{properties.label}}</label>
+        <label for="">{{properties.label}}</label>
       <div class="input-group" >
-      <div class="input-group-prepend" *ngIf='prefix'>
+      <div class="input-group-prepend" *ngIf='applicableProperties.prefix'>
         <span class="input-group-text" id="basic-addon1">{{properties.prefix}}</span>
       </div>
-      <input type="text" placeholder={{properties.placeholder}} class="form-control">
-      &nbsp;&nbsp;
-      <div class='mt-2' *ngIf='tooltip'>
-        <a class='card-tooltip' placement="right" ngbTooltip='{{properties.tooltip}}'>
-            <i class="material-icons"> help </i>
-          </a>
-        </div> 
-      <div class="input-group-append" *ngIf='suffix'>
+       <input type="text" placeholder={{properties.placeholder}} class="form-control">
+      
+      <div class="input-group-append" *ngIf='applicableProperties.suffix'>
         <span class="input-group-text">{{properties.suffix}}</span>
       </div>
-      
+      <div class='mt-2' *ngIf='applicableProperties.tooltip'>
+        <a class='card-tooltip' placement="right" ngbTooltip='{{properties.tooltip}}'> 
+          <i class="material-icons"> help </i>
+        </a> 
+      </div> 
       <br>
       <div role="presentation"><a >{{properties.description}}</a></div>
-      
-       
-
     </div>
-    
-
   </div>
-  
-   <div class="description">
-     {{description}}
-   </div>
 </div>
  
