@@ -8,15 +8,19 @@ export class FeFormJsonService {
         code: '',
         flexiLabel: '',
         label: '',
-        components: []
+        components: {}
     }
 
     getMasterJSON() {
         return this.MasterJSON;
     }
 
-    addComponentToMasterJSON(component) {
-        this.MasterJSON.components.push(component);
+    setMasterJSON(masterJson) {
+        this.MasterJSON = masterJson;
     }
-    
+
+    addComponentToMasterJSON(key, component) {
+        console.log(key);
+        this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: component});
+    }
 }

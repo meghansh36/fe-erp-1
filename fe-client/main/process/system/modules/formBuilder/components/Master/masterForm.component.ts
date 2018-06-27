@@ -5,7 +5,7 @@ import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { clearOverrides } from '@angular/core/src/view';
 import { builderFieldCompInterface } from './masterForm.interface';
-
+import * as _ from 'lodash';
 
 @Component(
 {
@@ -26,6 +26,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   modalRef: NgbModalRef;
   instance;
   showEdit:boolean;
+  currentKey;
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
     public fieldControlService:FieldControlService, private componentFactoryResolver: ComponentFactoryResolver,
@@ -40,7 +41,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
-    console.log(component);
     this.createComponentFunc(component);
   }
 
@@ -51,10 +51,9 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   onSubmit(form) {
 
     this.Json.components.push(form);
-     console.log(this.componentData);
-     console.log(form);
     JSON.stringify(this.Json);
-    this.masterFormService.savedInstance(form);
+    this.masterFormService.setCurrentKey(this.currentKey);
+    this.masterFormService.setProperties(form);
 
     this.modalRef.close();
   }
@@ -65,32 +64,34 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
-<<<<<<< HEAD
-
-=======
     this.instance.showEdit = false;
->>>>>>> cb45931af7362f783052471ea043893d801d5890
+    this.currentKey = this.masterFormService.getCurrentKey();
+    console.log("current key in master form", this.currentKey);
+    const propsFromBuilder = this.masterFormService.getProperties(this.currentKey);
+    this.instance.properties = _.assignIn({}, propsFromBuilder);
+    this.componentData = _.assignIn({}, this.instance.properties);
   }
 
   update(event) {
-    console.log('running event');
 
-    console.log(this.componentData.hideLabel);
-    if ( !this.componentData.hideLabel) {
-      this.instance.label = this.componentData.label;
-    } else {
-      this.instance.label = undefined;
-    }
+    // if ( !this.componentData.hideLabel) { const masterJSON = this.masterJsonService.getMasterJSON();
+    //   this.instance.properties.label = this.componentData.label;
+    // } else {
+    //   this.instance.properties.label = undefined;
+    // }
 
-    this.instance.suffix = this.componentData.suffix;
-    this.instance.description = this.componentData.description;
-    this.instance.tooltip = this.componentData.tooltip;
+    // this.instance.properties.suffix = this.componentData.suffix;
+    // this.instance.properties.description = this.componentData.description;
+    // this.instance.properties.tooltip = this.componentData.tooltip;
+
+    if (this.componentData.hideLabel) {this.componentData.label = undefined; }
+    console.log(this.componentData);
+    //this.masterFormService.setProperties(this.componentData);
+    this.instance.properties = _.assignIn({}, this.componentData);
+    console.log('instance props', this.instance.properties);
   }
 
-  ngOnDestroy()
-  {
-    console.log("destroy called");
-    this.instance.showEdit=true;
-  }
+  ngOnDestroy() {}
+
 
 }
