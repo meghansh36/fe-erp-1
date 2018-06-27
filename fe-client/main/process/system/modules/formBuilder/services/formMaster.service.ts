@@ -26,5 +26,4 @@ export class FeFormMasterService {
   getModalRef() {
     return this.modalReference;
   }
-  
 }
