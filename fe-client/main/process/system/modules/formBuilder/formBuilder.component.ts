@@ -33,7 +33,7 @@ export class FeFormBuilderComponent {
     this.component = event.dragData;
     this.createComponentFunc(this.component);
     this.openModal();
-    
+
   }
   openModal() {
     console.log('modal');
