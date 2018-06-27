@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
@@ -11,7 +11,7 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
   templateUrl: './formBuilder.component.html',
   styleUrls: ['./formBuilder.component.css']
 })
-export class FeFormBuilderComponent{
+export class FeFormBuilderComponent implements DoCheck{
 
   @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
   @ViewChild('content') content;
@@ -20,13 +20,21 @@ export class FeFormBuilderComponent{
   advanced: String = 'advanced';
   modalRef: NgbModalRef;
   component: any;
-
+  finalJSON;
   constructor(private bootstrapService: NgbModal,
               private masterFormService: FormMasterService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private fieldControlService: FieldControlService,
               private formJsonService: FormJsonService
               ) {}
+
+
+     ngDoCheck(){
+       this.finalJSON = this.formJsonService.getFinalJSON();
+
+     }
+
+
 
 
   dropComplete(event) {
@@ -36,6 +44,7 @@ export class FeFormBuilderComponent{
     this.openModal();
 
   }
+
 
   openModal() {
     console.log('modal');
