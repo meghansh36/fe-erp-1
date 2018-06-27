@@ -65,11 +65,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
-<<<<<<< HEAD
-
-=======
     this.instance.showEdit = false;
->>>>>>> cb45931af7362f783052471ea043893d801d5890
   }
 
   update(event) {

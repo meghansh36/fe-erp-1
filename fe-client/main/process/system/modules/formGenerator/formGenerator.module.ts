@@ -19,11 +19,6 @@ import { FeRadioComponent } from './components/feRadio/feRadio.component';
 import { FeFieldSetComponent } from './components/feFieldSet/feFieldSet.component';
 import { FeEmailComponent } from './components/feEmail/feEmail.component';
 import { FeFilComponent } from './components/feFile/feFile.component';
-<<<<<<< HEAD
-
-
-=======
->>>>>>> cb45931af7362f783052471ea043893d801d5890
 
 
 @NgModule({
