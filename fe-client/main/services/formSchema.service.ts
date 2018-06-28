@@ -38,23 +38,21 @@ export class FeFormSchemaService {
         marginBottom: '10px',
         marginLeft: '10px',
         labelWidth: 0,
-        width: '50%',
+        width: '100%',
         placeholder: 'Enter your Username',
         formClassValidator: [
-          { 'function': 'checkPattern' }
+          { 'funcName': 'checkPattern', 'message': 'Wrong pattern' }
         ],
         validators: [
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 8
-          },
-          {
-            'name': 'max-length',
-            'value': 15
+            'name': 'minLength',
+            'value': 8,
+            'message': 'Minimum length should be 8'
           }
         ]
       },
@@ -69,12 +67,12 @@ export class FeFormSchemaService {
         prefix: '#',
         suffix: '&',
         customCssClass: 'custom-css-class2',
-        labelWidth:0,
+        labelWidth: 0,
         labelPosition: 'left',
         labelMargin: 0,
         height: '',
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
-        width: '30%',
+        width: '100%',
         placeholder: 'Enter your Password',
         validators: [
           {
