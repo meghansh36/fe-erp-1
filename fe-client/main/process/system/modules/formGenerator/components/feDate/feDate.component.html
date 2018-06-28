@@ -1,14 +1,11 @@
 <div class="fe-field fe-text TXT form-group " [formGroup]="group">
     <label for="{{ config.id }}">{{ config.label }}</label>
-    <input class="form-control" [formControlName]="config.flexiLabel" [attr.placeholder]="config.placeholder" [attr.id]="config.id"
-        ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
-    <div class="container">
+    <input class="form-control" [ngClass]="{'is-invalid':group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)}"
+        [formControlName]="config.flexiLabel" [attr.placeholder]="config.placeholder" [attr.id]="config.id" ngbDatepicker #d="ngbDatepicker"
+        (click)="d.toggle()">
+    <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)">
         <span *ngFor="let err of customVal">
-            <small class="alert-danger" *ngIf="(group.controls[config.flexiLabel].touched ||
-                group.controls[config.flexiLabel].dirty) &&
-                 group.controls[config.flexiLabel].invalid &&  
-                 group.controls[config.flexiLabel].errors[err.name]
-                 ">
+            <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
                 {{ err.message }}
             </small>
         </span>

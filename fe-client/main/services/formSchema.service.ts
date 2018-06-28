@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ValidatorFn } from '@angular/forms';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,9 @@ export class FeFormSchemaService {
         labelPosition: 'left',
         width: '100%',
         placeholder: 'Enter your Username',
+        formClassValidator: [
+          { 'function': 'checkPattern' }
+        ],
         validators: [
           {
             'name': 'required',
@@ -107,13 +110,12 @@ export class FeFormSchemaService {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
-          },
-          {
-            'name': 'ageRange',
-            'value': 50,
-            'message': 'Value should be less than 50'
           }
-        ]
+        ],
+        customValidator: {
+          'agelimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+          'message': 'Age should be less than 50'
+        }
       },
       {
         type: 'ACS',
@@ -196,7 +198,7 @@ export class FeFormSchemaService {
         formcontrol: 'date-form',
         placeholder: 'dd-mm-yyyy',
         customValidator: {
-          'yearlimit': function(control:AbstractControl):{[key:string]:boolean}|null{if(control.value!==undefined&&(isNaN(control.value.year)||control.value.year<2010)){return{'yearlimit':true};}return null;},
+          'yearlimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; },
           'message': 'Year should be greater than 2010'
         }
       },
