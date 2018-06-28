@@ -10,7 +10,8 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
-  customValidator: Object;
+  customValidator?: Object;
   validators?: Object[];
+  formClassValidator?: Object;
   value?: any;
 }
