@@ -4,6 +4,11 @@ export interface FieldConfig {
   disabled?: boolean;
   label?: string;
   // name: string;
+  hideLabel?: boolean,
+  prefix?: string,
+  suffix?: string,
+  customCssClass: string,
+  description?: string; 
   code: string;
   flexiLabel: string;
   options?: string[];
@@ -14,4 +19,14 @@ export interface FieldConfig {
   validators?: Object[];
   formClassValidator?: Array<{ funcName: string , message: string}>;
   value?: any;
+  labelPosition?: string,
+  labelWidth?: number ,
+  hidden?: boolean ,
+  labelMargin?: number,
+  tabIndex?: string,
+  marginTop?: string,
+  marginRight?: string,
+  marginBottom?: string,
+  marginLeft?: string,
+  width?:string
 }
