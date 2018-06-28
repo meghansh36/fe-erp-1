@@ -21,25 +21,26 @@
                 <span class="input-group-text"> {{ config.suffix }} </span>
             </div>
         </div>
-        <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
-            [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
-            <span *ngFor="let err of customVal">
-                <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
-                    {{err.message}}
-                    <br>
-                </small>
-            </span>
-            <span *ngFor="let err of errors">
-                <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
-                    {{err.message}}
-                </small>
-            </span>
-            <span *ngFor="let err of formClassVal">
-                <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
-                    {{err.message}}
-                </small>
-            </span>
-        </div>
+       
+    </div>
+    <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+    [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
+    <span *ngFor="let err of customVal">
+        <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+            {{err.message}}
+            <br>
+        </small>
+    </span>
+    <span *ngFor="let err of errors">
+        <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+            {{err.message}}
+        </small>
+    </span>
+    <span *ngFor="let err of formClassVal">
+        <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+            {{err.message}}
+        </small>
+    </span>
     </div>
 </div>
 

@@ -128,6 +128,7 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
             fieldDescWrapperClasses: `field-desc-container ${type}-desc-cont`,
             fieldDescContainerClasses: `form-text text-muted field-desc ${type}-desc`,
             labelClasses: `field-label ${type}-label`,
+            fieldErrorWrapperClasses: `field-error-wrapper`,
             fieldClasses
         };
         return classes;
