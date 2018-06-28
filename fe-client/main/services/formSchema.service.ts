@@ -29,7 +29,7 @@ export class FeFormSchemaService {
         hidden: false,
         labelMargin: 20,
         tabIndex: '1',
-        suffix: 'example@gmail.com',
+        suffix: 'suff',
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'left',
@@ -38,7 +38,7 @@ export class FeFormSchemaService {
         marginBottom: '10px',
         marginLeft: '10px',
         labelWidth: 0,
-        width: '100%',
+        width: '50%',
         placeholder: 'Enter your Username',
         validators: [
           {
@@ -67,11 +67,11 @@ export class FeFormSchemaService {
         suffix: '&',
         customCssClass: 'custom-css-class2',
         labelWidth:0,
-        labelPosition: 'bottom',
+        labelPosition: 'left',
         labelMargin: 0,
         height: '',
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
-        width: '100%',
+        width: '30%',
         placeholder: 'Enter your Password',
         validators: [
           {
@@ -96,7 +96,7 @@ export class FeFormSchemaService {
         label: 'Email',
         height: '',
         tabIndex: '2',
-        width: '100%',
+        width: '30%',
         placeholder: 'Enter your Email',
         validators: [
           {
@@ -120,7 +120,7 @@ export class FeFormSchemaService {
         formcontrol: 'number-form',
         label: 'Number',
         height: '',
-        width: '100%',
+        width: '40%',
         placeholder: 'Enter your Number',
         validators: [
           {

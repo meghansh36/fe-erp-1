@@ -22,8 +22,9 @@ export interface FieldConfig {
   hidden?: boolean ,
   labelMargin?: number,
   tabIndex?: string,
-  marginTop:string,
-  marginRight:string,
-  marginBottom:string,
-  marginLeft:string,
+  marginTop?: string,
+  marginRight?: string,
+  marginBottom?: string,
+  marginLeft?: string,
+  width?:string
 }
