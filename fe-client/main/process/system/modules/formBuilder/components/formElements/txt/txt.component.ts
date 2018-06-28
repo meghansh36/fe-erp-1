@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
@@ -7,54 +8,53 @@ import { FeBaseField } from '../baseField/baseField.component';
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
 export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
-  /* placeholder = '';
-  showEdit:boolean=false;
-  label = 'text';
-  prefix ;
-  suffix;
-  tooltip;
-  description; */
-  properties = {};
+  showEdit = true;
+  properties = {
+  label: 'test',
+  prefix: '',
+  suffix: '',
+  description: '',
+  placeholder: 'test',
+  tooltip: ''};
+
   ngOnInit() {
+
+    // this.properties = {
+    //   label: 'test',
+    //   prefix: '',
+    //   suffix: '',
+    //   description: '',
+    //   placeholder: 'test',
+    //   tooltip: ''
+    // };
+    console.log("initialized a new instance", this.properties);
     this.setRef(this.fieldControlService.getFieldRef().ref);
-    console.log("in ng on init")
+    this.uniqueKey = this.masterFormService.getCurrentKey();
+    console.log(this.uniqueKey);
+   // this.masterFormService.setCurrentKey(this.uniqueKey);
+    this.masterFormService.setProperties(this.properties);
   }
 
   ngDoCheck() {
-    const selectedComponentProperties = this.masterFormService.retrieveSelectedComponentProperties();
-    if (selectedComponentProperties) {
-      console.log("should work")
-      this.update(selectedComponentProperties);
-  }
+  //   const propsFromMasterForm = this.masterFormService.getProperties(this.uniqueKey);
+  //  // console.log("master form props", propsFromMasterForm);
+  //   if (propsFromMasterForm) {
+  //     this.update(propsFromMasterForm);
+  // }
 }
 
 
   openModal() {
+    this.masterFormService.setCurrentKey(this.uniqueKey);
+    this.masterFormService.setProperties(this.properties);
     this.fieldControlService.getFieldRef().parent.openModal();
   }
 
-  update(selectedComponentProperties) {
-    console.log("in update function of txt component")
-    /* this.placeholder = selectedComponentProperties.placeholder;
-    this.prefix = selectedComponentProperties.prefix;
-
-    if ( !selectedComponentProperties.hideLabel) {
-      this.label = selectedComponentProperties.label;
-    } else {
-      this.label = '';
-    }
-
-    this.suffix = selectedComponentProperties.suffix;
-    this.description = selectedComponentProperties.description;
-    this.tooltip = selectedComponentProperties.tooltip; */
-
-    this.properties = {
-      ...selectedComponentProperties
-    };
-
-    console.log(this.properties);
-
+  update(propsFromMasterForm) {
+    this.properties = _.assignIn({},propsFromMasterForm);
   }
+
+
 
   }
 

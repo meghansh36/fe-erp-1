@@ -1,4 +1,18 @@
 <div class="fe-field fe-text TXT form-group " [formGroup]="group">
     <label for="{{ config.id }}">{{ config.label }}</label>
-    <textarea class="form-control" cols="50" rows="8" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id"></textarea>
+    <textarea class="form-control" [ngClass]="{'is-invalid':group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)}"
+        cols="50" rows="8" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id"></textarea>
+    <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)">
+        <span *ngFor="let err of customVal">
+            <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+                {{err.message}}
+                <br>
+            </small>
+        </span>
+        <span *ngFor="let err of errors">
+            <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+                {{err.message}}
+            </small>
+        </span>
+    </div>
 </div>

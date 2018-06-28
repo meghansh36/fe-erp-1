@@ -1,11 +1,12 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { Component, ViewEncapsulation, OnInit, DoCheck, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, DoCheck,
+  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { clearOverrides } from '@angular/core/src/view';
 import { builderFieldCompInterface } from './masterForm.interface';
-
-
+import * as _ from 'lodash';
+import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
 @Component(
 {
   selector: 'form-master',
@@ -18,18 +19,64 @@ import { builderFieldCompInterface } from './masterForm.interface';
 export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
+  // @ViewChild('f')tempData;
 
 
-  componentData= <builderFieldCompInterface>{};
+  componentData = <builderFieldCompInterface>{};
 
   modalRef: NgbModalRef;
-  tooltipBoolean = false;
-  currentEvent;
   instance;
-  showEdit:boolean;
+  showEdit: boolean;
+  currentKey;
+  applicableProperties={
+  label:true,
+  labelPosition:true,
+  labelWidth:true,
+  labelMargin:true,
+  placeholder:true,
+  description:true,
+  tooltip:true,
+  errorLabel:true,
+  inputMask:true,
+  prefix:true,
+  suffix:true,
+  customCssClass:true,
+  tabIndex:true,
+  clearValue:true,
+  hidden:true,
+  disabled:true,
+  defaultValue:true,
+  sqlQuery:true,
+  jsFunction:true,
+  jsonLogic:true,
+  nonPersistent:true,
+  appliedValidation:true,
+  minimumLength:true,
+  maximumLength:true,
+  regularExpression:true,
+  customErrorFunction:true,
+  customValidationFunction:true,
+  JSONLogic:true,
+  marginTop:true,
+  marginRight:true,
+  marginBottom:true,
+  marginLeft:true,
+  customFunction:true,
+  conditionalJsonLogic:true,
+  }
+
+
+
+
+
+
+
+
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
-    public fieldControlService:FieldControlService, private componentFactoryResolver: ComponentFactoryResolver,
+              public fieldControlService: FieldControlService,
+              private componentFactoryResolver: ComponentFactoryResolver,
+              private formJsonService: FormJsonService
     ) {
     this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
@@ -41,7 +88,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
-    console.log(component);
     this.createComponentFunc(component);
   }
 
@@ -50,13 +96,16 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   }
 
   onSubmit(form) {
+    form.name = this.instance.fieldControlService.component.name;
+    form.type = this.instance.fieldControlService.component.type;
 
+    console.log(form);
     this.Json.components.push(form);
-     console.log(this.componentData);
-     console.log(form);
     JSON.stringify(this.Json);
-    this.masterFormService.savedInstance(form);
 
+    this.masterFormService.setCurrentKey(this.currentKey);
+    this.masterFormService.setProperties(form);
+    this.formJsonService.buildFinalJSON();
     this.modalRef.close();
   }
 
@@ -66,29 +115,34 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
-    
+    this.instance.showEdit = false;
+    this.currentKey = this.masterFormService.getCurrentKey();
+    console.log("current key in master form", this.currentKey);
+    const propsFromBuilder = this.masterFormService.getProperties(this.currentKey);
+    this.instance.properties = _.assignIn({}, propsFromBuilder);
+    this.componentData = _.assignIn({}, this.instance.properties);
   }
 
   update(event) {
-    console.log('running event');
-    this.instance.placeholder = this.componentData.placeholder;
-    this.instance.prefix = this.componentData.prefix;
-    console.log(this.componentData.hideLabel);
-    if ( !this.componentData.hideLabel) {
-      this.instance.label = this.componentData.label;
-    } else {
-      this.instance.label = undefined;
-    }
 
-    this.instance.suffix = this.componentData.suffix;
-    this.instance.description = this.componentData.description;
-    this.instance.tooltip = this.componentData.tooltip;
+    // if ( !this.componentData.hideLabel) { const masterJSON = this.masterJsonService.getMasterJSON();
+    //   this.instance.properties.label = this.componentData.label;
+    // } else {
+    //   this.instance.properties.label = undefined;
+    // }
+
+    // this.instance.properties.suffix = this.componentData.suffix;
+    // this.instance.properties.description = this.componentData.description;
+    // this.instance.properties.tooltip = this.componentData.tooltip;
+
+    if (this.componentData.hideLabel) {this.componentData.label = undefined; }
+    console.log(this.componentData);
+    //this.masterFormService.setProperties(this.componentData);
+    this.instance.properties = _.assignIn({}, this.componentData);
+    console.log('instance props', this.instance.properties);
   }
 
-  ngOnDestroy()
-  {
-    console.log("destroy called");
-    this.instance.showEdit=true;
-  }
+  ngOnDestroy() {}
+
 
 }

@@ -1,33 +1,41 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
 import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
 import { FeFormSchemaService } from '../services/formSchema.service';
+import { FeValidatorsService } from '../process/system/modules/formGenerator/services/validators.service';
 
-export class DefaultFormComponent implements OnInit, AfterViewInit  {
+export class DefaultFormComponent implements OnInit, AfterViewInit {
     @ViewChild(FeFormComponent) form: FeFormComponent;
-    protected config = [];
-    constructor(protected formSchemaService: FeFormSchemaService) {}
+    public schema = [];
+    constructor(protected formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public render: Renderer2) { }
 
     protected code: String = 'DEFAULTFORM';
     ngOnInit() {
         const formSchema = this.formSchemaService.getFormSchema(this.code);
         const formComponents = formSchema.components;
-        this.config = formSchema;
+        this.schema = formSchema;
     }
 
     ngAfterViewInit() {
-        let previousValid = this.form.valid;
-        this.form.changes.subscribe(() => {
-            if (this.form.valid !== previousValid) {
-                previousValid = this.form.valid;
-                this.form.setDisabled('submit', !previousValid);
-            }
-        });
 
-        this.form.setDisabled('submit', true);
+        this._feAfterViewInit();
+        /* let previousValid = this.form.valid;
+          this.form.changes.subscribe(() => {
+              if (this.form.valid !== previousValid) {
+                  previousValid = this.form.valid;
+                  this.form.setDisabled('submit', !previousValid);
+              }
+          });
+  
+          this.form.setDisabled('submit', true);*/
         //this.form.setValue('input', 'Shubham Verma');
     }
+    feAfterViewInit() { }
 
-    submit(value: {[name: string]: any}) {
+    _feAfterViewInit() {
+        this.feAfterViewInit();
+    }
+
+    submit(value: { [name: string]: any }) {
         console.log(value);
     }
 }

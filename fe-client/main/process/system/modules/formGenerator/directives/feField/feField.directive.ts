@@ -60,7 +60,6 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
   }
 
   ngOnInit() {
-    console.log('config', this.config);
     if (!components[this.config.type]) {
       const supportedTypes = Object.keys(components).join(', ');
       throw new Error(

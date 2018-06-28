@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ValidatorFn } from '@angular/forms';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,9 @@ export class FeFormSchemaService {
         height: '',
         width: '100%',
         placeholder: 'Enter your Username',
+        formClassValidator: [
+          { 'function': 'checkPattern' }
+        ],
         validators: [
           {
             'name': 'required',
@@ -58,14 +61,12 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 8
-          },
-          {
-            'name': 'max-length',
-            'value': 15
+            'name': 'pattern',
+            'value': '^[a-z0-9_-]{8,15}$',
+            'message': 'The Pattern is not correct'
           }
         ]
       },
@@ -84,6 +85,12 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'This Field is required'
+          },
+          {
+            'name': 'email',
+            'value': true,
+            'message': 'This is not vaid email format'
           }
         ]
       },
@@ -102,16 +109,13 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
-          },
-          {
-            'name': 'min-length',
-            'value': 8
-          },
-          {
-            'name': 'max-length',
-            'value': 15
+            'message': 'This Field is required'
           }
-        ]
+        ],
+        customValidator: {
+          'agelimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+          'message': 'Age should be less than 50'
+        }
       },
       {
         type: 'ACS',
@@ -128,14 +132,7 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
-          },
-          {
-            'name': 'min-length',
-            'value': 8
-          },
-          {
-            'name': 'max-length',
-            'value': 15
+            'message': 'This Field is required'
           }
         ]
       },
@@ -200,7 +197,10 @@ export class FeFormSchemaService {
         id: 'FRM000001-FLD000004',
         formcontrol: 'date-form',
         placeholder: 'dd-mm-yyyy',
-        validators: [{ 'name': 'required', 'value': true }],
+        customValidator: {
+          'yearlimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; },
+          'message': 'Year should be greater than 2010'
+        }
       },
       {
         type: 'TIM',
@@ -234,14 +234,17 @@ export class FeFormSchemaService {
           {
             'name': 'required',
             'value': true,
+            'message': 'Field is required'
           },
           {
-            'name': 'min-length',
-            'value': 50
+            'name': 'minLength',
+            'value': 50,
+            'message': 'Minimum length required is 50'
           },
           {
-            'name': 'max-length',
-            'value': 150
+            'name': 'maxLength',
+            'value': 150,
+            'message': 'Maximum length required is 150'
           }
         ]
       },

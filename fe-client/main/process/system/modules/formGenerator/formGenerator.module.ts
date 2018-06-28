@@ -19,9 +19,6 @@ import { FeRadioComponent } from './components/feRadio/feRadio.component';
 import { FeFieldSetComponent } from './components/feFieldSet/feFieldSet.component';
 import { FeEmailComponent } from './components/feEmail/feEmail.component';
 import { FeFilComponent } from './components/feFile/feFile.component';
-// import { ShowErrorComponent } from './directives/validations/showError.component';
-
-
 
 
 @NgModule({
