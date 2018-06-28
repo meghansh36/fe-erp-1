@@ -1,42 +1,61 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-router.post('/login', function(req, res, next) {
-  passport.authenticate('local',{session: false}, function(err, user, info) {
-    if (err) { return next(err); }
+router.post('/login', (req, res, next)=> {
+
+  console.log("POST LOGIN");
+  console.log(req.body);
+
+  passport.authenticate('local', (err, user, info)=> {
+
+    console.log("PASSPORT AUTHENTICATE");
+    console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`);
+    console.log(`req.user: ${JSON.stringify(req.user)}`);
+    
+    if (err) { 
+      res.status(404).json(err);
+      return;
+    }
+    
     if (!user) { 
       console.log(req.get('Authorization'));
-      return res.json({
-      success:false,
-      message: 'Login Failed' });
+      return res.status(401).json({
+      success: false,
+      message: info?info.message:'Login Failed' 
+      });
      }
-    req.logIn(user,{session: false}, function(err) {
-      if (err) { return next(err); }
 
-      const token = jwt.sign({user:user}, 'your_jwt_secret',{ expiresIn: '60m' });
+    req.login(user, (err)=> {
+      if (err) { 
+        return next(err); 
+      }
+      console.log("INSIDE LOGIN");
+      console.log(`req.user: ${JSON.stringify(req.user)}`);
+      console.log(`req.body: ${JSON.stringify(req.body)}`);
+      req.session.username = req.body.username;
+      console.log(`req.session: ${JSON.stringify(req.session)}`);
+
+     const token = jwt.sign({user:user}, 'your_jwt_secret',{ expiresIn: '60m' });
       return res.json({
         success:true,
         message: 'Login Successful',
-        token});
+       token
+      });
     });
   })(req, res, next);
 });
 
 
-
-
-router.get('/logout', function(req, res){
+router.get('/logout', (req, res)=>{
     if(req.isAuthenticated()){
       req.logout();
       res.json({
           success:true,
-          message: 'Logout seuccessful'
+          message: 'Logout successful'
       });
     }
   });
-
-  
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate,ActivatedRouteSnapshot } from '@angular/router';
+import { Router, CanActivate,ActivatedRouteSnapshot,CanDeactivate } from '@angular/router';
 import { LoginService } from '@L3Process/default/modules/login/services/login.service';
 import { Observable } from 'rxjs';
 
@@ -23,3 +23,6 @@ export class FeLoginGuardService implements CanActivate {
     return true;
   }
 }
+
+ 
+ 

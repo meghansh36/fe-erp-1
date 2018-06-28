@@ -8,13 +8,34 @@ import { FormBuilderModule } from '@L3Process/system/modules/formBuilder/formBui
 import { FormRenderModule } from '@L3Process/system/modules/formRender/formRender.module';
 import { DefaultModule } from '@L3Process/default/modules/default/default.module';
 import { LoginModule } from '@L3Process/default/modules/login/login.module';
-import { routes } from '@L3Process/default/modules/home/home.routing';
+import { routes  } from '@L3Process/default/modules/home/home.routing';
+
+// import { routes as LoginRoutes } from '@L3Process/default/modules/login/login.routing';
+// import { LoginComponent } from '@L3Process/default/modules/login/login.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { CustomFormsModule } from 'ng4-validators';
 
 import { FormGeneratorModule } from '@L1Process/system/modules/formGenerator/formGenerator.module';
 import 'hammerjs';
 
+
+// function getToken():string{
+//   console.log(localStorage.getItem('token'));
+//   return localStorage.getItem('token');
+// }
+
+// let routes,component;
+
+// if(getToken()){
+//   routes = HomeRoutes;
+//   component = HomeComponent;
+// }
+// else {
+//   routes = LoginRoutes;
+//   component = LoginComponent;
+// }
+// console.log(routes);
 
 const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 
