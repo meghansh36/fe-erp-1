@@ -62,6 +62,10 @@ export class FeFormBuilderComponent implements DoCheck{
     const key = this.generateNewKey();
     this.masterFormService.setCurrentKey(key);
     const componentRef = viewContainerRef.createComponent(componentFactory);
+<<<<<<< HEAD
+    // console.log('in form builder', componentRef.instance.uniqueKey);
+=======
+>>>>>>> 65fcf1d0e9374fa2406cc8ad67d2727bd351d220
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
     this.formJsonService.addComponentToMasterJSON(key, componentRef);
   }

@@ -42,8 +42,20 @@ export class FeLoginComponent implements OnInit {
           console.log('resHit');
           this._router.navigate(['/formBuilder'])
         },
-        err => console.log(err)
+        err => {
+          console.log(err)
+        }
       )
+  }
+  logout(){
+    this._auth.logOut()
+    .subscribe(
+      res=>{
+        console.log(res);
+        console.log('logout');
+        this._router.navigate(['/login']);
+      }
+    );
   }
     
 }

@@ -17,7 +17,7 @@ export interface FieldConfig {
   validation?: ValidatorFn[];
   customValidator?: Object;
   validators?: Object[];
-  formClassValidator?: Object;
+  formClassValidator?: Array<{ funcName: string , message: string}>;
   value?: any;
   labelPosition?: string,
   labelWidth?: number ,

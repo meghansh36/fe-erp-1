@@ -7,11 +7,5 @@ import { FeBaseComponent } from '../feBase.component';
   templateUrl: 'feText.component.html'
 })
 export class FeTextComponent extends FeBaseComponent {
-  public style: any;
-  public defaultClasses: any;
-
-  ngOnInit() {
-  }
-
   
 }
