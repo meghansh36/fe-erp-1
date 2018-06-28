@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
+
 router.post('/login', (req, res, next)=> {
 
   console.log("POST LOGIN");
@@ -48,14 +49,20 @@ router.post('/login', (req, res, next)=> {
 });
 
 
-router.get('/logout', (req, res)=>{
-    if(req.isAuthenticated()){
-      req.logout();
-      res.json({
-          success:true,
-          message: 'Logout successful'
-      });
-    }
-  });
+router.get('/isloggedin', (req, res)=>{
+  // return false; 
+  return res.json({
+      status: !!req.session.username
+    });
+});
+
+// logging out user removing username from session
+router.get('/logout', (req, res) => {
+  req.session.username = undefined;
+  return res.json({
+   success: req.session.username
+ });
+});
+
 
 module.exports = router;

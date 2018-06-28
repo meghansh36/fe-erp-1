@@ -47,5 +47,15 @@ export class FeLoginComponent implements OnInit {
         }
       )
   }
+  logout(){
+    this._auth.logOut()
+    .subscribe(
+      res=>{
+        console.log(res);
+        console.log('logout');
+        this._router.navigate(['/login']);
+      }
+    );
+  }
     
 }

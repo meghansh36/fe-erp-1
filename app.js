@@ -39,10 +39,18 @@ app.use(session({
   resave: false,
   saveUninitialized: false,     //cookie won't be save for someone unauthorized(false)
   cookie:{
-    maxAge:120000,
-    expires:120000
+        maxAge:120000,
+        expires:120000
   }
 }));
+
+// checks if user's cookie is saved in the browser when user is logout
+app.use((req, res, next)=>{
+  if(req.cookies.user_sid && !req.session.username){
+    res.clearCookie('user_sid');
+  }
+  next();
+});
 
 app.use('/api', book);
 app.use('/api/default/login', login);
