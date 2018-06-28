@@ -21,11 +21,24 @@ export class FeFormSchemaService {
         id: 'FRM000001-FLD000001',
         style: [],
         formcontrol: 'username-form',
+        customCssClass: 'custom-css-class1',
         label: 'Username',
         height: '',
+        disabled: false,
+        prefix: '@',
+        hidden: false,
+        labelMargin: 20,
+        tabIndex: '1',
+        suffix: 'suff',
+        description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'left',
-        width: '100%',
+        marginTop: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        labelWidth: 0,
+        width: '50%',
         placeholder: 'Enter your Username',
         formClassValidator: [
           { 'function': 'checkPattern' }
@@ -53,9 +66,15 @@ export class FeFormSchemaService {
         formcontrol: 'password-form',
         type: 'TXT',
         label: 'Password',
-        labelPosition: 'right',
+        prefix: '#',
+        suffix: '&',
+        customCssClass: 'custom-css-class2',
+        labelWidth:0,
+        labelPosition: 'left',
+        labelMargin: 0,
         height: '',
-        width: '100%',
+        description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+        width: '30%',
         placeholder: 'Enter your Password',
         validators: [
           {
@@ -79,7 +98,8 @@ export class FeFormSchemaService {
         type: 'EML',
         label: 'Email',
         height: '',
-        width: '100%',
+        tabIndex: '2',
+        width: '30%',
         placeholder: 'Enter your Email',
         validators: [
           {
@@ -103,7 +123,7 @@ export class FeFormSchemaService {
         formcontrol: 'number-form',
         label: 'Number',
         height: '',
-        width: '100%',
+        width: '40%',
         placeholder: 'Enter your Number',
         validators: [
           {
