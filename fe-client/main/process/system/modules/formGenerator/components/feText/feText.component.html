@@ -15,7 +15,7 @@
             <div class="input-group-prepend" *ngIf="config.prefix">
                 <span class="input-group-text"> {{ config.prefix }} </span>
             </div>
-            <input type="text" [ngClass]="{defaultClasses.fieldClasses,'is-invalid':group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)}" [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder"
+            <input type="text" [ngClass]="defaultClasses.fieldClasses" [class.is-invalid]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)" [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder"
                 [formControlName]="config.flexiLabel" [attr.id]="config.id">
             <div class="input-group-append" *ngIf="config.suffix ">
                 <span class="input-group-text"> {{ config.suffix }} </span>
@@ -42,3 +42,4 @@
         </div>
     </div>
 </div>
+
