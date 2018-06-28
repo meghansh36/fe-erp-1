@@ -21,9 +21,9 @@ export class FRM0000001Component extends DefaultFormComponent implements OnInit,
 
     checkPattern() {
         return function (control: AbstractControl): { [key: string]: boolean } | null {
-            let isValid = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/.test(control.value);
-            if (isValid) {
-                return { 'pat': true };
+            let isValid = /\d/.test(control.value);
+            if (!isValid) {
+                return { 'checkpattern': true };
             }
             return null;
         }

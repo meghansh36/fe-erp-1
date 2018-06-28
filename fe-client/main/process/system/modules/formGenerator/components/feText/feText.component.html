@@ -12,6 +12,12 @@
         <span *ngFor="let err of errors">
             <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
                 {{err.message}}
+                <br>
+            </small>
+        </span>
+        <span *ngFor="let err of formClassVal">
+            <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+                {{err.message}}
             </small>
         </span>
     </div>

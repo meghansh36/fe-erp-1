@@ -14,7 +14,7 @@ import { FieldConfig } from '../../models/field-config.interface';
 export class FeTimeComponent implements Field {
   config: FieldConfig;
   group: FormGroup;
-  time: NgbTimeStruct = { hour: 13, minute: 30, second: 0 };
+  time: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
 
   constructor(config: NgbTimepickerConfig, private fb: FormBuilder) {
     config.seconds = true;

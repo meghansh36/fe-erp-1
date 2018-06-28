@@ -26,7 +26,7 @@ export class FeFormSchemaService {
         width: '100%',
         placeholder: 'Enter your Username',
         formClassValidator: [
-          { 'function': 'checkPattern' }
+          { 'funcName': 'checkPattern' , 'message':'Wrong pattern'}
         ],
         validators: [
           {
