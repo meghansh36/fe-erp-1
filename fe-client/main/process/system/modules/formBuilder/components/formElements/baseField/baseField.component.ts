@@ -62,6 +62,7 @@ export class FeBaseField {
     close() {
         this.formJsonService.removeComponent(this.uniqueKey);
         this.refObj.destroy();
+        this.formJsonService.buildFinalJSON();
     }
 
     openModal() {

@@ -19,7 +19,8 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
-  // @ViewChild('f')tempData;
+  
+  backupProperties;
 
 
   componentData = <builderFieldCompInterface>{};
@@ -66,12 +67,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   }
 
 
-
-
-
-
-
-
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
               public fieldControlService: FieldControlService,
@@ -87,7 +82,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
-    const component = this.fieldControlService.getFieldRef().component.component;
+    const component = this.fieldControlService.getFieldRef().component;
     this.createComponentFunc(component);
   }
 
@@ -99,14 +94,19 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
 
-    console.log(form);
+    console.log("submit",form);
     this.Json.components.push(form);
     JSON.stringify(this.Json);
-
+    
     this.masterFormService.setCurrentKey(this.currentKey);
     this.masterFormService.setProperties(form);
     this.formJsonService.buildFinalJSON();
     this.modalRef.close();
+  }
+
+  onReset() {
+    this.componentData = _.assign({}, this.backupProperties);
+    this.instance.properties = _.assign({}, this.backupProperties);
   }
 
   createComponentFunc(component) {
@@ -119,24 +119,15 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.currentKey = this.masterFormService.getCurrentKey();
     console.log("current key in master form", this.currentKey);
     const propsFromBuilder = this.masterFormService.getProperties(this.currentKey);
-    this.instance.properties = _.assignIn({}, propsFromBuilder);
+    this.backupProperties = _.assignIn({}, propsFromBuilder);
+    this.instance.properties = this.backupProperties;
     this.componentData = _.assignIn({}, this.instance.properties);
   }
 
   update(event) {
 
-    // if ( !this.componentData.hideLabel) { const masterJSON = this.masterJsonService.getMasterJSON();
-    //   this.instance.properties.label = this.componentData.label;
-    // } else {
-    //   this.instance.properties.label = undefined;
-    // }
-
-    // this.instance.properties.suffix = this.componentData.suffix;
-    // this.instance.properties.description = this.componentData.description;
-    // this.instance.properties.tooltip = this.componentData.tooltip;
-
     if (this.componentData.hideLabel) {this.componentData.label = undefined; }
-    console.log(this.componentData);
+    console.log("update event", this.componentData);
     //this.masterFormService.setProperties(this.componentData);
     this.instance.properties = _.assignIn({}, this.componentData);
     console.log('instance props', this.instance.properties);
