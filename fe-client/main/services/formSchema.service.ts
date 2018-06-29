@@ -167,6 +167,19 @@ export class FeFormSchemaService {
         validators: [{ 'name': 'required', 'value': true }]
       },
       {
+        type: 'SEL',
+        code: 'FLD000023',
+        flexiLabel: 'country',
+        label: 'Country',
+        isParent: 'Y',
+        placeholder: '--SELECT--',
+        options: ['India', 'USA', 'Germany'],
+        style: [{ 'name': 'width', 'value': '221px' }],
+        id: 'FRM000001-FLD000023',
+        formcontrol: 'select-form',
+        validators: [{ 'name': 'required', 'value': true }]
+      },
+      {
         type: 'FIL',
         code: 'FLD000015',
         flexiLabel: 'file',

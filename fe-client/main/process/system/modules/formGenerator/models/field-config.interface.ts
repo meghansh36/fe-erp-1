@@ -12,6 +12,7 @@ export interface FieldConfig {
   code: string;
   flexiLabel: string;
   options?: string[];
+  isParent?: string;
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];

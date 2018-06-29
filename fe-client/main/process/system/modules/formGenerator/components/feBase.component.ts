@@ -1,13 +1,10 @@
 import { Component, ViewContainerRef, OnInit, Injectable, Renderer2 } from '@angular/core';
 import { FormGroup, ValidationErrors, Validators, AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { FRM0000001Component } from '../../../../../forms/FRM0000001.component';
-import { CustomValidators } from 'ng4-validators';
-import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
-import { FeValidatorsService } from '../services/validators.service';
 import { Observable } from 'rxjs';
+
 @Injectable()
 export class FeBaseComponent extends FRM0000001Component implements Field, OnInit {
     public config: FieldConfig;
@@ -19,12 +16,25 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
     public errors = [];
     public style: any;
     public defaultClasses: any;
-
-    //constructor(public validator: FeValidatorsService, private render: Renderer2, config: NgbDatepickerConfig) { }
+    public statesOfCountry = [];
 
     ngOnInit() {
         this.applyDefaultValidations();
         this.initFieldStyle();
+        this.checkForDependentData();
+    }
+
+    checkForDependentData() {
+        if (this.config.isParent) {
+            let dependentData: any = this.dependent.dependentData(this.config.flexiLabel);
+            this.group.get(this.config.flexiLabel).valueChanges.subscribe((value) => {
+                dependentData[0].states.forEach((name) => {
+                    if (name.name == value) {
+                        this.statesOfCountry = name.states;
+                    }
+                })
+            })
+        }
     }
 
     applyDefaultValidations() {
@@ -76,7 +86,7 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
         this.defaultClasses = this.getFieldClasses();
         this.style = this.getFieldStyles();
     }
-    
+
 
     getFieldClasses() {
         let config = this.config;
