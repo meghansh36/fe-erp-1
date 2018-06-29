@@ -4,7 +4,7 @@
         [formControlName]="config.flexiLabel" [attr.placeholder]="config.placeholder" [attr.id]="config.id" ngbDatepicker #d="ngbDatepicker"
         (click)="d.toggle()">
     <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)">
-        <span *ngFor="let err of customVal">
+        <span *ngFor="let err of errors">
             <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
                 {{ err.message }}
             </small>

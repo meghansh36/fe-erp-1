@@ -4,7 +4,7 @@ import { DefaultFormComponent } from './DefaultForm.component';
 import { FeFormSchemaService } from '../services/formSchema.service';
 import { FeValidatorsService } from '../process/system/modules/formGenerator/services/validators.service';
 import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 
 @Component({
     selector: 'FRM0000001',
@@ -13,20 +13,24 @@ import { ValidatorFn, AbstractControl } from '@angular/forms';
 export class FRM0000001Component extends DefaultFormComponent implements OnInit, AfterViewInit {
     @ViewChild(FeFormComponent) form: FeFormComponent;
 
+    debouncer: any;
+    protected code: String = 'FRM0000001';
     constructor(protected formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public render: Renderer2) {
         super(formSchemaService, validator, render);
     }
 
-    protected code: String = 'FRM0000001';
-
-    checkPattern() {
-        return function (control: AbstractControl): { [key: string]: boolean } | null {
-            let isValid = /\d/.test(control.value);
-            if (!isValid) {
-                return { 'checkpattern': true };
-            }
-            return null;
-        }
+    A(control: AbstractControl): { [key: string]: any } {
+        return new Promise(resolve => {
+            this.debouncer = setTimeout(() => {
+                let isValid = /\d/.test(control.value);
+                if (!isValid) {
+                    resolve({ 'A': true });
+                }
+                else {
+                    resolve(null);
+                }
+            }, 1000);
+        });
     }
 
 }

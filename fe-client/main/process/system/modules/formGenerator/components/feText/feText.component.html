@@ -15,32 +15,21 @@
             <div class="input-group-prepend" *ngIf="config.prefix">
                 <span class="input-group-text"> {{ config.prefix }} </span>
             </div>
-            <input type="text" [ngClass]="defaultClasses.fieldClasses" [class.is-invalid]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)" [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder"
-                [formControlName]="config.flexiLabel" [attr.id]="config.id">
+            <input type="text" [ngClass]="defaultClasses.fieldClasses" [class.is-invalid]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+                [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
+                [attr.id]="config.id">
             <div class="input-group-append" *ngIf="config.suffix ">
                 <span class="input-group-text"> {{ config.suffix }} </span>
             </div>
         </div>
-       
-    </div>
-    <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
-    [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
-    <span *ngFor="let err of customVal">
-        <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
-            {{err.message}}
-            <br>
-        </small>
-    </span>
-    <span *ngFor="let err of errors">
-        <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
-            {{err.message}}
-        </small>
-    </span>
-    <span *ngFor="let err of formClassVal">
-        <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
-            {{err.message}}
-        </small>
-    </span>
+        <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+            [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
+            <span *ngFor="let err of errors">
+                <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+                    {{err.message}}
+                    <br>
+                </small>
+            </span>
+        </div>
     </div>
 </div>
-

@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, OnInit, Injectable, Renderer2 } from '@angular/core';
-import { FormGroup, ValidationErrors, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, ValidationErrors, Validators, AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { FRM0000001Component } from '../../../../../forms/FRM0000001.component';
 import { CustomValidators } from 'ng4-validators';
 import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
@@ -7,15 +7,13 @@ import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdap
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
 import { FeValidatorsService } from '../services/validators.service';
-
+import { Observable } from 'rxjs';
 @Injectable()
 export class FeBaseComponent extends FRM0000001Component implements Field, OnInit {
     public config: FieldConfig;
     public group: FormGroup;
     public error: string;
     public validators = [];
-    public customVal = [];
-    public formClassVal = [];
     public name: string;
     public show: boolean = false;
     public errors = [];
@@ -25,7 +23,6 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
     //constructor(public validator: FeValidatorsService, private render: Renderer2, config: NgbDatepickerConfig) { }
 
     ngOnInit() {
-        console.log("FeBaseComponent ngOnInit");
         this.applyDefaultValidations();
         this.initFieldStyle();
     }
@@ -45,7 +42,7 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
                     'name': Object.keys(this.config.customValidator)[0],
                     'message': msg
                 }
-                this.customVal.push(obj);
+                this.errors.push(obj);
             }
         }
         catch (err) {
@@ -57,12 +54,13 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
                 this.config.formClassValidator.forEach((fun) => {
                     fname = fun.funcName;
                     switch (fname) {
-                        case "checkPattern": this.validators.push(this.checkPattern());
+                        case "A":
+                            this.group.controls[this.config.flexiLabel].setAsyncValidators(this.A.bind(this));
                             let obj = {
-                                'name': 'checkpattern',
+                                'name': 'A',
                                 'message': fun.message
                             }
-                            this.formClassVal.push(obj);
+                            this.errors.push(obj);
                             break;
                     }
                 })
@@ -117,8 +115,8 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
 
         };
 
-        fieldClasses[ `${type}-field` ] = true;
-        fieldClasses[ `${customCssClass}` ] = true;
+        fieldClasses[`${type}-field`] = true;
+        fieldClasses[`${customCssClass}`] = true;
 
         let classes: any = {
             fieldMainWrapperClasses,
