@@ -7,10 +7,10 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var dynamicStatic = require('express-dynamic-static')();
 var book = require('./routes/book');
-var login = require ('./fe-server/main/process/default/routes/login.js');
+var login = require('./fe-server/main/process/default/routes/login.js');
 var login_ctrl = require('./fe-server/main/process/default/controllers/login.js')
 var fe = express();
-var app = express(); 
+var app = express();
 
 var clientIdentifier;
 
@@ -20,11 +20,11 @@ app.use(passport.session());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({'extended':'false'}));
+app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 
 app.use(dynamicStatic);
 app.use('/api', book);
-app.use('/api/default/login',login);
+app.use('/api/default/login', login);
 //main get Route 
 /* app.use('/client/:id', function(req,res,next){
   if(req.params.id){

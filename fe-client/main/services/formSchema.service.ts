@@ -21,10 +21,28 @@ export class FeFormSchemaService {
         id: 'FRM000001-FLD000001',
         style: [],
         formcontrol: 'username-form',
+        customCssClass: 'custom-css-class1',
         label: 'Username',
         height: '',
+        disabled: false,
+        prefix: '@',
+        hidden: false,
+        labelMargin: 20,
+        tabIndex: '1',
+        suffix: 'suff',
+        description: 'This is a dummy field. Field description would be here',
+        hideLabel: false,
+        labelPosition: 'left',
+        marginTop: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        labelWidth: 0,
         width: '100%',
         placeholder: 'Enter your Username',
+        formClassValidator: [
+          { 'funcName': 'A', 'message': 'Pattern is not correct' }
+        ],
         validators: [
           {
             'name': 'required',
@@ -34,12 +52,7 @@ export class FeFormSchemaService {
           {
             'name': 'minLength',
             'value': 8,
-            'message': 'This Field should have minimum length of 8'
-          },
-          {
-            'name': 'maxLength',
-            'value': 15,
-            'message': 'This Field should have maximum length of 15'
+            'message': 'Minimum length should be 8'
           }
         ]
       },
@@ -51,7 +64,14 @@ export class FeFormSchemaService {
         formcontrol: 'password-form',
         type: 'TXT',
         label: 'Password',
+        prefix: '#',
+        suffix: '&',
+        customCssClass: 'custom-css-class2',
+        labelWidth: 0,
+        labelPosition: 'left',
+        labelMargin: 0,
         height: '',
+        description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '100%',
         placeholder: 'Enter your Password',
         validators: [
@@ -76,7 +96,8 @@ export class FeFormSchemaService {
         type: 'EML',
         label: 'Email',
         height: '',
-        width: '100%',
+        tabIndex: '2',
+        width: '30%',
         placeholder: 'Enter your Email',
         validators: [
           {
@@ -100,20 +121,19 @@ export class FeFormSchemaService {
         formcontrol: 'number-form',
         label: 'Number',
         height: '',
-        width: '100%',
+        width: '40%',
         placeholder: 'Enter your Number',
         validators: [
           {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
-          },
-          {
-            'name': 'ageRange',
-            'value': 50,
-            'message': 'Value should be less than 50'
           }
-        ]
+        ],
+        customValidator: {
+          'agelimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+          'message': 'Age should be less than 50'
+        }
       },
       {
         type: 'ACS',
@@ -142,7 +162,20 @@ export class FeFormSchemaService {
         placeholder: '--SELECT--',
         options: ['male', 'female', 'others'],
         style: [{ 'name': 'width', 'value': '221px' }],
-        id: 'FRM000001-FLD000004',
+        id: 'FRM000001-FLD000003',
+        formcontrol: 'select-form',
+        validators: [{ 'name': 'required', 'value': true }]
+      },
+      {
+        type: 'SEL',
+        code: 'FLD000023',
+        flexiLabel: 'country',
+        label: 'Country',
+        isParent: 'Y',
+        placeholder: '--SELECT--',
+        options: ['India', 'USA', 'Germany'],
+        style: [{ 'name': 'width', 'value': '221px' }],
+        id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',
         validators: [{ 'name': 'required', 'value': true }]
       },
@@ -196,7 +229,7 @@ export class FeFormSchemaService {
         formcontrol: 'date-form',
         placeholder: 'dd-mm-yyyy',
         customValidator: {
-          'yearlimit': function(control:AbstractControl):{[key:string]:boolean}|null{if(control.value!==undefined&&(isNaN(control.value.year)||control.value.year<2010)){return{'yearlimit':true};}return null;},
+          'yearlimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; },
           'message': 'Year should be greater than 2010'
         }
       },
@@ -221,7 +254,7 @@ export class FeFormSchemaService {
         type: 'TXA',
         code: 'FLD000006',
         flexiLabel: 'description',
-        id: 'FRM000001-FLD000006',
+        id: 'FRM000001-FRM000006',
         style: [],
         formcontrol: 'description-form',
         label: 'Description',

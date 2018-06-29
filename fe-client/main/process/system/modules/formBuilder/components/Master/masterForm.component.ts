@@ -1,6 +1,5 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { Component, ViewEncapsulation, OnInit, DoCheck,
-  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, DoCheck, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { clearOverrides } from '@angular/core/src/view';
@@ -26,6 +25,8 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   componentData = <builderFieldCompInterface>{};
 
   modalRef: NgbModalRef;
+  tooltipBoolean = false;
+  currentEvent;
   instance;
   showEdit: boolean;
   currentKey;
@@ -76,6 +77,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
 
+    console.log(this.Json.components[0]);
   }
 
   ngDoCheck() {}

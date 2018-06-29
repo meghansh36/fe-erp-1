@@ -5,3 +5,10 @@
     <option *ngFor="let option of config.options" value="{{ option }}"> {{ option }} </option>
   </select>
 </div>
+<div>
+  <label>States</label>
+  <select *ngIf="statesOfCountry.length > 0">
+    <option>Pick a state</option>
+    <option *ngFor="let p of statesOfCountry">{{p}}</option>
+  </select>
+</div>

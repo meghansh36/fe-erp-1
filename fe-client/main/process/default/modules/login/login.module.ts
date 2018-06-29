@@ -12,6 +12,7 @@ import { LoginGuardService } from '@L3Process/default/modules/login/services/log
 
 
 import { routes } from '@L3Process/default/modules/login/login.routing';
+import { AuthService } from '@L3Process/default/modules/login/services/auth.service';
 
 const routing: ModuleWithProviders = RouterModule.forChild(routes);
 
@@ -25,7 +26,7 @@ const routing: ModuleWithProviders = RouterModule.forChild(routes);
     HttpClientModule,
     routing
   ],
-  providers: [LoginService, LoginGuardService]
+  providers: [LoginService, LoginGuardService, AuthService]
 })
 export class FeLoginModule { }
 

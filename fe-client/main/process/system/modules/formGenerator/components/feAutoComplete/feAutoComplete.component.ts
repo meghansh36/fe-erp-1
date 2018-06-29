@@ -21,8 +21,6 @@ export class FeAutoCompleteComponent extends FeBaseComponent {
     'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
   private country: string;
   private searched = [];
-
-  public model: any;
   error: string;
 
   search = (text$: Observable<string>) =>
