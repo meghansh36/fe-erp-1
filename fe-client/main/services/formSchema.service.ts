@@ -136,6 +136,26 @@ export class FeFormSchemaService {
         }
       },
       {
+        type: 'TXT',
+        code: 'FLD000009',
+        flexiLabel: 'mask',
+        id: 'FRM000001-FLD000019',
+        style: [],
+        formcontrol: 'mask-form',
+        label: 'Mask Input',
+        mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+        height: '',
+        width: '40%',
+        placeholder: 'Enter your USA number',
+        validators: [
+          {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        ]
+      },
+      {
         type: 'ACS',
         code: 'FLD000008',
         flexiLabel: 'autocomplete',

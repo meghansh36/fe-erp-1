@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
 import { DefaultFormComponent } from './DefaultForm.component';
 import { FeFormSchemaService } from '../services/formSchema.service';
@@ -15,9 +15,12 @@ export class FRM0000001Component extends DefaultFormComponent implements OnInit,
     @ViewChild(FeFormComponent) form: FeFormComponent;
 
     debouncer: any;
+
     protected code: String = 'FRM0000001';
-    constructor(protected formSchemaService: FeFormSchemaService, public validator: FeValidatorsService , public dependent: FeDependentService) {
-        super(formSchemaService, validator , dependent);
+    constructor(protected formSchemaService: FeFormSchemaService,
+        protected validator: FeValidatorsService,
+        protected dependent: FeDependentService) {
+        super(formSchemaService, validator, dependent);
     }
 
     A(control: AbstractControl): { [key: string]: any } {

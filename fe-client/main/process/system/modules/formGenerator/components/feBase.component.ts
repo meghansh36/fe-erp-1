@@ -1,11 +1,11 @@
-import { Component, ViewContainerRef, OnInit, Injectable, Renderer2 } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, ValidationErrors, Validators, AbstractControl, AsyncValidatorFn, FormControl } from '@angular/forms';
 import { FRM0000001Component } from '../../../../../forms/FRM0000001.component';
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
 import { Observable } from 'rxjs';
 
-@Injectable()
+
 export class FeBaseComponent extends FRM0000001Component implements Field, OnInit {
     public config: FieldConfig;
     public group: FormGroup;
@@ -83,6 +83,14 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
             console.log(err);
         }
         this.group.controls[this.config.flexiLabel].setValidators(this.validators);
+    }
+
+
+    getMask() {
+        if (this.config.mask) {
+            return this.config.mask;
+        }
+        return false;
     }
 
     initFieldStyle() {
