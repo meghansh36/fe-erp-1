@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, AfterViewInit, Renderer2 } from '@angular
 import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
 import { DefaultFormComponent } from './DefaultForm.component';
 import { FeFormSchemaService } from '../services/formSchema.service';
-import { FeValidatorsService } from '../process/system/modules/formGenerator/services/validators.service';
-import { FeDependentService } from '../process/system/modules/formGenerator/services/dependent.service';
+import { FeValidatorsService } from '../services/validators.service';
+import { FeDependentService } from '../services/dependent.service';
 import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 
@@ -16,8 +16,8 @@ export class FRM0000001Component extends DefaultFormComponent implements OnInit,
 
     debouncer: any;
     protected code: String = 'FRM0000001';
-    constructor(protected formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public render: Renderer2, public dependent: FeDependentService) {
-        super(formSchemaService, validator, render, dependent);
+    constructor(protected formSchemaService: FeFormSchemaService, public validator: FeValidatorsService , public dependent: FeDependentService) {
+        super(formSchemaService, validator , dependent);
     }
 
     A(control: AbstractControl): { [key: string]: any } {

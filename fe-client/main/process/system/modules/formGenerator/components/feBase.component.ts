@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, OnInit, Injectable, Renderer2 } from '@angular/core';
-import { FormGroup, ValidationErrors, Validators, AbstractControl, AsyncValidatorFn } from '@angular/forms';
+import { FormGroup, ValidationErrors, Validators, AbstractControl, AsyncValidatorFn, FormControl } from '@angular/forms';
 import { FRM0000001Component } from '../../../../../forms/FRM0000001.component';
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
@@ -17,6 +17,7 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
     public style: any;
     public defaultClasses: any;
     public statesOfCountry = [];
+    public newControl: string;
 
     ngOnInit() {
         this.applyDefaultValidations();
@@ -30,6 +31,8 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
             this.group.get(this.config.flexiLabel).valueChanges.subscribe((value) => {
                 dependentData[0].states.forEach((name) => {
                     if (name.name == value) {
+                        this.newControl = Object.keys(dependentData[0])[1];
+                        this.group.addControl(this.newControl, new FormControl(''));
                         this.statesOfCountry = name.states;
                     }
                 })
