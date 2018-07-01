@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['default.component.css']
 })
 export class FeDefaultComponent {
+  public instance: FeDefaultComponent;
+  
+  constructor() {
+    this.instance = this;
+  }
 }

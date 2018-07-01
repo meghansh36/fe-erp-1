@@ -12,6 +12,9 @@ import { FieldConfig } from '../../models/field-config.interface';
 export class FeFormComponent implements OnChanges, OnInit {
   @Input()
   components: FieldConfig[] = [];
+  
+  @Input()
+  resource: any;
 
   @Output()
   submit: EventEmitter<any> = new EventEmitter<any>();

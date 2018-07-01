@@ -5,4 +5,5 @@ export interface Field {
   config: FieldConfig;
   group: FormGroup;
   form: any;
+  resource: any;
 }

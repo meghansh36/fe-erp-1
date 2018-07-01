@@ -18,6 +18,12 @@ import { FieldConfig } from '../models/field-config.interface';
 
 @Injectable()
 export class FeBaseComponent implements Field, OnInit, OnDestroy {
+    
+    public config: FieldConfig;
+    public group: FormGroup;
+    public form: FeFormComponent;
+    public resource: any;
+
     public error: string;
     public validators = [];
     public name: string;
@@ -26,19 +32,19 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
     public style: any;
     public defaultClasses: any;
     public defaultFieldWidth: any;
-    public form: FeFormComponent;
-    public config: FieldConfig;
-    public group: FormGroup;
+    
     public $statusChange: any;
 
     constructor( public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
+        
         
     }
     public statesOfCountry = [];
     public newControl: string;
 
     ngOnInit(): void {
+        console.log("resource", this.resource);
         this.applyDefaultValidations();
         this.initFieldStyle();
         this.applyWatch();

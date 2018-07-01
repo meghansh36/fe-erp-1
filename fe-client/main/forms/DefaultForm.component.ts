@@ -1,14 +1,17 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
 import { FeFormSchemaService } from '../services/formSchema.service';
 
 export class DefaultFormComponent implements OnInit, AfterViewInit {
+    @Input() resource: any;
     @ViewChild(FeFormComponent) form: FeFormComponent;
+   
     public schema = [];
+    protected code: String = 'DEFAULTFORM';
+    
     constructor(protected formSchemaService: FeFormSchemaService) { }
 
-
-    protected code: String = 'DEFAULTFORM';
+   
     ngOnInit() {
         const formSchema = this.formSchemaService.getFormSchema(this.code);
         const formComponents = formSchema.components;
