@@ -13,20 +13,45 @@ export class FeValidatorsService {
         'email': (val) => Validators.email
     }
 
-    getValidator(reqVal) {
-        let errorArray = [];
-        reqVal.forEach((err) => {
-            let val: ValidatorFn = this.validations[err.name](err.value);
-            errorArray.push(val);
-        });
-        return errorArray;
+    getValidator( validationConf: any ): ValidatorFn | null {
+        let validationName: string = validationConf.name;
+        let validationValue: any = validationConf.value;
+        if ( this.validations[ validationName ]  && validationValue ) { 
+            return this.validations[ validationName ]( validationValue );
+        }
+        return null;
     }
 
-    toLowerCase(reqVal) {
-        reqVal.forEach((val) => {
-            val.name = val.name.toLowerCase();
-        });
-        return reqVal;
+    getValidators( validationConf ) {
+        try {
+            let validators = [];
+            for( let name in validationConf )  {
+                let validation = validationConf[ name ];
+                let validator: ValidatorFn | null = this.getValidator( validation );
+                if ( validator ) {
+                    validators.push( validator );
+                }
+            }
+            return  validators; 
+        } catch (error) {
+            console.log( error )
+        }
+        
+    }
+
+    transformToValidErr( validations ) {
+        let errors = [];
+        for ( let vName in validations ) {
+            let validation = validations[ vName ];
+            validation.name = validation.name.toLowerCase();
+            if ( vName == 'maxLength' || vName == 'minLength' ) {
+                let message = validation.message;
+                message = message.replace( 'XXLENGTHXX', validation.value )
+                validation.message = message
+            }
+            errors.push( validation );
+        }
+        return errors;
     }
 
 }

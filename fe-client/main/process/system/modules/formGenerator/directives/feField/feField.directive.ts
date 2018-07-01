@@ -45,6 +45,9 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
   @Input()
   group: FormGroup;
 
+  @Input()
+  form: FormGroup;
+
   component: ComponentRef<Field>;
 
   constructor(
@@ -56,6 +59,7 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
     if (this.component) {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
+      this.component.instance.form = this.form;
     }
   }
 
@@ -71,5 +75,6 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
     this.component = this.container.createComponent(component);
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
+    this.component.instance.form = this.form;
   }
 }

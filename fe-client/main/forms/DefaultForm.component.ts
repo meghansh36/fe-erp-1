@@ -7,7 +7,7 @@ export class DefaultFormComponent implements OnInit, AfterViewInit {
     @ViewChild(FeFormComponent) form: FeFormComponent;
     public schema = [];
     constructor(protected formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public render: Renderer2) { }
-
+    
     protected code: String = 'DEFAULTFORM';
     ngOnInit() {
         const formSchema = this.formSchemaService.getFormSchema(this.code);

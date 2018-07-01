@@ -19,7 +19,7 @@ export class FeFormSchemaService {
         code: 'FLD000001',
         flexiLabel: 'username',
         id: 'FRM000001-FLD000001',
-        style: [],
+        style: {},
         formcontrol: 'username-form',
         customCssClass: 'custom-css-class1',
         label: 'Username',
@@ -40,27 +40,32 @@ export class FeFormSchemaService {
         labelWidth: 0,
         width: '100%',
         placeholder: 'Enter your Username',
-        formClassValidator: [
-          { 'funcName': 'A', 'message': 'Pattern is not correct' }
-        ],
-        validators: [
-          {
+        formClassValidations: {
+          customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+        },
+        validations: {
+          required: {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
           },
-          {
+          minLength: {
             'name': 'minLength',
             'value': 8,
-            'message': 'Minimum length should be 8'
+            'message': 'Minimum length should be XXLENGTHXX'
+          },
+          maxLength: {
+            'name': 'maxLength',
+            'value': 19,
+            'message': 'Minimum length should be XXLENGTHXX'
           }
-        ]
+        }
       },
       {
         code: 'FLD000002',
         flexiLabel: 'password',
         id: 'FRM000001-FLD000002',
-        style: [],
+        style: {},
         formcontrol: 'password-form',
         type: 'TXT',
         label: 'Password',
@@ -72,67 +77,76 @@ export class FeFormSchemaService {
         labelMargin: 0,
         height: '',
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
-        width: '100%',
+        width: '50%',
         placeholder: 'Enter your Password',
-        validators: [
-          {
+        validations:{ 
+          required: {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
           },
-          {
+          pattern: {
             'name': 'pattern',
             'value': '^[a-z0-9_-]{8,15}$',
             'message': 'The Pattern is not correct'
           }
-        ]
+        }
       },
       {
         code: 'FLD000014',
         flexiLabel: 'email',
         id: 'FRM000001-FLD000014',
-        style: [],
+        style: {},
         formcontrol: 'email-form',
         type: 'EML',
         label: 'Email',
+        prefix: '',
+        suffix: '@',
+        customCssClass: 'custom-css-class2',
+        labelWidth: 0,
+        labelPosition: 'left',
+        labelMargin: 0,
         height: '',
-        tabIndex: '2',
-        width: '30%',
-        placeholder: 'Enter your Email',
-        validators: [
-          {
+        description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+        width: '50%',
+        placeholder: 'Enter your Password',
+        validations: {
+          required: {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
           },
-          {
+          email: {
             'name': 'email',
             'value': true,
             'message': 'This is not vaid email format'
           }
-        ]
+        }
       },
       {
         type: 'NUM',
         code: 'FLD000009',
         flexiLabel: 'number',
         id: 'FRM000001-FLD000009',
-        style: [],
+        style: {},
         formcontrol: 'number-form',
         label: 'Number',
         height: '',
         width: '40%',
         placeholder: 'Enter your Number',
-        validators: [
-          {
+        validations: {
+          required: {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
           }
-        ],
-        customValidator: {
-          'agelimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
-          'message': 'Age should be less than 50'
+        },
+        customValidations: {
+          agelimit: {
+            name: 'agelimit',
+            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+            message: 'Age should be less than 50'
+          }
         }
       },
       {
@@ -140,19 +154,19 @@ export class FeFormSchemaService {
         code: 'FLD000008',
         flexiLabel: 'autocomplete',
         id: 'FRM000001-FLD000008',
-        style: [],
+        style: {},
         formcontrol: 'auto-form',
         label: 'Country',
         height: '',
         width: '100%',
         placeholder: 'Enter your Country',
-        validators: [
-          {
+        validations: {
+          required: {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
           }
-        ]
+        }
       },
       {
         type: 'SEL',
@@ -164,7 +178,30 @@ export class FeFormSchemaService {
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000003',
         formcontrol: 'select-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        height: '',
+        disabled: false,
+        prefix: '@',
+        hidden: false,
+        labelMargin: 20,
+        tabIndex: '1',
+        suffix: 'suff',
+        description: 'This is a dummy field. Field description would be here',
+        hideLabel: false,
+        labelPosition: 'left',
+        marginTop: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        labelWidth: 0,
+        width: '100%',
+        
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       {
         type: 'FIL',
@@ -173,7 +210,13 @@ export class FeFormSchemaService {
         label: 'file',
         id: 'FRM000001-FLD000015',
         formcontrol: 'file-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       {
         type: 'MSL',
@@ -185,17 +228,30 @@ export class FeFormSchemaService {
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000004',
         formcontrol: 'select-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       {
         type: 'CHK',
         code: 'FLD000010',
         flexiLabel: 'Checkbox',
         label: 'Checkbox',
+        description: "FIeld Description",
         options: ['male', 'female', 'others'],
         id: 'FRM000001-FLD000010',
         formcontrol: 'check-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       {
         type: 'RAD',
@@ -205,7 +261,13 @@ export class FeFormSchemaService {
         options: ['male', 'female', 'others'],
         id: 'FRM000001-FLD000011',
         formcontrol: 'radio-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       {
         type: 'DAT',
@@ -215,9 +277,28 @@ export class FeFormSchemaService {
         id: 'FRM000001-FLD000004',
         formcontrol: 'date-form',
         placeholder: 'dd-mm-yyyy',
-        customValidator: {
-          'yearlimit': function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; },
-          'message': 'Year should be greater than 2010'
+        height: '',
+        disabled: false,
+        prefix: '@',
+        hidden: false,
+        labelMargin: 20,
+        tabIndex: '1',
+        suffix: 'suff',
+        description: 'This is a dummy field. Field description would be here',
+        hideLabel: false,
+        labelPosition: 'bottom',
+        marginTop: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        labelWidth: 0,
+        width: '100%',
+        customValidations: {
+          yearlimit: {
+            name: 'yearlimit',
+            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return {       'yearlimit': true }; } return null; },
+            'message': 'Year should be greater than 2010'
+          }
         }
       },
       {
@@ -227,7 +308,29 @@ export class FeFormSchemaService {
         label: 'Time',
         id: 'FRM000001-FLD000005',
         formcontrol: 'time-form',
-        validators: [{ 'name': 'required', 'value': true }],
+        height: '',
+        disabled: false,
+        prefix: '@',
+        hidden: false,
+        labelMargin: 20,
+        tabIndex: '1',
+        suffix: 'suff',
+        description: 'This is a dummy field. Field description would be here',
+        hideLabel: false,
+        labelPosition: 'right',
+        marginTop: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        labelWidth: 0,
+        width: '100%',
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       /*{
         type: 'FST',
@@ -242,29 +345,29 @@ export class FeFormSchemaService {
         code: 'FLD000006',
         flexiLabel: 'description',
         id: 'FRM000001-FRM000006',
-        style: [],
+        style: {},
         formcontrol: 'description-form',
         label: 'Description',
         height: '',
         width: '100%',
         placeholder: 'Enter Description',
-        validators: [
-          {
+        validations: {
+          required: {
             'name': 'required',
             'value': true,
             'message': 'Field is required'
           },
-          {
+          minLength: {
             'name': 'minLength',
             'value': 50,
-            'message': 'Minimum length required is 50'
+            'message': 'Minimum length required is XXLENGTHXX.'
           },
-          {
+          maxLength: {
             'name': 'maxLength',
             'value': 150,
-            'message': 'Maximum length required is 150'
+            'message': 'Maximum length required is XXLENGTHXX.'
           }
-        ]
+        }
       },
       {
         code: 'FLD000007',

@@ -1,6 +1,5 @@
-import { Component, ViewContainerRef, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FeBaseComponent } from '../feBase.component';
-import { FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
