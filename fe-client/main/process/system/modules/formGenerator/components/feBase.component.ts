@@ -184,7 +184,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         }
     }
 
-
     getMask() {
         if (this.config.mask) {
             return this.config.mask;
