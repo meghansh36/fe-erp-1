@@ -11,7 +11,7 @@
             </div>
         </div>
         <div [ngClass]="defaultClasses.nestedFieldContainerClasses" [ngStyle]="style.nestedFieldContainerStyle">
-            <span class="text-length-info-container" *ngIf="hasTextLenghtLimitation">
+            <span class="text-length-info-container" *ngIf="hasTextLenghtLimit">
                 <span class="badge badge-info text-length-info min-length-info" *ngIf="minLength">
                     Min:&nbsp;{{minLength}}
                 </span>
@@ -23,8 +23,8 @@
                 <div class="input-group-prepend" *ngIf="config.prefix">
                     <span class="input-group-text"> {{ config.prefix }} </span>
                 </div>
-
-                <input type="text" class="form-control" [ngClass]="defaultClasses.fieldClasses"
+                <input type="text" class="form-control" [ngClass]="defaultClasses.fieldClasses" [textMask]="{mask:getMask()}" [ngStyle]="defaultClasses.fieldStyle"
+                    [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
                     [attr.id]="config.id">
                 <div class="input-group-append" *ngIf="config.suffix ">
                     <span class="input-group-text"> {{ config.suffix }} </span>

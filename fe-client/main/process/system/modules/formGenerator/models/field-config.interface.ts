@@ -8,10 +8,11 @@ export interface FieldConfig {
   prefix?: string,
   suffix?: string,
   customCssClass: string,
-  description?: string; 
+  description?: string;
   code: string;
   flexiLabel: string;
   options?: string[];
+  isParent?: string;
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
@@ -28,10 +29,11 @@ export interface FieldConfig {
   formClassValidations?: {
     [key: string]: { name: string , validatorFuncName: string, message: string}
   };
+  mask?: Array<string>;
   value?: any;
   labelPosition?: string,
-  labelWidth?: number ,
-  hidden?: boolean ,
+  labelWidth?: number,
+  hidden?: boolean,
   labelMargin?: number,
   tabIndex?: string,
   marginTop?: string,

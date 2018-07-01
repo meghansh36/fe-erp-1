@@ -6,6 +6,7 @@ import { FeBaseComponent } from '../feBase.component';
 
 import { FeFormSchemaService } from '../../../../../../services/formSchema.service';
 import { FeValidatorsService } from '../../services/validators.service';
+import { FeDependentService } from '../../services/dependent.service';
 
 @Component({
   selector: 'fe-time',
@@ -15,8 +16,8 @@ import { FeValidatorsService } from '../../services/validators.service';
 export class FeTimeComponent  extends FeBaseComponent{
   time: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
 
-  constructor(public elemRef: ElementRef, config: NgbTimepickerConfig, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public render: Renderer2) {
-    super(elemRef, formSchemaService, validator, render);
+  constructor(public elemRef: ElementRef, config: NgbTimepickerConfig, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
+    super(elemRef, formSchemaService, validator, dependent, render);
     config.seconds = true;
     config.spinners = false;
   }

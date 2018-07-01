@@ -26,9 +26,26 @@
     flex-direction: row;
   }
   
-  .field-label-left .field-container, .field-label-right .field-container {
+  .field-label-left .fe-field-container, .field-label-right .fe-field-container {
     width: 50%;
+    /* padding-left: 10px;
+    padding-right: 10px; */
+    
   }
+  .field-label-left .field-label-container, .field-label-right .field-label-container {
+    display: flex;
+    justify-content:  center;
+    padding-top:10px;
+  }
+  .field-label-left .field-label-container.has-text-limit, .field-label-right .field-label-container.has-text-limit {
+    padding-top: 25px;
+  }
+
+
+  .feForm .fe-field {
+    padding-left: 10px;
+    padding-right: 10px;
+  } 
   
   .field-label-right .field-label  {
     float: right;
@@ -36,10 +53,10 @@
 
   .fe-form-container form {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
   }
 
-  .display-flex {
+  .display-flex, .field-label-container {
       display: flex;
   }
 
@@ -47,6 +64,19 @@
     font-size: 17px;
     color: #999;
   } 
+
+  .text-length-info-container .text-length-info  {
+    float:right;  
+  }
+
+  .mandatory-field-label:after {
+    content: "*";
+    color:red;
+  }
+
+  .valid-field-label {
+    color:green;
+  }
 
   /*-------------------------}          */
   

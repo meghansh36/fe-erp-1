@@ -1,5 +1,5 @@
 import { Component,Input, OnInit, Injectable, ViewChild, Renderer2, ElementRef,  OnDestroy } from '@angular/core';
-import { FormGroup,  ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormGroup,  FormControl,ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 //import { CustomValidators } from 'ng4-validators';
@@ -7,13 +7,12 @@ import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdap
 import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
 import { config } from 'rxjs';
 import { groupBy } from 'rxjs/operators';
-
 import { log } from 'util';
-
 import { longStackSupport } from 'q';
 import { sanitizeStyle } from '@angular/core/src/sanitization/sanitization';
 import { FeFormSchemaService } from '../../../../../services/formSchema.service';
 import { FeValidatorsService } from '../services/validators.service';
+import { FeDependentService } from '../services/dependent.service';
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
 
@@ -30,40 +29,41 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
     public form: FeFormComponent;
     public config: FieldConfig;
     public group: FormGroup;
+    public $statusChange: any;
 
-    constructor( public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public render: Renderer2) {
+    constructor( public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
         
     }
+    public statesOfCountry = [];
+    public newControl: string;
 
     ngOnInit(): void {
         this.applyDefaultValidations();
         this.initFieldStyle();
         this.applyWatch();
-        //console.log("Errors", this.errors);
+        this.checkForDependentData();
+        console.log(`Errors for field ${this.flexiLabel}`, this.errors);
     }
 
     ngOnDestroy() {
-        console.log( `Destroyed ${this.config.code}`, this.control.statusChanges );
-        //this.control.statusChanges.unsubscribe();
+        this.$statusChange.unsubscribe();
     }
 
     applyWatch(): void {
-        this.control.statusChanges.subscribe( this.onStatusChange.bind(this) );
+        this.$statusChange = this.control.statusChanges.subscribe( this.onStatusChange.bind( this ) );
     }
 
     onStatusChange( status: string ): void {
         if ( status == 'INVALID' ) {
             this.addCssClass( 'fieldClasses', 'is-invalid' );
             this.addCssClass( 'labelClasses', 'text-danger' );
-            this.removeCssClass( 'labelClasses', 'valid-field' );
+            this.removeCssClass( 'labelClasses', 'valid-field-label' );
         } else if ( status == 'VALID' ) {
             this.removeCssClass( 'fieldClasses', 'is-invalid' );
             this.removeCssClass( 'labelClasses', 'text-danger' );
-            this.addCssClass( 'labelClasses', 'valid-field' );
+            this.addCssClass( 'labelClasses', 'valid-field-label' );
         }
-        // let control = this.control;
-        // this.hasError = control.invalid && (control.dirty || control.touched);
     }
 
     removeCssClass( targetKey: string, classStr: string ): boolean {
@@ -95,10 +95,26 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
 
     hasCssClass( targetKey: string, classStr: string ): boolean {
         return this.defaultClasses[ targetKey ] && this.defaultClasses[ targetKey ][ classStr ];
+        
+    }
+
+    checkForDependentData() {
+        if (this.config.isParent) {
+            let dependentData: any = this.dependent.dependentData(this.config.flexiLabel);
+            this.group.get(this.config.flexiLabel).valueChanges.subscribe((value) => {
+                dependentData[0].states.forEach((name) => {
+                    if (name.name == value) {
+                        this.newControl = Object.keys(dependentData[0])[1];
+                        this.group.addControl(this.newControl, new FormControl(''));
+                        this.statesOfCountry = name.states;
+                    }
+                })
+            })
+        }
     }
 
     applyDefaultValidations(): void {
-        if  (this.config.validations ) { 
+        if ( this.config.validations ) { 
             this.applyNgValidators();
         }
         if ( this.config.customValidations ) {
@@ -108,6 +124,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         if ( this.config.formClassValidations ) { 
             this.applyFormClassValidations();
         }
+        console.log("this.validators", this.validators);
         this.control.setValidators( this.validators );
     }
 
@@ -123,7 +140,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
                 let validation = validations[ name ];
                 let fn: any = validation.validatorFn;
                 let message: string = validation.message;
-                if ( typeof     fn == 'function' ) {
+                if ( typeof fn == 'function' ) {
                     this.validators.push( fn );
                     let errObj = {
                         name,
@@ -138,6 +155,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
             console.log(err);
         }
     }
+
     applyFormClassValidations(): void {
         try {
             if ( !this.form ) {
@@ -166,11 +184,20 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         }
     }
 
+
+    getMask() {
+        if (this.config.mask) {
+            return this.config.mask;
+        }
+        return false;
+    }
+
     initFieldStyle() {
         this.defaultClasses = this.getFieldClasses();
         this.style = this.getFieldStyles();
         this.style = _.assign( {}, this.style, this.config.style );
     }
+
 
     getFieldClasses() {
         let config = this.config;
@@ -200,6 +227,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         classesStr = `fe-field-container field-label-container ${type}-label-container`;
         if ( config.hideLabel ) {
             classesStr += ' hidden';
+        }
+        if ( this.hasTextLenghtLimit ) {
+            classesStr += ' has-text-limit';
         }
         fieldLabelContainerClasses = this._makeCssClassesObj( classesStr );
 
@@ -404,7 +434,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         return 0;
     }
 
-    get hasTextLenghtLimitation() {
+    get hasTextLenghtLimit() {
         return ( this.hasValidation( 'maxLength' ) || this.hasValidation( 'minLength' ) );
     }
   
