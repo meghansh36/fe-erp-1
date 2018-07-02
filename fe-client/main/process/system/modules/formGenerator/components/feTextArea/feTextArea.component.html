@@ -1,12 +1,37 @@
-<div class="fe-field fe-text TXT form-group " [formGroup]="group">
-    <label for="{{ config.id }}">{{ config.label }}</label>
-    <textarea class="form-control" [ngClass]="{'is-invalid':group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)}"
-        cols="50" rows="8" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel" [attr.id]="config.id"></textarea>
-    <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)">
-        <span *ngFor="let err of errors">
-            <small class="text-danger" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
-                {{err.message}}
-            </small>
-        </span>
+<div [ngClass]="defaultClasses.fieldMainWrapperClasses" [formGroup]="group" [ngStyle]="style.fieldMainWrapperStyle">
+        <div [ngClass]="defaultClasses.fieldWrapperClasses">
+    
+            <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
+                <div class="label">
+                    <label for="{{ config.id }}"  [ngClass]="defaultClasses.labelClasses">{{ config.label }}</label>
+                </div>
+                <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
+                    <span [ngClass]="defaultClasses.fieldDescContainerClasses">
+                        <i class="material-icons " placement="right" [ngbTooltip]="config.description"> help</i>
+                    </span>
+                </div>
+            </div>
+            <span class="text-length-info-container" *ngIf="hasTextLenghtLimitation">
+                <span class="badge badge-info text-length-info min-length-info" *ngIf="minLength">
+                    Min:&nbsp;{{minLength}}
+                </span>
+                <span class="badge badge-info text-length-info max-length-info" *ngIf="maxLength">
+                    Max:&nbsp;{{maxLength}}
+                </span>
+            </span>
+            <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
+                    <textarea class="form-control" cols="50" rows="8" [class.is-invalid]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+                    [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
+                    [attr.id]="config.id"></textarea>
+            </div>
+        </div>
+        <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+                [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
+            <span *ngFor="let err of errors">
+                <small class="text-danger error-message error-{{err.name}}" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+                    {{err.message}}
+                    <br>
+                </small>
+            </span>
+        </div>
     </div>
-</div>

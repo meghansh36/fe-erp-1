@@ -1,24 +1,24 @@
-import { Component, ViewContainerRef, OnInit, OnChanges } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { Component, Renderer2, ElementRef } from '@angular/core';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder } from '@angular/forms'
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
+//import { FormBuilder } from '@angular/forms'
+import { FeBaseComponent } from '../feBase.component';
+
+import { FeFormSchemaService } from '../../../../../../services/formSchema.service';
+import { FeValidatorsService } from '../../services/validators.service';
+import { FeDependentService } from '../../services/dependent.service';
 
 @Component({
   selector: 'fe-time',
   styleUrls: ['feTime.component.css'],
   templateUrl: 'feTime.component.html'
 })
-export class FeTimeComponent implements Field {
-  config: FieldConfig;
-  group: FormGroup;
+export class FeTimeComponent  extends FeBaseComponent{
   time: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
 
-  constructor(config: NgbTimepickerConfig, private fb: FormBuilder) {
+  constructor(public elemRef: ElementRef, config: NgbTimepickerConfig, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
+    super(elemRef, formSchemaService, validator, dependent, render);
     config.seconds = true;
     config.spinners = false;
   }
-
 }

@@ -1,7 +1,20 @@
-<div class="fe-field fe-text TXT form-group " [formGroup]="group">
-    <label for="{{ config.id }}">{{ config.label }}</label>
-    <div *ngFor="let opt of config.options">
-        <input type="checkbox" name="config.flexiLabel" value="{{opt}}" [formControlName]="config.flexiLabel"
-            [attr.id]="config.id"> {{opt}}
+<div [ngClass]="defaultClasses.fieldMainWrapperClasses" [formGroup]="group" [ngStyle]="style.fieldMainWrapperStyle">
+    <div [ngClass]="defaultClasses.fieldWrapperClasses">
+
+        <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
+            <div class="label">
+                <label   for="{{ config.id }}" class="form-check-label" [ngClass]="defaultClasses.labelClasses" [class.text-valid]="group.controls[config.flexiLabel].valid && ( group.controls[config.flexiLabel].dirty)" >{{ config.label }}</label>
+            </div>
+            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
+                <span [ngClass]="defaultClasses.fieldDescContainerClasses">
+                    <i class="material-icons " placement="right" [ngbTooltip]="config.description"> help</i>
+                </span>
+            </div>
+        </div>
+        <div class="form-check" [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
+            <input type="checkbox" class="form-check-input" [ngClass]="defaultClasses.fieldClasses" [class.is-invalid]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+                [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
+                [attr.id]="config.id" value="{{opt}}">
+        </div>
     </div>
 </div>

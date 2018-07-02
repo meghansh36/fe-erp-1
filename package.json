@@ -29,6 +29,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.1.2",
     "@types/lodash": "^4.14.110",
     "angular-sortablejs": "^2.5.2",
+    "angular2-text-mask": "^9.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.1",
     "compression": "^1.7.2",
