@@ -158,6 +158,20 @@ export class FeFormSchemaService {
         formcontrol: 'number-form',
         label: 'Condition Number',
         height: '',
+        condition: {
+          'type': 'simple',
+          'simple': {
+            'display': true,
+            'dependentOn': 'number',
+            'value': 15
+          },
+          'advanced': {
+            'show': 'number > 0'
+          },
+          'json': {
+
+          }
+        },
         width: '40%',
         placeholder: 'Enter your Number',
         validations: {
@@ -267,7 +281,15 @@ export class FeFormSchemaService {
         label: 'Country',
         isParent: 'Y',
         placeholder: '--SELECT--',
-        options: ['India', 'USA'],
+        options: [{
+          'code': 'IND',
+          'meaning': 'India',
+          'tip': 'India'
+        }, {
+          'code': 'USA',
+          'meaning': 'USA',
+          'tip': 'USA'
+        }],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',

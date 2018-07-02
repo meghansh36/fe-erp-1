@@ -41,5 +41,6 @@ export interface FieldConfig {
   marginBottom?: string,
   marginLeft?: string,
   width?:string,
-  style?:object
+  style?:object,
+  condition?: object,
 }

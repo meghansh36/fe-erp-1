@@ -19,7 +19,6 @@ export class FRM0000001Component extends DefaultFormComponent {
     }
 
     asyncCustomPatternValidator(control: AbstractControl): { [key: string]: any } {
-        console.log('asyncCustomPatternValidator called of form class');
         return new Promise(resolve => {
             setTimeout(() => {
                 let isValid = /\d/.test(control.value);
@@ -30,11 +29,6 @@ export class FRM0000001Component extends DefaultFormComponent {
                 }
             }, 1000);
         });
-    }
-
-    getDependentData(flexilabel, value) {
-        let data: any = this.dependent.dependentData(flexilabel, value);
-        this.componentInstances[data.flexilabel].options = data.value;
     }
 
 }

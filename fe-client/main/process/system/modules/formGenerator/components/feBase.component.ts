@@ -42,7 +42,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
     public newControl: string;
 
     ngOnInit(): void {
-        console.log('Febase component', this.flexiLabel);
         this.applyDefaultValidations();
         this.initFieldStyle();
         this.applyWatch();
@@ -57,10 +56,24 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         if (this.config.isParent) {
             this.$valueChange = this.control.valueChanges.subscribe(this.onValueChange.bind(this));
         }
+        if (this.config.condition) {
+            let type = this.config.condition['type'];
+            switch (type) {
+                case 'simple':
+                    let conditionToBeApplied = this.config.condition[type];
+                    if (this.group.get(conditionToBeApplied.dependentOn).value == conditionToBeApplied.value) {
+
+                    }
+                    break;
+            }
+        }
     }
 
     onValueChange(value: SimpleChange) {
-        this.form.getDependentData(this.flexiLabel, value);
+        if (value) {
+            this.form.getDependentData(this.flexiLabel, value);
+        }
+        return;
     }
 
     onStatusChange(status: string): void {
@@ -388,6 +401,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
     get control(): AbstractControl {
         return this.group.controls[this.flexiLabel];
     }
+    get type() {
+        return this.config.type;
+    }
 
     hasNgValidation(validationName: string) {
         return (this.config.validations && this.config.validations[validationName] && this.config.validations[validationName].value);
@@ -428,6 +444,14 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
 
     get hasTextLenghtLimit() {
         return (this.hasValidation('maxLength') || this.hasValidation('minLength'));
+    }
+
+    get value() {
+        return this.group.controls.value;
+    }
+
+    set value(val) {
+        this.control.setValue(val);
     }
 
 }

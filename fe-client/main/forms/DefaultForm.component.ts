@@ -5,15 +5,15 @@ import { FeDependentService } from '../process/system/modules/formGenerator/serv
 
 export class DefaultFormComponent implements OnInit, AfterViewInit {
     @Input() resource: any;
-   
+
     public schema = [];
     protected code: String = 'DEFAULTFORM';
     public instance: any;
-    
-    
-    constructor(protected formSchemaService: FeFormSchemaService,public dependent: FeDependentService) { }
 
-    setChildForm( childFormInstance: any ) {
+
+    constructor(protected formSchemaService: FeFormSchemaService, public dependent: FeDependentService) { }
+
+    setChildForm(childFormInstance: any) {
         this.instance = childFormInstance;
     }
 
@@ -45,5 +45,16 @@ export class DefaultFormComponent implements OnInit, AfterViewInit {
 
     submit(value: { [name: string]: any }) {
         console.log(value);
+    }
+    getDependentData(flexilabel, value) {
+        let data: any = this.dependent.dependentData(flexilabel, value);
+        data.forEach((ele) => {
+            if (ele.fieldType == 'SEL') {
+                this.instance.componentInstances[ele.flexiLabel].options = ele.data;
+            }
+            else {
+                this.instance.componentInstances[ele.flexiLabel].value = ele.data;
+            }
+        })
     }
 }
