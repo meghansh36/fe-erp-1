@@ -12,7 +12,7 @@ export const routesL1: Routes = [
   },
   { path: 'default',
     loadChildren: '@L3Process/default/modules/default/default.module#DefaultModule',
-    //canActivate:[LoginGuardService] 
+    canActivate:[LoginGuardService] 
   },
   { path: 'login',
     loadChildren: '@L3Process/default/modules/login/login.module#LoginModule'

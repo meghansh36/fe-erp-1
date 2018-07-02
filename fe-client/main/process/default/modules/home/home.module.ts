@@ -14,7 +14,7 @@ import { routes  } from '@L3Process/default/modules/home/home.routing';
 // import { LoginComponent } from '@L3Process/default/modules/login/login.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { CustomFormsModule } from 'ng4-validators';
+import { CustomFormsnoModule } from 'ng4-validators';
 
 import { FormGeneratorModule } from '@L1Process/system/modules/formGenerator/formGenerator.module';
 import 'hammerjs';
@@ -50,7 +50,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
     NgbModule.forRoot(),
     routing,
     HttpClientModule,
-    FormRenderModule,
+    FormRenderModule
     CustomFormsModule
   ],
   providers: [],
