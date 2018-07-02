@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
-
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
+import { Component } from '@angular/core';
+import { FeBaseComponent } from '../feBase.component';
 
 @Component({
   selector: 'fe-check',
   styleUrls: ['feCheckBox.component.css'],
   templateUrl: 'feCheckBox.component.html'
 })
-export class FeCheckBoxComponent implements Field {
-  config: FieldConfig;
-  group: FormGroup;
+export class FeCheckBoxComponent extends FeBaseComponent {
+
 }

@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FeBaseComponent } from '../feBase.component';
 
 @Component({
@@ -7,5 +7,5 @@ import { FeBaseComponent } from '../feBase.component';
   templateUrl: 'feText.component.html'
 })
 export class FeTextComponent extends FeBaseComponent {
-  
+
 }

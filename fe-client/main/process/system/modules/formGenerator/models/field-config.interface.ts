@@ -8,7 +8,7 @@ export interface FieldConfig {
   prefix?: string,
   suffix?: string,
   customCssClass: string,
-  description?: string; 
+  description?: string;
   code: string;
   flexiLabel: string;
   options?: string[];
@@ -16,18 +16,30 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
-  customValidator?: Object;
-  validators?: Object[];
-  formClassValidator?: Array<{ funcName: string , message: string}>;
+  customValidations?: {
+    [key: string]: { name: string , validatorFn: any, message: string}
+  };
+  validations?: {
+    [ key: string ]: {
+      name: string,
+      value: any,
+      message: string
+    }
+  };
+  formClassValidations?: {
+    [key: string]: { name: string , validatorFuncName: string, message: string}
+  };
+  mask?: Array<string>;
   value?: any;
   labelPosition?: string,
-  labelWidth?: number ,
-  hidden?: boolean ,
+  labelWidth?: number,
+  hidden?: boolean,
   labelMargin?: number,
   tabIndex?: string,
   marginTop?: string,
   marginRight?: string,
   marginBottom?: string,
   marginLeft?: string,
-  width?:string
+  width?:string,
+  style?:object
 }

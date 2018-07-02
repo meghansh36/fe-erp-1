@@ -18,96 +18,104 @@ export class FeFormBuilderService {
 
   referenceArray: Object[];
 
-  basicElements = [
+  componentList = {
+    'TxtComponent': TxtComponent,
+    'NumComponent': NumComponent,
+    'PwdComponent': PwdComponent
+  };
+
+
+  basicElementsString = [
     {
       name: 'input',
-       component: TxtComponent,
+      component: 'TxtComponent',
       label: 'Text Field',
       icon: 'title',
-      type: 'text'
+      type: 'text',
+
     },
     {
       name: 'number',
-       component: NumComponent,
+       component: 'NumComponent',
       label: 'Number',
       icon: 'plus_one',
       type: 'number'
     },
     {
       name: 'password',
-       component: PwdComponent,
+       component: 'PwdComponent',
       label: 'Password',
       icon: 'priority_high',
       type: 'password'
     },
     {
       name: 'textarea',
-       component: TxaComponent,
+       component: 'TxaComponent',
       label: 'Text Area',
       icon: 'text_format',
     },
     {
       name: 'hidden',
-       component: HidComponent,
+       component: 'HidComponent',
       label: 'Hidden',
       icon: 'check_box_outline_blank',
       type: 'hidden'
     },
     {
       name: 'date',
-       component: DatComponent,
+       component: 'DatComponent',
       label: 'Date',
       icon: 'date_range',
       type: 'date'
     },
     {
       name: 'month',
-       component: MonComponent,
+       component: 'MonComponent',
       label: 'Month',
       icon: 'date_range',
       type: 'month'
     }
   ];
 
-  advancedElements = [
+  advancedElementsString = [
     {
       name: 'email',
-       component: EmlComponent,
+       component: 'EmlComponent',
       label: 'Email',
       icon: 'email',
       type: 'email'
     },
     {
       name: 'phone',
-       component: PhnComponent,
+       component: 'PhnComponent',
       label: 'Phone',
       icon: 'call',
       type: 'number'
     },
     {
       name: 'address',
-       component: AdrComponent,
+       component: 'AdrComponent',
       label: 'Address',
       icon: 'location_on',
       type: 'text'
     },
     {
       name: 'currency',
-       component: CurComponent,
+       component: 'CurComponent',
       label: 'Currency',
       icon: 'attach_money',
       type: 'text'
     },
     {
       name: 'datettime',
-       component: DtiComponent,
+       component: 'DtiComponent',
       label: 'Date/Time',
       icon: 'add_alarm',
       type: 'datetime'
     },
     {
       name: 'time',
-       component: TimComponent,
+       component: 'TimComponent',
       label: 'Time',
       icon: 'access_time',
       type: 'time'
@@ -117,11 +125,15 @@ export class FeFormBuilderService {
 
   getElementList(elementListToLoad) {
     if (elementListToLoad === 'basic') {
-      return this.basicElements;
+      return this.basicElementsString;
     }
     if (elementListToLoad === 'advanced') {
-      return this.advancedElements;
+      return this.advancedElementsString;
     }
+  }
+
+  getComponent(name) {
+    return this.componentList[name];
   }
 
 }

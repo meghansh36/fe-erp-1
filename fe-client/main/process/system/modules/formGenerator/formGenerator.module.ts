@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { FeFieldDirective } from './directives/feField/feField.directive';
 import { FeFormComponent } from './components/feForm/feForm.component';
@@ -25,7 +26,8 @@ import { FeFilComponent } from './components/feFile/feFile.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    TextMaskModule
   ],
   declarations: [
     FeFieldDirective,

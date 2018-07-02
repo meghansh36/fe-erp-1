@@ -9,7 +9,7 @@ import { FormBuilderComponent } from '@L3Process/system/modules/formBuilder/form
 import { FormBuilderRoutes } from '@L3Process/system/modules/formBuilder/formBuilder.routing';
 import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
-
+import { SortablejsModule } from 'angular-sortablejs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, FormControl } from '@angular/forms';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
@@ -25,7 +25,6 @@ import { DtiComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { DatComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dat/dat.component';
 import { CurComponent } from '@L3Process/system/modules/formBuilder/components/formElements/cur/cur.component';
 import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
-
 
 
 @NgModule({
@@ -45,15 +44,15 @@ import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/f
     DtiComponent,
     DatComponent,
     CurComponent,
-    AdrComponent,
-
+    AdrComponent
   ],
   imports: [
     CommonModule,
     NgbModule,
     DndModule.forRoot(),
     FormBuilderRoutes,
-    FormsModule
+    FormsModule,
+    SortablejsModule.forRoot({ animation: 500 }),
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
