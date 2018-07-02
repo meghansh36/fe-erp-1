@@ -19,13 +19,7 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
-<<<<<<< HEAD
-
-  backupProperties;
-
-=======
   // @ViewChild('f')tempData;
->>>>>>> 075a31e6032f9bf03bec488f9e94cbac55a50984
 
   componentData = <builderFieldCompInterface>{};
 
@@ -103,15 +97,9 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
 
-<<<<<<< HEAD
-    console.log("submit",form.value);
-    this.Json.components.push(form);
-    // JSON.stringify(this.Json);
-=======
     console.log(form);
     this.Json.components.push(form);
     JSON.stringify(this.Json);
->>>>>>> 075a31e6032f9bf03bec488f9e94cbac55a50984
 
     this.masterFormService.setCurrentKey(this.currentKey);
     this.masterFormService.setProperties(form);

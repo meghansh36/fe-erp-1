@@ -7,7 +7,7 @@
   <div class="modal-body">
 
     <div class="container-fluid">
-    <form (ngSubmit)='onSubmit(f)' #f='ngForm'>
+    <form (ngSubmit)='onSubmit(f.value)' #f='ngForm'>
       <div class="row">
         <div class="col-md-8">
 
@@ -233,7 +233,7 @@
                               </select>
 
                       <!-- Text Area for Sql Query -->
-
+                      <div *ngIf="componentData.defaultValue=='Sql Query'">
                       <label for="Sql" class='mt-1 requiredClass'>Sql Query</label>
                       <textarea class="form-control" rows="3" id="error-label" placeholder='Sql'
                       [(ngModel)]='componentData.sqlQuery' ngModel name='sqlQuery'
@@ -242,6 +242,7 @@
 
                       <div class="alert alert-danger" *ngIf='sqlquery.touched && sqlquery.invalid'>Sql Query is required.
 
+                      </div>
                       </div>
 
                       </div>
