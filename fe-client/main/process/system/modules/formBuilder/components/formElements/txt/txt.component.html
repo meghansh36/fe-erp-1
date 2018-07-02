@@ -1,8 +1,9 @@
-<div class="fieldWrapper">
+
+<div class="fieldWrapper border border-primary">
     <span *ngIf='showEdit' class="fieldOptions">
       <ul>
         <li (click)='openModal()'><i class="material-icons icon-size">settings</i></li>
-        <li><i class="material-icons icon-size">open_with</i></li>
+        <li><i class="material-icons icon-size move-handle">open_with</i></li>
         <li (click)="close($event)"><i class="material-icons icon-size">clear</i></li>
       </ul>
     </span>

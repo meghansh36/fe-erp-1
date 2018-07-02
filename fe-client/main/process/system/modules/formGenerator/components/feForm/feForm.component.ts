@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 
 import { FieldConfig } from '../../models/field-config.interface';
 
@@ -12,18 +12,24 @@ import { FieldConfig } from '../../models/field-config.interface';
 export class FeFormComponent implements OnChanges, OnInit {
   @Input()
   components: FieldConfig[] = [];
+  
+  @Input()
+  resource: any;
 
   @Output()
   submit: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
+  instance: any;
 
   get controls() { return this.components.filter(({type}) => type !== 'button'); }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    this.instance = this;
+  }
 
   ngOnInit() {
     this.form = this.createGroup();
@@ -82,5 +88,19 @@ export class FeFormComponent implements OnChanges, OnInit {
 
   setValue(flexiLabel: string, value: any) {
     this.form.controls[flexiLabel].setValue(value, {emitEvent: true});
+  }
+
+  asyncCustomPatternValidator(control: AbstractControl): { [key: string]: any } {
+    console.log('asyncCustomPatternValidator called of form class' );
+    return new Promise(resolve => {
+        setTimeout(() => {
+            let isValid = /\d/.test( control.value );
+            if (!isValid) {
+                resolve({ 'customPattern': true });
+            } else {
+                resolve(null);
+            }
+        }, 1000);
+    });
   }
 }

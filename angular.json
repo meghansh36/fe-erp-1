@@ -26,7 +26,8 @@
               "fe-client/styles/app-global-styles.css",
               "fe-client/legislations/fe/clients/fe/styles/client-global-styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
-              "./node_modules/material-design-icons/iconfont/material-icons.css"
+              "./node_modules/material-design-icons/iconfont/material-icons.css",
+              "node_modules/ng2-dnd/bundles/style.css"
             ],
             "scripts": []
           },

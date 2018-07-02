@@ -23,7 +23,8 @@ export class FeFormMasterService {
 
   setProperties(props) {
     const masterJSON = this.masterJsonService.getMasterJSON();
-    console.log("master json", masterJSON);
+    //console.log("master json", masterJSON);
+    console.log(props);
     masterJSON.components[this.key].instance.properties = _.assignIn({}, props);
     this.masterJsonService.setMasterJSON(masterJSON);
   }

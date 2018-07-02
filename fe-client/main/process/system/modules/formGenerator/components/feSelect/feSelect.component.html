@@ -1,4 +1,31 @@
-<div class="feField feSelect SEL form-group" [formGroup]="group">
+<div [ngClass]="defaultClasses.fieldMainWrapperClasses" [formGroup]="group" [ngStyle]="style.fieldMainWrapperStyle">
+    <div [ngClass]="defaultClasses.fieldWrapperClasses" [ngStyle]="defaultClasses.fieldWrapperStyle">
+
+        <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
+            <div class="label">
+                <label for="{{ config.id }}"  [ngClass]="defaultClasses.labelClasses" [ngStyle]="defaultClasses.labelStyle">{{ config.label }}</label>
+            </div>
+            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
+                <span [ngClass]="defaultClasses.fieldDescContainerClasses" [ngStyle]="defaultClasses.fieldDescContainerStyle">
+                    <i class="material-icons " placement="right" [ngbTooltip]="config.description"> help</i>
+                </span>
+            </div>
+        </div>
+        <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
+            <div class="input-group-prepend" *ngIf="config.prefix">
+                <span class="input-group-text"> {{ config.prefix }} </span>
+            </div>
+            <select [formControlName]="config.flexiLabel" [attr.id]="config.id" [attr.tabindex]="config.tabIndex" [ngClass]="defaultClasses.fieldClasses">
+              <option value="">{{ config.placeholder }}</option>
+              <option *ngFor="let option of config.options" value="{{ option }}"> {{ option }} </option>
+            </select>    
+            <div class="input-group-append" *ngIf="config.suffix ">
+                <span class="input-group-text"> {{ config.suffix }} </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="feField feSelect SEL form-group" [formGroup]="group">
   <label for="{{ config.id }}">{{ config.label }}</label>
   <select [formControlName]="config.flexiLabel">
     <option value="">{{ config.placeholder }}</option>
@@ -11,4 +38,4 @@
     <option>Pick a state</option>
     <option *ngFor="let p of statesOfCountry">{{p}}</option>
   </select>
-</div>
+</div> -->

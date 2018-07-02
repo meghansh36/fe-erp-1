@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ValidatorFn } from '@angular/forms';
-import { AbstractControl } from '@angular/forms';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -170,26 +170,6 @@ export class FeFormSchemaService {
         ]
       },
       {
-        type: 'TXT',
-        code: 'FLD000009',
-        flexiLabel: 'mask',
-        id: 'FRM000001-FLD000019',
-        style: [],
-        formcontrol: 'mask-form',
-        label: 'Mask Input',
-        mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-        height: '',
-        width: '40%',
-        placeholder: 'Enter your USA number',
-        validators: [
-          {
-            'name': 'required',
-            'value': true,
-            'message': 'This Field is required'
-          }
-        ]
-      },
-      {
         type: 'ACS',
         code: 'FLD000008',
         flexiLabel: 'autocomplete',
@@ -220,9 +200,11 @@ export class FeFormSchemaService {
         formcontrol: 'select-form',
         height: '',
         disabled: false,
+        prefix: '@',
         hidden: false,
         labelMargin: 20,
         tabIndex: '1',
+        suffix: 'suff',
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'left',
@@ -240,19 +222,6 @@ export class FeFormSchemaService {
             'message': 'This Field is required'
           }
         }
-      },
-      {
-        type: 'SEL',
-        code: 'FLD000023',
-        flexiLabel: 'country',
-        label: 'Country',
-        isParent: 'Y',
-        placeholder: '--SELECT--',
-        options: ['India', 'USA', 'Germany'],
-        style: [{ 'name': 'width', 'value': '221px' }],
-        id: 'FRM000001-FLD000023',
-        formcontrol: 'select-form',
-        validators: [{ 'name': 'required', 'value': true }]
       },
       {
         type: 'SEL',
