@@ -1,8 +1,7 @@
 <div class="form-components">
-  <ul class="list-group" sortablejs [sortablejsOptions]="options">
-     <!-- <li class="list-group-item component-listItem" *ngFor="let component of elementList; let i = index"  [dragEnabled]="true" [dragData]="component" dnd-sortable>  -->
-      <li class="list-group-item component-listItem" *ngFor="let component of elementList; let i = index" [attr.data-component]="component.component"> 
-        <i class="material-icons md-18">{{component.icon}}</i>{{component.label}}
-      </li>
+  <ul class="list-group">
+    <li class="list-group-item component-listItem" *ngFor="let component of elementList; let i = index" dnd-draggable [dragEnabled]="true" [dragData]="component">
+      <i class="material-icons md-18">{{component.icon}}</i>{{component.label}}
+    </li>
   </ul>
 </div>

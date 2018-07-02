@@ -46,7 +46,7 @@ export class FeFormJsonService {
         this.finalJSON = finalJSON;
     }
 
-    getFinalJSON() {
+    getFinalJSON(){
       return this.finalJSON;
     }
 }

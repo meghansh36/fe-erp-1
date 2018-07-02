@@ -1,4 +1,4 @@
-<!-- <ng-template #content let-c="close" let-d="dismiss" >  -->
+ <!-- <ng-template #content let-c="close" let-d="dismiss" >  -->
   <div class="modal-header">
     <button type="button" class="close" aria-label="Close" (click)="close()">
       <span aria-hidden="true">&times;</span>
@@ -479,7 +479,7 @@
                 <button class='btn btn-primary mt-2' type='submit' [disabled]='f.invalid'>Save</button>
               </div>
               <div class="col-md-8">
-                <button type="button" class="btn btn-danger mt-2 " (click)="close()">Remove</button>
+                <button type="button" class="btn btn-danger mt-2 " (click)="onReset()">Reset</button>
               </div>
             </div>
 
