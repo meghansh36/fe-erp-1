@@ -11,3 +11,7 @@
     font-size: 18px;
     margin-right: 5px;
 }
+
+.no_show {
+    display: none;
+}
