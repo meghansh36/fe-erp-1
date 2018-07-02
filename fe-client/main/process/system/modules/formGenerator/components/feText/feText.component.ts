@@ -34,6 +34,6 @@ export class FeTextComponent extends FeBaseComponent {
             let mask = this.config.mask;
             return { mask };
         }
-        return false;
+        return { mask: false };
     }
 }

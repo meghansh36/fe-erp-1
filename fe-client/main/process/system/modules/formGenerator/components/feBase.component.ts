@@ -436,10 +436,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     get fieldRef() {
         return document.querySelector( `#${this.fieldId}` );
-    }  
+    } 
 
     get hasTextLenghtLimit() {
         return ( this.hasValidation( 'maxLength' ) || this.hasValidation( 'minLength' ) );
     }
-  
 }
