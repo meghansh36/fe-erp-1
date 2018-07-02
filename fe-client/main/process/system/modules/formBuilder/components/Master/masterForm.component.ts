@@ -20,48 +20,48 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
   // @ViewChild('f')tempData;
-
+  backupProps;
   componentData = <builderFieldCompInterface>{};
 
   modalRef: NgbModalRef;
   instance;
   showEdit: boolean;
   currentKey;
-  applicableProperties={
-  label:true,
-  labelPosition:true,
-  labelWidth:true,
-  labelMargin:true,
-  placeholder:true,
-  description:true,
-  tooltip:true,
-  errorLabel:true,
-  inputMask:true,
-  prefix:true,
-  suffix:true,
-  customCssClass:true,
-  tabIndex:true,
-  clearValue:true,
-  hidden:true,
-  disabled:true,
-  defaultValue:true,
-  sqlQuery:true,
-  jsFunction:true,
-  jsonLogic:true,
-  nonPersistent:true,
-  appliedValidation:true,
-  minimumLength:true,
-  maximumLength:true,
-  regularExpression:true,
-  customErrorFunction:true,
-  customValidationFunction:true,
-  JSONLogic:true,
-  marginTop:true,
-  marginRight:true,
-  marginBottom:true,
-  marginLeft:true,
-  customFunction:true,
-  conditionalJsonLogic:true,
+  applicableProperties = {
+  label: true,
+  labelPosition: true,
+  labelWidth: true,
+  labelMargin: true,
+  placeholder: true,
+  description: true,
+  tooltip: true,
+  errorLabel: true,
+  inputMask: true,
+  prefix: true,
+  suffix: true,
+  customCssClass: true,
+  tabIndex: true,
+  clearValue: true,
+  hidden: true,
+  disabled: true,
+  defaultValue: true,
+  sqlQuery: true,
+  jsFunction: true,
+  jsonLogic: true,
+  nonPersistent: true,
+  appliedValidation: true,
+  minimumLength: true,
+  maximumLength: true,
+  regularExpression: true,
+  customErrorFunction: true,
+  customValidationFunction: true,
+  JSONLogic: true,
+  marginTop: true,
+  marginRight: true,
+  marginBottom: true,
+  marginLeft: true,
+  customFunction: true,
+  conditionalJsonLogic: true,
   }
 
 
@@ -93,6 +93,11 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.modalRef.close();
   }
 
+  onReset() {
+    this.instance.properties = _.assign({}, this.backupProps);
+    this.componentData = _.assignIn({}, this.backupProps);
+  }
+
   onSubmit(form) {
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
@@ -117,6 +122,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.currentKey = this.masterFormService.getCurrentKey();
     console.log("current key in master form", this.currentKey);
     const propsFromBuilder = this.masterFormService.getProperties(this.currentKey);
+    this.backupProps = propsFromBuilder;
     this.instance.properties = _.assignIn({}, propsFromBuilder);
     this.componentData = _.assignIn({}, this.instance.properties);
   }

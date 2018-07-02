@@ -53,7 +53,4 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   update(propsFromMasterForm) {
     this.properties = _.assignIn({},propsFromMasterForm);
   }
-
-
-
 }
