@@ -13,17 +13,17 @@
         <div [ngClass]="defaultClasses.nestedFieldContainerClasses" [ngStyle]="style.nestedFieldContainerStyle">
             <span class="text-length-info-container" *ngIf="hasTextLenghtLimit">
                 <span class="badge badge-info text-length-info min-length-info" *ngIf="minLength">
-                    Min:&nbsp;{{minLength}}
+                    Min:&nbsp;{{ minLength }}
                 </span>
                 <span class="badge badge-info text-length-info max-length-info" *ngIf="maxLength">
-                    Max:&nbsp;{{maxLength}}
+                    Max:&nbsp;{{ maxLength }}
                 </span>
             </span>
             <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
                 <div class="input-group-prepend" *ngIf="config.prefix">
                     <span class="input-group-text"> {{ config.prefix }} </span>
                 </div>
-                <input type="text" class="form-control" [ngClass]="defaultClasses.fieldClasses" [textMask]="{mask:getMask()}" [ngStyle]="defaultClasses.fieldStyle"
+                <input type="text" class="form-control" [ngClass]="defaultClasses.fieldClasses" [textMask]="mask" [ngStyle]="defaultClasses.fieldStyle"
                     [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
                     [attr.id]="config.id">
                 <div class="input-group-append" *ngIf="config.suffix ">

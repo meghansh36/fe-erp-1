@@ -4,6 +4,7 @@ export interface FieldConfig {
   disabled?: boolean;
   label?: string;
   // name: string;
+  id?: string,
   hideLabel?: boolean,
   prefix?: string,
   suffix?: string,
@@ -41,5 +42,6 @@ export interface FieldConfig {
   marginBottom?: string,
   marginLeft?: string,
   width?:string,
-  style?:object
+  style?: object, 
+  events: object
 }

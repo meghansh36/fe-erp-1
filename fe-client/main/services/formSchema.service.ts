@@ -43,6 +43,20 @@ export class FeFormSchemaService {
         formClassValidations: {
           customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
         },
+        events: {
+          change: {
+            event: 'change',
+            handlerOwner: 'FORM',
+            handlerName: 'onUserNameChanged',
+            args: 'event'
+          },
+          focus: {
+            event: 'focus',
+            handlerOwner: 'RESOURCE',
+            handlerName: 'onUserNameFocus',
+            args: 'event'
+          }
+        },
         validations: {
           required: {
             'name': 'required',
@@ -79,6 +93,20 @@ export class FeFormSchemaService {
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
         placeholder: 'Enter your Password',
+        events: {
+          input: {
+            event: 'input',
+            handlerOwner: 'FORM',
+            handlerName: 'onPassWordInput',
+            args: 'event'
+          },
+          blur: {
+            event: 'blur',
+            handlerOwner: 'RESOURCE',
+            handlerName: 'onPassWordBlur',
+            args: 'event'
+          }
+        },
         validations:{ 
           required: {
             'name': 'required',
