@@ -1,5 +1,6 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { Component, ViewEncapsulation, OnInit, DoCheck, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, DoCheck,
+  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { clearOverrides } from '@angular/core/src/view';
@@ -18,15 +19,17 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
+<<<<<<< HEAD
 
   backupProperties;
 
+=======
+  // @ViewChild('f')tempData;
+>>>>>>> 075a31e6032f9bf03bec488f9e94cbac55a50984
 
   componentData = <builderFieldCompInterface>{};
 
   modalRef: NgbModalRef;
-  tooltipBoolean = false;
-  currentEvent;
   instance;
   showEdit: boolean;
   currentKey;
@@ -68,6 +71,12 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   }
 
 
+
+
+
+
+
+
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
               public fieldControlService: FieldControlService,
@@ -76,15 +85,13 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     ) {
     this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
-
-    console.log(this.Json.components[0]);
   }
 
   ngDoCheck() {}
 
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
-    const component = this.fieldControlService.getFieldRef().component;
+    const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
   }
 
@@ -96,19 +103,20 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
 
+<<<<<<< HEAD
     console.log("submit",form.value);
     this.Json.components.push(form);
     // JSON.stringify(this.Json);
+=======
+    console.log(form);
+    this.Json.components.push(form);
+    JSON.stringify(this.Json);
+>>>>>>> 075a31e6032f9bf03bec488f9e94cbac55a50984
 
     this.masterFormService.setCurrentKey(this.currentKey);
     this.masterFormService.setProperties(form);
     this.formJsonService.buildFinalJSON();
     this.modalRef.close();
-  }
-
-  onReset() {
-    this.componentData = _.assign({}, this.backupProperties);
-    this.instance.properties = _.assign({}, this.backupProperties);
   }
 
   createComponentFunc(component) {
@@ -121,15 +129,22 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.currentKey = this.masterFormService.getCurrentKey();
     console.log("current key in master form", this.currentKey);
     const propsFromBuilder = this.masterFormService.getProperties(this.currentKey);
-    this.backupProperties = _.assignIn({}, propsFromBuilder);
-    this.instance.properties = this.backupProperties;
+    this.instance.properties = _.assignIn({}, propsFromBuilder);
     this.componentData = _.assignIn({}, this.instance.properties);
   }
 
   update(event) {
 
+    // if ( !this.componentData.hideLabel) { const masterJSON = this.masterJsonService.getMasterJSON();
+    //   this.instance.properties.label = this.componentData.label;
+    // } else {
+    //   this.instance.properties.label = undefined;
+    // }
+    // this.instance.properties.suffix = this.componentData.suffix;
+    // this.instance.properties.description = this.componentData.description;
+    // this.instance.properties.tooltip = this.componentData.tooltip;
     if (this.componentData.hideLabel) {this.componentData.label = undefined; }
-    console.log("update event", this.componentData);
+    console.log(this.componentData);
     //this.masterFormService.setProperties(this.componentData);
     this.instance.properties = _.assignIn({}, this.componentData);
     console.log('instance props', this.instance.properties);
