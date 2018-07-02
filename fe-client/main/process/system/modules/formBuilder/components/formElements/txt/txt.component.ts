@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
 @Component({
-  selector: 'txt-input[dnd-sortable]',
+  selector: 'txt-input[dnd-sortable][dnd-draggable]',
   templateUrl: './txt.component.html',
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
@@ -42,6 +42,10 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   //     this.update(propsFromMasterForm);
   // }
 }
+  onSort(event) {
+    console.log('sort success', event);
+  }
+
 
   openModal() {
     this.masterFormService.setCurrentKey(this.uniqueKey);
