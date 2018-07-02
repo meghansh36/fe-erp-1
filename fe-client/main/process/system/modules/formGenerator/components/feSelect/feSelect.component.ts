@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FeBaseComponent } from '../feBase.component';
 
 @Component({
@@ -6,6 +6,21 @@ import { FeBaseComponent } from '../feBase.component';
   styleUrls: ['feSelect.component.css'],
   templateUrl: 'feSelect.component.html'
 })
-export class FeSelectComponent extends FeBaseComponent {
+export class FeSelectComponent extends FeBaseComponent implements OnInit {
+
+  private _options: any;
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.options = this.config.options;
+  }
+
+  get options() {
+    return this._options;
+  }
+
+  set options(option) {
+    this._options = option;
+  }
 
 }

@@ -6,9 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['default.component.css']
 })
 export class FeDefaultComponent {
-  public instance: FeDefaultComponent;
+  public instance: any;
   
   constructor() {
     this.instance = this;
   }
+
+  onUserNameChange( arg1, arg2 ) {
+    console.log("called onUserNameChage of  default component",  arg1, arg2 );
+  }
+
 }
+``

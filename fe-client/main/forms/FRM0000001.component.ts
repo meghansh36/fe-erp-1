@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DefaultFormComponent } from './DefaultForm.component';
 import { FeFormSchemaService } from '../services/formSchema.service';
 import { FeValidatorsService } from '../process/system/modules/formGenerator/services/validators.service';
+import { FeDependentService } from '../process/system/modules/formGenerator/services/dependent.service';
+import { AbstractControl } from '@angular/forms';
 
 
 @Component({
@@ -10,10 +12,29 @@ import { FeValidatorsService } from '../process/system/modules/formGenerator/ser
 })
 export class FRM0000001Component extends DefaultFormComponent {
     protected code: String = 'FRM0000001';
-
-    constructor(public formSchemaService: FeFormSchemaService) {
-        super(formSchemaService);
+    public componentInstances = {};
+    constructor(public formSchemaService: FeFormSchemaService, public dependent: FeDependentService) {
+        super(formSchemaService, dependent);
+        super.setChildForm(this);
     }
 
-    
+    asyncCustomPatternValidator(control: AbstractControl): { [key: string]: any } {
+        console.log('asyncCustomPatternValidator called of form class');
+        return new Promise(resolve => {
+            setTimeout(() => {
+                let isValid = /\d/.test(control.value);
+                if (!isValid) {
+                    resolve({ 'customPattern': true });
+                } else {
+                    resolve(null);
+                }
+            }, 1000);
+        });
+    }
+
+    getDependentData(flexilabel, value) {
+        let data: any = this.dependent.dependentData(flexilabel, value);
+        this.componentInstances[data.flexilabel].options = data.value;
+    }
+
 }

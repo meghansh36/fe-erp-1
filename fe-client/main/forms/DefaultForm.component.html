@@ -2,7 +2,7 @@
     <div class="card-header fe-form-header">
       {{ schema.label }}
     </div>
-    <feForm  class="fe-fields-container card-body" [resource]="resource" [components]="schema.components" #form="feForm" (submit)="submit($event)"></feForm>
+    <feForm  class="fe-fields-container card-body"  [formInstance]="instance"  [components]="schema.components" #form="feForm" (submit)="submit($event)"></feForm>
     {{ form.valid }}
     {{ form.value | json }}
 </div>

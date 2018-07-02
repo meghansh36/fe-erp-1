@@ -79,7 +79,7 @@ export class FeFormSchemaService {
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
         placeholder: 'Enter your Password',
-        validations:{ 
+        validations: {
           required: {
             'name': 'required',
             'value': true,
@@ -146,6 +146,25 @@ export class FeFormSchemaService {
             name: 'agelimit',
             validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
             message: 'Age should be less than 50'
+          }
+        }
+      },
+      {
+        type: 'NUM',
+        code: 'FLD000020',
+        flexiLabel: 'condition',
+        id: 'FRM000001-FLD000020',
+        style: {},
+        formcontrol: 'number-form',
+        label: 'Condition Number',
+        height: '',
+        width: '40%',
+        placeholder: 'Enter your Number',
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
           }
         }
       },
@@ -232,7 +251,7 @@ export class FeFormSchemaService {
         marginLeft: '10px',
         labelWidth: 0,
         width: '100%',
-        
+
         validations: {
           required: {
             'name': 'required',
@@ -244,11 +263,11 @@ export class FeFormSchemaService {
       {
         type: 'SEL',
         code: 'FLD000023',
-        flexiLabel: 'country',
+        flexiLabel: 'parent',
         label: 'Country',
         isParent: 'Y',
         placeholder: '--SELECT--',
-        options: ['India', 'USA', 'Germany'],
+        options: ['India', 'USA'],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',
@@ -257,11 +276,10 @@ export class FeFormSchemaService {
       {
         type: 'SEL',
         code: 'FLD000023',
-        flexiLabel: 'country',
-        label: 'Country',
-        isParent: 'Y',
+        flexiLabel: 'child',
+        label: 'States',
         placeholder: '--SELECT--',
-        options: ['India', 'USA', 'Germany'],
+        options: [],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',
@@ -360,7 +378,7 @@ export class FeFormSchemaService {
         customValidations: {
           yearlimit: {
             name: 'yearlimit',
-            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return {       'yearlimit': true }; } return null; },
+            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; },
             'message': 'Year should be greater than 2010'
           }
         }
