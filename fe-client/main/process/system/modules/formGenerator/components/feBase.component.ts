@@ -20,7 +20,7 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
     public newControl: string;
 
     ngOnInit() {
-        this.applyDefaultValidations();
+        this.applyValidations();
         this.initFieldStyle();
         this.checkForDependentData();
     }
@@ -40,7 +40,7 @@ export class FeBaseComponent extends FRM0000001Component implements Field, OnIni
         }
     }
 
-    applyDefaultValidations() {
+    applyValidations() {
         if (this.config.validators) {
             let errors = [];
             this.validators = this.validators.concat(this.validator.getValidator(this.config.validators));
