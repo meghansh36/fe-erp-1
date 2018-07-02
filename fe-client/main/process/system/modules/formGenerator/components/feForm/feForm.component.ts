@@ -14,7 +14,7 @@ export class FeFormComponent implements OnChanges, OnInit {
   components: FieldConfig[] = [];
   
   @Input()
-  resource: any;
+  formInstance: any;
 
   @Output()
   submit: EventEmitter<any> = new EventEmitter<any>();
@@ -88,19 +88,5 @@ export class FeFormComponent implements OnChanges, OnInit {
 
   setValue(flexiLabel: string, value: any) {
     this.form.controls[flexiLabel].setValue(value, {emitEvent: true});
-  }
-
-  asyncCustomPatternValidator(control: AbstractControl): { [key: string]: any } {
-    console.log('asyncCustomPatternValidator called of form class' );
-    return new Promise(resolve => {
-        setTimeout(() => {
-            let isValid = /\d/.test( control.value );
-            if (!isValid) {
-                resolve({ 'customPattern': true });
-            } else {
-                resolve(null);
-            }
-        }, 1000);
-    });
   }
 }
