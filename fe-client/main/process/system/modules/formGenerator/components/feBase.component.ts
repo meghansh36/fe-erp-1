@@ -21,8 +21,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
     
     public config: FieldConfig;
     public group: FormGroup;
-    public form: FeFormComponent;
-    public resource: any;
+    public form: any;
 
     public error: string;
     public validators = [];
@@ -39,12 +38,13 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         this.defaultFieldWidth = '50%';
         
         
+        
     }
     public statesOfCountry = [];
     public newControl: string;
 
     ngOnInit(): void {
-        console.log("resource", this.resource);
+        console.log("form", this.form);
         this.applyDefaultValidations();
         this.initFieldStyle();
         this.applyWatch();
