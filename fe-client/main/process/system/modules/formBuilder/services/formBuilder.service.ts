@@ -12,128 +12,204 @@ import { TimComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { HidComponent } from '@L3Process/system/modules/formBuilder/components/formElements/hid/hid.component';
 import { DatComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dat/dat.component';
 import { MonComponent } from '@L3Process/system/modules/formBuilder/components/formElements/mon/mon.component';
+import { componentFactoryName } from '@angular/compiler';
 
 @Injectable()
 export class FeFormBuilderService {
 
   referenceArray: Object[];
 
-  componentList = {
-    'TxtComponent': TxtComponent,
-    'NumComponent': NumComponent,
-    'PwdComponent': PwdComponent
-  };
-
-
-  basicElementsString = [
+  basicElements = [
     {
       name: 'input',
-      component: 'TxtComponent',
+       component: TxtComponent,
       label: 'Text Field',
       icon: 'title',
       type: 'text',
-
+      componentName: 'TxtComponent'
     },
     {
       name: 'number',
-       component: 'NumComponent',
+       component: NumComponent,
       label: 'Number',
       icon: 'plus_one',
-      type: 'number'
+      type: 'number',
+      componentName: 'NumComponent'
     },
     {
       name: 'password',
-       component: 'PwdComponent',
+       component: PwdComponent,
       label: 'Password',
       icon: 'priority_high',
-      type: 'password'
+      type: 'password',
+      componentName: 'PwdComponent'
     },
     {
       name: 'textarea',
-       component: 'TxaComponent',
+       component: TxaComponent,
       label: 'Text Area',
       icon: 'text_format',
+      componentName: 'TxaComponent'
     },
     {
       name: 'hidden',
-       component: 'HidComponent',
+       component: HidComponent,
       label: 'Hidden',
       icon: 'check_box_outline_blank',
-      type: 'hidden'
+      type: 'hidden',
+      componentName: 'HidComponent'
     },
     {
       name: 'date',
-       component: 'DatComponent',
+       component: DatComponent,
       label: 'Date',
       icon: 'date_range',
-      type: 'date'
+      type: 'date',
+      componentName: 'DatComponent'
     },
     {
       name: 'month',
-       component: 'MonComponent',
+       component: MonComponent,
       label: 'Month',
       icon: 'date_range',
-      type: 'month'
+      type: 'month',
+      componentName: 'MonComponent'
     }
   ];
 
-  advancedElementsString = [
+  advancedElements = [
     {
       name: 'email',
-       component: 'EmlComponent',
+       component: EmlComponent,
       label: 'Email',
       icon: 'email',
-      type: 'email'
+      type: 'email',
+      componentName: 'EmlComponent'
     },
     {
       name: 'phone',
-       component: 'PhnComponent',
+       component: PhnComponent,
       label: 'Phone',
       icon: 'call',
-      type: 'number'
+      type: 'number',
+      componentName: 'PhnComponent'
     },
     {
       name: 'address',
-       component: 'AdrComponent',
+       component: AdrComponent,
       label: 'Address',
       icon: 'location_on',
-      type: 'text'
+      type: 'text',
+      componentName: 'AdrComponent'
     },
     {
       name: 'currency',
-       component: 'CurComponent',
+       component: CurComponent,
       label: 'Currency',
       icon: 'attach_money',
-      type: 'text'
+      type: 'text',
+      componentName: 'CurComponent'
     },
     {
       name: 'datettime',
-       component: 'DtiComponent',
+       component: DtiComponent,
       label: 'Date/Time',
       icon: 'add_alarm',
-      type: 'datetime'
+      type: 'datetime',
+      componentName: 'DtiComponent'
     },
     {
       name: 'time',
-       component: 'TimComponent',
+       component: TimComponent,
       label: 'Time',
       icon: 'access_time',
-      type: 'time'
+      type: 'time',
+      componentName: 'TimComponent'
     }
   ];
+
+  component = {
+    'TxtComponent': {
+      component: TxtComponent,
+      name: 'input',
+      type: 'text'
+    },
+    'NumComponent': {
+      name: 'input',
+      component: NumComponent,
+      type: 'number',
+    },
+    'PwdComponent': {
+      name: 'input',
+      component: PwdComponent,
+      type: 'password',
+    },
+    'TxaComponent': {
+      name: 'textarea',
+       component: TxaComponent,
+      type: 'textarea'
+    },
+    'HidComponent': {
+      name: 'input',
+      component: HidComponent,
+      type: 'hidden',
+    },
+    'DatComponent': {
+      name: 'input',
+       component: DatComponent,
+      type: 'date',
+    },
+    'MonComponent': {
+      name: 'input',
+      component: MonComponent,
+      type: 'month',
+    },
+    'EmlComponent': {
+      name: 'input',
+       component: EmlComponent,
+      type: 'email',
+    },
+    'PhnComponent': {
+      name: 'input',
+      component: PhnComponent,
+      type: 'text',
+    },
+    'AdrComponent': {
+      name: 'input',
+       component: AdrComponent,
+      type: 'text',
+    },
+    'CurComponent': {
+      name: 'input',
+       component: CurComponent,
+      type: 'text',
+    },
+    'DtiComponent': {
+      name: 'datettime',
+       component: DtiComponent,
+      type: 'datetime',
+    },
+    'TimComponent': {
+      name: 'time',
+       component: TimComponent,
+      type: 'time'
+    }
+
+  };
+
   constructor() { }
 
   getElementList(elementListToLoad) {
     if (elementListToLoad === 'basic') {
-      return this.basicElementsString;
+      return this.basicElements;
     }
     if (elementListToLoad === 'advanced') {
-      return this.advancedElementsString;
+      return this.advancedElements;
     }
   }
 
   getComponent(name) {
-    return this.componentList[name];
+    return this.component[name];
   }
 
 }
