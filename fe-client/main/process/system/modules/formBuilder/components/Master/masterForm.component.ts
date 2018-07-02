@@ -89,7 +89,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.instance = componentRef.instance;
     this.instance.showEdit = false;
     this.currentKey = this.masterFormService.getCurrentKey();
-    console.log("current key in master form", this.currentKey);
+    console.log("master form instance", this.instance);
     const propsFromBuilder = this.masterFormService.getProperties(this.currentKey);
     this.backupProps = propsFromBuilder;
     this.instance.properties = _.assignIn({}, propsFromBuilder);

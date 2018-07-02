@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
 @Component({
-  selector: 'txt-input',
+  selector: 'txt-input[dnd-sortable]',
   templateUrl: './txt.component.html',
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
@@ -61,7 +61,6 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   // }
 }
 
-
   openModal() {
     this.masterFormService.setCurrentKey(this.uniqueKey);
     this.masterFormService.setProperties(this.properties);
@@ -69,6 +68,6 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   }
 
   update(propsFromMasterForm) {
-    this.properties = _.assignIn({},propsFromMasterForm);
+    this.properties = _.assignIn({}, propsFromMasterForm);
   }
 }
