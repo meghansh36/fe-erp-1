@@ -7,7 +7,7 @@ import * as _ from 'lodash';
   styleUrls: ['./hid.component.css','../baseField/baseField.component.css']
 })
 export class FeHidComponent extends FeBaseField implements OnInit, DoCheck {
-  
+
   showEdit = true;
   properties = {
   label: 'test',
@@ -16,6 +16,15 @@ export class FeHidComponent extends FeBaseField implements OnInit, DoCheck {
   description: '',
   placeholder: 'test',
   tooltip: ''};
+
+  applicableProperties={
+    inputMask:true,
+    placeholder:true,
+    prefix:true,
+    suffix:true,
+    ...this.applicableProperties
+
+}
 
   ngOnInit() {
 

@@ -17,6 +17,15 @@ export class FeNumComponent extends FeBaseField implements OnInit, DoCheck {
   placeholder: 'test',
   tooltip: ''};
 
+  applicableProperties={
+    inputMask:true,
+    placeholder:true,
+    prefix:true,
+    suffix:true,
+    ...this.applicableProperties
+
+}
+
   ngOnInit() {
 
     // this.properties = {
