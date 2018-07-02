@@ -27,42 +27,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   instance;
   showEdit: boolean;
   currentKey;
-  applicableProperties = {
-  label: true,
-  labelPosition: true,
-  labelWidth: true,
-  labelMargin: true,
-  placeholder: true,
-  description: true,
-  tooltip: true,
-  errorLabel: true,
-  inputMask: true,
-  prefix: true,
-  suffix: true,
-  customCssClass: true,
-  tabIndex: true,
-  clearValue: true,
-  hidden: true,
-  disabled: true,
-  defaultValue: true,
-  sqlQuery: true,
-  jsFunction: true,
-  jsonLogic: true,
-  nonPersistent: true,
-  appliedValidation: true,
-  minimumLength: true,
-  maximumLength: true,
-  regularExpression: true,
-  customErrorFunction: true,
-  customValidationFunction: true,
-  JSONLogic: true,
-  marginTop: true,
-  marginRight: true,
-  marginBottom: true,
-  marginLeft: true,
-  customFunction: true,
-  conditionalJsonLogic: true,
-  }
+
 
 
 
@@ -79,6 +44,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     ) {
     this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
+
   }
 
   ngDoCheck() {}
@@ -87,6 +53,9 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
+    console.log("fields property in master component",this.instance);
+
+
   }
 
   close() {

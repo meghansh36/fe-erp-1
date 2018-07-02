@@ -17,6 +17,17 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   placeholder: 'test',
   tooltip: ''};
 
+  applicableProperties={
+    inputMask:true,
+    placeholder:true,
+    prefix:true,
+    suffix:true,
+    ...this.applicableProperties
+
+}
+
+
+
   ngOnInit() {
 
     // this.properties = {
@@ -33,6 +44,13 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     console.log(this.uniqueKey);
    // this.masterFormService.setCurrentKey(this.uniqueKey);
     this.masterFormService.setProperties(this.properties);
+    // this.applicableProperties={
+    //   ...this.textApplicableProperties,
+    //   ...this.applicableProperties
+    // }
+
+    console.log("base field property is ",this.applicableProperties);
+
   }
 
   ngDoCheck() {
