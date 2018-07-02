@@ -53,10 +53,11 @@
                     <div class="card-header">
                         Drag And Drop Fields
                     </div>
-                    <div class="card-body" dnd-droppable (onDropSuccess) = "dropComplete($event,content)">
-                        <div dnd-sortable-container>
+                    <!-- <div class="card-body" dnd-droppable (onDropSuccess) = "dropComplete($event,content)">
+                        <div dnd-sortable-container > -->
+                    <div class="card-body" [dragula]='"bag-one"' id="copy">
                             <ng-template #host></ng-template>
-                        </div>
+                        <!-- </div> -->
 
                     </div>
                 </div>
