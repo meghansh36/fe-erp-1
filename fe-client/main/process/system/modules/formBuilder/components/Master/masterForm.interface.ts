@@ -27,6 +27,7 @@ export interface builderFieldCompInterface{
   jsFunction:string,
   jsonLogic:string,
   nonPersistent:string,
+  autoComplete:string,
   appliedValidation:string,
   minimumLength:number,
   maximumLength:number,

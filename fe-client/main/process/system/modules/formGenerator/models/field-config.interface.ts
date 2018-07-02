@@ -44,4 +44,5 @@ export interface FieldConfig {
   width?:string,
   style?: object, 
   events: object
+  condition?: object,
 }

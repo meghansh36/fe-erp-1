@@ -6,3 +6,8 @@
 ng::after{
     z-index: 1000;
 }
+
+.builder-buttons{
+   margin-top: 26%;
+   margin-left:70%
+}

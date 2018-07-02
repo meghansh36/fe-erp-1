@@ -4,15 +4,15 @@ import { LoginGuardService } from '@L3Process/default/modules/login/services/log
 export const routesL1: Routes = [
   { path: 'formBuilder',
     loadChildren: '@L3Process/system/modules/formBuilder/formBuilder.module#FormBuilderModule',
-    canActivate:[LoginGuardService]
+   // canActivate:[LoginGuardService]
   },
   { path: 'formRender',
     loadChildren: '@L3Process/system/modules/formRender/formRender.module#FormRenderModule',
-    canActivate:[LoginGuardService] 
+    canActivate:[LoginGuardService]
   },
   { path: 'default',
     loadChildren: '@L3Process/default/modules/default/default.module#DefaultModule',
-    //canActivate:[LoginGuardService] 
+    //canActivate:[LoginGuardService]
   },
   { path: 'login',
     loadChildren: '@L3Process/default/modules/login/login.module#LoginModule'

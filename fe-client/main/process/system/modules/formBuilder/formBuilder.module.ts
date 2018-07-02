@@ -25,7 +25,9 @@ import { DtiComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { DatComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dat/dat.component';
 import { CurComponent } from '@L3Process/system/modules/formBuilder/components/formElements/cur/cur.component';
 import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
-
+import { DragulaModule } from 'ng2-dragula';
+import { AncComponent } from './components/formElements/anc/anc.component';
+import { BlkComponent } from './components/formElements/blk/blk.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/f
     DtiComponent,
     DatComponent,
     CurComponent,
-    AdrComponent
+    AdrComponent,
+    AncComponent,
+    BlkComponent
   ],
   imports: [
     CommonModule,
@@ -53,6 +57,7 @@ import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/f
     FormBuilderRoutes,
     FormsModule,
     SortablejsModule.forRoot({ animation: 500 }),
+    DragulaModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
