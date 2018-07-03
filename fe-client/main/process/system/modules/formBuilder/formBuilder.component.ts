@@ -12,7 +12,7 @@ import { FormBuilderService } from '@L3Process/system/modules/formBuilder/servic
   templateUrl: './formBuilder.component.html',
   styleUrls: ['./formBuilder.component.css']
 })
-export class FeFormBuilderComponent implements DoCheck{
+export class FeFormBuilderComponent implements DoCheck {
 
   @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
   @ViewChild('content') content;
@@ -49,7 +49,10 @@ export class FeFormBuilderComponent implements DoCheck{
                     const componentName = value[1].attributes[2].nodeValue;
                     const index = this.calculateIndex(value);
                     console.log(componentName);
-                    this.dropComplete(this.formBuilderService.getComponent(componentName), index);
+                    this.dropComplete(this.formBuilderService.getComponent(componentName), index, value[2]);
+                  } else {
+                    this.formJsonService.setDOMComponentArray(value[2].children);
+                    this.formJsonService.buildFinalJSON();
                   }
                 });
 
@@ -84,10 +87,10 @@ export class FeFormBuilderComponent implements DoCheck{
   }
 
 
-  dropComplete(componentObj, index) {
+  dropComplete(componentObj, index, target) {
     // console.log(event);
     // this.component = event.dragData;
-    this.createComponentFunc(componentObj, index);
+    this.createComponentFunc(componentObj, index, target);
     this.openModal();
 
   }
@@ -103,7 +106,7 @@ export class FeFormBuilderComponent implements DoCheck{
     return  '_' + Math.random().toString(36).substr(2, 9);
   }
 
-  createComponentFunc(componentObj, index) {
+  createComponentFunc(componentObj, index, target) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     const viewContainerRef = this.host;
     const key = this.generateNewKey();
@@ -111,29 +114,8 @@ export class FeFormBuilderComponent implements DoCheck{
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
     this.formJsonService.addComponentToMasterJSON(key, componentRef);
+    target.children[index].generatedKey = key;
+    this.formJsonService.setDOMComponentArray(target.children);
+    this.formJsonService.buildFinalJSON();
   }
-
-
-  setName(data) {
-if (data.target.value) {
-      console.log(data.target.value)
-
-    }
-
-  }
-
-  setFormLabel(data) {
-      if (data.target.value) {
-  console.log(data.target.value);
-      }
-  }
-
-  setDisplay(data) {
-    if (data.target.value) {
-         console.log(data.target.value);
-    }
-
-  }
-
-
 }

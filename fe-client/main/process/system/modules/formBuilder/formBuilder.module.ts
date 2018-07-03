@@ -26,8 +26,7 @@ import { DatComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { CurComponent } from '@L3Process/system/modules/formBuilder/components/formElements/cur/cur.component';
 import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
 import { DragulaModule } from 'ng2-dragula';
-import { AncComponent } from './components/formElements/anc/anc.component';
-import { BlkComponent } from './components/formElements/blk/blk.component';
+
 
 @NgModule({
   declarations: [
@@ -47,8 +46,6 @@ import { BlkComponent } from './components/formElements/blk/blk.component';
     DatComponent,
     CurComponent,
     AdrComponent,
-    AncComponent,
-    BlkComponent
   ],
   imports: [
     CommonModule,
