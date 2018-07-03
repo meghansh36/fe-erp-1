@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,6 +44,20 @@ export class FeFormSchemaService {
         formClassValidations: {
           customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
         },
+        events: {
+          change: {
+            event: 'change',
+            handlerOwner: 'FORM',
+            handlerName: 'onUserNameChanged',
+            args: 'event'
+          },
+          focus: {
+            event: 'focus',
+            handlerOwner: 'RESOURCE',
+            handlerName: 'onUserNameFocus',
+            args: 'event'
+          }
+        },
         validations: {
           required: {
             'name': 'required',
@@ -79,6 +94,20 @@ export class FeFormSchemaService {
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
         placeholder: 'Enter your Password',
+        events: {
+          input: {
+            event: 'input',
+            handlerOwner: 'FORM',
+            handlerName: 'onPassWordInput',
+            args: 'event'
+          },
+          blur: {
+            event: 'blur',
+            handlerOwner: 'RESOURCE',
+            handlerName: 'onPassWordBlur',
+            args: 'event'
+          }
+        },
         validations: {
           required: {
             'name': 'required',
@@ -159,17 +188,24 @@ export class FeFormSchemaService {
         label: 'Condition Number',
         height: '',
         condition: {
-          'type': 'simple',
+          'type': 'jsoncondition',
           'simple': {
             'show': true,
             'when': 'number',
             'eq': 15
           },
-          'advanced': {
-            'show': 'number > 0'
-          },
-          'json': {
-
+          'advanced': `show = function(){
+            this.group.get(number).value == 15 ? return true : return false;
+          }`,
+          "jsoncondition": {
+            "json": {
+              "===": [
+                {
+                  "var": "username"
+                },
+                "apple"
+              ]
+            }
           }
         },
         width: '40%',
@@ -193,7 +229,7 @@ export class FeFormSchemaService {
         mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
         height: '',
         width: '40%',
-        placeholder: 'Enter your USA number',
+        placeholder: '(555) 233 4454',
         validators: [
           {
             'name': 'required',

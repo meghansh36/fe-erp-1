@@ -12,9 +12,12 @@ export class FeDefaultComponent {
     this.instance = this;
   }
 
-  onUserNameChange( arg1, arg2 ) {
-    console.log("called onUserNameChage of  default component",  arg1, arg2 );
+  onUserNameFocus( event ) {
+    console.log("Resource class onUserNameFocus called argument:", event);
   }
+  
+  onPassWordBlur( event ) {
+      console.log("Resource class onPassWordBlur called argument:", event);
+  }  
 
 }
-``

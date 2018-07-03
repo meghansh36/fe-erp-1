@@ -1,13 +1,16 @@
-import { Component, Input, OnInit, Injectable, ViewChild, Renderer2, ElementRef, OnDestroy, SimpleChange } from '@angular/core';
+import { Component, Input, OnInit, Injectable, ViewChild, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash';
-//import { CustomValidators } from 'ng4-validators';
+import { CustomValidators } from 'ng4-validators';
 import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
+import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
+import { log } from 'util';
+import { resource } from 'selenium-webdriver/http';
+import { BoundEventAst } from '@angular/compiler';
 import { config } from 'rxjs';
 import { groupBy } from 'rxjs/operators';
-import { log } from 'util';
 import { longStackSupport } from 'q';
 import { sanitizeStyle } from '@angular/core/src/sanitization/sanitization';
 import { FeFormSchemaService } from '../../../../../services/formSchema.service';
@@ -15,14 +18,18 @@ import { FeValidatorsService } from '../services/validators.service';
 import { FeDependentService } from '../services/dependent.service';
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
+import { parse } from 'querystring';
+import * as jsonLogic from 'json-logic-js'
+//import * as ts from "typescript";
 
 @Injectable()
-export class FeBaseComponent implements Field, OnInit, OnDestroy {
+export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
 
     public config: FieldConfig;
     public group: FormGroup;
     public form: any;
-
+    public length = 0;
+    public conditionClass: string;
     public error: string;
     public validators = [];
     public name: string;
@@ -38,8 +45,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
     constructor(public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
-    public statesOfCountry = [];
-    public newControl: string;
 
     ngOnInit(): void {
         this.applyDefaultValidations();
@@ -47,8 +52,45 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         this.applyWatch();
     }
 
+    ngAfterViewInit() {
+        this.bindEvents();
+    }
+
     ngOnDestroy() {
         this.$statusChange.unsubscribe();
+    }
+
+    bindEvents() {
+        try {
+            let eventsObjArr: object = this.config.events;
+            if (eventsObjArr) {
+                let field = this.fieldRef;
+                for (let eventName in eventsObjArr) {
+                    let event = eventsObjArr[eventName];
+                    let handlerOwnerType = event.handlerOwner;
+                    let handlerFnName = event.handlerName;
+                    let args = event.args;
+                    let ownerObject: any = {};
+                    if (!handlerOwnerType || handlerOwnerType == 'FORM') {
+                        ownerObject = this.form;
+                    } else if (handlerOwnerType == 'RESOURCE') {
+                        ownerObject = this.form.resource;
+                    }
+                    if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
+                        //let handlerStr = `ownerObject[handlerFnName]( event, args )`;
+                        this.render.listen(field, eventName, (event: any) => {
+                            //let handler: any = ts.transpile( handlerStr );
+                            //console.log("Transpiled handler", handler);
+                            ownerObject[handlerFnName].call(ownerObject, event)
+                        });
+                    } else {
+                        console.log(`Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}`);
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     applyWatch(): void {
@@ -58,20 +100,36 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         }
         if (this.config.condition) {
             let type = this.config.condition['type'];
-            switch (type) {
-                case 'simple':
-                    let simple = this.config.condition[type];
-                    this.form.componentInstances[this.flexiLabel].show = !simple.show;
-                    this.group.get(simple.when).valueChanges.subscribe((data) => {
-                        data == simple.eq ? this.form.componentInstances[this.flexiLabel].show = simple.show : this.form.componentInstances[this.flexiLabel].show = !simple.show;
-                    })
-                    break;
+            let conditionHandlerName = `${type}ConditionHandler`;
+            if (this[conditionHandlerName] && typeof this[conditionHandlerName] == 'function') {
+                this[conditionHandlerName](this.config.condition[type]);
             }
         }
     }
 
-    conditionOnRunTime(type: string, condition: any) {
+    simpleConditionHandler(simple: { [key: string]: any }) {
+        this.render.addClass(this.elemRef.nativeElement, 'hidden');
+        this.group.get(simple.when).valueChanges.subscribe((data) => {
+            data == simple.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
+        })
+    }
 
+    jsonconditionConditionHandler(condition) {
+        this.render.addClass(this.elemRef.nativeElement, 'hidden');
+        console.log(condition['json']);
+        let str = JSON.stringify(condition['json']);
+        let x = str.search('var');
+        let y = str.indexOf(',', x) - 1;
+        let when = eval(str.substring(x + 5, y).trim());
+        this.group.get(when).valueChanges.subscribe((data) => {
+            let mykey = { [when]: this.group.get(when).value };
+            if (jsonLogic.apply(condition['json'], mykey)) {
+                this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            }
+            else {
+                this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            }
+        });
     }
 
 
@@ -196,19 +254,11 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         }
     }
 
-    getMask() {
-        if (this.config.mask) {
-            return this.config.mask;
-        }
-        return false;
-    }
-
     initFieldStyle() {
         this.defaultClasses = this.getFieldClasses();
         this.style = this.getFieldStyles();
         this.style = _.assign({}, this.style, this.config.style);
     }
-
 
     getFieldClasses() {
         let config = this.config;
@@ -427,25 +477,12 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
         return (this.hasNgValidation(validationName) || this.hasCustomValidation(validationName) || this.hasFormClassValidation(validationName));
     }
 
-    get hasMinLength() {
-        return this.hasValidation('minLength');
+    get fieldId() {
+        return this.config.id;
     }
 
-    get hasMaxLength() {
-        return this.hasValidation('maxLength');
-    }
-    get minLength() {
-        if (this.hasMinLength) {
-            return this.config.validations.minLength.value;
-        }
-        return 0;
-    }
-
-    get maxLength() {
-        if (this.hasMaxLength) {
-            return this.config.validations.maxLength.value;
-        }
-        return 0;
+    get fieldRef() {
+        return document.querySelector(`#${this.fieldId}`);
     }
 
     get hasTextLenghtLimit() {
