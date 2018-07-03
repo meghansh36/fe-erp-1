@@ -18,23 +18,14 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 
 export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
-  Json = {id: 'FRM000001', name: 'form',code:'FRM000001',label:'My Form',components: []};
+  Json = {id: 'FRM000001', name: '',code:'FRM000001',formLabel:'',display:'',components: []};
   // @ViewChild('f')tempData;
   backupProps;
   componentData = <builderFieldCompInterface>{};
-
   modalRef: NgbModalRef;
   instance;
   showEdit: boolean;
   currentKey;
-
-
-
-
-
-
-
-
 
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
@@ -42,8 +33,12 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
               private componentFactoryResolver: ComponentFactoryResolver,
               private formJsonService: FormJsonService
     ) {
-    this.Json.components.push(this.componentData.name);
+    // this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
+    this.Json.name=this.masterFormService.name;
+    this.Json.display=this.masterFormService.display;
+    this.Json.formLabel=this.masterFormService.formLabel;
+    console.log('this.json',this.Json);
 
   }
 
@@ -54,8 +49,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
     console.log("fields property in master component",this.instance);
-
-
   }
 
   close() {
@@ -70,6 +63,11 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   onSubmit(form) {
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
+    this.formJsonService.MasterJSON.id=this.Json.id;
+    this.formJsonService.MasterJSON.code=this.Json.code;
+    this.formJsonService.MasterJSON.name=this.Json.name;
+    this.formJsonService.MasterJSON.formLabel=this.Json.formLabel;
+    this.formJsonService.MasterJSON.display=this.Json.display;
 
     this.Json.components.push(form);
     // JSON.stringify(this.Json);

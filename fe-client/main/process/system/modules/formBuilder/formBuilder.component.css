@@ -11,3 +11,7 @@ ng::after{
    margin-top: 26%;
    margin-left:70%
 }
+
+.requiredClass:after {
+  content:"*";color:red;
+}

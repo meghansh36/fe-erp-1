@@ -1,31 +1,50 @@
 <div class="container form-builder">
 
- <div class='row mt-2'>
-   <div class='col-md-4'>
-    <label for='name'><b>Name</b></label>
-    <input type='text' class='form-control w-75' id='name' placeholder='type form name here' name='name'/>
-  </div>
-  <div class='col-md-4'>
-      <label for='label'><b>Label</b></label>
-      <input type='text' class='form-control w-75' id='label' placeholder='type label here' name='label'/>
-    </div>
+  <form #form='ngForm'>
+    <div class='row mt-2'>
 
-    <div class='col-md-4'>
-        <label for='display'><b>Display</b></label>
-        <select id='display' class='form-control w-75'>
+
+
+      <div class='col-md-4'>
+        <label for='name' class='requiredClass'>
+          <b>Name</b>
+        </label>
+        <input type='text' class='form-control w-75' id='name' placeholder='type form name here' name='name' ngModel required #width='ngModel'
+       [(ngModel)]='masterFormService.name'/>
+        <div class="alert alert-danger w-75" *ngIf='width.touched && width.invalid'>Width is required.</div>
+      </div>
+
+
+
+      <div class='col-md-4'>
+        <label for='formLabel' class='requiredClass'>
+          <b>Label</b>
+        </label>
+        <input type='text' class='form-control w-75 requiredClass' id='formLabel' placeholder='type label here' name='label' ngModel
+        required  #formLabel='ngModel'
+       [(ngModel)]='masterFormService.formLabel'/>
+        <div class="alert alert-danger w-75" *ngIf='formLabel.touched && formLabel.invalid'>label is required.</div>
+     </div>
+
+      <div class='col-md-4'>
+        <label for='display'>
+          <b>Display</b>
+        </label>
+        <select id='display' class='form-control w-75 ' ngModel [ngModel]="'conventional'" name='display' #display='ngModel'
+        [(ngModel)]='masterFormService.display'>
           <option value="conventional">Conventional</option>
           <option value="excel">Excel</option>
-
         </select>
 
       </div>
 
- </div>
+    </div>
+  </form>
 
 
 
     <div class="row mt-3">
-        <div class="col-md-2 component-column">
+        <div class="col-md-3 col-sm-5 component-column">
             <!-- <div class="card">
                 <div class="card-header">
                     Fields
@@ -34,31 +53,30 @@
                     <form-drag></form-drag>
                 </div>
             </div> -->
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-                <ngb-panel title="Basic Fields">
-                    <ng-template ngbPanelContent>
-                        <form-drag [elementListToLoad]="basic"></form-drag>
-                    </ng-template>
-                </ngb-panel>
-                <ngb-panel title="Advanced Fields">
-                    <ng-template ngbPanelContent>
-                        <form-drag [elementListToLoad]="advanced"></form-drag>
-                    </ng-template>
-                </ngb-panel>
-            </ngb-accordion>
+      <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+        <ngb-panel title="Basic Fields">
+          <ng-template ngbPanelContent>
+            <form-drag [elementListToLoad]="basic"></form-drag>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel title="Advanced Fields">
+          <ng-template ngbPanelContent>
+            <form-drag [elementListToLoad]="advanced"></form-drag>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
 
-        </div>
-        <div class="col-md-10 drop-column">
+    </div>
+        <div class="col-md-9 col-sm-7 drop-column">
                 <div class="card" >
                     <div class="card-header">
                         Drag And Drop Fields
                     </div>
                     <!-- <div class="card-body" dnd-droppable (onDropSuccess) = "dropComplete($event,content)">
                         <div dnd-sortable-container > -->
-                    <div class="card-body" [dragula]='"bag-one"' id="copy">
+                    <div class="card-body customDropZone" [dragula]='"bag-one"' id="copy">
                             <ng-template #host></ng-template>
                         <!-- </div> -->
-
                     </div>
                 </div>
                <div class='builder-buttons'>
@@ -67,15 +85,16 @@
                  <button type='button' class="btn btn-success">Preview</button>
                </div>
         </div>
-    </div>
+      </div>
+
 </div>
 <div data-spy='scroll' data-offset='100' style='width:300px;height: 500px;'>
-    <div class='container'>
-      <pre>
+  <div class='container'>
+    <pre>
            {{finalJSON|json}}
       </pre>
-    </div>
+  </div>
 </div>
 <ng-template #content>
-    <form-master></form-master>
+  <form-master></form-master>
 </ng-template>

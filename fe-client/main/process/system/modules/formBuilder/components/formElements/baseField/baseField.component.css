@@ -17,6 +17,10 @@
     padding-right: 16px;
 }
 
+.fieldOptions ul>li:hover {
+    cursor: pointer;
+}
+
 .field{
     top:0%;
     left: 0%;
