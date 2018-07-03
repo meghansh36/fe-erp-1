@@ -3,7 +3,7 @@ var path      = require('path');
 var Sequelize = require('sequelize');
 //var basename  = path.basename(__filename);
 var db        = {};
-var CONFIG = require('/Users/chiragbansal/Desktop/FlexiEle-Angular/fe-erp/config/config.js');
+var CONFIG = require('../../../../../config/config.js');
 const CLASSMETHODS = 'classMethods';
 const ASSOCIATE = 'associate';
 
