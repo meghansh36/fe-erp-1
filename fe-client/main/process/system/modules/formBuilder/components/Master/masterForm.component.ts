@@ -22,19 +22,10 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
   // @ViewChild('f')tempData;
   backupProps;
   componentData = <builderFieldCompInterface>{};
-
   modalRef: NgbModalRef;
   instance;
   showEdit: boolean;
   currentKey;
-
-
-
-
-
-
-
-
 
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
   constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
@@ -43,8 +34,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
               private formJsonService: FormJsonService
     ) {
     this.Json.components.push(this.componentData.name);
-    // console.log(this.fieldControlService.getFieldRef().ref);
-
   }
 
   ngDoCheck() {}
@@ -54,8 +43,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
     console.log("fields property in master component",this.instance);
-
-
   }
 
   close() {

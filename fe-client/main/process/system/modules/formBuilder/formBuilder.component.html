@@ -25,7 +25,7 @@
 
 
     <div class="row mt-3">
-        <div class="col-md-2 component-column">
+        <div class="col-md-3 col-sm-5 component-column">
             <!-- <div class="card">
                 <div class="card-header">
                     Fields
@@ -48,17 +48,16 @@
             </ngb-accordion>
 
         </div>
-        <div class="col-md-10 drop-column">
+        <div class="col-md-9 col-sm-7 drop-column">
                 <div class="card" >
                     <div class="card-header">
                         Drag And Drop Fields
                     </div>
                     <!-- <div class="card-body" dnd-droppable (onDropSuccess) = "dropComplete($event,content)">
                         <div dnd-sortable-container > -->
-                    <div class="card-body" [dragula]='"bag-one"' id="copy">
+                    <div class="card-body customDropZone" [dragula]='"bag-one"' id="copy">
                             <ng-template #host></ng-template>
                         <!-- </div> -->
-
                     </div>
                 </div>
                <div class='builder-buttons'>
