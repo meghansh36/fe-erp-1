@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,6 +44,20 @@ export class FeFormSchemaService {
         formClassValidations: {
           customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
         },
+        events: {
+          change: {
+            event: 'change',
+            handlerOwner: 'FORM',
+            handlerName: 'onUserNameChanged',
+            args: 'event'
+          },
+          focus: {
+            event: 'focus',
+            handlerOwner: 'RESOURCE',
+            handlerName: 'onUserNameFocus',
+            args: 'event'
+          }
+        },
         validations: {
           required: {
             'name': 'required',
@@ -79,7 +94,21 @@ export class FeFormSchemaService {
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
         placeholder: 'Enter your Password',
-        validations: {
+        events: {
+          input: {
+            event: 'input',
+            handlerOwner: 'FORM',
+            handlerName: 'onPassWordInput',
+            args: 'event'
+          },
+          blur: {
+            event: 'blur',
+            handlerOwner: 'RESOURCE',
+            handlerName: 'onPassWordBlur',
+            args: 'event'
+          }
+        },
+        validations:{ 
           required: {
             'name': 'required',
             'value': true,
@@ -142,11 +171,11 @@ export class FeFormSchemaService {
           }
         },
         customValidations: {
-          agelimit: {
-            name: 'agelimit',
-            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
-            message: 'Age should be less than 50'
-          }
+            agelimit: {
+              name: 'agelimit',
+              validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+              message: 'Age should be less than 50'
+            }
         }
       },
       {

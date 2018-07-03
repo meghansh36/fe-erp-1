@@ -1,6 +1,4 @@
-const express = require('express');
-const path = require('path');
-const passport = require('passport');
+
 const session = require('express-session');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
@@ -22,25 +20,8 @@ var login_ctrl = require('./fe-server/main/process/default/controllers/login.js'
 var aureole_lookup = require('./fe-server/main/process/default/routes/aureole_lookup.js');
 var emp_details = require('./fe-server/main/process/default/routes/fe_hrm_emp_info_t.js')
 var aureole_lookup_ctrl = require('./fe-server/main/process/default/controllers/login.js');
-//const db = require('./db.config.js');
-  
-// force: true will drop the table if it already exists
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync with { force: true }');
-// });
-
-
 var fe = express();
 var app = express(); 
-
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const dynamicStatic = require('express-dynamic-static')();
-const book = require('./routes/book');
-const login = require ('./fe-server/main/process/default/routes/login.js');
-const login_ctrl = require('./fe-server/main/process/default/controllers/login.js')
-const app = express(); 
-
 
 app.use(login_ctrl);
 app.use(aureole_lookup_ctrl); 
