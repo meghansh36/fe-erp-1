@@ -23,8 +23,6 @@ export class FeFormBuilderComponent implements DoCheck {
   component: any;
   finalJSON;
 
-
-
   constructor(private bootstrapService: NgbModal,
               private masterFormService: FormMasterService,
               private componentFactoryResolver: ComponentFactoryResolver,

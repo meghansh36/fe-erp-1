@@ -26,6 +26,14 @@ import { DatComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { CurComponent } from '@L3Process/system/modules/formBuilder/components/formElements/cur/cur.component';
 import { AdrComponent } from '@L3Process/system/modules/formBuilder/components/formElements/adr/adr.component';
 import { DragulaModule } from 'ng2-dragula';
+import { ChkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/chk/chk.component';
+import { AncComponent } from '@L3Process/system/modules/formBuilder/components/formElements/anc/anc.component';
+import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/blk/blk.component';
+import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
+import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
+
+
+
 
 
 @NgModule({
@@ -46,6 +54,11 @@ import { DragulaModule } from 'ng2-dragula';
     DatComponent,
     CurComponent,
     AdrComponent,
+    ChkComponent,
+    AncComponent,
+    BlkComponent,
+    BtnComponent,
+    RadComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +71,8 @@ import { DragulaModule } from 'ng2-dragula';
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
-                    DatComponent, CurComponent, AdrComponent],
+                    DatComponent, CurComponent, AdrComponent, ChkComponent,
+                    AncComponent, BlkComponent, BtnComponent, RadComponent],
   providers: [FormBuilderService, FormMasterService, FieldControlService, FormJsonService],
   bootstrap: [FormBuilderComponent]
 })

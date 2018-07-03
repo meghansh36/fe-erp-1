@@ -33,7 +33,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
               private componentFactoryResolver: ComponentFactoryResolver,
               private formJsonService: FormJsonService
     ) {
-<<<<<<< HEAD
     // this.Json.components.push(this.componentData.name);
     // console.log(this.fieldControlService.getFieldRef().ref);
     this.Json.name=this.masterFormService.name;
@@ -41,9 +40,6 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.Json.formLabel=this.masterFormService.formLabel;
     console.log('this.json',this.Json);
 
-=======
-    this.Json.components.push(this.componentData.name);
->>>>>>> ef3be59c335d68c5558908167ad057da4c576080
   }
 
   ngDoCheck() {}
