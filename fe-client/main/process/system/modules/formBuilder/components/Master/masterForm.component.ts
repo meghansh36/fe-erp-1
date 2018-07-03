@@ -77,6 +77,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.masterFormService.setCurrentKey(this.currentKey);
     this.masterFormService.setProperties(form);
     this.formJsonService.buildFinalJSON();
+
     this.modalRef.close();
   }
 
@@ -112,7 +113,10 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     console.log('instance props', this.instance.properties);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+
+    console.log(' destroy called show edit ',this.instance.showEdit);
+  }
 
 
 }

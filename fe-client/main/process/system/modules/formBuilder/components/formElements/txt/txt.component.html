@@ -1,14 +1,28 @@
-<div class="fieldWrapper">
-  <span *ngIf='showEdit' class="fieldOptions">
+
+<span *ngIf='showEdit' class="fieldOptions">
     <ul>
       <li (click)='openModal()'><i class="material-icons icon-size">settings</i></li>
       <li><i class="material-icons icon-size">open_with</i></li>
       <li (click)="close($event)"><i class="material-icons icon-size">clear</i></li>
     </ul>
   </span>
+
+
+
+
+<div class="fieldWrapper">
+
+  <!-- <span *ngIf='showEdit' class="fieldOptions">
+    <ul>
+      <li (click)='openModal()'><i class="material-icons icon-size">settings</i></li>
+      <li><i class="material-icons icon-size">open_with</i></li>
+      <li (click)="close($event)"><i class="material-icons icon-size">clear</i></li>
+    </ul>
+  </span> -->
   <div class="form-group field">
+    <div [class]='properties.labelPosition'>
       <label for=""><b>{{properties.label}}</b>&nbsp;
-        <span style='display: inline-block;' *ngIf='applicableProperties.tooltip'>
+        <span style='display: inline-block;' *ngIf='properties.tooltip'>
           <a  class='card-tooltip mt-2' placement="right" ngbTooltip='{{properties.tooltip}}'>
             <i style='font-size: 16px;' class="material-icons"> help </i>
           </a>
@@ -19,16 +33,29 @@
           <i class="material-icons"> help </i>
         </a>
       </span> -->
+      <!-- <span *ngIf='showEdit' class="fieldOptions mt">
+          <ul>
+            <li (click)='openModal()'><i class="material-icons icon-size">settings</i></li>
+            <li><i class="material-icons icon-size">open_with</i></li>
+            <li (click)="close($event)"><i class="material-icons icon-size">clear</i></li>
+          </ul>
+        </span> -->
     <div class="input-group" >
     <div class="input-group-prepend" *ngIf='applicableProperties.prefix'>
-      <span class="input-group-text" id="basic-addon1">{{properties.prefix}}</span>
+      <span *ngIf='properties.prefix' class="input-group-text" id="basic-addon1">{{properties.prefix}}</span>
     </div>
-     <input type="text" placeholder={{properties.placeholder}} class="form-control">
 
+
+     <input type="text" placeholder={{properties.placeholder}} class="form-control"
+     [ngClass]="{'leftLeftAlign':properties.labelPosition==='left-L'}"
+     [ngClass]="{'leftRightAlign':properties.labelPosition==='left-R'}"
+     [ngClass]="{'rightLeftAlign':properties.labelPosition==='right-L'}"
+     [ngClass]="{'rightRightAlign':properties.labelPosition==='right-R'}"/>
     <div class="input-group-append" *ngIf='applicableProperties.suffix'>
-      <span class="input-group-text">{{properties.suffix}}</span>
+      <span *ngIf='properties.suffix' class="input-group-text">{{properties.suffix}}</span>
     </div>
    </div>
+  </div>
     <br>
 
     <div role="presentation"><a >{{properties.description}}</a></div>
