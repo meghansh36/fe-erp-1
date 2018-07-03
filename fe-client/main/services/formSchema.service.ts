@@ -161,9 +161,9 @@ export class FeFormSchemaService {
         condition: {
           'type': 'simple',
           'simple': {
-            'display': true,
-            'dependentOn': 'number',
-            'value': 15
+            'show': true,
+            'when': 'number',
+            'eq': 15
           },
           'advanced': {
             'show': 'number > 0'
@@ -181,26 +181,6 @@ export class FeFormSchemaService {
             'message': 'This Field is required'
           }
         }
-      },
-      {
-        type: 'TXT',
-        code: 'FLD000009',
-        flexiLabel: 'mask',
-        id: 'FRM000001-FLD000019',
-        style: [],
-        formcontrol: 'mask-form',
-        label: 'Mask Input',
-        mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-        height: '',
-        width: '40%',
-        placeholder: 'Enter your USA number',
-        validators: [
-          {
-            'name': 'required',
-            'value': true,
-            'message': 'This Field is required'
-          }
-        ]
       },
       {
         type: 'TXT',

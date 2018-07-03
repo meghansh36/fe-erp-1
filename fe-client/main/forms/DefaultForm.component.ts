@@ -57,4 +57,8 @@ export class DefaultFormComponent implements OnInit, AfterViewInit {
             }
         })
     }
+
+    createCondition(show:boolean,dependentOn:string,values?:number,func?:string) {
+        
+    }
 }

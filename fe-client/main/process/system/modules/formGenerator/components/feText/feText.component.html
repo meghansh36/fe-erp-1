@@ -23,8 +23,8 @@
                 <div class="input-group-prepend" *ngIf="config.prefix">
                     <span class="input-group-text"> {{ config.prefix }} </span>
                 </div>
-                <input type="text" class="form-control" [ngClass]="defaultClasses.fieldClasses" [textMask]="{mask:getMask()}" [ngStyle]="defaultClasses.fieldStyle"
-                    [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
+                <input type="text" class="form-control" [ngClass]="defaultClasses.fieldClasses" [textMask]="{mask:getMask()}" [placeholderChar]="(___) ___-____" [ngStyle]="defaultClasses.fieldStyle"
+                    [attr.tabindex]="config.tabIndex"  [formControlName]="config.flexiLabel"
                     [attr.id]="config.id">
                 <div class="input-group-append" *ngIf="config.suffix ">
                     <span class="input-group-text"> {{ config.suffix }} </span>

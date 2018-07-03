@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Injectable, ViewChild, Renderer2, ElementRef, OnDestroy, SimpleChange } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import * as _ from 'lodash';
 //import { CustomValidators } from 'ng4-validators';
 import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
@@ -26,9 +26,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
     public error: string;
     public validators = [];
     public name: string;
-    public show: boolean = false;
     public errors = [];
     public style: any;
+    public _show: any = true;
     public defaultClasses: any;
     public defaultFieldWidth: any;
 
@@ -60,14 +60,20 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
             let type = this.config.condition['type'];
             switch (type) {
                 case 'simple':
-                    let conditionToBeApplied = this.config.condition[type];
-                    if (this.group.get(conditionToBeApplied.dependentOn).value == conditionToBeApplied.value) {
-
-                    }
+                    let simple = this.config.condition[type];
+                    this.form.componentInstances[this.flexiLabel].show = !simple.show;
+                    this.group.get(simple.when).valueChanges.subscribe((data) => {
+                        data == simple.eq ? this.form.componentInstances[this.flexiLabel].show = simple.show : this.form.componentInstances[this.flexiLabel].show = !simple.show;
+                    })
                     break;
             }
         }
     }
+
+    conditionOnRunTime(type: string, condition: any) {
+
+    }
+
 
     onValueChange(value: SimpleChange) {
         if (value) {
@@ -452,6 +458,14 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy {
 
     set value(val) {
         this.control.setValue(val);
+    }
+
+    get show() {
+        return this._show;
+    }
+
+    set show(show) {
+        this._show = show;
     }
 
 }
