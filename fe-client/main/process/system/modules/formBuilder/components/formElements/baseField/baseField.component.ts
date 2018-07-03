@@ -11,7 +11,8 @@ export class FeBaseField {
     label: true,
     labelPosition: true,
     description: true,
-    tabIndex: true
+    tabIndex: true,
+    tooltip:true,
   };
 
   constructor(

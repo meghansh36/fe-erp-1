@@ -66,7 +66,7 @@
                             <select [(ngModel)]='componentData.labelPosition' ngModel
                             id="labelPosition" class="form-control"
                             name='labelPosition' required ngModel
-                            #labelPosition='ngModel'>
+                            #labelPosition='ngModel' (ngModelChange)='update($event)'>
                               <option value='top'>Top</option>
                               <option value='bottom'>Bottom</option>
                               <option value='left-L' >Left(Left Aligned)</option>
@@ -88,11 +88,12 @@
                         <label for="label-width" class='mt-3 requiredClass' >Label Width</label>
                         <input
                         required [(ngModel)]='componentData.labelWidth' ngModel
-                        type="text" class="form-control"
+                        type="number" class="form-control"
                         id='label-width'
                         placeholder='enter Label width'
                         name='labelWidth'
-                        #labelWidth='ngModel' >
+                        #labelWidth='ngModel'
+                        (ngModel)='update($event)' >
                         <div class="alert alert-danger" *ngIf='labelWidth.touched && labelWidth.invalid'>FlexieleLabel is required.</div>
 
 
@@ -100,10 +101,10 @@
 
 
                         <label for="label-margin" class='mt-3 requiredClass'>Label Margin</label>
-                        <input type="text" class="form-control" id='label-margin' placeholder='enter label margin'
+                        <input type="number" class="form-control" id='label-margin' placeholder='enter label margin'
                         [(ngModel)]='componentData.labelMargin' ngModel
                         name='labelMargin'
-                        #labelMargin='ngModel' required >
+                        #labelMargin='ngModel' required (ngModelChange)='update($event)'>
                         <div class="alert alert-danger" *ngIf='labelMargin.touched && labelMargin.invalid'>labelMargin is required.</div>
                         </div>
 
@@ -396,7 +397,7 @@
 
 
                       <label for='margin-top' class='mt-3'>Margin Top</label>
-                      <input type="Text" class="form-control" id='margin-top' placeholder='margin top'
+                      <input type="number" class="form-control" id='margin-top' placeholder='margin top'
                       name='marginTop' [(ngModel)]='componentData.marginTop' ngModel>
 
 
@@ -406,12 +407,12 @@
 
 
                       <label for='margin-bottom' class='mt-3'>Margin Bottom</label>
-                      <input type="text" class="form-control" id='margin-bottom' placeholder='Margin bottom'
+                      <input type="number" class="form-control" id='margin-bottom' placeholder='Margin bottom'
                       name='marginBottom' ngModel>
 
 
                       <label for='margin-left' class='mt-3'>Margin Left</label>
-                      <input type="text" class="form-control" id='margin-left' placeholder='Margin Left'
+                      <input type="number" class="form-control" id='margin-left' placeholder='Margin Left'
                       name='marginLeft' [(ngModel)]='componentData.marginLeft' ngModel>
 
                     </div>
