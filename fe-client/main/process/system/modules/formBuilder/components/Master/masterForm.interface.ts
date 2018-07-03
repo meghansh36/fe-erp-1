@@ -41,6 +41,7 @@ export interface builderFieldCompInterface{
   marginBottom:string,
   marginLeft:string,
   customFunction:string,
-  conditionalJsonLogic:string,
+  conditionalJsonLogic:string
+  
 
 }
