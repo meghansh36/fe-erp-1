@@ -22,6 +22,9 @@ export class FeFormBuilderComponent implements DoCheck{
   modalRef: NgbModalRef;
   component: any;
   finalJSON;
+
+
+
   constructor(private bootstrapService: NgbModal,
               private masterFormService: FormMasterService,
               private componentFactoryResolver: ComponentFactoryResolver,
@@ -38,7 +41,7 @@ export class FeFormBuilderComponent implements DoCheck{
                 });
 
                 this.dragulaService.drop.subscribe((value) => {
-                  //const componentName = value[1].attributes[2].nodeValue;
+                  // const componentName = value[1].attributes[2].nodeValue;
                   console.log(value);
                   if (value[1].nodeName === 'LI') {
                     value[1].innerHTML = '';
@@ -53,8 +56,9 @@ export class FeFormBuilderComponent implements DoCheck{
               }
 
 
-     ngDoCheck(){
+     ngDoCheck() {
        this.finalJSON = this.formJsonService.getFinalJSON();
+
 
      }
 
@@ -108,5 +112,28 @@ export class FeFormBuilderComponent implements DoCheck{
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
     this.formJsonService.addComponentToMasterJSON(key, componentRef);
   }
+
+
+  setName(data) {
+if (data.target.value) {
+      console.log(data.target.value)
+
+    }
+
+  }
+
+  setFormLabel(data) {
+      if (data.target.value) {
+  console.log(data.target.value);
+      }
+  }
+
+  setDisplay(data) {
+    if (data.target.value) {
+         console.log(data.target.value);
+    }
+
+  }
+
 
 }

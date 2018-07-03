@@ -11,7 +11,14 @@ export class FeFormMasterService {
   key;
   Json;
 
-  constructor(private masterJsonService: FormJsonService) { }
+
+  formLabel:string;
+  name :string;
+  display='conventional';
+
+  constructor(private masterJsonService: FormJsonService) {
+    console.log('formBuider data',this.formLabel,this.name,this.display);
+   }
 
   setModalRef(temp) {
     this.modalReference = temp;

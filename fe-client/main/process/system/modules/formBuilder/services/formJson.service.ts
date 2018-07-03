@@ -6,8 +6,9 @@ export class FeFormJsonService {
     MasterJSON = {
         id: '',
         code: '',
-        flexiLabel: '',
-        label: '',
+        formLabel: '',
+        name: '',
+        display: '',
         components: {}
     };
 
