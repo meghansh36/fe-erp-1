@@ -41,6 +41,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     public $statusChange: any;
     public $valueChange: any;
+    public $simpleConditionChange: any;
+    public $groupValueChange: any;
 
     constructor(public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
@@ -58,6 +60,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     ngOnDestroy() {
         this.$statusChange.unsubscribe();
+        this.$valueChange.unsubscribe();
+        this.$simpleConditionChange.unsubscribe();
+        this.$groupValueChange.unsubscribe();
     }
 
     bindEvents() {
@@ -99,37 +104,52 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             this.$valueChange = this.control.valueChanges.subscribe(this.onValueChange.bind(this));
         }
         if (this.config.condition) {
+            this.render.addClass(this.elemRef.nativeElement, 'hidden');
             let type = this.config.condition['type'];
             let conditionHandlerName = `${type}ConditionHandler`;
             if (this[conditionHandlerName] && typeof this[conditionHandlerName] == 'function') {
                 this[conditionHandlerName](this.config.condition[type]);
             }
+            else {
+                console.log(`Given condition handler is not a function for field ${this.flexiLabel}`);
+            }
         }
     }
 
-    simpleConditionHandler(simple: { [key: string]: any }) {
-        this.render.addClass(this.elemRef.nativeElement, 'hidden');
-        this.group.get(simple.when).valueChanges.subscribe((data) => {
-            data == simple.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
+    detectGroupValueChange(conditionFnction: Function) {
+        this.$groupValueChange = this.group.valueChanges.subscribe(conditionFnction.bind(this));
+    }
+
+    simpleConditionHandler(condition: { [key: string]: any }) {
+        this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
+            data == condition.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
         })
     }
 
-    jsonconditionConditionHandler(condition) {
-        this.render.addClass(this.elemRef.nativeElement, 'hidden');
-        console.log(condition['json']);
-        let str = JSON.stringify(condition['json']);
-        let x = str.search('var');
-        let y = str.indexOf(',', x) - 1;
-        let when = eval(str.substring(x + 5, y).trim());
-        this.group.get(when).valueChanges.subscribe((data) => {
-            let mykey = { [when]: this.group.get(when).value };
-            if (jsonLogic.apply(condition['json'], mykey)) {
+    advancedConditionHandler(condition: string) {
+        let theInstructions = new Function('controls', condition);
+        function handler() {
+            let show = theInstructions(this.group.controls);
+            if (show == true) {
                 this.render.removeClass(this.elemRef.nativeElement, 'hidden');
             }
             else {
                 this.render.addClass(this.elemRef.nativeElement, 'hidden');
             }
-        });
+        }
+        this.detectGroupValueChange(handler);
+    }
+
+    jsonConditionHandler(condition: object) {
+        function handler() {
+            if (jsonLogic.apply(condition['condition'], this.group.controls)) {
+                this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            }
+            else {
+                this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            }
+        }
+        this.detectGroupValueChange(handler);
     }
 
 

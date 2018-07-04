@@ -188,22 +188,18 @@ export class FeFormSchemaService {
         label: 'Condition Number',
         height: '',
         condition: {
-          'type': 'jsoncondition',
+          'type': 'json',
           'simple': {
             'show': true,
             'when': 'number',
             'eq': 15
           },
-          'advanced': `show = function(){
-            this.group.get(number).value == 15 ? return true : return false;
-          }`,
-          "jsoncondition": {
-            "json": {
-              "===": [
-                {
-                  "var": "username"
-                },
-                "apple"
+          'advanced': 'return show = controls.number.value == 15 ? true : false;',
+          "json": {
+            "condition": {
+              "and": [
+                { "===": [{ "var": "username.value" }, 'apple'] },
+                { "===": [{ "var": "number.value" }, 15] }
               ]
             }
           }
