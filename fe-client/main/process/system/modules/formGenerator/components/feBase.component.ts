@@ -18,7 +18,7 @@ import { FeValidatorsService } from '../services/validators.service';
 import { FeDependentService } from '../services/dependent.service';
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
-//import * as ts from "typescript";
+//import * as ts  from "typescript";
 
 @Injectable()
 export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
@@ -47,6 +47,15 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this.applyDefaultValidations();
         this.initFieldStyle();
         this.applyWatch();
+
+
+        // console.log("TypeScript", ts);
+        // const source = "let x: string  = 'string'";
+
+        // let result = ts.transpileModule(source, {
+        // compilerOptions: { module: ts.ModuleKind.System }
+        // });
+        // console.log("string after compilation.", result);
     }
 
     ngAfterViewInit() {
@@ -57,32 +66,62 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this.$statusChange.unsubscribe();
     }
 
+    static evalFnArgs( argsStr ){
+      try {
+        let evaluatedArgsArr = [];
+        argsStr = argsStr.trim().split(',');
+        argsStr.forEach( ( value ) => {
+            value = value.trim();
+            let evalStr = eval(value);
+            evaluatedArgsArr.push(evalStr);
+        });
+        return evaluatedArgsArr;
+      } catch (error) {
+          console.log(error);
+      }
+    }
+
+    fieldEventHandler( handlerData, event ) {
+        try {
+            let eventName = handlerData.name;
+            let handlerOwnerType = handlerData.handlerOwner;
+            let handlerFnName = handlerData.handlerName;
+            let args = handlerData.args;
+            let ownerObject: any = {};
+            if ( !handlerOwnerType ) {
+                handlerOwnerType = 'form';
+            } 
+            ownerObject =  this[ handlerOwnerType ]; //this.resource or this.form
+            if ( !ownerObject ) {
+                console.log( `Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.` );
+                return false;
+            }
+            if ( !ownerObject ) {
+                console.log( `Event handler type ${handlerOwnerType} does not exist in field component class for event ${eventName} for ${this.flexiLabel}` );
+                return ;
+            }
+            if ( ownerObject[ handlerFnName ] && typeof ownerObject[ handlerFnName ] == 'function' ) {
+                let argsArr = FeBaseComponent.evalFnArgs( args );
+                argsArr.push( this );
+                argsArr.push(event);
+                ownerObject[ handlerFnName ].apply( ownerObject, argsArr )
+            } else {
+                console.log( `Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}` );
+            }
+                    
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    
     bindEvents() {
         try {
             let eventsObjArr: object = this.config.events;
             if ( eventsObjArr ) {
                 let field = this.fieldRef;
                 for( let eventName in eventsObjArr ) {
-                    let event = eventsObjArr[ eventName ];
-                    let handlerOwnerType = event.handlerOwner;
-                    let handlerFnName = event.handlerName;
-                    let args = event.args;
-                    let ownerObject: any = {};
-                    if ( !handlerOwnerType || handlerOwnerType == 'FORM' ) {
-                        ownerObject = this.form;
-                    } else if ( handlerOwnerType == 'RESOURCE' ) {
-                        ownerObject =  this.form.resource;
-                    }
-                    if ( ownerObject[ handlerFnName ] && typeof ownerObject[ handlerFnName ] == 'function' ) {
-                        //let handlerStr = `ownerObject[handlerFnName]( event, args )`;
-                        this.render.listen( field, eventName, ( event: any ) => {
-                            //let handler: any = ts.transpile( handlerStr );
-                            //console.log("Transpiled handler", handler);
-                            ownerObject[ handlerFnName ].call( ownerObject, event )
-                        } );
-                    } else {
-                        console.log( `Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}` );
-                    }
+                    this.render.listen( field, eventName, this.fieldEventHandler.bind(this, eventsObjArr[ eventName ]) );
                 }
             }
         } catch (error) {
@@ -156,7 +195,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     hasCssClass(targetKey: string, classStr: string): boolean {
         return this.defaultClasses[targetKey] && this.defaultClasses[targetKey][classStr];
-
     }
 
     applyDefaultValidations(): void {
@@ -466,6 +504,10 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     get value() {
         return this.group.controls.value;
+    }
+
+    get resource() {
+        return this.form.resource;
     }
 
     set value(val) {

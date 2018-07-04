@@ -5,8 +5,6 @@ import { FeValidatorsService } from '../process/system/modules/formGenerator/ser
 import { FeDependentService } from '../process/system/modules/formGenerator/services/dependent.service';
 import { AbstractControl } from '@angular/forms';
 
-import { log } from 'util';
-
 @Component({
     selector: 'FRM0000001',
     templateUrl: 'DefaultForm.component.html'
@@ -32,11 +30,11 @@ export class FRM0000001Component extends DefaultFormComponent {
         });
     }
     
-    onUserNameChanged( event ) {
-        console.log("Form class onUserNameChanged called argument:", event);
+    onUserNameChanged( ...args ) {
+        console.log("Form class onUserNameChanged called argument:", args);
     }
 
-    onPassWordInput( event ) {
-        console.log("Form class onPassWordInput called argument:", event);
+    onPassWordInput(  ...args ) {
+        console.log("Form class onPassWordInput called argument:", args);
     }
 }

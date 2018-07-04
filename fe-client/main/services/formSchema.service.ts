@@ -47,15 +47,15 @@ export class FeFormSchemaService {
         events: {
           change: {
             event: 'change',
-            handlerOwner: 'FORM',
+            handlerOwner: 'form',
             handlerName: 'onUserNameChanged',
-            args: 'event'
+            args: "'change event','My' ,'Name  ',   'Is','Khan'"
           },
           focus: {
             event: 'focus',
-            handlerOwner: 'RESOURCE',
+            handlerOwner: 'resource',
             handlerName: 'onUserNameFocus',
-            args: 'event'
+            args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
           }
         },
         validations: {
@@ -97,15 +97,15 @@ export class FeFormSchemaService {
         events: {
           input: {
             event: 'input',
-            handlerOwner: 'FORM',
+            handlerOwner: 'form',
             handlerName: 'onPassWordInput',
-            args: 'event'
+            args: "'input','Harish','  Rathor'"
           },
           blur: {
             event: 'blur',
-            handlerOwner: 'RESOURCE',
+            handlerOwner: 'resource',
             handlerName: 'onPassWordBlur',
-            args: 'event'
+            args: "'blur','event', 'Harish'   , 'Rathor'"
           }
         },
         validations:{ 
