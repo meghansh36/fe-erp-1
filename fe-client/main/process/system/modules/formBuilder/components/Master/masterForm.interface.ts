@@ -10,6 +10,7 @@ export interface builderFieldCompInterface{
   labelPosition:string,
   labelWidth:number,
   labelMargin:number,
+  width:string,
   placeholder:string,
   description:string,
   tooltip:string,

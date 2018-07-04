@@ -3,11 +3,11 @@ import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
 @Component({
-  selector: 'anc-input',
-  templateUrl: './anc.component.html',
-  styleUrls: ['./anc.component.css', '../baseField/baseField.component.css']
+  selector: 'chk-input',
+  templateUrl: './chk.component.html',
+  styleUrls: ['./chk.component.css', '../baseField/baseField.component.css']
 })
-export class FeAncComponent extends FeBaseField  implements OnInit, DoCheck {
+export class FeChkComponent extends FeBaseField  implements OnInit, DoCheck {
   showEdit = true;
   properties = {
   label: 'test',
@@ -25,6 +25,9 @@ export class FeAncComponent extends FeBaseField  implements OnInit, DoCheck {
     ...this.applicableProperties
 
 }
+
+
+
   ngOnInit() {
 
     // this.properties = {
