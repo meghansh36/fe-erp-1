@@ -13,6 +13,11 @@ import { HidComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { DatComponent } from '@L3Process/system/modules/formBuilder/components/formElements/dat/dat.component';
 import { MonComponent } from '@L3Process/system/modules/formBuilder/components/formElements/mon/mon.component';
 import { componentFactoryName } from '@angular/compiler';
+import { ChkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/chk/chk.component';
+import { AncComponent } from '@L3Process/system/modules/formBuilder/components/formElements/anc/anc.component';
+import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/blk/blk.component';
+import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
+import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
 
 @Injectable()
 export class FeFormBuilderService {
@@ -52,11 +57,38 @@ export class FeFormBuilderService {
       componentName: 'TxaComponent'
     },
     {
+      name: 'input',
+      component: ChkComponent,
+      label: 'CheckBox',
+      icon: 'done',
+      componentName: 'ChkComponent'
+    },
+    {
+      name: 'input',
+      component: RadComponent,
+      label: 'Radio',
+      icon: 'radio_button_checked',
+      componentName: 'RadComponent'
+    },
+    {
+      name: 'anchor',
+       component: AncComponent,
+      label: 'Anchor',
+      icon: 'code',
+      componentName: 'AncComponent'
+    },
+    {
+      name: 'Blank',
+       component: BlkComponent,
+      label: 'Blank',
+      icon: 'check_box_outline_blank',
+      componentName: 'BlkComponent'
+    },
+    {
       name: 'hidden',
        component: HidComponent,
       label: 'Hidden',
-      icon: 'check_box_outline_blank',
-      type: 'hidden',
+      icon: 'visibility_off',
       componentName: 'HidComponent'
     },
     {
@@ -64,7 +96,6 @@ export class FeFormBuilderService {
        component: DatComponent,
       label: 'Date',
       icon: 'date_range',
-      type: 'date',
       componentName: 'DatComponent'
     },
     {
@@ -72,8 +103,14 @@ export class FeFormBuilderService {
        component: MonComponent,
       label: 'Month',
       icon: 'date_range',
-      type: 'month',
       componentName: 'MonComponent'
+    },
+    {
+      name: 'button',
+       component: BtnComponent,
+      label: 'Button',
+      icon: 'send',
+      componentName: 'BtnComponent'
     }
   ];
 
@@ -191,8 +228,33 @@ export class FeFormBuilderService {
     },
     'TimComponent': {
       name: 'time',
-       component: TimComponent,
+      component: TimComponent,
       type: 'time'
+    },
+    'AncComponent': {
+      name: 'anchor',
+      component: AncComponent,
+      type: 'anchor'
+    },
+    'BlkComponent': {
+      name: 'blank',
+      component: BlkComponent,
+      type: 'blank'
+    },
+    'ChkComponent': {
+      name: 'checkBox',
+      component: ChkComponent,
+      type: 'checkbox'
+    },
+    'BtnComponent': {
+      name: 'button',
+      component: BtnComponent,
+      type: 'button'
+    },
+    'RadComponent': {
+      name: 'radio',
+      component: RadComponent,
+      type: 'radio'
     }
 
   };

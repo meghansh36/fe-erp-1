@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
 @Component({
-  selector: 'txt-input[dnd-sortable][dnd-draggable]',
+  selector: 'txt-input',
   templateUrl: './txt.component.html',
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
@@ -11,11 +11,14 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   showEdit = true;
   properties = {
   label: 'test',
-  prefix: '',
-  suffix: '',
+  prefix:undefined,
+  suffix:undefined,
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip:undefined,
+  labelPosition:'top',
+  labelMargin:10
+};
 
   applicableProperties={
     inputMask:true,
@@ -25,8 +28,6 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     ...this.applicableProperties
 
 }
-
-
 
   ngOnInit() {
 
@@ -50,20 +51,15 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     // }
 
     console.log("base field property is ",this.applicableProperties);
+    console.log('show edit called',this.properties.labelPosition,this.showEdit);
 
   }
 
   ngDoCheck() {
   //   const propsFromMasterForm = this.masterFormService.getProperties(this.uniqueKey);
   //  // console.log("master form props", propsFromMasterForm);
-  //   if (propsFromMasterForm) {
-  //     this.update(propsFromMasterForm);
-  // }
-}
-  onSort(event) {
-    console.log('sort success', event);
-  }
 
+}
 
   openModal() {
     this.masterFormService.setCurrentKey(this.uniqueKey);
