@@ -27,6 +27,7 @@ export class FeFormSchemaService {
         height: '',
         disabled: false,
         prefix: '@',
+        defaultValue: 'harish.rathor',
         hidden: false,
         labelMargin: 20,
         tabIndex: '1',
@@ -86,6 +87,7 @@ export class FeFormSchemaService {
         label: 'Password',
         prefix: '#',
         suffix: '&',
+        defaultValue: 'harishrathor',
         customCssClass: 'custom-css-class2',
         labelWidth: 0,
         labelPosition: 'left',
@@ -131,6 +133,7 @@ export class FeFormSchemaService {
         label: 'Email',
         prefix: '',
         suffix: '@',
+        defaultValue: 'harish.rathor@gmail.com',
         customCssClass: 'custom-css-class2',
         labelWidth: 0,
         labelPosition: 'left',
@@ -160,6 +163,7 @@ export class FeFormSchemaService {
         style: {},
         formcontrol: 'number-form',
         label: 'Number',
+        defaultValue: 123,
         height: '',
         width: '40%',
         placeholder: 'Enter your Number',
@@ -187,6 +191,7 @@ export class FeFormSchemaService {
         formcontrol: 'number-form',
         label: 'Condition Number',
         height: '',
+        defaultValue: 1234,
         condition: {
           'type': 'simple',
           'simple': {
@@ -216,7 +221,8 @@ export class FeFormSchemaService {
         code: 'FLD000009',
         flexiLabel: 'mask',
         id: 'FRM000001-FLD000019',
-        style: [],
+        style: {},
+        defaultValue: '123456',
         formcontrol: 'mask-form',
         label: 'Mask Input',
         mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
@@ -262,6 +268,7 @@ export class FeFormSchemaService {
         height: '',
         width: '100%',
         placeholder: 'Enter your Country',
+        defaultValue: 'Indiana',
         validations: {
           required: {
             'name': 'required',
@@ -276,7 +283,6 @@ export class FeFormSchemaService {
         flexiLabel: 'gender',
         label: 'Gender',
         placeholder: '--SELECT--',
-        options: ['male', 'female', 'others'],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000003',
         formcontrol: 'select-form',
@@ -293,8 +299,19 @@ export class FeFormSchemaService {
         marginBottom: '10px',
         marginLeft: '10px',
         labelWidth: 0,
+        defaultValue: 'HE',
         width: '100%',
-
+        options: [
+          {
+            'code': 'HE',
+            'meaning': 'Male',
+            'tip': 'Male'
+          }, {
+            'code': 'SHE',
+            'meaning': 'Female',
+            'tip': 'Female'
+          }
+        ],
         validations: {
           required: {
             'name': 'required',
@@ -308,6 +325,7 @@ export class FeFormSchemaService {
         code: 'FLD000023',
         flexiLabel: 'parent',
         label: 'Country',
+        defaultValue: 'USA',
         isParent: 'Y',
         placeholder: '--SELECT--',
         options: [{
@@ -319,10 +337,16 @@ export class FeFormSchemaService {
           'meaning': 'USA',
           'tip': 'USA'
         }],
-        style: [{ 'name': 'width', 'value': '221px' }],
+        style: { 'width': '221px' },
         id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       {
         type: 'SEL',
@@ -330,11 +354,16 @@ export class FeFormSchemaService {
         flexiLabel: 'child',
         label: 'States',
         placeholder: '--SELECT--',
-        options: [],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        },
       },
       {
         type: 'FIL',
@@ -377,6 +406,7 @@ export class FeFormSchemaService {
         description: "FIeld Description",
         options: ['male', 'female', 'others'],
         id: 'FRM000001-FLD000010',
+        defaultValue: 'Y',
         formcontrol: 'check-form',
         validations: {
           required: {
@@ -391,7 +421,24 @@ export class FeFormSchemaService {
         code: 'FLD000011',
         flexiLabel: 'Radio',
         label: 'Radio',
-        options: ['male', 'female', 'others'],
+        defaultValue: 'HE',
+        options: [
+          {
+            'code': 'HE',
+            'meaning': 'Male',
+            'tip': 'Male'
+          }, 
+          {
+            'code': 'SHE',
+            'meaning': 'Female',
+            'tip': 'Female'
+          },
+          {
+            'code': 'OTH',
+            'meaning': 'Other',
+            'tip': 'Other'
+          }
+        ],
         id: 'FRM000001-FLD000011',
         formcontrol: 'radio-form',
         validations: {
@@ -409,14 +456,14 @@ export class FeFormSchemaService {
         label: 'Date',
         id: 'FRM000001-FLD000004',
         formcontrol: 'date-form',
-        placeholder: 'dd-mm-yyyy',
+        placeholder: 'yyyy-mm-dd',
         height: '',
-        disabled: false,
-        prefix: '@',
+        disabled: true,
         hidden: false,
         labelMargin: 20,
         tabIndex: '1',
         suffix: 'suff',
+        defaultValue: {year: 2017, month: 2 , day: 13},
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'bottom',
@@ -443,6 +490,7 @@ export class FeFormSchemaService {
         formcontrol: 'time-form',
         height: '',
         disabled: false,
+        defaultValue: { hour: 12, minute: 13, second: 13 },
         prefix: '@',
         hidden: false,
         labelMargin: 20,
@@ -482,6 +530,7 @@ export class FeFormSchemaService {
         formcontrol: 'description-form',
         label: 'Description',
         height: '',
+        defaultValue: 'Some tet area default value',
         width: '100%',
         placeholder: 'Enter Description',
         validations: {

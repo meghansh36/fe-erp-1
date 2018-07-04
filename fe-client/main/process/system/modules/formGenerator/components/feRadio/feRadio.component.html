@@ -13,10 +13,7 @@
             <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
                 <div [attr.id]="config.id" >
                     <div class="form-check"  *ngFor="let opt of config.options; let i = index">
-                        <input type="radio" [attr.option-index]="i" [formControlName]="config.flexiLabel" class="form-check-input" value="{{opt}}"  [attr.id]="config.id+'_'+i"> {{opt}}
-                        <label class="form-check-label" for="{{config.id+'_'+i}}">
-                            {{opt}}
-                        </label>
+                        <input type="radio" [attr.option-index]="i" [formControlName]="config.flexiLabel" class="form-check-input" value="{{opt.code}}"  [attr.id]="config.id+'_'+i"> {{opt.meaning}}
                     </div>
                 </div>
             </div>

@@ -48,6 +48,9 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
   @Input()
   form: any;
 
+  @Input()
+  formComponent: any;
+
   component: ComponentRef<Field>;
 
   constructor(
@@ -59,11 +62,13 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
     if (this.component) {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
-      this.component.instance.form = this.form;
+      // this.component.instance.form = this.form;
+      // this.component.instance.formComponent = this.formComponent;
     }
   }
 
   ngOnInit() {
+
     if (!components[this.config.type]) {
       const supportedTypes = Object.keys(components).join(', ');
       throw new Error(
@@ -71,11 +76,13 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
         Supported types: ${supportedTypes}`
       );
     }
+
     const component = this.resolver.resolveComponentFactory<Field>(components[this.config.type]);
     this.component = this.container.createComponent(component);
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
     this.component.instance.form = this.form;
-    this.form.instance.componentInstances[this.config.flexiLabel] = this.component.instance;
+    this.component.instance.formComponent = this.formComponent;
+    this.formComponent.componentInstances[ this.config.flexiLabel ] = this.component.instance;
   }
 }

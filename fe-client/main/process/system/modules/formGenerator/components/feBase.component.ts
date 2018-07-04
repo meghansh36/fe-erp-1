@@ -1,32 +1,33 @@
-import { Component,Input, OnInit, Injectable, ViewChild, Renderer2, ElementRef,  OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
-import { FormGroup,  FormControl,ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { Observable } from 'rxjs';
+import {  OnInit, Injectable, Renderer2, ElementRef,  OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
+import { FormGroup, AbstractControl } from '@angular/forms';
+//import { Observable } from 'rxjs';
 import * as _ from 'lodash';
-import { CustomValidators } from 'ng4-validators';
-import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
-import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
-import { log } from 'util';
-import { resource } from 'selenium-webdriver/http';
-import { BoundEventAst } from '@angular/compiler';
-import { config } from 'rxjs';
-import { groupBy } from 'rxjs/operators';
-import { longStackSupport } from 'q';
-import { sanitizeStyle } from '@angular/core/src/sanitization/sanitization';
+// import { CustomValidators } from 'ng4-validators';
+// import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+// import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
+// import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
+// import { log } from 'util';
+// import { resource } from 'selenium-webdriver/http';
+// import { BoundEventAst } from '@angular/compiler';
+// import { config } from 'rxjs';
+// import { groupBy } from 'rxjs/operators';
+// import { longStackSupport } from 'q';
+// import { sanitizeStyle } from '@angular/core/src/sanitization/sanitization';
 import { FeFormSchemaService } from '../../../../../services/formSchema.service';
 import { FeValidatorsService } from '../services/validators.service';
 import { FeDependentService } from '../services/dependent.service';
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
-//import * as ts  from "typescript";
 
 @Injectable()
 export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
-    
+    //Inputs passes from parent form component
     public config: FieldConfig;
     public group: FormGroup;
     public form: any;
+    public formComponent: any;
 
+    //this component's value
     public error: string;
     public validators = [];
     public name: string;
@@ -47,23 +48,22 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this.applyDefaultValidations();
         this.initFieldStyle();
         this.applyWatch();
-
-
-        // console.log("TypeScript", ts);
-        // const source = "let x: string  = 'string'";
-
-        // let result = ts.transpileModule(source, {
-        // compilerOptions: { module: ts.ModuleKind.System }
-        // });
-        // console.log("string after compilation.", result);
     }
 
     ngAfterViewInit() {
         this.bindEvents();
     }
 
+
+    // ngAfterViewChecked() {
+    //     if ( this.defaultValue ) {
+    //         this.setDefaultValue();
+    //     }
+    // }
+
     ngOnDestroy() {
         this.$statusChange.unsubscribe();
+        this.$valueChange.unsubscribe();
     }
 
     static evalFnArgs( argsStr ){
@@ -94,7 +94,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             ownerObject =  this[ handlerOwnerType ]; //this.resource or this.form
             if ( !ownerObject ) {
                 console.log( `Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.` );
-                return false;
+                return ;
             }
             if ( !ownerObject ) {
                 console.log( `Event handler type ${handlerOwnerType} does not exist in field component class for event ${eventName} for ${this.flexiLabel}` );
@@ -149,7 +149,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     onValueChange(value: SimpleChange) {
         if (value) {
-            this.form.getDependentData(this.flexiLabel, value);
+            this.formComponent.getDependentData(this.flexiLabel, value);
         }
         return;
     }
@@ -440,6 +440,24 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return inlineStyle;
     }
 
+    hasNgValidation(validationName: string) {
+        return (this.config.validations && this.config.validations[validationName] && this.config.validations[validationName].value);
+    }
+
+    hasCustomValidation(validationName: string) {
+        return (this.config.customValidations && this.config.customValidations[validationName]);
+    }
+
+    hasFormClassValidation(validationName: string) {
+        return (this.config.formClassValidations && this.config.formClassValidations[validationName]);
+    }
+
+    hasValidation(validationName: string) {
+        return (this.hasNgValidation(validationName) || this.hasCustomValidation(validationName) || this.hasFormClassValidation(validationName));
+    }
+
+   
+
     get isMandatory(): boolean {
         return (this.config.validations && this.config.validations['required'] && this.config.validations.required.value);
     }
@@ -474,20 +492,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return this.config.type;
     }
 
-    hasNgValidation(validationName: string) {
-        return (this.config.validations && this.config.validations[validationName] && this.config.validations[validationName].value);
-    }
-
-    hasCustomValidation(validationName: string) {
-        return (this.config.customValidations && this.config.customValidations[validationName]);
-    }
-
-    hasFormClassValidation(validationName: string) {
-        return (this.config.formClassValidations && this.config.formClassValidations[validationName]);
-    }
-
-    hasValidation(validationName: string) {
-        return (this.hasNgValidation(validationName) || this.hasCustomValidation(validationName) || this.hasFormClassValidation(validationName));
+    get defaultValue() {
+        return this.config.defaultValue;
     }
 
     get fieldId() {
@@ -502,16 +508,17 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return (this.hasValidation('maxLength') || this.hasValidation('minLength'));
     }
 
-    get value() {
-        return this.group.controls.value;
-    }
 
     get resource() {
         return this.form.resource;
     }
 
-    set value(val) {
-        this.control.setValue(val);
+    set value( val: any  ) {
+        this.formComponent.setValue(this.flexiLabel, val);
+    }
+
+    get value( ) {
+        return this.formComponent.getValue( this.flexiLabel );
     }
 
 }
