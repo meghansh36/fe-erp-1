@@ -176,6 +176,20 @@ export class FeFormSchemaService {
             validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
             message: 'Age should be less than 50'
           }
+        },
+        jsonValidations: {
+          'json': {
+            "if": [
+              {
+                "==": [
+                  { "var": "value" }, 150
+                ]
+              },
+              true,
+              false
+            ]
+          },
+          'message': 'Value must be 150'
         }
       },
       {
@@ -188,13 +202,13 @@ export class FeFormSchemaService {
         label: 'Condition Number',
         height: '',
         condition: {
-          'type': 'json',
+          'type': 'advanced',
           'simple': {
             'show': true,
             'when': 'number',
             'eq': 15
           },
-          'advanced': 'return show = controls.number.value == 15 ? true : false;',
+          'advanced': 'var show; return show = controls.number.value == 15 ? true : false;',
           "json": {
             "condition": {
               "and": [

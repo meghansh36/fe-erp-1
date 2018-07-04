@@ -4,9 +4,19 @@ import { FeBaseComponent } from '../feBase.component';
 @Component({
   selector: 'fe-text',
   styleUrls: ['feText.component.css'],
-  templateUrl: 'feText.component.html'
+  templateUrl: 'feText.component.html',
+  host: {
+    '(keypress)': '_onKeypress($event)',
+  }
 })
 export class FeTextComponent extends FeBaseComponent implements OnInit {
+
+  _onKeypress(e) {
+    if (this.hasMaxLength) {
+      const limit = +this.len;
+      if (e.target.value.length === this.maxLength) e.preventDefault();
+    }
+  }
 
   ngOnInit() {
     super.ngOnInit();
@@ -15,7 +25,7 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
 
   changeLength(data: string) {
     this.len = data.length;
-    if (this.len < this.minLength || this.len > this.maxLength) {
+    if (this.len < this.minLength) {
       this._Class = 'badge-danger';
     }
     else {
@@ -43,12 +53,7 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
     }
     return 0;
   }
-  get currentLength() {
-    if (this.control.hasError('minlength')) {
-      return this.control.errors.minlength.actualLength ? this.control.errors.minlength.actualLength : 0;
-    }
-  }
-
+  
   get mask() {
     if (this.config.mask) {
       let mask = this.config.mask;

@@ -127,9 +127,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     advancedConditionHandler(condition: string) {
-        let theInstructions = new Function('controls', condition);
+        let theInstructions = new Function('controls', 'formObject', 'fieldObject', condition);
         function handler() {
-            let show = theInstructions(this.group.controls);
+            let show = theInstructions(this.group.controls, this.form, this);
             if (show == true) {
                 this.render.removeClass(this.elemRef.nativeElement, 'hidden');
             }
@@ -215,6 +215,10 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         if (this.config.formClassValidations) {
             this.applyFormClassValidations();
         }
+
+        if (this.config.jsonValidations) {
+            this.applyJsonValidations();
+        }
         this.control.setValidators(this.validators);
     }
 
@@ -272,6 +276,17 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         } catch (err) {
             console.log(err);
         }
+    }
+
+    applyJsonValidations() {
+        let json = this.config.jsonValidations;
+        let fn = function (control: AbstractControl): { [key: string]: boolean } | null { if (jsonLogic.apply(json['json'], control) != true) { return { 'json': true }; } return null; }
+        this.validators.push(fn);
+        let errorObj = {
+            name: 'json',
+            message: json['message']
+        };
+        this.errors.push(errorObj);
     }
 
     initFieldStyle() {
