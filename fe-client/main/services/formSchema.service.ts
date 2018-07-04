@@ -109,7 +109,7 @@ export class FeFormSchemaService {
             args: "'blur','event', 'Harish'   , 'Rathor'"
           }
         },
-        validations:{ 
+        validations: {
           required: {
             'name': 'required',
             'value': true,
@@ -174,11 +174,25 @@ export class FeFormSchemaService {
           }
         },
         customValidations: {
-            agelimit: {
-              name: 'agelimit',
-              validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
-              message: 'Age should be less than 50'
-            }
+          agelimit: {
+            name: 'agelimit',
+            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+            message: 'Age should be less than 50'
+          }
+        },
+        jsonValidations: {
+          'json': {
+            "if": [
+              {
+                "==": [
+                  { "var": "value" }, 150
+                ]
+              },
+              true,
+              false
+            ]
+          },
+          'message': 'Value must be 150'
         }
       },
       {
@@ -192,17 +206,20 @@ export class FeFormSchemaService {
         height: '',
         defaultValue: 1234,
         condition: {
-          'type': 'simple',
+          'type': 'advanced',
           'simple': {
-            'display': true,
-            'dependentOn': 'number',
-            'value': 15
+            'show': true,
+            'when': 'number',
+            'eq': 15
           },
-          'advanced': {
-            'show': 'number > 0'
-          },
-          'json': {
-
+          'advanced': 'var show; return show = controls.number.value == 15 ? true : false;',
+          "json": {
+            "condition": {
+              "and": [
+                { "===": [{ "var": "username.value" }, 'apple'] },
+                { "===": [{ "var": "number.value" }, 15] }
+              ]
+            }
           }
         },
         width: '40%',
@@ -227,27 +244,7 @@ export class FeFormSchemaService {
         mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
         height: '',
         width: '40%',
-        placeholder: 'Enter your USA number',
-        validators: [
-          {
-            'name': 'required',
-            'value': true,
-            'message': 'This Field is required'
-          }
-        ]
-      },
-      {
-        type: 'TXT',
-        code: 'FLD000009',
-        flexiLabel: 'mask',
-        id: 'FRM000001-FLD000019',
-        style: [],
-        formcontrol: 'mask-form',
-        label: 'Mask Input',
-        mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-        height: '',
-        width: '40%',
-        placeholder: 'Enter your USA number',
+        placeholder: '(555) 233 4454',
         validators: [
           {
             'name': 'required',

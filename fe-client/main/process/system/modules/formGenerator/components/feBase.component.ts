@@ -18,27 +18,32 @@ import { FeValidatorsService } from '../services/validators.service';
 import { FeDependentService } from '../services/dependent.service';
 import { Field } from '../models/field.interface';
 import { FieldConfig } from '../models/field-config.interface';
+import * as jsonLogic from 'json-logic-js'
+//import * as ts from "typescript";
 
 @Injectable()
 export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
-    //Inputs passes from parent form component
+
     public config: FieldConfig;
     public group: FormGroup;
     public form: any;
+    
     public formComponent: any;
-
-    //this component's value
+    public length = 0;
+    public conditionClass: string;
     public error: string;
     public validators = [];
     public name: string;
-    public show: boolean = false;
     public errors = [];
     public style: any;
+    public _show: any = true;
     public defaultClasses: any;
     public defaultFieldWidth: any;
 
     public $statusChange: any;
     public $valueChange: any;
+    public $simpleConditionChange: any;
+    public $groupValueChange: any;
 
     constructor(public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
@@ -64,6 +69,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     ngOnDestroy() {
         this.$statusChange.unsubscribe();
         this.$valueChange.unsubscribe();
+        this.$simpleConditionChange.unsubscribe();
+        this.$groupValueChange.unsubscribe();
     }
 
     static evalFnArgs( argsStr ){
@@ -118,7 +125,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     bindEvents() {
         try {
             let eventsObjArr: object = this.config.events;
-            if ( eventsObjArr ) {
+            if (eventsObjArr) {
                 let field = this.fieldRef;
                 for( let eventName in eventsObjArr ) {
                     this.render.listen( field, eventName, this.fieldEventHandler.bind(this, eventsObjArr[ eventName ]) );
@@ -135,17 +142,54 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             this.$valueChange = this.control.valueChanges.subscribe(this.onValueChange.bind(this));
         }
         if (this.config.condition) {
+            this.render.addClass(this.elemRef.nativeElement, 'hidden');
             let type = this.config.condition['type'];
-            switch (type) {
-                case 'simple':
-                    let conditionToBeApplied = this.config.condition[type];
-                    if (this.group.get(conditionToBeApplied.dependentOn).value == conditionToBeApplied.value) {
-
-                    }
-                    break;
+            let conditionHandlerName = `${type}ConditionHandler`;
+            if (this[conditionHandlerName] && typeof this[conditionHandlerName] == 'function') {
+                this[conditionHandlerName](this.config.condition[type]);
+            }
+            else {
+                console.log(`Given condition handler is not a function for field ${this.flexiLabel}`);
             }
         }
     }
+
+    detectGroupValueChange(conditionFnction: Function) {
+        this.$groupValueChange = this.group.valueChanges.subscribe(conditionFnction.bind(this));
+    }
+
+    simpleConditionHandler(condition: { [key: string]: any }) {
+        this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
+            data == condition.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
+        })
+    }
+
+    advancedConditionHandler(condition: string) {
+        let theInstructions = new Function('controls', 'formObject', 'fieldObject', condition);
+        function handler() {
+            let show = theInstructions(this.group.controls, this.form, this);
+            if (show == true) {
+                this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            }
+            else {
+                this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            }
+        }
+        this.detectGroupValueChange(handler);
+    }
+
+    jsonConditionHandler(condition: object) {
+        function handler() {
+            if (jsonLogic.apply(condition['condition'], this.group.controls)) {
+                this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            }
+            else {
+                this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            }
+        }
+        this.detectGroupValueChange(handler);
+    }
+
 
     onValueChange(value: SimpleChange) {
         if (value) {
@@ -208,7 +252,11 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         if (this.config.formClassValidations) {
             this.applyFormClassValidations();
         }
-        this.control.setValidators( this.validators );
+
+        if (this.config.jsonValidations) {
+            this.applyJsonValidations();
+        }
+        this.control.setValidators(this.validators);
     }
 
     applyNgValidators(): void {
@@ -265,6 +313,17 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         } catch (err) {
             console.log(err);
         }
+    }
+
+    applyJsonValidations() {
+        let json = this.config.jsonValidations;
+        let fn = function (control: AbstractControl): { [key: string]: boolean } | null { if (jsonLogic.apply(json['json'], control) != true) { return { 'json': true }; } return null; }
+        this.validators.push(fn);
+        let errorObj = {
+            name: 'json',
+            message: json['message']
+        };
+        this.errors.push(errorObj);
     }
 
     initFieldStyle() {
@@ -501,8 +560,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     get fieldRef() {
-        return document.querySelector( `#${this.fieldId}` );
-    } 
+        return document.querySelector(`#${this.fieldId}`);
+    }
 
     get hasTextLenghtLimit() {
         return (this.hasValidation('maxLength') || this.hasValidation('minLength'));
@@ -519,6 +578,14 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     get value( ) {
         return this.formComponent.getValue( this.flexiLabel );
+    }
+
+    get show() {
+        return this._show;
+    }
+
+    set show(show) {
+        this._show = show;
     }
 
 }
