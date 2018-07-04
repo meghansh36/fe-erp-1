@@ -23,17 +23,23 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
   instance: any;
   componentInstances: any;
 
-  get schemaControls() { 
-    return this.components.filter(({type}) => type !== 'button'); 
-  }
-  get changes() { return this.form.valueChanges; }
-  get valid() { return this.form.valid; }
-  get value() { return this.form.value; }
 
   constructor(private fb: FormBuilder, private dependent: FeDependentService) {
     this.instance = this;
     this.componentInstances = [];
   }
+
+
+  static filterValidControls( components ) {
+    return components;//.filter(({type}) => type !== 'button'); 
+  }
+
+  get schemaControls() { 
+    return FeFormComponent.filterValidControls( this.components ); 
+  }
+  get changes() { return this.form.valueChanges; }
+  get valid() { return this.form.valid; }
+  get value() { return this.form.value; }
 
   ngOnInit() {
     this.form = this.createGroup();
@@ -52,9 +58,8 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
         .filter((control) => !controls.includes(control))
         .forEach((flexiLabel) => {
           const config = this.components.find((control) => control.flexiLabel === flexiLabel);
-          this.form.addControl(flexiLabel, this.createControl(config));
+          this.form.addControl(flexiLabel, FeFormComponent.createControl(this.fb, config));
         });
-
     }
   }
 
@@ -64,13 +69,24 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
 
   createGroup() {
     const group = this.fb.group({});
-    this.schemaControls.forEach(control => group.addControl(control.flexiLabel, this.createControl(control)));
+    FeFormComponent.createControls( this.fb, group, this.schemaControls );
     return group;
   }
 
-  createControl(config: FieldConfig) {
+  static createControls( fb:  FormBuilder , group: FormGroup, schemaControls: any ) {
+    schemaControls.forEach( (config) => { 
+      if ( config.type  && config.type == 'FST' ) {
+        let components = FeFormComponent.filterValidControls( config.components );
+        FeFormComponent.createControls( fb, group, components )
+      } else {
+        group.addControl( config.flexiLabel, FeFormComponent.createControl( fb, config )); 
+      }
+    });
+  }
+
+  static createControl(fb:  FormBuilder ,config: FieldConfig) {
     const { disabled, validation, value } = config;
-    return this.fb.control({ disabled, value }, validation);
+    return fb.control({ disabled, value }, validation);
   }
 
   handleSubmit(event: Event) {
@@ -79,14 +95,13 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
     this.submit.emit(this.value);
   }
 
-  getDependentData(flexilabel, value) {
-    let data: any = this.dependent.dependentData(flexilabel, value);
-    data.forEach((ele) => {
-        if (ele.fieldType == 'SEL' || ele.fieldType == 'MSL' ) {
-            this.instance.componentInstances[ele.flexiLabel].options = ele.data;
-        }
-        else {
-            this.instance.componentInstances[ele.flexiLabel].value = ele.data ;
+  getDependentData( flexilabel, value ) {
+    let data: any = this.dependent.dependentData( flexilabel, value );
+    data.forEach(( field ) => {
+        if (field.fieldType == 'SEL' || field.fieldType == 'MSL' ) {
+            this.setFieldOptions( field.flexiLabel, field.data );
+        } else {
+            this.setValue( field.flexiLabel, field.data );
         }
     })
   }
@@ -99,14 +114,13 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
     }
   }
 
-  setDisabled(flexiLabel: string, disable: boolean) {
-    if (this.getControl(flexiLabel)) {
+  setDisabled( flexiLabel: string, disable: boolean ) {
+    if ( this.getControl( flexiLabel ) ) {
       const method = disable ? 'disable' : 'enable';
       this.getControl(flexiLabel)[method]();
       return;
     }
-
-    this.components = this.components.map((item) => {
+    this.components = this.components.map(( item ) => {
       if (item.flexiLabel === flexiLabel) {
         item.disabled = disable;
       }
@@ -114,14 +128,13 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
     });
   }
 
-  setValue(flexiLabel: string, value: any) {
-    let control: AbstractControl = this.getControl(flexiLabel);
+  setValue( flexiLabel: string, value: any ) {
+    let control: AbstractControl = this.getControl( flexiLabel );
     if ( control ) {
       control.setValue(value, {emitEvent: true, onlySelf: true});
     } else {
       console.log(`Can not set value of undefined control ${flexiLabel}.`);
     }
-    
   }
 
   setDefaultValue() {
@@ -135,11 +148,11 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   getValue( flexiLabel: string ) {
-    let field: AbstractControl = this.getControl(flexiLabel);
+    let field: AbstractControl = this.getControl( flexiLabel );
     if ( field ) {
       return field.value;
     } else {
-      console.log(`Can not get value of undefined control ${flexiLabel}.`);
+      console.log(`Can not get value of undefined control ${ flexiLabel }.`);
     }
     return;
   }
