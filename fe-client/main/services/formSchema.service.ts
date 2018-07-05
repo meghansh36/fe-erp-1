@@ -13,6 +13,23 @@ export class FeFormSchemaService {
     name: 'form',
     code: 'FRM000001',
     label: 'Employee Personal Information',
+    condition: {
+      type: 'json',
+      simple: {
+        disabled: true,
+        when: 'number',
+        eq: 15
+      },
+      advanced: 'var show; return show = controls.number.value == 155 ? true : false;',
+      json: {
+        condition: {
+          "and": [
+            { "===": [{ "var": "username.value" }, 'cool'] },
+            { "===": [{ "var": "number.value" }, 155] }
+          ]
+        }
+      }
+    },
     components: [
       {
         type: 'TXT',
@@ -55,7 +72,7 @@ export class FeFormSchemaService {
             event: 'focus',
             handlerOwner: 'resource',
             handlerName: 'onUserNameFocus',
-            args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+            args: "'focus event','My' ,'Name  ',   'Is','Khan'"
           }
         },
         validations: {
@@ -423,7 +440,7 @@ export class FeFormSchemaService {
             'code': 'HE',
             'meaning': 'Male',
             'tip': 'Male'
-          }, 
+          },
           {
             'code': 'SHE',
             'meaning': 'Female',
@@ -446,6 +463,15 @@ export class FeFormSchemaService {
         }
       },
       {
+        type: 'ANC',
+        code: 'FLD000021',
+        flexiLabel: 'Anchor',
+        label: 'Anchor',
+        defaultValue: 'url',
+        value: 'http://google.com',
+        id: 'FRM000001-FLD000021',
+      },
+      {
         type: 'DAT',
         code: 'FLD000004',
         flexiLabel: 'date',
@@ -459,7 +485,7 @@ export class FeFormSchemaService {
         labelMargin: 20,
         tabIndex: '1',
         suffix: 'suff',
-        defaultValue: {year: 2017, month: 2 , day: 13},
+        defaultValue: { year: 2017, month: 2, day: 13 },
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'bottom',
@@ -525,7 +551,7 @@ export class FeFormSchemaService {
                 event: 'focus',
                 handlerOwner: 'resource',
                 handlerName: 'onUserNameFocus',
-                args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                args: "'focus event','My' ,'Name  ',   'Is','Khan'"
               }
             },
             validations: {
@@ -578,7 +604,7 @@ export class FeFormSchemaService {
                 args: "'blur','event', 'Harish'   , 'Rathor'"
               }
             },
-            validations:{ 
+            validations: {
               required: {
                 'name': 'required',
                 'value': true,
@@ -627,7 +653,7 @@ export class FeFormSchemaService {
                 event: 'focus',
                 handlerOwner: 'resource',
                 handlerName: 'onUserNameFocus',
-                args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                args: "'focus event','My' ,'Name  ',   'Is','Khan'"
               }
             },
             validations: {
@@ -680,7 +706,7 @@ export class FeFormSchemaService {
                 args: "'blur','event', 'Harish'   , 'Rathor'"
               }
             },
-            validations:{ 
+            validations: {
               required: {
                 'name': 'required',
                 'value': true,
@@ -741,7 +767,7 @@ export class FeFormSchemaService {
                     event: 'focus',
                     handlerOwner: 'resource',
                     handlerName: 'onUserNameFocus',
-                    args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                    args: "'focus event','My' ,'Name  ',   'Is','Khan'"
                   }
                 },
                 validations: {
@@ -794,7 +820,7 @@ export class FeFormSchemaService {
                     args: "'blur','event', 'Harish'   , 'Rathor'"
                   }
                 },
-                validations:{ 
+                validations: {
                   required: {
                     'name': 'required',
                     'value': true,
@@ -843,7 +869,7 @@ export class FeFormSchemaService {
                     event: 'focus',
                     handlerOwner: 'resource',
                     handlerName: 'onUserNameFocus',
-                    args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                    args: "'focus event','My' ,'Name  ',   'Is','Khan'"
                   }
                 },
                 validations: {
@@ -896,7 +922,7 @@ export class FeFormSchemaService {
                     args: "'blur','event', 'Harish'   , 'Rathor'"
                   }
                 },
-                validations:{ 
+                validations: {
                   required: {
                     'name': 'required',
                     'value': true,
@@ -916,7 +942,7 @@ export class FeFormSchemaService {
                 type: 'FST',
                 label: 'Some Settings',
                 hideLabel: true,
-                components:[
+                components: [
                   {
                     type: 'TXT',
                     code: 'FLD000020',
@@ -953,7 +979,7 @@ export class FeFormSchemaService {
                         event: 'focus',
                         handlerOwner: 'resource',
                         handlerName: 'onUserNameFocus',
-                        args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                        args: "'focus event','My' ,'Name  ',   'Is','Khan'"
                       }
                     },
                     validations: {
@@ -1006,7 +1032,7 @@ export class FeFormSchemaService {
                         args: "'blur','event', 'Harish'   , 'Rathor'"
                       }
                     },
-                    validations:{ 
+                    validations: {
                       required: {
                         'name': 'required',
                         'value': true,
