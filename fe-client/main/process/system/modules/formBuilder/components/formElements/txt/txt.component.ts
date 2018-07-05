@@ -40,6 +40,7 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     customJsonLogic:true,
     customFunction:true,
     jsonLogic:true,
+    ...this.applicableProperties
 
 
 

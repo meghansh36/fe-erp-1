@@ -28,6 +28,7 @@ export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
     appliedValidation:true,
     customFunction:true,
     jsonLogic:true,
+    ...this.applicableProperties
 
 }
 

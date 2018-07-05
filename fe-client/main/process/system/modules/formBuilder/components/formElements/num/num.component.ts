@@ -37,6 +37,7 @@ export class FeNumComponent extends FeBaseField implements OnInit, DoCheck {
     jsonLogic:true,
     useDelimeter:true,
     requiredDecimal:true,
+    ...this.applicableProperties
 }
 
   ngOnInit() {
