@@ -14,7 +14,7 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
     @Input() config: any;
     get hasMinLength() {
         return this.hasValidation( 'minLength' );
-        
+    }
   _onKeypress(e) {
     if (this.hasMaxLength) {
       const limit = +this.len;
@@ -57,7 +57,7 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
     }
     return 0;
   }
-  
+
   get mask() {
     if (this.config.mask) {
       let mask = this.config.mask;
