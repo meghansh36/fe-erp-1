@@ -1,23 +1,23 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { FeButtonComponent } from '../../components/feButton/feButton.component';
-import { FeTextComponent } from '../../components/feText/feText.component';
-import { FeTextAreaComponent } from '../../components/feTextArea/feTextArea.component';
-import { FeSelectComponent } from '../../components/feSelect/feSelect.component';
-import { FeMultiSelectComponent } from '../../components/feMultiSelect/feMultiSelect.component';
-import { FeDateComponent } from '../../components/feDate/feDate.component';
-import { FeTimeComponent } from '../../components/feTime/feTime.component';
-import { FeAutoCompleteComponent } from '../../components/feAutoComplete/feAutoComplete.component';
-import { FeNumberComponent } from '../../components/feNumber/feNumber.component';
-import { FeCheckBoxComponent } from '../../components/feCheckBox/feCheckBox.component';
-import { FeRadioComponent } from '../../components/feRadio/feRadio.component';
-import { FeFieldSetComponent } from '../../components/feFieldSet/feFieldSet.component';
-import { FeEmailComponent } from '../../components/feEmail/feEmail.component';
-import { FeFilComponent } from '../../components/feFile/feFile.component';
+import { FeButtonComponent } from '@L1Process/system/modules/formGenerator/components/feButton/feButton.component';
+import { FeTextComponent } from '@L1Process/system/modules/formGenerator/components/feText/feText.component';
+import { FeTextAreaComponent } from '@L1Process/system/modules/formGenerator/components/feTextArea/feTextArea.component';
+import { FeSelectComponent } from '@L1Process/system/modules/formGenerator/components/feSelect/feSelect.component';
+import { FeMultiSelectComponent } from '@L1Process/system/modules/formGenerator/components/feMultiSelect/feMultiSelect.component';
+import { FeDateComponent } from '@L1Process/system/modules/formGenerator/components/feDate/feDate.component';
+import { FeTimeComponent } from '@L1Process/system/modules/formGenerator/components/feTime/feTime.component';
+import { FeAutoCompleteComponent } from '@L1Process/system/modules/formGenerator/components/feAutoComplete/feAutoComplete.component';
+import { FeNumberComponent } from '@L1Process/system/modules/formGenerator/components/feNumber/feNumber.component';
+import { FeCheckBoxComponent } from '@L1Process/system/modules/formGenerator/components/feCheckBox/feCheckBox.component';
+import { FeRadioComponent } from '@L1Process/system/modules/formGenerator/components/feRadio/feRadio.component';
+import { FeFieldSetComponent } from '@L1Process/system/modules/formGenerator/components/feFieldSet/feFieldSet.component';
+import { FeEmailComponent } from '@L1Process/system/modules/formGenerator/components/feEmail/feEmail.component';
+import { FeFilComponent } from '@L1Process/system/modules/formGenerator/components/feFile/feFile.component';
 
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
+import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
+import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 
 const components: { [type: string]: Type<Field> } = {
   BTN: FeButtonComponent,
@@ -32,7 +32,8 @@ const components: { [type: string]: Type<Field> } = {
   RAD: FeRadioComponent,
   MSL: FeMultiSelectComponent,
   EML: FeEmailComponent,
-  FIL: FeFilComponent
+  FIL: FeFilComponent,
+  FST: FeFieldSetComponent
 };
 
 @Directive({
@@ -48,6 +49,9 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
   @Input()
   form: any;
 
+  @Input()
+  formComponent: any;
+
   component: ComponentRef<Field>;
 
   constructor(
@@ -60,6 +64,7 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
       this.component.instance.form = this.form;
+      this.component.instance.formComponent = this.formComponent;
     }
   }
 
@@ -71,11 +76,13 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
         Supported types: ${supportedTypes}`
       );
     }
+
     const component = this.resolver.resolveComponentFactory<Field>(components[this.config.type]);
     this.component = this.container.createComponent(component);
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
     this.component.instance.form = this.form;
-    this.form.instance.componentInstances[this.config.flexiLabel] = this.component.instance;
+    this.component.instance.formComponent = this.formComponent;
+    this.formComponent.componentInstances[ this.config.flexiLabel ] = this.component.instance;
   }
 }

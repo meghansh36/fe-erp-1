@@ -47,4 +47,6 @@ export interface FieldConfig {
   style?: object,
   events: object
   condition?: object,
+  defaultValue?: any,
+  components?: any
 }
