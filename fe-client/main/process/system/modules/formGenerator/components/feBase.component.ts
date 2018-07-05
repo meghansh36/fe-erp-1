@@ -8,6 +8,7 @@ import { Field } from '@L1Process/system/modules/formGenerator/models/field.inte
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js'
 
+
 @Injectable()
 export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
 
@@ -362,7 +363,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     getFieldClasses() {
-        let config = this._config;
         let type = this.type;
         let labelPosition = 'top';
         let customCssClass = this.customCssClass || '';
@@ -441,6 +441,12 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             fieldClasses,
             nestedFieldContainerClasses
         };
+
+        classes = this.beforeSetDefaultClasses( classes );
+        return classes;
+    }
+
+    public beforeSetDefaultClasses( classes ) {
         return classes;
     }
 
@@ -471,6 +477,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         }
         if (fieldWidth) {
             this.render.setStyle(this.elemRef.nativeElement, 'width', fieldWidth);
+        }
+        if ( this.type == 'HID' ) {
+            this.render.addClass( this.elemRef.nativeElement, 'hidden' );
         }
 
         if (labelMargin) {
@@ -526,7 +535,12 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             nestedFieldContainerStyle: {}
 
         };
+        inlineStyle = this.beforeSetDefaultStyle( inlineStyle );
         return inlineStyle;
+    }
+
+    beforeSetDefaultStyle( styleObj ) {
+        return styleObj;
     }
 
     hasNgValidation(validationName: string) {

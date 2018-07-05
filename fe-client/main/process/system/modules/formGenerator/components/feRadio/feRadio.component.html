@@ -2,18 +2,18 @@
         <div [ngClass]="defaultClasses.fieldWrapperClasses">
             <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
                 <div class="label">
-                    <label for="{{ config.id }}"  [ngClass]="defaultClasses.labelClasses">{{ config.label }}</label>
+                    <label for="{{ id }}"  [ngClass]="defaultClasses.labelClasses">{{ label }}</label>
                 </div>
-                <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
+                <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="description">
                     <span [ngClass]="defaultClasses.fieldDescContainerClasses">
-                        <i class="material-icons " placement="right" [ngbTooltip]="config.description"> help</i>
+                        <i class="material-icons " placement="right" [ngbTooltip]="description"> help</i>
                     </span>
                 </div>
             </div>
             <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-                <div [attr.id]="config.id" >
-                    <div class="form-check"  *ngFor="let opt of config.options; let i = index">
-                        <input type="radio" [attr.option-index]="i" [formControlName]="config.flexiLabel" class="form-check-input" value="{{opt.code}}"  [attr.id]="config.id+'_'+i"> {{opt.meaning}}
+                <div [attr.id]="id" >
+                    <div class="form-check"  *ngFor="let opt of options; let i = index">
+                        <input type="radio" [attr.option-index]="i" [formControlName]="flexiLabel" class="form-check-input" value="{{opt.code}}"  [attr.id]="id+'_'+i"> {{opt.meaning}}
                     </div>
                 </div>
             </div>
