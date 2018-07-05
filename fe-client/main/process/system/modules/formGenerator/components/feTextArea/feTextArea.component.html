@@ -23,12 +23,16 @@
                 Max:&nbsp;{{maxLength}}
             </span>
         </span>
-        <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
+        <div *ngIf="config.ckeditor == Y;else editor" [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
             <textarea class="form-control" cols="50" rows="8" [class.is-invalid]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
                 [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
                 [attr.id]="config.id"></textarea>
         </div>
     </div>
+    <ng-template #editor>
+        <ckeditor #myckeditor [formControlName]="config.flexiLabel" (change) = "_onChange($event)" >
+        </ckeditor>
+    </ng-template>
     <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
         [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
         <span *ngFor="let err of errors">

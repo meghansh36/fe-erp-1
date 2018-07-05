@@ -481,6 +481,7 @@ export class FeFormSchemaService {
         height: '',
         width: '100%',
         placeholder: 'Enter Description',
+        ckeditor: 'Y',
         validations: {
           required: {
             'name': 'required',
