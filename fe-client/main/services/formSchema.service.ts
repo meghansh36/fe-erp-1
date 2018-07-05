@@ -399,6 +399,7 @@ export class FeFormSchemaService {
         flexiLabel: 'multi',
         label: 'Multiselect',
         placeholder: '--SELECT--',
+        defaultValue: ['male','female'],
         options: ['male', 'female', 'others'],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000004',

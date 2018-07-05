@@ -14,11 +14,10 @@ import * as _ from 'lodash';
 // import { groupBy } from 'rxjs/operators';
 // import { longStackSupport } from 'q';
 // import { sanitizeStyle } from '@angular/core/src/sanitization/sanitization';
-import { FeFormSchemaService } from '../../../../../services/formSchema.service';
-import { FeValidatorsService } from '../services/validators.service';
-import { FeDependentService } from '../services/dependent.service';
-import { Field } from '../models/field.interface';
-import { FieldConfig } from '../models/field-config.interface';
+import { FeValidatorsService } from '@L1Process/system/modules/formGenerator/services/validators.service';
+import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
+import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
+import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js'
 //import * as ts from "typescript";
 
@@ -46,7 +45,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public $simpleConditionChange: any;
     public $groupValueChange: any;
 
-    constructor(public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
+    constructor(public elemRef: ElementRef,public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
 

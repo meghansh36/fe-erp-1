@@ -15,7 +15,7 @@
             <div class="input-group-prepend" *ngIf="config.prefix">
                 <span class="input-group-text"> {{ config.prefix }} </span>
             </div>
-            <ngx-select [multiple]="true" [items]="config.options">
+            <ngx-select [multiple]="true" [formControlName]="config.flexiLabel" [items]="config.options">
             </ngx-select>
             <div class="input-group-append" *ngIf="config.suffix ">
                 <span class="input-group-text"> {{ config.suffix }} </span>
