@@ -8,11 +8,21 @@ export class FeBaseField {
   uniqueKey;
 
   applicableProperties = {
-    label: true,
-    labelPosition: true,
-    description: true,
-    tabIndex: true,
+    label:true,
+    hideLabel:true,
+    labelPosition:true,
     tooltip:true,
+    errorLabel:true,
+    customCssClass:true,
+    tabIndex:true,
+    marginTop:true,
+    marginRight:true,
+    marginLeft:true,
+    marginBottom:true,
+    defaultValue:true,
+    sqlQuery:true,
+    nonPersistent:true,
+    autoComplete:true,
   };
 
   constructor(

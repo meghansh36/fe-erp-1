@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 import { NumComponent } from '@L3Process/system/modules/formBuilder/components/formElements/num/num.component';
@@ -22,6 +23,8 @@ import { FstComponent } from '@L3Process/system/modules/formBuilder/components/f
 
 @Injectable()
 export class FeFormBuilderService {
+
+
 
   referenceArray: Object[];
 
@@ -271,7 +274,7 @@ export class FeFormBuilderService {
 
   };
 
-  constructor() { }
+  constructor(public httpClient:HttpClient) { }
 
   getElementList(elementListToLoad) {
     if (elementListToLoad === 'basic') {
@@ -289,6 +292,11 @@ export class FeFormBuilderService {
 
   getComponent(name) {
     return this.component[name];
+  }
+
+
+  postData(data){
+    return this.httpClient.post('http://jsonplaceholder.typicode.com/posts',data)
   }
 
 }

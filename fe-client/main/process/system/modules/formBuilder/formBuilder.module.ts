@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormDragComponent } from '@L3Process/system/modules/formBuilder/components/formDrag/formDrag.component';
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
@@ -66,7 +67,9 @@ import { FstComponent } from '@L3Process/system/modules/formBuilder/components/f
     FormBuilderRoutes,
     FormsModule,
     SortablejsModule.forRoot({ animation: 500 }),
-    DragulaModule
+    DragulaModule,
+    HttpClientModule,
+
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,

@@ -18,11 +18,29 @@ export class FeTxaComponent extends FeBaseField  implements OnInit, DoCheck {
   tooltip: ''};
 
   applicableProperties={
-    inputMask:true,
     placeholder:true,
+    description:true,
+    inputMask:true,
     prefix:true,
     suffix:true,
-    ...this.applicableProperties
+    clearValue:true,
+    hidden:true,
+    disabled:true,
+    minimumLength:true,
+    maximumLength:true,
+    regularExpression:true,
+    customErrorMessage:true,
+    customValidationFunction:true,
+    customJsonLogic:true,
+    marginTop:true,
+    customFunction:true,
+    jsonLogic:true,
+    rows:true,
+    enableCk:true,
+    cksetting:true,
+    enableSpellCheck:true,
+    unique:true,
+
 
 }
 

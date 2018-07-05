@@ -166,4 +166,24 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
    // console.log(this.formJsonService.getMasterJSON());
     //console.log('dom array 4', target);
   }
+
+  save(){
+    this.formBuilderService.postData(this.finalJSON)
+    .subscribe((res)=>{console.log('resolve data')},
+                (err)=>{console.log('getting error')} );
+  }
+
+  reset(){
+
+
+  }
+
+  preview(){
+
+
+
+  }
+
+
+
 }

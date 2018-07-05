@@ -17,30 +17,36 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
   placeholder: 'test',
   tooltip: ''};
 
-  applicableProperties={
-    inputMask:true,
+  applicableProperties=
+  {
+    regionBias:true,
+    googleMapApi:true,
+    allowMultipleAddress:true,
+    inputFormat:true,
+    unique:true,
     placeholder:true,
-    prefix:true,
-    suffix:true,
-    ...this.applicableProperties
+    description:true,
+    clearValue:true,
+    hidden:true,
+    disabled:true,
+    appliedValidation:true,
+    minimumLength:true,
+    maximumLength:true,
+    regularExpression:true,
+    customErrorMessage:true,
+    customValidationFunction:true,
+    customJsonLogic:true,
+    customFunction:true,
+    jsonLogic:true,
+
 
 }
 
   ngOnInit() {
-
-    // this.properties = {
-    //   label: 'test',
-    //   prefix: '',
-    //   suffix: '',
-    //   description: '',
-    //   placeholder: 'test',
-    //   tooltip: ''
-    // };
     console.log("initialized a new instance", this.properties);
     this.setRef(this.fieldControlService.getFieldRef().ref);
     this.uniqueKey = this.masterFormService.getCurrentKey();
     console.log(this.uniqueKey);
-   // this.masterFormService.setCurrentKey(this.uniqueKey);
     this.masterFormService.setProperties(this.properties);
   }
 
