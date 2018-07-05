@@ -10,7 +10,7 @@ import { FeBaseComponent } from '../feBase.component';
     }
 })
 export class FeTextAreaComponent extends FeBaseComponent {
-
+    public length:number = 0;
     _onKeypress(e) {
         if (this.hasMaxLength) {
             const limit = +this.len;
@@ -54,14 +54,6 @@ export class FeTextAreaComponent extends FeBaseComponent {
         return 0;
     }
 
-    get mask() {
-        if (this.config.mask) {
-            let mask = this.config.mask;
-            return { mask };
-        }
-        return { mask: false };
-    }
-
     get len() {
         return this.length;
     }
@@ -75,5 +67,5 @@ export class FeTextAreaComponent extends FeBaseComponent {
     get _Class() {
         return this.conditionClass;
     }
-
+    
 }

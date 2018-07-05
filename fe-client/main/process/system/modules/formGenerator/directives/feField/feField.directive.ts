@@ -83,6 +83,7 @@ export class FeFieldDirective implements Field, OnChanges, OnInit {
     this.component.instance.group = this.group;
     this.component.instance.form = this.form;
     this.component.instance.formComponent = this.formComponent;
+    this.form.formComponent = this.formComponent;
     this.formComponent.componentInstances[ this.config.flexiLabel ] = this.component.instance;
   }
 }

@@ -8,7 +8,7 @@ import { FeBaseComponent } from '../feBase.component';
 })
 export class FeSelectComponent extends FeBaseComponent implements OnInit {
 
-  private _options: any;
+  protected _options: any;
 
   ngOnInit() {
     super.ngOnInit();

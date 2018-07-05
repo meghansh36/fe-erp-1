@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
-import { FieldConfig } from '../../models/field-config.interface';
+import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 
 @Component({
   exportAs: 'feForm',
@@ -9,9 +9,9 @@ import { FieldConfig } from '../../models/field-config.interface';
   styleUrls: ['feForm.component.css'],
   templateUrl: 'feForm.component.html'
 })
-export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
+export class FeFormComponent implements OnChanges, OnInit {
   @Input()
-  components: FieldConfig[] = [];
+  schema: any;
   
   @Input()
   formInstance: any;
@@ -22,6 +22,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
   form: FormGroup;
   instance: any;
   componentInstances: any;
+  protected _components;
 
 
   constructor(private fb: FormBuilder, private dependent: FeDependentService) {
@@ -41,8 +42,23 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
 
+  get components() {
+    return this._components;
+  }
+
+  set components( components ) {
+    this._components = components;
+  }
+
   ngOnInit() {
-    this.form = this.createGroup();
+    this.init();
+    
+  }
+
+  init() {
+    this.components = this.schema.components;
+    this.form = this.createFormGroup();
+    this.setDefaultValue();
   }
 
   ngOnChanges() {
@@ -63,31 +79,71 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.setDefaultValue();
-  }
-
-  createGroup() {
-    const group = this.fb.group({});
-    FeFormComponent.createControls( this.fb, group, this.schemaControls );
+  createFormGroup() {
+    let group =  FeFormComponent.createGroup( this.fb, this.schemaControls );
+    console.log("final group", group);
     return group;
   }
 
-  static createControls( fb:  FormBuilder , group: FormGroup, schemaControls: any ) {
-    schemaControls.forEach( (config) => { 
+  static createGroup( fb, schemaComponents ) {
+    let controls =  {};
+    controls =  FeFormComponent.createControls( fb, controls, schemaComponents );
+    let group = fb.group( controls );
+    return group;
+  }
+
+  static createControls( fb:  FormBuilder , controls, schemaComponents: any ) {
+    schemaComponents.forEach( (config) => { 
       if ( config.type  && config.type == 'FST' ) {
         let components = FeFormComponent.filterValidControls( config.components );
-        FeFormComponent.createControls( fb, group, components )
+         FeFormComponent.createControls( fb, controls, components );
+       // let fstGroup: FormGroup = FeFormComponent.createGroup( fb, components );
+        //console.log("fstGroup", fstGroup); 
+      // group.addControl( config.flexiLabel, fstGroup); 
+      //  controls[ config.flexiLabel ] = fstGroup;// FeFormComponent.createControl( fb, fstGroup );
       } else {
-        group.addControl( config.flexiLabel, FeFormComponent.createControl( fb, config )); 
+        controls[ config.flexiLabel ] = FeFormComponent.createControl( fb, config );
+       // group.addControl( config.flexiLabel, FeFormComponent.createControl( fb, config )); 
       }
     });
+    return controls;
   }
 
   static createControl(fb:  FormBuilder ,config: FieldConfig) {
-    const { disabled, validation, value } = config;
-    return fb.control({ disabled, value }, validation);
+    const { disabled, validation } = config;
+    return fb.control({ disabled, value: null }, validation);
   }
+
+  // createFormGroup() {
+  //   return FeFormComponent.createGroup( this.fb, this.schemaControls );
+  // }
+
+  // static createGroup( fb, schemaControls ) {
+  //   const group = fb.group({});
+  //   FeFormComponent.createControls( fb, group, schemaControls );
+  //   console.log("group", group);
+  //   return group;
+  // }
+
+  // static createControls( fb:  FormBuilder , group: FormGroup, schemaControls: any ) {
+  //   schemaControls.forEach( (config) => { 
+  //     if ( config.type  && config.type == 'FST' ) {
+  //         // let components = FeFormComponent.filterValidControls( config.components );
+  //         // FeFormComponent.createControls( fb, group, components );
+  //        let fstGroup: FormGroup = FeFormComponent.createGroup( fb, components );
+  //        //console.log("fstGroup", fstGroup); 
+  //        group.addControl( config.flexiLabel, fstGroup); 
+  //     } else {
+  //       group.addControl( config.flexiLabel, FeFormComponent.createControl( fb, config )); 
+  //     }
+  //   });
+  // }
+
+  // static createControl(fb:  FormBuilder ,config: FieldConfig) {
+  //   const { disabled, validation, defaultValue } = config;
+    
+  //   return fb.control({ disabled, value: defaultValue }, validation);
+  // }
 
   handleSubmit(event: Event) {
     event.preventDefault();
@@ -139,10 +195,12 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit {
 
   setDefaultValue() {
     this.components.forEach( ( componentConfig ) => {
-      let flexiLabel: string = componentConfig.flexiLabel;
-      let value: any = componentConfig.defaultValue;
-      if ( value ) {
-        this.setValue( flexiLabel, value );
+      if ( componentConfig.defaultValue ) {
+        let flexiLabel: string = componentConfig.flexiLabel;
+        let value: any = componentConfig.defaultValue;
+        if ( value ) {
+          this.setValue( flexiLabel, value );
+        }
       }
     } );
   }
