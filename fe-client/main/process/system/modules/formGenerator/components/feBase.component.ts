@@ -1,4 +1,4 @@
-import {  OnInit, Injectable, Renderer2, ElementRef,  OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
+import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 import { FeFormSchemaService } from '@L1Main/services/formSchema.service';
@@ -14,7 +14,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public config: FieldConfig;
     public group: FormGroup;
     public form: any;
-    
     public formComponent: any;
     
     public conditionClass: string;
@@ -79,7 +78,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     protected _config: FieldConfig;
 
 
-    constructor(public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
+    
+    constructor(public elemRef: ElementRef,public validator: FeValidatorsService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
 
@@ -105,19 +105,19 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this.$groupValueChange.unsubscribe();
     }
 
-    static evalFnArgs( argsStr ){
-      try {
-        let evaluatedArgsArr = [];
-        argsStr = argsStr.trim().split(',');
-        argsStr.forEach( ( value ) => {
-            value = value.trim();
-            let evalStr = eval(value);
-            evaluatedArgsArr.push(evalStr);
-        });
-        return evaluatedArgsArr;
-      } catch (error) {
-          console.log(error);
-      }
+    static evalFnArgs(argsStr) {
+        try {
+            let evaluatedArgsArr = [];
+            argsStr = argsStr.trim().split(',');
+            argsStr.forEach((value) => {
+                value = value.trim();
+                let evalStr = eval(value);
+                evaluatedArgsArr.push(evalStr);
+            });
+            return evaluatedArgsArr;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     fieldEventHandler( eventName,  handlerData, event ) {
@@ -126,32 +126,33 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             let handlerFnName = handlerData.handlerName;
             let args = handlerData.args;
             let ownerObject: any = {};
-            if ( !handlerOwnerType ) {
+            if (!handlerOwnerType) {
                 handlerOwnerType = 'form';
-            } 
-            ownerObject =  this[ handlerOwnerType ]; //this.resource or this.form
-            if ( !ownerObject ) {
-                console.log( `Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.` );
-                return ;
             }
-            if ( !ownerObject ) {
-                console.log( `Event handler type ${handlerOwnerType} does not exist in field component class for event ${eventName} for ${this.flexiLabel}` );
-                return ;
+            ownerObject = this[handlerOwnerType]; //this.resource or this.form
+            if (!ownerObject) {
+                console.log(`Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.`);
+                return;
             }
-            if ( ownerObject[ handlerFnName ] && typeof ownerObject[ handlerFnName ] == 'function' ) {
-                let argsArr = FeBaseComponent.evalFnArgs( args );
-                argsArr.push( this );
+            if (!ownerObject) {
+                console.log(`Event handler type ${handlerOwnerType} does not exist in field component class for event ${eventName} for ${this.flexiLabel}`);
+                return;
+            }
+            if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
+                let argsArr = FeBaseComponent.evalFnArgs(args);
+                argsArr.push(this);
                 argsArr.push(event);
-                ownerObject[ handlerFnName ].apply( ownerObject, argsArr )
+                ownerObject[handlerFnName].apply(ownerObject, argsArr)
             } else {
-                console.log( `Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}` );
+                console.log(`Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}`);
             }
+
         } catch (error) {
             console.log(error);
         }
     }
 
-    
+
     bindEvents() {
         try {
             let eventsObjArr: object = this.events;
@@ -544,6 +545,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return (this.hasNgValidation(validationName) || this.hasCustomValidation(validationName) || this.hasFormClassValidation(validationName));
     }
 
+
+
     get isMandatory(): boolean {
         return (this.validations && this.validations['required'] && this.validations.required.value);
     }
@@ -588,12 +591,12 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return this.form.resource;
     }
 
-    set value( val: any  ) {
+    set value(val: any) {
         this.formComponent.setValue(this.flexiLabel, val);
     }
 
-    get value( ) {
-        return this.formComponent.getValue( this.flexiLabel );
+    get value() {
+        return this.formComponent.getValue(this.flexiLabel);
     }
 
     get show() {

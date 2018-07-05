@@ -15,6 +15,10 @@ import { FeRadioComponent } from '@L1Process/system/modules/formGenerator/compon
 import { FeFieldSetComponent } from '@L1Process/system/modules/formGenerator/components/feFieldSet/feFieldSet.component';
 import { FeEmailComponent } from '@L1Process/system/modules/formGenerator/components/feEmail/feEmail.component';
 import { FeFilComponent } from '@L1Process/system/modules/formGenerator/components/feFile/feFile.component';
+import { FeAnchorComponent } from '@L1Process/system/modules/formGenerator/components/feAnchor/feAnchor.component';
+import { FeHiddenComponent } from '@L1Process/system/modules/formGenerator/components/feHidden/feHidden.component';
+import { FeBlankComponent } from '@L1Process/system/modules/formGenerator/components/feBlank/feBlank.component';
+import { FeIconicButtonComponent } from '@L1Process/system/modules/formGenerator/components/feIconicButton/feIconicButton.component';
 
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
@@ -33,7 +37,11 @@ const components: { [type: string]: Type<Field> } = {
   MSL: FeMultiSelectComponent,
   EML: FeEmailComponent,
   FIL: FeFilComponent,
-  FST: FeFieldSetComponent
+  FST: FeFieldSetComponent,
+  ANC: FeAnchorComponent,
+  BLK: FeBlankComponent,
+  HID: FeHiddenComponent,
+  ICB: FeIconicButtonComponent
 };
 
 @Directive({
@@ -42,6 +50,9 @@ const components: { [type: string]: Type<Field> } = {
 export class FeFieldDirective implements Field, OnChanges, OnInit {
   @Input()
   config: FieldConfig;
+
+  @Input()
+  schema: any;
 
   @Input()
   group: FormGroup;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
@@ -12,7 +12,7 @@ import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/fiel
 export class FeFormComponent implements OnChanges, OnInit {
   @Input()
   schema: any;
-  
+
   @Input()
   formInstance: any;
 
@@ -23,6 +23,9 @@ export class FeFormComponent implements OnChanges, OnInit {
   instance: any;
   componentInstances: any;
   protected _components;
+  protected _disabled: boolean;
+  public $simpleConditionChange: any;
+  public $groupValueChange: any;
 
 
   constructor(private fb: FormBuilder, private dependent: FeDependentService) {
@@ -31,12 +34,12 @@ export class FeFormComponent implements OnChanges, OnInit {
   }
 
 
-  static filterValidControls( components ) {
+  static filterValidControls(components) {
     return components;//.filter(({type}) => type !== 'button'); 
   }
 
-  get schemaControls() { 
-    return FeFormComponent.filterValidControls( this.components ); 
+  get schemaControls() {
+    return FeFormComponent.filterValidControls(this.components);
   }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
@@ -151,32 +154,32 @@ export class FeFormComponent implements OnChanges, OnInit {
     this.submit.emit(this.value);
   }
 
-  getDependentData( flexilabel, value ) {
-    let data: any = this.dependent.dependentData( flexilabel, value );
-    data.forEach(( field ) => {
-        if (field.fieldType == 'SEL' || field.fieldType == 'MSL' ) {
-            this.setFieldOptions( field.flexiLabel, field.data );
-        } else {
-            this.setValue( field.flexiLabel, field.data );
-        }
+  getDependentData(flexilabel, value) {
+    let data: any = this.dependent.dependentData(flexilabel, value);
+    data.forEach((field) => {
+      if (field.fieldType == 'SEL' || field.fieldType == 'MSL') {
+        this.setFieldOptions(field.flexiLabel, field.data);
+      } else {
+        this.setValue(field.flexiLabel, field.data);
+      }
     })
   }
 
-  setFieldOptions( flexiLabel: string, options: any ) {
-    let control = this.getControl( flexiLabel );
-    if ( control ) {
-      let fldCompObj = this.componentInstances[ flexiLabel ];
+  setFieldOptions(flexiLabel: string, options: any) {
+    let control = this.getControl(flexiLabel);
+    if (control) {
+      let fldCompObj = this.componentInstances[flexiLabel];
       fldCompObj.options = options;
     }
   }
 
-  setDisabled( flexiLabel: string, disable: boolean ) {
-    if ( this.getControl( flexiLabel ) ) {
+  setDisabled(flexiLabel: string, disable: boolean) {
+    if (this.getControl(flexiLabel)) {
       const method = disable ? 'disable' : 'enable';
       this.getControl(flexiLabel)[method]();
       return;
     }
-    this.components = this.components.map(( item ) => {
+    this.components = this.components.map((item) => {
       if (item.flexiLabel === flexiLabel) {
         item.disabled = disable;
       }
@@ -184,33 +187,31 @@ export class FeFormComponent implements OnChanges, OnInit {
     });
   }
 
-  setValue( flexiLabel: string, value: any ) {
-    let control: AbstractControl = this.getControl( flexiLabel );
-    if ( control ) {
-      control.setValue(value, {emitEvent: true, onlySelf: true});
+  setValue(flexiLabel: string, value: any) {
+    let control: AbstractControl = this.getControl(flexiLabel);
+    if (control) {
+      control.setValue(value, { emitEvent: true, onlySelf: true });
     } else {
       console.log(`Can not set value of undefined control ${flexiLabel}.`);
     }
   }
 
   setDefaultValue() {
-    this.components.forEach( ( componentConfig ) => {
-      if ( componentConfig.defaultValue ) {
-        let flexiLabel: string = componentConfig.flexiLabel;
-        let value: any = componentConfig.defaultValue;
-        if ( value ) {
-          this.setValue( flexiLabel, value );
-        }
+    this.components.forEach((componentConfig) => {
+      let flexiLabel: string = componentConfig.flexiLabel;
+      let value: any = componentConfig.defaultValue;
+      if (value) {
+        this.setValue(flexiLabel, value);
       }
-    } );
+    });
   }
 
-  getValue( flexiLabel: string ) {
-    let field: AbstractControl = this.getControl( flexiLabel );
-    if ( field ) {
+  getValue(flexiLabel: string) {
+    let field: AbstractControl = this.getControl(flexiLabel);
+    if (field) {
       return field.value;
     } else {
-      console.log(`Can not get value of undefined control ${ flexiLabel }.`);
+      console.log(`Can not get value of undefined control ${flexiLabel}.`);
     }
     return;
   }
@@ -219,8 +220,8 @@ export class FeFormComponent implements OnChanges, OnInit {
     return this.form.controls;
   }
 
-  getControl( fldFlexiLabel ) {
-    return this.controls[ fldFlexiLabel ];
+  getControl(fldFlexiLabel) {
+    return this.controls[fldFlexiLabel];
   }
- 
+
 }

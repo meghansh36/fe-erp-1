@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const session = require('express-session');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
@@ -66,7 +66,7 @@ app.use(passport.session());
 
 app.use('/api/default/login',login);
 app.use('/api/default/aureolelookup',aureole_lookup);
-app.use('/api/default/empdetails',emp_details);
+//app.use('/api/default/empdetails',emp_details);
 //app.get('/api/aureolelookup/*',aureole_lookup);
 //main get Route 
 /* app.use('/client/:id', function(req,res,next){

@@ -1,10 +1,13 @@
-var fs        = require('fs');
+/* var fs        = require('fs');
 var path      = require('path');
 var Sequelize = require('sequelize');
 //var basename  = path.basename(__filename);
 var db        = {};
 //var CONFIG = require('/Users/chiragbansal/Desktop/FlexiEle-Angular/fe-erp/config/config.js');
-var CONFIG = require('../../../../../config/config.js');
+var CONFIG = require(path.join(path.relative(__dirname,process.env.L0),'/config/config.js'));
+console.log(path.join(path.relative(__dirname,process.env.L0),'/config/config.js'));  
+//console.log(__dirname);
+//console.log("asdsdasdsasaddsd:=>  ",);
 const CLASSMETHODS = 'classMethods';
 const ASSOCIATE = 'associate';
 
@@ -25,9 +28,8 @@ fs
     return (file.indexOf('.') !== 0) && (file !== 'index.js') && (file.slice(-3) === '.js');
   })
   .forEach(file => {
-      console.log(file);
     var model = sequelize['import'](path.join(__dirname, file));
-    console.log(model);
+//    console.log(model);
     db[model.name] = model;
     //model.sync({force:false});
   });
@@ -45,3 +47,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 module.exports = db;
+ */
