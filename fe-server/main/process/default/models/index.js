@@ -1,3 +1,4 @@
+
 // var fs        = require('fs');
 // var path      = require('path');
 // var Sequelize = require('sequelize');
@@ -10,6 +11,20 @@
 // //console.log("asdsdasdsasaddsd:=>  ",);
 // const CLASSMETHODS = 'classMethods';
 // const ASSOCIATE = 'associate';
+
+/* var fs        = require('fs');
+var path      = require('path');
+var Sequelize = require('sequelize');
+//var basename  = path.basename(__filename);
+var db        = {};
+//var CONFIG = require('/Users/chiragbansal/Desktop/FlexiEle-Angular/fe-erp/config/config.js');
+var CONFIG = require(path.join(path.relative(__dirname,process.env.L0),'/config/config.js'));
+console.log(path.join(path.relative(__dirname,process.env.L0),'/config/config.js'));  
+//console.log(__dirname);
+//console.log("asdsdasdsasaddsd:=>  ",);
+const CLASSMETHODS = 'classMethods';
+const ASSOCIATE = 'associate';
+
 
 // const sequelize = new Sequelize(CONFIG.db_name, CONFIG.db_user, CONFIG.db_password, {
 //   host: CONFIG.db_host,
@@ -44,6 +59,13 @@
 // });
 
 
+// <<<<<<< master
 // db.sequelize = sequelize;
 // db.Sequelize = Sequelize;
 // module.exports = db;
+=======
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+module.exports = db;
+ */
+

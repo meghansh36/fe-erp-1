@@ -15,10 +15,7 @@
             <div class="input-group-prepend" *ngIf="config.prefix">
                 <span class="input-group-text"> {{ config.prefix }} </span>
             </div>
-            <select [formControlName]="config.flexiLabel" [attr.id]="config.id" [attr.tabindex]="config.tabIndex" [ngClass]="defaultClasses.fieldClasses">
-                <option value="">{{ config.placeholder }}</option>
-                <option *ngFor="let option of options" value="{{ option.code }}"> {{ option.meaning }} </option>
-            </select>
+            <ngx-select [items]="options" [formControlName]="config.flexiLabel" [attr.placeholder]="config.placeholder"></ngx-select>
             <div class="input-group-append" *ngIf="config.suffix ">
                 <span class="input-group-text"> {{ config.suffix }} </span>
             </div>

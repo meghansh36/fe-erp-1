@@ -1,5 +1,8 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FeBaseComponent } from '../feBase.component';
+import { Component, OnInit } from '@angular/core';
+import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
 
 @Component({
   selector: 'fe-text',
@@ -28,12 +31,14 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
   }
 
   changeLength(data: string) {
-    this.len = data.length;
-    if (this.len < this.minLength) {
-      this._Class = 'badge-danger';
-    }
-    else {
-      this._Class = 'badge-success';
+    if (data != undefined) {
+      this.len = data.length;
+      if (this.len < this.minLength) {
+        this._Class = 'badge-danger';
+      }
+      else {
+        this._Class = 'badge-success';
+      }
     }
   }
 

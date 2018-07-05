@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FeBaseComponent } from '../feBase.component';
+import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 

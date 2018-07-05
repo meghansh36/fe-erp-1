@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
-import { FeBaseComponent } from '../feBase.component';
+import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
 
 @Component({
     selector: 'fe-textarea',
@@ -33,7 +33,7 @@ export class FeTextAreaComponent extends FeBaseComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.control.valueChanges.subscribe(this.changeLength.bind(this));
+       // this.control.valueChanges.subscribe(this.changeLength.bind(this));
         this.ckeConfig = {
             allowedContent: false,
             extraPlugins: 'divarea',
@@ -41,7 +41,7 @@ export class FeTextAreaComponent extends FeBaseComponent {
           };
     }
 
-    changeLength(data: string) {
+    /* changeLength(data: string) {
         this.len = data.length;
         if (this.len < this.minLength) {
             this._Class = 'badge-danger';
@@ -49,7 +49,7 @@ export class FeTextAreaComponent extends FeBaseComponent {
         else {
             this._Class = 'badge-success';
         }
-    }
+    } */
 
     get hasMinLength() {
         return this.hasValidation('minLength');
