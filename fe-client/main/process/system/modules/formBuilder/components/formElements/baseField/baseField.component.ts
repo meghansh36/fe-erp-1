@@ -25,15 +25,34 @@ export class FeBaseField {
     autoComplete:true,
   };
 
+  properties = {
+    hideLabel: false,
+    labelPosition: 'top',
+    tooltip: undefined,
+    errorLabel: undefined,
+    customCssClass: undefined,
+    tabIndex: undefined,
+    marginTop: 0,
+    marginRight: 0,
+    marginLeft: 0,
+    marginBottom: 0,
+    defaultValue: 'none',
+    sqlQuery: undefined,
+    nonPersistent: false,
+    autoComplete: undefined,
+    componentname: undefined
+  };
+
   constructor(
     public fieldControlService: FieldControlService,
     public masterFormService: FormMasterService,
     public formJsonService: FormJsonService
   ) {}
   refObj;
-
+  componentname;
   setRef(reference) {
-    this.refObj = reference;
+    this.refObj = reference.ref;
+    this.properties.componentname = reference.component.component.name;
   }
 
   close() {

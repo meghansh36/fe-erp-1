@@ -1,11 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { DefaultFormComponent } from './DefaultForm.component';
 import { FeFormSchemaService } from '../services/formSchema.service';
-import { FeValidatorsService } from '../process/system/modules/formGenerator/services/validators.service';
-import { FeDependentService } from '../process/system/modules/formGenerator/services/dependent.service';
-import { AbstractControl } from '@angular/forms';
-
-import { log } from 'util';
+import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
 
 @Component({
     selector: 'FRM0000001',
@@ -13,9 +10,8 @@ import { log } from 'util';
 })
 export class FRM0000001Component extends DefaultFormComponent {
     protected code: String = 'FRM0000001';
-    public componentInstances = {};
     constructor(public formSchemaService: FeFormSchemaService, public dependent: FeDependentService) {
-        super(formSchemaService, dependent);
+        super(formSchemaService);
         super.setChildForm(this);
     }
 
@@ -32,11 +28,11 @@ export class FRM0000001Component extends DefaultFormComponent {
         });
     }
     
-    onUserNameChanged( event ) {
-        console.log("Form class onUserNameChanged called argument:", event);
+    onUserNameChanged( ...args ) {
+        console.log("Form class onUserNameChanged called argument:", args);
     }
 
-    onPassWordInput( event ) {
-        console.log("Form class onPassWordInput called argument:", event);
+    onPassWordInput(  ...args ) {
+        console.log("Form class onPassWordInput called argument:", args);
     }
 }

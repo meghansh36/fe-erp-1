@@ -12,12 +12,12 @@ export class FeDefaultComponent {
     this.instance = this;
   }
 
-  onUserNameFocus( event ) {
-    console.log("Resource class onUserNameFocus called argument:", event);
+  onUserNameFocus( ...args ) {
+    console.log("Resource class onUserNameFocus called arguments:", args );
   }
   
-  onPassWordBlur( event ) {
-      console.log("Resource class onPassWordBlur called argument:", event);
+  onPassWordBlur( ...args ) {
+      console.log("Resource class onPassWordBlur called argument:", args );
   }  
 
 }

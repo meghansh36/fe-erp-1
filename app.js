@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const session = require('express-session');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');

@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
-
+import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'txt-input.fieldComponent',
@@ -10,19 +10,22 @@ import { FeBaseField } from '../baseField/baseField.component';
 })
 export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   showEdit = true;
+
   properties = {
-  label: 'test',
-  prefix:undefined,
-  suffix:undefined,
-  description: '',
-  placeholder: 'test',
-  tooltip:undefined,
-  labelPosition:'top',
-  labelMargin:10,
-  width:100,
+  ...this.properties,
+  flexiLabel: 'username',
+  label: 'Text',
+  prefix: undefined,
+  suffix: undefined,
+  description: undefined,
+  placeholder: 'Add Text',
+  labelPosition: 'top',
+  labelMargin: 10 ,
+  width: '100%',
 };
 
-  applicableProperties={
+  applicableProperties = {
+    ...this.applicableProperties,
     placeholder:true,
     description:true,
     inputMask:true,
@@ -42,15 +45,16 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     jsonLogic:true,
     ...this.applicableProperties
 
+};
 
-
-}
+// form = new FormGroup({
+//   username: new FormControl()
+// }) ;
 
   ngOnInit() {
 
-
     console.log("initialized a new instance", this.properties);
-    this.setRef(this.fieldControlService.getFieldRef().ref);
+    this.setRef(this.fieldControlService.getFieldRef());
     this.uniqueKey = this.masterFormService.getCurrentKey();
     // this.masterFormService.setCurrentKey(this.uniqueKey);
     this.masterFormService.setProperties(this.properties);

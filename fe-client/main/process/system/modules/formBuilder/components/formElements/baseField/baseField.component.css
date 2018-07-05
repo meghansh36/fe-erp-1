@@ -5,6 +5,10 @@
 
 }
 
+.fieldWrapper:hover .fieldOptions {
+    visibility: visible;
+}
+
 .top{
   display:flex;
   flex-direction: column;
@@ -44,11 +48,14 @@
 
 
 .fieldOptions{
-    position: relative;
-    top: 0%;
-    left:82%;
-
-
+    position: absolute;
+    right: 0%;
+    z-index: 100;
+    visibility: hidden;
+    transition: 0.5s linear;
+    -o-transition: 0.5s linear;
+    -moz-transition: 0.5s linear;
+    -webkit-transition: 0.5s linear;
 }
 .fieldOptions ul {
     list-style: none;
@@ -66,6 +73,7 @@
 .field{
     top:0%;
     left: 0%;
+    margin-bottom: 0%;
 }
 
 .icon-size{
