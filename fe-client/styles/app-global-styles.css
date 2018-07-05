@@ -78,5 +78,12 @@
     color:green;
   }
 
+  fe-fieldset {
+    width: 100%;
+  }
+
+.fieldset-wrapper{
+  text-align: center;
+}
   /*-------------------------}          */
   

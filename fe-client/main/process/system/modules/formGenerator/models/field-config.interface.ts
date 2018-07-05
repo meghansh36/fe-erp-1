@@ -17,18 +17,20 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
+  ckeditor?: string;
   customValidations?: {
-    [key: string]: { name: string , validatorFn: any, message: string}
+    [key: string]: { name: string, validatorFn: any, message: string }
   };
+  jsonValidations?: { json: object, message: string },
   validations?: {
-    [ key: string ]: {
+    [key: string]: {
       name: string,
       value: any,
       message: string
     }
   };
   formClassValidations?: {
-    [key: string]: { name: string , validatorFuncName: string, message: string}
+    [key: string]: { name: string, validatorFuncName: string, message: string }
   };
   mask?: Array<string>;
   value?: any;
@@ -41,8 +43,10 @@ export interface FieldConfig {
   marginRight?: string,
   marginBottom?: string,
   marginLeft?: string,
-  width?:string,
-  style?: object, 
+  width?: string,
+  style?: object,
   events: object
   condition?: object,
+  defaultValue?: any,
+  components?: any
 }
