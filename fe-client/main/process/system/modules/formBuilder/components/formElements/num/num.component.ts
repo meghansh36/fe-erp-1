@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 import * as _ from 'lodash';
 @Component({
-  selector: 'num-input',
+  selector: 'num-input.fieldComponent',
   templateUrl: './num.component.html',
   styleUrls: ['./num.component.css', '../baseField/baseField.component.css']
 })

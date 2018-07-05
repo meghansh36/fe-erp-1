@@ -164,7 +164,8 @@ export class FeFormBuilderService {
       label: 'FieldSet',
       icon: 'access_time',
       componentName: 'FstComponent'
-    }
+    },
+    
   ];
 
   layoutElements = [

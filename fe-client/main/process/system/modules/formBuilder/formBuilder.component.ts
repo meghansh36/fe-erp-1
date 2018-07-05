@@ -59,8 +59,9 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
                     //this.DOMArray = document.querySelectorAll('.fieldcomponent');
                    // this.formJsonService.setDOMComponentArray(value[2].children);
                    const index = this.calculateIndex(value);
-                   this.formJsonService.updateMasterJSON(index, value[1].generatedKey, value[1].parentComponent);
-                    this.formJsonService.buildFinalJSON();
+                   //this.formJsonService.updateMasterJSON(index, value[1].generatedKey, value[2]);
+                   //this.formJsonService.updateMasterJSON(value[2]);
+                    //this.formJsonService.buildFinalJSON();
                   }
                 });
               }
@@ -68,7 +69,6 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
 
      ngDoCheck() {
        this.finalJSON = this.formJsonService.getFinalJSON();
-       console.log('final json', this.finalJSON);
      }
 
      ngOnInit() {
@@ -81,18 +81,17 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     const [bag, el, target, source, sibling] = value;
     const children = target.children;
 
-    let index = 0;
     if (sibling === null) {
       return children.length;
     } else {
-      for (let i = 0; i < children.length; i++) {
-        if (sibling !== children[i]) {
-          index++;
-        } else {
-          break;
-        }
-      }
-     return index;
+      // for (let i = 0; i < children.length; i++) {
+      //   if (sibling !== children[i]) {
+      //     index++;
+      //   } else {
+      //     break;
+      //   }
+      // }
+     return Array.prototype.indexOf.call(children, sibling) ;
     }
   }
 
@@ -100,11 +99,10 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   dropComplete(componentObj, index, value) {
     // console.log(event);
     // this.component = event.dragData;
-    this.createComponentFunc(componentObj, index, value[2], value[1]);
-    //this.openModal();
+    this.createComponentFunc(componentObj, index, value[2]);
+    this.openModal();
 
   }
-
 
   openModal() {
     this.modalRef = this.bootstrapService.open(this.content, {size: 'lg'});
@@ -115,33 +113,57 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     return  '_' + Math.random().toString(36).substr(2, 9);
   }
 
-  createComponentFunc(componentObj, index, target, el) {
+  createComponentFunc(componentObj, index, target) {
     const key = this.generateNewKey();
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
 
 
     if (target.className === 'FSTdropZone') {
-    console.log("index", index);
     const componentRef = this.fieldControlService.getFstCollection(target.id).createComponent(componentFactory, index);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
+    // console.log("index", index);
     this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index);
+    //  target.children[index].generatedKey = key;
+    //  target.children[index].parentComponent = target.id;
+    // console.log('target childkey', target.children[index].childkey);
     //this.formJsonService.setDOMComponentArray(this.rootDrop.children);
+    //console.log('dom array 1', target);
 
     } else {
-    const componentRef = this.host.createComponent(componentFactory, index);
+      
+    const viewContainerRef = this.host;
+    console.log("index", index);
+    const componentRef = viewContainerRef.createComponent(componentFactory, index);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
     this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index);
+    // console.log('target', target.children)
+    // target.children[index].generatedKey = key;
+    // target.children[index].parentComponent = target.id;
+    // console.log('target childkey', target.children[index].generatedKey);
   //  this.formJsonService.setDOMComponentArray(this.rootDrop.children);
-   
+    // console.log('dom array 2', target);
     }
-    this.DOMArray = document.querySelectorAll('.fieldcomponent');
-    this.DOMArray[this.DOMArray.length - 1].generatedKey = key;
-    this.DOMArray[this.DOMArray.length - 1].parentComponent = target.id;
-    // this.formJsonService.updateMasterJSON(index, key, target.id);
-    // this.formJsonService.setDOMComponentArray(this.DOMArray);
-    console.log(this.formJsonService.getMasterJSON());
+
+    target.children[index].generatedKey = key;
+    target.children[index].parentComponent = target.id;
+    this.formJsonService.updateMasterJSON(target);
     this.formJsonService.buildFinalJSON();
-    console.log('dom array', document.querySelectorAll('.fieldcomponent'));
+    //this.DOMArray = document.querySelectorAll('.fieldcomponent');
+    // this.DOMArray[this.DOMArray.length - 1].generatedKey = key;
+    // this.DOMArray[this.DOMArray.length - 1].parentComponent = target.id;
+
+   // setTimeout(() => {
+     // this.formJsonService.updateMasterJSON(target);
+      // this.formJsonService.buildFinalJSON();
+   // }, 1000);
+    //console.log("index", index);
+    
+    //console.log('dom array 3', target);
+    //this.formJsonService.updateMasterJSON(index, key, target);
+    
+    // this.formJsonService.setDOMComponentArray(this.DOMArray);
+   // console.log(this.formJsonService.getMasterJSON());
+    //console.log('dom array 4', target);
   }
 }

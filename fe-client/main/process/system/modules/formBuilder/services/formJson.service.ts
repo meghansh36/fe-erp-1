@@ -48,10 +48,17 @@ export class FeFormJsonService {
     //     this.DOMComponentArray = array;
     // }
 
-    updateMasterJSON(index, key, parentKey) {
-        console.log(key, this.MasterJSON);
-        this.MasterJSON.components[key].order = index;
-        this.MasterJSON.components[key].parent = parentKey;
+    updateMasterJSON(parent) {
+        console.log('update', parent);
+        for (let i = 0; i < parent.children.length; i++) {
+           const childKey = parent.children[i].generatedKey;
+           const parentKey = parent.children[i].parentComponent;
+        //    console.log('childkey', childKey);
+        //    console.log('parentkey', parentKey);
+        //    console.log('masterJSON', this.MasterJSON);
+           this.MasterJSON.components[childKey].order = i;
+           this.MasterJSON.components[childKey].parent = parentKey;
+        }
     }
 
     buildFinalJSON() {
