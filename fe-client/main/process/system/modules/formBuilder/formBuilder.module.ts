@@ -32,6 +32,10 @@ import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
 import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
+import { SelComponent } from '@L3Process/system/modules/formBuilder/components/formElements/sel/sel.component';
+import { MslComponent } from '@L3Process/system/modules/formBuilder/components/formElements/msl/msl.component';
+import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/formElements/icb/icb.component';
+import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
 
 
 @NgModule({
@@ -57,7 +61,11 @@ import { FstComponent } from '@L3Process/system/modules/formBuilder/components/f
     BlkComponent,
     BtnComponent,
     RadComponent,
-    FstComponent
+    FstComponent,
+    SelComponent,
+    MslComponent,
+    IcbComponent,
+    AcsComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +79,7 @@ import { FstComponent } from '@L3Process/system/modules/formBuilder/components/f
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
                     DatComponent, CurComponent, AdrComponent, ChkComponent,
-                    AncComponent, BlkComponent, BtnComponent, RadComponent, FstComponent],
+                    AncComponent, BlkComponent, BtnComponent, RadComponent,AcsComponent, FstComponent,IcbComponent, SelComponent,MslComponent],
   providers: [FormBuilderService, FormMasterService, FieldControlService, FormJsonService],
   bootstrap: [FormBuilderComponent]
 })
