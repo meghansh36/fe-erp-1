@@ -1,17 +1,24 @@
 
-<span *ngIf='showEdit' class="fieldOptions">
+
+
+
+<!-- <div class="fieldWrapper">
+
+  <form [formGroup] = "form">
+    <fe-text [config] = "this.properties" ></fe-text>
+  </form>
+</div> -->
+
+
+ <div class="fieldWrapper" [ngStyle]="{'max-width':properties.width}">
+
+  <span *ngIf='showEdit' class="fieldOptions">
     <ul>
       <li (click)='openModal()'><i class="material-icons icon-size">settings</i></li>
       <li><i class="material-icons icon-size">open_with</i></li>
       <li (click)="close($event)"><i class="material-icons icon-size">clear</i></li>
     </ul>
   </span>
-
-
-
-
-<div class="fieldWrapper">
-
   <!-- <span *ngIf='showEdit' class="fieldOptions">
     <ul>
       <li (click)='openModal()'><i class="material-icons icon-size">settings</i></li>
@@ -35,8 +42,8 @@
         <a class='card-tooltip' placement="right" ngbTooltip='{{properties.tooltip}}'>
           <i class="material-icons"> help </i>
         </a>
-      </span> -->
-      <!-- <span *ngIf='showEdit' class="fieldOptions mt">
+      </span>
+      <span *ngIf='showEdit' class="fieldOptions mt">
           <ul>
             <li (click)='openModal()'><i class="material-icons icon-size">settings</i></li>
             <li><i class="material-icons icon-size">open_with</i></li>
@@ -46,7 +53,7 @@
     <div class="input-group fieldClass"
     [ngClass]="{'leftLeftAlign':properties.labelPosition==='left-L','leftRightAlign':properties.labelPosition==='left-R',
     'rightLeftAlign':properties.labelPosition==='right-L','rightRightAlign':properties.labelPosition==='right-R'}"
-     [ngStyle]="{'max-width':properties.width}">
+     >
 
 
     <div class="input-group-prepend" *ngIf='applicableProperties.prefix'>
@@ -61,7 +68,6 @@
    </div>
   </div>
 </div>
-<br>
 
     <div role="presentation"><a >{{properties.description}}</a></div>
 

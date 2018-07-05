@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FeBaseComponent } from '../feBase.component';
 
 @Component({
@@ -8,6 +8,7 @@ import { FeBaseComponent } from '../feBase.component';
 })
 export class FeTextComponent extends FeBaseComponent {
 
+    @Input() config: any;
     get hasMinLength() {
         return this.hasValidation( 'minLength' );
     }

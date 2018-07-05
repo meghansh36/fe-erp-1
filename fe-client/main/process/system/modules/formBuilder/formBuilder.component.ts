@@ -76,6 +76,21 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     // this.rootDrop = this.renderer.selectRootElement('#root_drop');
      }
 
+     onEdit() {
+      const json = this.formBuilderService.getJSON();
+      this.host.clear();
+      this.formJsonService.setMasterJSON({});
+      for (let i = 0; i < json.components.length; i++ ) {
+        const componentObj = this.formBuilderService.getComponent(json.components[i].componentName);
+        this.createComponentFromJSON(componentObj, json.components[i]);
+      }
+     }
+
+     createComponentFromJSON(componentObj, componentProps) {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
+      this.masterFormService.setCurrentKey(componentProps.key);
+
+     }
 
   calculateIndex(value) {
     const [bag, el, target, source, sibling] = value;
@@ -95,7 +110,6 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     }
   }
 
-
   dropComplete(componentObj, index, value) {
     // console.log(event);
     // this.component = event.dragData;
@@ -103,6 +117,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     this.openModal();
 
   }
+
 
   openModal() {
     this.modalRef = this.bootstrapService.open(this.content, {size: 'lg'});
@@ -131,7 +146,6 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     //console.log('dom array 1', target);
 
     } else {
-      
     const viewContainerRef = this.host;
     console.log("index", index);
     const componentRef = viewContainerRef.createComponent(componentFactory, index);

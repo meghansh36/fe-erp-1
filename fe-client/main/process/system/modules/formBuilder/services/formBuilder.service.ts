@@ -295,6 +295,37 @@ export class FeFormBuilderService {
   }
 
 
+  getfinalJSON() {
+    return {
+      "id": "",
+      "code": "",
+      "formLabel": "",
+      "name": "",
+      "display": "",
+      "components": [
+        {
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": 0,
+          "marginRight": 0,
+          "marginLeft": 0,
+          "marginBottom": 0,
+          "defaultValue": "none",
+          "nonPersistent": false,
+          "componentname": "TxtComponent",
+          "flexiLabel": "username",
+          "label": "Text",
+          "placeholder": "Add Text",
+          "labelMargin": 10,
+          "width": "100%",
+          "key": "_ap3bc4tea",
+          "parent": "root_drop",
+          "order": 0
+        }
+      ]
+    };
+  }
+
   postData(data){
     return this.httpClient.post('http://jsonplaceholder.typicode.com/posts',data)
   }

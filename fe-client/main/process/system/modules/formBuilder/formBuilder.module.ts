@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule, FormControl } from '@angular/forms';
+import {FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 import { TxaComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txa/txa.component';
 import { TimComponent } from '@L3Process/system/modules/formBuilder/components/formElements/tim/tim.component';
@@ -33,6 +33,7 @@ import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
 import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
+import { FormGeneratorModule } from '../formGenerator/formGenerator.module';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { FstComponent } from '@L3Process/system/modules/formBuilder/components/f
     SortablejsModule.forRoot({ animation: 500 }),
     DragulaModule,
     HttpClientModule,
-
+    FormGeneratorModule,
+    ReactiveFormsModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
