@@ -17,6 +17,8 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
   placeholder: 'test',
   tooltip: ''};
 
+  
+
   applicableProperties=
   {
     regionBias:true,
@@ -38,8 +40,6 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
     customJsonLogic:true,
     customFunction:true,
     jsonLogic:true,
-
-
 }
 
   ngOnInit() {
