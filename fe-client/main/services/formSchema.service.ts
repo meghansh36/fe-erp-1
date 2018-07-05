@@ -157,17 +157,30 @@ export class FeFormSchemaService {
         height: '',
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
-        placeholder: 'Enter your Password',
+        placeholder: 'Enter your Email',
         validations: {
           required: {
             'name': 'required',
             'value': true,
             'message': 'This Field is required'
-          },
-          email: {
-            'name': 'email',
-            'value': true,
-            'message': 'This is not vaid email format'
+          }
+        },
+        customValidations: {
+          commaseperatedemail: {
+            name: 'commaseperatedemail',
+            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null {
+              let regExp = /(^[a-z]([a-z_\.]*)@([a-z_\.]*)([.][a-z]{3})$)|(^[a-z]([a-z_\.]*)@([a-z_\.]*)(\.[a-z]{3})(\.[a-z]{2})*$)/i;
+              let emailArray = control.value.split(",");
+              return emailArray.forEach((eml) => {
+                if (regExp.test(eml)) {
+                  return null;
+                }
+                else {
+                  return { 'commaseperatedemail': true };
+                }
+              });
+            },
+            message: 'Email should be correct'
           }
         }
       },
@@ -399,7 +412,7 @@ export class FeFormSchemaService {
         flexiLabel: 'multi',
         label: 'Multiselect',
         placeholder: '--SELECT--',
-        defaultValue: ['male','female'],
+        defaultValue: ['male', 'female'],
         options: ['male', 'female', 'others'],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000004',
