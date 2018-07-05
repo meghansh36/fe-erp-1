@@ -38,7 +38,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.Json.name=this.masterFormService.name;
     this.Json.display=this.masterFormService.display;
     this.Json.formLabel=this.masterFormService.formLabel;
-    console.log('this.json',this.Json);
+
 
   }
 
@@ -48,7 +48,7 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
-    console.log("fields property in master component",this.instance);
+
   }
 
   close() {
