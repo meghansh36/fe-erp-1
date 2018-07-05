@@ -1,9 +1,0 @@
-<div class="form-group col-md" [formGroup]="group">
-    <label for="exampleInputEmail1">{{lable}}</label>
-    <div class="input-group mb-3">
-        <select appSelectElement class="form-control custom-select" [formControlName]="name" aria-describedby="emailHelp">
-            <option value="" selected disabled hidden>Choose here</option>
-            <option *ngFor="let opt of options" value="{{opt}}">{{opt}}</option>
-        </select>
-    </div>
-</div>

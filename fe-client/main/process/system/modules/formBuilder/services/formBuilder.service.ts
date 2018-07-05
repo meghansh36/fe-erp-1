@@ -18,6 +18,7 @@ import { AncComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/blk/blk.component';
 import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
+import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
 
 @Injectable()
 export class FeFormBuilderService {
@@ -120,7 +121,6 @@ export class FeFormBuilderService {
        component: EmlComponent,
       label: 'Email',
       icon: 'email',
-      type: 'email',
       componentName: 'EmlComponent'
     },
     {
@@ -128,7 +128,6 @@ export class FeFormBuilderService {
        component: PhnComponent,
       label: 'Phone',
       icon: 'call',
-      type: 'number',
       componentName: 'PhnComponent'
     },
     {
@@ -136,7 +135,6 @@ export class FeFormBuilderService {
        component: AdrComponent,
       label: 'Address',
       icon: 'location_on',
-      type: 'text',
       componentName: 'AdrComponent'
     },
     {
@@ -144,7 +142,6 @@ export class FeFormBuilderService {
        component: CurComponent,
       label: 'Currency',
       icon: 'attach_money',
-      type: 'text',
       componentName: 'CurComponent'
     },
     {
@@ -152,7 +149,6 @@ export class FeFormBuilderService {
        component: DtiComponent,
       label: 'Date/Time',
       icon: 'add_alarm',
-      type: 'datetime',
       componentName: 'DtiComponent'
     },
     {
@@ -160,9 +156,19 @@ export class FeFormBuilderService {
        component: TimComponent,
       label: 'Time',
       icon: 'access_time',
-      type: 'time',
       componentName: 'TimComponent'
+    },
+    {
+      name: 'fieldset',
+      component: FstComponent,
+      label: 'FieldSet',
+      icon: 'access_time',
+      componentName: 'FstComponent'
     }
+  ];
+
+  layoutElements = [
+    
   ];
 
   component = {
@@ -255,6 +261,11 @@ export class FeFormBuilderService {
       name: 'radio',
       component: RadComponent,
       type: 'radio'
+    },
+    'FstComponent': {
+      name: 'fieldset',
+      component: FstComponent,
+      type: 'fieldset'
     }
 
   };
@@ -266,7 +277,12 @@ export class FeFormBuilderService {
       return this.basicElements;
     }
     if (elementListToLoad === 'advanced') {
+      console.log('returning adv')
       return this.advancedElements;
+    }
+    if (elementListToLoad === 'layoutFields') {
+      console.log('returning')
+      return this.layoutElements;
     }
   }
 

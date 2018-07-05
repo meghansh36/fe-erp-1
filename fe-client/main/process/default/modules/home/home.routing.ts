@@ -6,10 +6,6 @@ export const routesL1: Routes = [
     loadChildren: '@L3Process/system/modules/formBuilder/formBuilder.module#FormBuilderModule',
    // canActivate:[LoginGuardService]
   },
-  { path: 'formRender',
-    loadChildren: '@L3Process/system/modules/formRender/formRender.module#FormRenderModule',
-    canActivate:[LoginGuardService]
-  },
   { path: 'default',
     loadChildren: '@L3Process/default/modules/default/default.module#DefaultModule',
     //canActivate:[LoginGuardService]
