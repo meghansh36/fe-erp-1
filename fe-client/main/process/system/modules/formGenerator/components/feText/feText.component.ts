@@ -24,12 +24,14 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
   }
 
   changeLength(data: string) {
-    this.len = data.length;
-    if (this.len < this.minLength) {
-      this._Class = 'badge-danger';
-    }
-    else {
-      this._Class = 'badge-success';
+    if (data != undefined) {
+      this.len = data.length;
+      if (this.len < this.minLength) {
+        this._Class = 'badge-danger';
+      }
+      else {
+        this._Class = 'badge-success';
+      }
     }
   }
 
@@ -53,7 +55,7 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
     }
     return 0;
   }
-  
+
   get mask() {
     if (this.config.mask) {
       let mask = this.config.mask;

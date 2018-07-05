@@ -1,0 +1,5 @@
+<div class="fe-field fe-text TXT form-group " [formGroup]="group">
+    <label for="{{ config.id }}">{{ config.label }}</label>
+        <input type="hidden" name="config.flexiLabel" value="{{opt}}" [formControlName]="config.flexiLabel"
+            [attr.id]="config.id"> {{opt}}
+</div>

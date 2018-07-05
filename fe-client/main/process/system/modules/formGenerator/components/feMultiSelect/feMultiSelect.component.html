@@ -3,7 +3,7 @@
 
         <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
             <div class="label">
-                <label for="{{ config.id }}"  [ngClass]="defaultClasses.labelClasses">{{ config.label }}</label>
+                <label for="{{ config.id }}" [ngClass]="defaultClasses.labelClasses">{{ config.label }}</label>
             </div>
             <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
                 <span [ngClass]="defaultClasses.fieldDescContainerClasses">
@@ -15,18 +15,15 @@
             <div class="input-group-prepend" *ngIf="config.prefix">
                 <span class="input-group-text"> {{ config.prefix }} </span>
             </div>
-
-            <select [formControlName]="config.flexiLabel" [ngClass]="defaultClasses.fieldClasses" [attr.tabindex]="config.tabIndex" [attr.id]="config.id" multiple>
-              <option value="" disabled>{{ config.placeholder }}</option>
-              <option *ngFor="let option of config.options" value="{{ option }}"> {{ option }} </option>
-            </select>
+            <ngx-select [multiple]="true" [items]="config.options">
+            </ngx-select>
             <div class="input-group-append" *ngIf="config.suffix ">
                 <span class="input-group-text"> {{ config.suffix }} </span>
             </div>
         </div>
     </div>
     <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
-            [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
+        [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
         <span *ngFor="let err of errors">
             <small class="text-danger error-message error-{{err.name}}" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
                 {{err.message}}

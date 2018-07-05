@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { CKEditorModule } from 'ng2-ckeditor';
+//import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { NgxSelectModule, INgxSelectOptions } from 'ngx-select-ex';
 
 import { FeFieldDirective } from './directives/feField/feField.directive';
 import { FeFormComponent } from './components/feForm/feForm.component';
@@ -20,8 +24,16 @@ import { FeRadioComponent } from './components/feRadio/feRadio.component';
 import { FeFieldSetComponent } from './components/feFieldSet/feFieldSet.component';
 import { FeEmailComponent } from './components/feEmail/feEmail.component';
 import { FeFilComponent } from './components/feFile/feFile.component';
-import { SelectModule } from 'ng2-select';
+import { FeHiddenComponent } from './components/feHidden/feHidden.component';
+import { FeMonthComponent } from './components/feMonth/feMonth.component';
+import { FeAnchorComponent } from './components/feAnchor/feAnchor.component';
+import { FeBlankComponent } from './components/feBlank/feBlank.component';
+import { FeIconicButtonComponent } from './components/feIconicButton/feIconicButton.component';
 
+const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
+  optionValueField: 'code',
+  optionTextField: 'meaning'
+};
 
 @NgModule({
   imports: [
@@ -29,7 +41,9 @@ import { SelectModule } from 'ng2-select';
     ReactiveFormsModule,
     NgbModule,
     TextMaskModule,
-    SelectModule
+    EditorModule,
+    CKEditorModule,
+    NgxSelectModule.forRoot(CustomSelectOptions)
   ],
   declarations: [
     FeFieldDirective,
@@ -48,6 +62,11 @@ import { SelectModule } from 'ng2-select';
     FeFieldSetComponent,
     FeEmailComponent,
     FeFilComponent,
+    FeHiddenComponent,
+    FeMonthComponent,
+    FeAnchorComponent,
+    FeBlankComponent,
+    FeIconicButtonComponent
   ],
   exports: [
     FeFormComponent
@@ -66,7 +85,12 @@ import { SelectModule } from 'ng2-select';
     FeMultiSelectComponent,
     FeFieldSetComponent,
     FeEmailComponent,
-    FeFilComponent
+    FeFilComponent,
+    FeHiddenComponent,
+    FeMonthComponent,
+    FeAnchorComponent,
+    FeBlankComponent,
+    FeIconicButtonComponent
   ]
 })
 export class FormGeneratorModule {}

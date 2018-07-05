@@ -17,6 +17,7 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
+  ckeditor?: string;
   customValidations?: {
     [key: string]: { name: string, validatorFn: any, message: string }
   };

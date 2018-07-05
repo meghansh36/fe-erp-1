@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { FeBaseComponent } from '../feBase.component';
 
 @Component({
@@ -10,6 +10,12 @@ import { FeBaseComponent } from '../feBase.component';
     }
 })
 export class FeTextAreaComponent extends FeBaseComponent {
+    name = 'ng2-ckeditor';
+    ckeConfig: any;
+    mycontent: string = '';
+    log: string = '';
+    @ViewChild("myckeditor") ckeditor: any;
+
 
     _onKeypress(e) {
         if (this.hasMaxLength) {
@@ -17,13 +23,25 @@ export class FeTextAreaComponent extends FeBaseComponent {
             if (e.target.value.length === this.maxLength) e.preventDefault();
         }
     }
+    _onChange(e) {
+        if (this.hasMaxLength) {
+            console.log(e);
+            const limit = +this.len;
+            //if (e.target.value.length === this.maxLength) e.preventDefault();
+        }
+    }
 
     ngOnInit() {
         super.ngOnInit();
-        this.control.valueChanges.subscribe(this.changeLength.bind(this))
+       // this.control.valueChanges.subscribe(this.changeLength.bind(this));
+        this.ckeConfig = {
+            allowedContent: false,
+            extraPlugins: 'divarea',
+            forcePasteAsPlainText: true
+          };
     }
 
-    changeLength(data: string) {
+    /* changeLength(data: string) {
         this.len = data.length;
         if (this.len < this.minLength) {
             this._Class = 'badge-danger';
@@ -31,7 +49,7 @@ export class FeTextAreaComponent extends FeBaseComponent {
         else {
             this._Class = 'badge-success';
         }
-    }
+    } */
 
     get hasMinLength() {
         return this.hasValidation('minLength');
