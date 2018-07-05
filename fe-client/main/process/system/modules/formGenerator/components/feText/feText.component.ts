@@ -59,8 +59,8 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
   }
 
   get maskConfig() {
-    if (this.config.mask) {
-      let mask = this.config.mask;
+    if (this.mask) {
+      let mask = this.mask;
       return { mask };
     }
     return { mask: false };
