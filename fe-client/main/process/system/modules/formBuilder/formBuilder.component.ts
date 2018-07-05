@@ -116,4 +116,24 @@ export class FeFormBuilderComponent implements DoCheck {
     this.formJsonService.setDOMComponentArray(target.children);
     this.formJsonService.buildFinalJSON();
   }
+
+  save(){
+    this.formBuilderService.postData(this.finalJSON)
+    .subscribe((res)=>{console.log('resolve data')},
+                (err)=>{console.log('getting error')} );
+  }
+
+  reset(){
+
+
+  }
+
+  preview(){
+
+
+
+  }
+
+
+
 }

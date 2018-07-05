@@ -42,7 +42,11 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
   }
 
-  ngDoCheck() {}
+  ngDoCheck() {
+
+
+  }
+
 
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
@@ -106,7 +110,13 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     // this.instance.properties.suffix = this.componentData.suffix;
     // this.instance.properties.description = this.componentData.description;
     // this.instance.properties.tooltip = this.componentData.tooltip;
-    if (this.componentData.hideLabel) {this.componentData.label = undefined; }
+    if (this.componentData.hideLabel) {
+      this.componentData.label=undefined;
+     }
+     else
+     {
+        this.componentData.label=this.componentData.label;
+     }
     console.log(this.componentData);
     //this.masterFormService.setProperties(this.componentData);
     this.instance.properties = _.assignIn({}, this.componentData);
@@ -117,6 +127,8 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
     console.log(' destroy called show edit ',this.instance.showEdit);
   }
+
+
 
 
 }

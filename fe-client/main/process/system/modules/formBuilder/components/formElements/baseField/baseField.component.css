@@ -20,29 +20,27 @@
 
 .left-L{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .left-R{
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .right-R{
   display: flex;
  flex-direction: row-reverse;
- justify-content: space-around
+ justify-content: space-around;
 }
 
 .right-L{
   display: flex;
  flex-direction: row-reverse;
- justify-content: space-between
+ justify-content: flex-end;
 }
 
-.leftLeftAlign{
-  width: 25%!important;
-}
+
 
 
 .fieldOptions{

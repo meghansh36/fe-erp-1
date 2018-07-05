@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormDragComponent } from '@L3Process/system/modules/formBuilder/components/formDrag/formDrag.component';
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
@@ -31,6 +32,7 @@ import { AncComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/blk/blk.component';
 import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
+import {SelectModule} from 'ng2-select';
 
 
 
@@ -59,6 +61,7 @@ import { RadComponent } from '@L3Process/system/modules/formBuilder/components/f
     BlkComponent,
     BtnComponent,
     RadComponent
+
   ],
   imports: [
     CommonModule,
@@ -67,7 +70,10 @@ import { RadComponent } from '@L3Process/system/modules/formBuilder/components/f
     FormBuilderRoutes,
     FormsModule,
     SortablejsModule.forRoot({ animation: 500 }),
-    DragulaModule
+    DragulaModule,
+    HttpClientModule,
+    SelectModule
+
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,

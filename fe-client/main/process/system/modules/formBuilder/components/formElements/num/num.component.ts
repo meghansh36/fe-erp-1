@@ -18,12 +18,25 @@ export class FeNumComponent extends FeBaseField implements OnInit, DoCheck {
   tooltip: ''};
 
   applicableProperties={
-    inputMask:true,
     placeholder:true,
+    description:true,
+    inputMask:true,
     prefix:true,
     suffix:true,
-    ...this.applicableProperties
-
+    clearValue:true,
+    hidden:true,
+    disabled:true,
+    appliedValidation:true,
+    minimumLength:true,
+    maximumLength:true,
+    regularExpression:true,
+    customErrorMessage:true,
+    customValidationFunction:true,
+    customJsonLogic:true,
+    customFunction:true,
+    jsonLogic:true,
+    useDelimeter:true,
+    requiredDecimal:true,
 }
 
   ngOnInit() {

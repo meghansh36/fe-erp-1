@@ -18,11 +18,16 @@ export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
   tooltip: ''};
 
   applicableProperties={
-    inputMask:true,
-    placeholder:true,
-    prefix:true,
-    suffix:true,
-    ...this.applicableProperties
+    action:true,
+    theme:true,
+    size:true,
+    leftIcon:true,
+    rightIcon:true,
+    hidden:true,
+    disabled:true,
+    appliedValidation:true,
+    customFunction:true,
+    jsonLogic:true,
 
 }
 
