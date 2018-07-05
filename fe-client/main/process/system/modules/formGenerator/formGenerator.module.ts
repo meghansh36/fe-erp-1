@@ -20,6 +20,7 @@ import { FeRadioComponent } from './components/feRadio/feRadio.component';
 import { FeFieldSetComponent } from './components/feFieldSet/feFieldSet.component';
 import { FeEmailComponent } from './components/feEmail/feEmail.component';
 import { FeFilComponent } from './components/feFile/feFile.component';
+import { SelectModule } from 'ng2-select';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { FeFilComponent } from './components/feFile/feFile.component';
     CommonModule,
     ReactiveFormsModule,
     NgbModule,
-    TextMaskModule
+    TextMaskModule,
+    SelectModule
   ],
   declarations: [
     FeFieldDirective,

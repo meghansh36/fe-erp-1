@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ValidatorFn } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 
 @Injectable({
@@ -27,6 +26,7 @@ export class FeFormSchemaService {
         height: '',
         disabled: false,
         prefix: '@',
+        defaultValue: 'harish.rathor',
         hidden: false,
         labelMargin: 20,
         tabIndex: '1',
@@ -47,15 +47,15 @@ export class FeFormSchemaService {
         events: {
           change: {
             event: 'change',
-            handlerOwner: 'FORM',
+            handlerOwner: 'form',
             handlerName: 'onUserNameChanged',
-            args: 'event'
+            args: "'change event','My' ,'Name  ',   'Is','Khan'"
           },
           focus: {
             event: 'focus',
-            handlerOwner: 'RESOURCE',
+            handlerOwner: 'resource',
             handlerName: 'onUserNameFocus',
-            args: 'event'
+            args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
           }
         },
         validations: {
@@ -86,6 +86,7 @@ export class FeFormSchemaService {
         label: 'Password',
         prefix: '#',
         suffix: '&',
+        defaultValue: 'harishrathor',
         customCssClass: 'custom-css-class2',
         labelWidth: 0,
         labelPosition: 'left',
@@ -97,18 +98,18 @@ export class FeFormSchemaService {
         events: {
           input: {
             event: 'input',
-            handlerOwner: 'FORM',
+            handlerOwner: 'form',
             handlerName: 'onPassWordInput',
-            args: 'event'
+            args: "'input','Harish','  Rathor'"
           },
           blur: {
             event: 'blur',
-            handlerOwner: 'RESOURCE',
+            handlerOwner: 'resource',
             handlerName: 'onPassWordBlur',
-            args: 'event'
+            args: "'blur','event', 'Harish'   , 'Rathor'"
           }
         },
-        validations:{ 
+        validations: {
           required: {
             'name': 'required',
             'value': true,
@@ -131,6 +132,7 @@ export class FeFormSchemaService {
         label: 'Email',
         prefix: '',
         suffix: '@',
+        defaultValue: 'harish.rathor@gmail.com',
         customCssClass: 'custom-css-class2',
         labelWidth: 0,
         labelPosition: 'left',
@@ -160,6 +162,7 @@ export class FeFormSchemaService {
         style: {},
         formcontrol: 'number-form',
         label: 'Number',
+        defaultValue: 123,
         height: '',
         width: '40%',
         placeholder: 'Enter your Number',
@@ -171,11 +174,25 @@ export class FeFormSchemaService {
           }
         },
         customValidations: {
-            agelimit: {
-              name: 'agelimit',
-              validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
-              message: 'Age should be less than 50'
-            }
+          agelimit: {
+            name: 'agelimit',
+            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+            message: 'Age should be less than 50'
+          }
+        },
+        jsonValidations: {
+          'json': {
+            "if": [
+              {
+                "==": [
+                  { "var": "value" }, 150
+                ]
+              },
+              true,
+              false
+            ]
+          },
+          'message': 'Value must be 150'
         }
       },
       {
@@ -187,18 +204,22 @@ export class FeFormSchemaService {
         formcontrol: 'number-form',
         label: 'Condition Number',
         height: '',
+        defaultValue: 1234,
         condition: {
-          'type': 'simple',
+          'type': 'advanced',
           'simple': {
-            'display': true,
-            'dependentOn': 'number',
-            'value': 15
+            'show': true,
+            'when': 'number',
+            'eq': 15
           },
-          'advanced': {
-            'show': 'number > 0'
-          },
-          'json': {
-
+          'advanced': 'var show; return show = controls.number.value == 15 ? true : false;',
+          "json": {
+            "condition": {
+              "and": [
+                { "===": [{ "var": "username.value" }, 'apple'] },
+                { "===": [{ "var": "number.value" }, 15] }
+              ]
+            }
           }
         },
         width: '40%',
@@ -216,33 +237,14 @@ export class FeFormSchemaService {
         code: 'FLD000009',
         flexiLabel: 'mask',
         id: 'FRM000001-FLD000019',
-        style: [],
+        style: {},
+        defaultValue: '123456',
         formcontrol: 'mask-form',
         label: 'Mask Input',
         mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
         height: '',
         width: '40%',
-        placeholder: 'Enter your USA number',
-        validators: [
-          {
-            'name': 'required',
-            'value': true,
-            'message': 'This Field is required'
-          }
-        ]
-      },
-      {
-        type: 'TXT',
-        code: 'FLD000009',
-        flexiLabel: 'mask',
-        id: 'FRM000001-FLD000019',
-        style: [],
-        formcontrol: 'mask-form',
-        label: 'Mask Input',
-        mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-        height: '',
-        width: '40%',
-        placeholder: 'Enter your USA number',
+        placeholder: '(555) 233 4454',
         validators: [
           {
             'name': 'required',
@@ -262,6 +264,7 @@ export class FeFormSchemaService {
         height: '',
         width: '100%',
         placeholder: 'Enter your Country',
+        defaultValue: 'Indiana',
         validations: {
           required: {
             'name': 'required',
@@ -276,7 +279,6 @@ export class FeFormSchemaService {
         flexiLabel: 'gender',
         label: 'Gender',
         placeholder: '--SELECT--',
-        options: ['male', 'female', 'others'],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000003',
         formcontrol: 'select-form',
@@ -293,8 +295,19 @@ export class FeFormSchemaService {
         marginBottom: '10px',
         marginLeft: '10px',
         labelWidth: 0,
+        defaultValue: 'HE',
         width: '100%',
-
+        options: [
+          {
+            'code': 'HE',
+            'meaning': 'Male',
+            'tip': 'Male'
+          }, {
+            'code': 'SHE',
+            'meaning': 'Female',
+            'tip': 'Female'
+          }
+        ],
         validations: {
           required: {
             'name': 'required',
@@ -308,6 +321,7 @@ export class FeFormSchemaService {
         code: 'FLD000023',
         flexiLabel: 'parent',
         label: 'Country',
+        defaultValue: 'USA',
         isParent: 'Y',
         placeholder: '--SELECT--',
         options: [{
@@ -319,10 +333,16 @@ export class FeFormSchemaService {
           'meaning': 'USA',
           'tip': 'USA'
         }],
-        style: [{ 'name': 'width', 'value': '221px' }],
+        style: { 'width': '221px' },
         id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        }
       },
       {
         type: 'SEL',
@@ -330,11 +350,16 @@ export class FeFormSchemaService {
         flexiLabel: 'child',
         label: 'States',
         placeholder: '--SELECT--',
-        options: [],
         style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000023',
         formcontrol: 'select-form',
-        validators: [{ 'name': 'required', 'value': true }]
+        validations: {
+          required: {
+            'name': 'required',
+            'value': true,
+            'message': 'This Field is required'
+          }
+        },
       },
       {
         type: 'FIL',
@@ -377,6 +402,7 @@ export class FeFormSchemaService {
         description: "FIeld Description",
         options: ['male', 'female', 'others'],
         id: 'FRM000001-FLD000010',
+        defaultValue: 'Y',
         formcontrol: 'check-form',
         validations: {
           required: {
@@ -391,7 +417,24 @@ export class FeFormSchemaService {
         code: 'FLD000011',
         flexiLabel: 'Radio',
         label: 'Radio',
-        options: ['male', 'female', 'others'],
+        defaultValue: 'HE',
+        options: [
+          {
+            'code': 'HE',
+            'meaning': 'Male',
+            'tip': 'Male'
+          }, 
+          {
+            'code': 'SHE',
+            'meaning': 'Female',
+            'tip': 'Female'
+          },
+          {
+            'code': 'OTH',
+            'meaning': 'Other',
+            'tip': 'Other'
+          }
+        ],
         id: 'FRM000001-FLD000011',
         formcontrol: 'radio-form',
         validations: {
@@ -409,14 +452,14 @@ export class FeFormSchemaService {
         label: 'Date',
         id: 'FRM000001-FLD000004',
         formcontrol: 'date-form',
-        placeholder: 'dd-mm-yyyy',
+        placeholder: 'yyyy-mm-dd',
         height: '',
-        disabled: false,
-        prefix: '@',
+        disabled: true,
         hidden: false,
         labelMargin: 20,
         tabIndex: '1',
         suffix: 'suff',
+        defaultValue: {year: 2017, month: 2 , day: 13},
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'bottom',
@@ -435,6 +478,555 @@ export class FeFormSchemaService {
         }
       },
       {
+        code: 'FST000001',
+        flexiLabel: 'dummy-fst',
+        id: 'FRM000001-FST000001',
+        type: 'FST',
+        label: 'SMS Settings',
+        hideLabel: false,
+        components: [
+          {
+            type: 'TXT',
+            code: 'FLD000012',
+            flexiLabel: 'fst_username',
+            id: 'FRM000001-FLD000012',
+            style: {},
+            formcontrol: 'fst-username-form',
+            customCssClass: 'custom-css-class1',
+            label: 'Username',
+            height: '',
+            disabled: false,
+            prefix: '@',
+            hidden: false,
+            labelMargin: 20,
+            tabIndex: '1',
+            suffix: 'suff',
+            description: 'This is a dummy field. Field description would be here',
+            hideLabel: false,
+            labelPosition: 'left',
+            marginTop: '10px',
+            marginRight: '10px',
+            marginBottom: '10px',
+            marginLeft: '10px',
+            labelWidth: 0,
+            width: '50%',
+            placeholder: 'Enter your Username',
+            formClassValidations: {
+              customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+            },
+            events: {
+              change: {
+                event: 'change',
+                handlerOwner: 'form',
+                handlerName: 'onUserNameChanged',
+                args: "'change event','My' ,'Name  ',   'Is','Khan'"
+              },
+              focus: {
+                event: 'focus',
+                handlerOwner: 'resource',
+                handlerName: 'onUserNameFocus',
+                args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+              }
+            },
+            validations: {
+              required: {
+                'name': 'required',
+                'value': true,
+                'message': 'This Field is required'
+              },
+              minLength: {
+                'name': 'minLength',
+                'value': 8,
+                'message': 'Minimum length should be XXLENGTHXX'
+              },
+              maxLength: {
+                'name': 'maxLength',
+                'value': 19,
+                'message': 'Minimum length should be XXLENGTHXX'
+              }
+            }
+          },
+          {
+            code: 'FLD000005',
+            flexiLabel: 'fst-assword-1',
+            id: 'FRM000001-FLD0000013',
+            style: {},
+            formcontrol: 'fst-password-form',
+            type: 'TXT',
+            label: 'FST Password',
+            prefix: '#',
+            suffix: '&',
+            customCssClass: 'custom-css-class2',
+            labelWidth: 0,
+            labelPosition: 'left',
+            labelMargin: 0,
+            height: '',
+            description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+            width: '50%',
+            placeholder: 'Enter your Password',
+            events: {
+              input: {
+                event: 'input',
+                handlerOwner: 'form',
+                handlerName: 'onPassWordInput',
+                args: "'input','Harish','  Rathor'"
+              },
+              blur: {
+                event: 'blur',
+                handlerOwner: 'resource',
+                handlerName: 'onPassWordBlur',
+                args: "'blur','event', 'Harish'   , 'Rathor'"
+              }
+            },
+            validations:{ 
+              required: {
+                'name': 'required',
+                'value': true,
+                'message': 'This Field is required'
+              },
+              pattern: {
+                'name': 'pattern',
+                'value': '^[a-z0-9_-]{8,15}$',
+                'message': 'The Pattern is not correct'
+              }
+            }
+          },
+          {
+            type: 'TXT',
+            code: 'FLD000014',
+            flexiLabel: 'fst-username-1',
+            id: 'FRM000001-FLD000012',
+            style: {},
+            formcontrol: 'fst-username-form-1',
+            customCssClass: 'custom-css-class1',
+            label: 'Username Fst 1',
+            height: '',
+            disabled: false,
+            prefix: '@',
+            hidden: false,
+            labelMargin: 20,
+            tabIndex: '1',
+            suffix: 'suff',
+            description: 'This is a dummy field. Field description would be here',
+            hideLabel: false,
+            labelPosition: 'left',
+            labelWidth: 0,
+            width: '50%',
+            placeholder: 'Enter your Username',
+            formClassValidations: {
+              customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+            },
+            events: {
+              change: {
+                event: 'change',
+                handlerOwner: 'form',
+                handlerName: 'onUserNameChanged',
+                args: "'change event','My' ,'Name  ',   'Is','Khan'"
+              },
+              focus: {
+                event: 'focus',
+                handlerOwner: 'resource',
+                handlerName: 'onUserNameFocus',
+                args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+              }
+            },
+            validations: {
+              required: {
+                'name': 'required',
+                'value': true,
+                'message': 'This Field is required'
+              },
+              minLength: {
+                'name': 'minLength',
+                'value': 8,
+                'message': 'Minimum length should be XXLENGTHXX'
+              },
+              maxLength: {
+                'name': 'maxLength',
+                'value': 19,
+                'message': 'Minimum length should be XXLENGTHXX'
+              }
+            }
+          },
+          {
+            code: 'FLD000002',
+            flexiLabel: 'pfst-assword-2',
+            id: 'FRM000001-FLD000002',
+            style: {},
+            formcontrol: 'fst-password-form-2',
+            type: 'TXT',
+            label: 'FST Password 2',
+            prefix: '#',
+            suffix: '&',
+            customCssClass: 'custom-css-class2',
+            labelWidth: 0,
+            labelPosition: 'left',
+            labelMargin: 0,
+            height: '',
+            description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+            width: '50%',
+            placeholder: 'Enter your Password',
+            events: {
+              input: {
+                event: 'input',
+                handlerOwner: 'form',
+                handlerName: 'onPassWordInput',
+                args: "'input','Harish','  Rathor'"
+              },
+              blur: {
+                event: 'blur',
+                handlerOwner: 'resource',
+                handlerName: 'onPassWordBlur',
+                args: "'blur','event', 'Harish'   , 'Rathor'"
+              }
+            },
+            validations:{ 
+              required: {
+                'name': 'required',
+                'value': true,
+                'message': 'This Field is required'
+              },
+              pattern: {
+                'name': 'pattern',
+                'value': '^[a-z0-9_-]{8,15}$',
+                'message': 'The Pattern is not correct'
+              }
+            }
+          },
+          {
+            code: 'FST000002',
+            flexiLabel: 'dummy-fst-1',
+            id: 'FRM000001-FST000002',
+            type: 'FST',
+            label: 'Mail Settings',
+            hideLabel: false,
+            components: [
+              {
+                type: 'TXT',
+                code: 'FLD000017',
+                flexiLabel: 'fst_username-5',
+                id: 'FRM000001-FLD000017',
+                style: {},
+                formcontrol: 'fst-username-form-5',
+                customCssClass: 'custom-css-class1',
+                label: 'Username',
+                height: '',
+                disabled: false,
+                prefix: '@',
+                hidden: false,
+                labelMargin: 20,
+                tabIndex: '1',
+                suffix: 'suff',
+                description: 'This is a dummy field. Field description would be here',
+                hideLabel: false,
+                labelPosition: 'left',
+                marginTop: '10px',
+                marginRight: '10px',
+                marginBottom: '10px',
+                marginLeft: '10px',
+                labelWidth: 0,
+                width: '50%',
+                placeholder: 'Enter your Username',
+                formClassValidations: {
+                  customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                },
+                events: {
+                  change: {
+                    event: 'change',
+                    handlerOwner: 'form',
+                    handlerName: 'onUserNameChanged',
+                    args: "'change event','My' ,'Name  ',   'Is','Khan'"
+                  },
+                  focus: {
+                    event: 'focus',
+                    handlerOwner: 'resource',
+                    handlerName: 'onUserNameFocus',
+                    args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                  }
+                },
+                validations: {
+                  required: {
+                    'name': 'required',
+                    'value': true,
+                    'message': 'This Field is required'
+                  },
+                  minLength: {
+                    'name': 'minLength',
+                    'value': 8,
+                    'message': 'Minimum length should be XXLENGTHXX'
+                  },
+                  maxLength: {
+                    'name': 'maxLength',
+                    'value': 19,
+                    'message': 'Minimum length should be XXLENGTHXX'
+                  }
+                }
+              },
+              {
+                code: 'FLD000015',
+                flexiLabel: 'fst-assword-1',
+                id: 'FRM000001-FLD0000011',
+                style: {},
+                formcontrol: 'fst-password-form-5',
+                type: 'TXT',
+                label: 'FST Password',
+                prefix: '#',
+                suffix: '&',
+                customCssClass: 'custom-css-class2',
+                labelWidth: 0,
+                labelPosition: 'left',
+                labelMargin: 0,
+                height: '',
+                description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+                width: '50%',
+                placeholder: 'Enter your Password',
+                events: {
+                  input: {
+                    event: 'input',
+                    handlerOwner: 'form',
+                    handlerName: 'onPassWordInput',
+                    args: "'input','Harish','  Rathor'"
+                  },
+                  blur: {
+                    event: 'blur',
+                    handlerOwner: 'resource',
+                    handlerName: 'onPassWordBlur',
+                    args: "'blur','event', 'Harish'   , 'Rathor'"
+                  }
+                },
+                validations:{ 
+                  required: {
+                    'name': 'required',
+                    'value': true,
+                    'message': 'This Field is required'
+                  },
+                  pattern: {
+                    'name': 'pattern',
+                    'value': '^[a-z0-9_-]{8,15}$',
+                    'message': 'The Pattern is not correct'
+                  }
+                }
+              },
+              {
+                type: 'TXT',
+                code: 'FLD000018',
+                flexiLabel: 'fst-username-5',
+                id: 'FRM000001-FLD000018',
+                style: {},
+                formcontrol: 'fst-username-form-5',
+                customCssClass: 'custom-css-class1',
+                label: 'Username Fst 1',
+                height: '',
+                disabled: false,
+                prefix: '@',
+                hidden: false,
+                labelMargin: 20,
+                tabIndex: '1',
+                suffix: 'suff',
+                description: 'This is a dummy field. Field description would be here',
+                hideLabel: false,
+                labelPosition: 'left',
+                labelWidth: 0,
+                width: '50%',
+                placeholder: 'Enter your Username',
+                formClassValidations: {
+                  customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                },
+                events: {
+                  change: {
+                    event: 'change',
+                    handlerOwner: 'form',
+                    handlerName: 'onUserNameChanged',
+                    args: "'change event','My' ,'Name  ',   'Is','Khan'"
+                  },
+                  focus: {
+                    event: 'focus',
+                    handlerOwner: 'resource',
+                    handlerName: 'onUserNameFocus',
+                    args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                  }
+                },
+                validations: {
+                  required: {
+                    'name': 'required',
+                    'value': true,
+                    'message': 'This Field is required'
+                  },
+                  minLength: {
+                    'name': 'minLength',
+                    'value': 8,
+                    'message': 'Minimum length should be XXLENGTHXX'
+                  },
+                  maxLength: {
+                    'name': 'maxLength',
+                    'value': 19,
+                    'message': 'Minimum length should be XXLENGTHXX'
+                  }
+                }
+              },
+              {
+                code: 'FLD000022',
+                flexiLabel: 'pfst-assword-8',
+                id: 'FRM000001-FLD000022',
+                style: {},
+                formcontrol: 'fst-password-form-7',
+                type: 'TXT',
+                label: 'FST Password 2',
+                prefix: '#',
+                suffix: '&',
+                customCssClass: 'custom-css-class2',
+                labelWidth: 0,
+                labelPosition: 'left',
+                labelMargin: 0,
+                height: '',
+                description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+                width: '50%',
+                placeholder: 'Enter your Password',
+                events: {
+                  input: {
+                    event: 'input',
+                    handlerOwner: 'form',
+                    handlerName: 'onPassWordInput',
+                    args: "'input','Harish','  Rathor'"
+                  },
+                  blur: {
+                    event: 'blur',
+                    handlerOwner: 'resource',
+                    handlerName: 'onPassWordBlur',
+                    args: "'blur','event', 'Harish'   , 'Rathor'"
+                  }
+                },
+                validations:{ 
+                  required: {
+                    'name': 'required',
+                    'value': true,
+                    'message': 'This Field is required'
+                  },
+                  pattern: {
+                    'name': 'pattern',
+                    'value': '^[a-z0-9_-]{8,15}$',
+                    'message': 'The Pattern is not correct'
+                  }
+                }
+              },
+              {
+                code: 'FST000002',
+                flexiLabel: 'dummy-fst-1',
+                id: 'FRM000001-FST000002',
+                type: 'FST',
+                label: 'Some Settings',
+                hideLabel: true,
+                components:[
+                  {
+                    type: 'TXT',
+                    code: 'FLD000020',
+                    flexiLabel: 'fst-username-6',
+                    id: 'FRM000001-FLD000020',
+                    style: {},
+                    formcontrol: 'fst-username-form-9',
+                    customCssClass: 'custom-css-class1',
+                    label: 'Username Fst 1',
+                    height: '',
+                    disabled: false,
+                    prefix: '@',
+                    hidden: false,
+                    labelMargin: 20,
+                    tabIndex: '1',
+                    suffix: 'suff',
+                    description: 'This is a dummy field. Field description would be here',
+                    hideLabel: false,
+                    labelPosition: 'left',
+                    labelWidth: 0,
+                    width: '50%',
+                    placeholder: 'Enter your Username',
+                    formClassValidations: {
+                      customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                    },
+                    events: {
+                      change: {
+                        event: 'change',
+                        handlerOwner: 'form',
+                        handlerName: 'onUserNameChanged',
+                        args: "'change event','My' ,'Name  ',   'Is','Khan'"
+                      },
+                      focus: {
+                        event: 'focus',
+                        handlerOwner: 'resource',
+                        handlerName: 'onUserNameFocus',
+                        args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                      }
+                    },
+                    validations: {
+                      required: {
+                        'name': 'required',
+                        'value': true,
+                        'message': 'This Field is required'
+                      },
+                      minLength: {
+                        'name': 'minLength',
+                        'value': 8,
+                        'message': 'Minimum length should be XXLENGTHXX'
+                      },
+                      maxLength: {
+                        'name': 'maxLength',
+                        'value': 19,
+                        'message': 'Minimum length should be XXLENGTHXX'
+                      }
+                    }
+                  },
+                  {
+                    code: 'FLD000025',
+                    flexiLabel: 'pfst-assword-9',
+                    id: 'FRM000001-FLD000025',
+                    style: {},
+                    formcontrol: 'fst-password-form-8',
+                    type: 'TXT',
+                    label: 'FST Password 2',
+                    prefix: '#',
+                    suffix: '&',
+                    customCssClass: 'custom-css-class2',
+                    labelWidth: 0,
+                    labelPosition: 'left',
+                    labelMargin: 0,
+                    height: '',
+                    description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+                    width: '50%',
+                    placeholder: 'Enter your Password',
+                    events: {
+                      input: {
+                        event: 'input',
+                        handlerOwner: 'form',
+                        handlerName: 'onPassWordInput',
+                        args: "'input','Harish','  Rathor'"
+                      },
+                      blur: {
+                        event: 'blur',
+                        handlerOwner: 'resource',
+                        handlerName: 'onPassWordBlur',
+                        args: "'blur','event', 'Harish'   , 'Rathor'"
+                      }
+                    },
+                    validations:{ 
+                      required: {
+                        'name': 'required',
+                        'value': true,
+                        'message': 'This Field is required'
+                      },
+                      pattern: {
+                        'name': 'pattern',
+                        'value': '^[a-z0-9_-]{8,15}$',
+                        'message': 'The Pattern is not correct'
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+
+        ]
+      },
+      {
         type: 'TIM',
         code: 'FLD000005',
         flexiLabel: 'time',
@@ -443,6 +1035,7 @@ export class FeFormSchemaService {
         formcontrol: 'time-form',
         height: '',
         disabled: false,
+        defaultValue: { hour: 12, minute: 13, second: 13 },
         prefix: '@',
         hidden: false,
         labelMargin: 20,
@@ -465,14 +1058,6 @@ export class FeFormSchemaService {
           }
         }
       },
-      /*{
-        type: 'FST',
-        code: 'FLD000014',
-        flexiLabel: 'fieldset',
-        label: 'Fieldset',
-        id: 'FRM000001-FLD000014',
-        formcontrol: 'field-form',
-      },*/
       {
         type: 'TXA',
         code: 'FLD000006',
@@ -482,6 +1067,7 @@ export class FeFormSchemaService {
         formcontrol: 'description-form',
         label: 'Description',
         height: '',
+        defaultValue: 'Some tet area default value',
         width: '100%',
         placeholder: 'Enter Description',
         validations: {

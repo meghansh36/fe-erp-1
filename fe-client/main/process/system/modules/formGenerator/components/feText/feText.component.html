@@ -2,7 +2,7 @@
     <div [ngClass]="defaultClasses.fieldWrapperClasses" [ngStyle]="defaultClasses.fieldWrapperStyle">
         <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
             <div class="label">
-                <label for="{{ config.id }}"  [ngClass]="defaultClasses.labelClasses" [ngStyle]="defaultClasses.labelStyle">{{ config.label }}</label>
+                <label for="{{ config.id }}" [ngClass]="defaultClasses.labelClasses" [ngStyle]="defaultClasses.labelStyle">{{ config.label }}</label>
             </div>
             <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
                 <span [ngClass]="defaultClasses.fieldDescContainerClasses" [ngStyle]="defaultClasses.fieldDescContainerStyle">
@@ -12,11 +12,8 @@
         </div>
         <div [ngClass]="defaultClasses.nestedFieldContainerClasses" [ngStyle]="style.nestedFieldContainerStyle">
             <span class="text-length-info-container" *ngIf="hasTextLenghtLimit">
-                <span class="badge badge-info text-length-info min-length-info" *ngIf="minLength">
-                    Min:&nbsp;{{ minLength }}
-                </span>
-                <span class="badge badge-info text-length-info max-length-info" *ngIf="maxLength">
-                    Max:&nbsp;{{ maxLength }}
+                <span class="badge text-length-info min-length-info" *ngIf="len>0" [ngClass]="_Class">
+                    {{ len }}/{{ maxLength }}
                 </span>
             </span>
             <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
@@ -41,4 +38,3 @@
         </div>
     </div>
 </div>
-  
