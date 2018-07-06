@@ -20,6 +20,10 @@ import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
 import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
+import { SelComponent } from '@L3Process/system/modules/formBuilder/components/formElements/sel/sel.component';
+import { MslComponent } from '@L3Process/system/modules/formBuilder/components/formElements/msl/msl.component';
+import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/formElements/icb/icb.component';
+import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
 
 @Injectable()
 export class FeFormBuilderService {
@@ -115,6 +119,27 @@ export class FeFormBuilderService {
       label: 'Button',
       icon: 'send',
       componentName: 'BtnComponent'
+    },
+    {
+      name: 'select',
+      component: SelComponent,
+      label: 'Select',
+      icon: 'list',
+      componentName: 'SelComponent'
+    },
+    {
+      name: 'multiselect',
+      component: MslComponent,
+      label: 'Multi Select',
+      icon: 'list',
+      componentName: 'MslComponent'
+    },
+    {
+      name: 'iconicButton',
+      component: IcbComponent,
+      label: 'Iconic Button',
+      icon: 'send',
+      componentName: 'IcbComponent'
     }
   ];
 
@@ -168,7 +193,13 @@ export class FeFormBuilderService {
       icon: 'access_time',
       componentName: 'FstComponent'
     },
-    
+    {
+      name: 'autocomplete',
+      component: FstComponent,
+      label: 'Auto Complete',
+      icon: 'search',
+      componentName: 'AcsComponent'
+    }
   ];
 
   layoutElements = [
@@ -270,6 +301,26 @@ export class FeFormBuilderService {
       name: 'fieldset',
       component: FstComponent,
       type: 'fieldset'
+    },
+    'SelComponent': {
+      name: 'select',
+      component: SelComponent,
+      type: 'select'
+    },
+    'MslComponent': {
+      name: 'multiselect',
+      component: MslComponent,
+      type: 'multiselect'
+    },
+    'IcbComponent': {
+      name: 'iconicButton',
+      component: IcbComponent,
+      type: 'button'
+    },
+    'AcsComponent': {
+      name: 'autocomplete',
+      component: AcsComponent,
+      type: 'text'
     }
 
   };
@@ -292,38 +343,6 @@ export class FeFormBuilderService {
 
   getComponent(name) {
     return this.component[name];
-  }
-
-
-  getfinalJSON() {
-    return {
-      "id": "",
-      "code": "",
-      "formLabel": "",
-      "name": "",
-      "display": "",
-      "components": [
-        {
-          "hideLabel": false,
-          "labelPosition": "top",
-          "marginTop": 0,
-          "marginRight": 0,
-          "marginLeft": 0,
-          "marginBottom": 0,
-          "defaultValue": "none",
-          "nonPersistent": false,
-          "componentname": "TxtComponent",
-          "flexiLabel": "username",
-          "label": "Text",
-          "placeholder": "Add Text",
-          "labelMargin": 10,
-          "width": "100%",
-          "key": "_ap3bc4tea",
-          "parent": "root_drop",
-          "order": 0
-        }
-      ]
-    };
   }
 
   postData(data){

@@ -11,6 +11,7 @@ export class FeFieldControlService {
 
   constructor() { }
 
+  
   setFieldRef(reference, parent, component) {
     this.modalParent = parent;
     this.instanceArray.push(reference);

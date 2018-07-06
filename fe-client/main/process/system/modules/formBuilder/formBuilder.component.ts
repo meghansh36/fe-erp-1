@@ -161,7 +161,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     //this.formJsonService.updateMasterJSON(index, key, target);
     
     // this.formJsonService.setDOMComponentArray(this.DOMArray);
-   // console.log(this.formJsonService.getMasterJSON());
+    console.log(this.formJsonService.getMasterJSON());
     //console.log('dom array 4', target);
   }
 
