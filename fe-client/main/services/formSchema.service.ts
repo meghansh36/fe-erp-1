@@ -279,7 +279,7 @@ export class FeFormSchemaService {
         //formcontrol: 'auto-form',
         label: 'Country',
 
-        width: '100%',
+        width: '50%',
         placeholder: 'Enter your Country',
         defaultValue: 'Indiana',
         validations: {
@@ -289,6 +289,25 @@ export class FeFormSchemaService {
             'message': 'This Field is required'
           }
         }
+      },
+      {
+        type: 'BLK',
+        code: 'FLD0001234',
+        flexiLabel: 'blank-field',
+        id: 'FRM000001-FLD0001234',
+        //formcontrol: 'auto-form',
+        label: 'Blank Field',
+        width: '50%',
+      },
+      {
+        type: 'HID',
+        code: 'FLD0011234',
+        flexiLabel: 'hidden-field',
+        id: 'FRM000001-FLD0011234',
+        //formcontrol: 'auto-form',
+        label: 'Hidden Field',
+        width: '100%',
+        defaultValue: 'Hidden field value'
       },
       {
         type: 'SEL',
