@@ -201,9 +201,18 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     simpleConditionHandler(condition: { [key: string]: any }) {
-        this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
-            data == condition.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
-        })
+        if (condition.show == true) {
+            this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
+                data == condition.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            })
+        }
+        else {
+            this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
+                data == condition.eq ? this.render.addClass(this.elemRef.nativeElement, 'hidden') : this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            })
+        }
     }
 
     advancedConditionHandler(condition: string) {

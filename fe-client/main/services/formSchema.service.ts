@@ -49,14 +49,14 @@ export class FeFormSchemaService {
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'top',
-       
+
         labelWidth: 0,//To be checked
         width: '50%',
         placeholder: 'Enter your Username',
         formClassValidations: {//{valName:'Message'}
-          customPattern: { 
+          customPattern: {
             message: 'Custom pattern is not correct.',
-            validatorFuncName: 'asyncCustomPatternValidator' 
+            validatorFuncName: 'asyncCustomPatternValidator'
           }
         },
         events: {
@@ -90,7 +90,7 @@ export class FeFormSchemaService {
         code: 'FLD000002',
         flexiLabel: 'password',
         id: 'FRM000001-FLD000002',
-        
+
         //formcontrol: 'password-form',
         type: 'TXT',
         label: 'Password',
@@ -101,7 +101,7 @@ export class FeFormSchemaService {
         labelWidth: 0,
         labelPosition: 'top',
         labelMargin: 0,
-        
+
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
         placeholder: 'Enter your Password',
@@ -134,7 +134,7 @@ export class FeFormSchemaService {
         code: 'FLD000014',
         flexiLabel: 'email',
         id: 'FRM000001-FLD000014',
-        
+
         //formcontrol: 'email-form',
         type: 'EML',
         label: 'Email',
@@ -145,7 +145,7 @@ export class FeFormSchemaService {
         labelWidth: 0,
         labelPosition: 'top',
         labelMargin: 0,
-        
+
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '33%',
         placeholder: 'Enter your Password',
@@ -153,11 +153,23 @@ export class FeFormSchemaService {
           required: {
             'value': true,
             'message': 'This Field is required'
-          },
-          email: {
-            
-            'value': true,
-            'message': 'This is not vaid email format'
+          }
+        },
+        customValidations: {
+          commaseperatedemail: {
+            name: 'commaseperatedemail',
+            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null {
+              let regExp = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4})(,[\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}){0,4}$/;
+              if (control.value !== undefined) {
+                if (regExp.test(control.value)) {
+                  return null;
+                }
+                else {
+                  return { 'commaseperatedemail': true };
+                }
+              }
+            },
+            message: 'Email should be correct'
           }
         }
       },
@@ -166,7 +178,7 @@ export class FeFormSchemaService {
         code: 'FLD000009',
         flexiLabel: 'number',
         id: 'FRM000001-FLD000009',
-        
+
         //formcontrol: 'number-form',
         label: 'Number',
         defaultValue: 123,
@@ -175,7 +187,7 @@ export class FeFormSchemaService {
         placeholder: 'Enter your Number',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -184,7 +196,7 @@ export class FeFormSchemaService {
           agelimit: {
             name: 'agelimit',
             validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
-            message: 'Age should be less than 50'
+            message: 'Age should be greater than 50'
           }
         },
         jsonValidations: {
@@ -207,7 +219,7 @@ export class FeFormSchemaService {
         code: 'FLD000020',
         flexiLabel: 'condition',
         id: 'FRM000001-FLD000020',
-        
+
         //formcontrol: 'number-form',
         label: 'Condition Number',
         width: '33%',
@@ -215,11 +227,11 @@ export class FeFormSchemaService {
         condition: {
           'type': 'advanced',
           'simple': {
-            'show': true,
+            'show': false,
             'when': 'number',
             'eq': 15
           },
-          'advanced': 'var show; return show = controls.number.value == 15 ? true : false;',
+          'advanced': 'var show; return show = controls.number.value == 150 ? true : false;',
           "json": {
             "condition": {
               "and": [
@@ -232,7 +244,7 @@ export class FeFormSchemaService {
         placeholder: 'Enter your Number',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -252,7 +264,7 @@ export class FeFormSchemaService {
         placeholder: '(555) 233 4454',
         validators: [
           {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -263,16 +275,16 @@ export class FeFormSchemaService {
         code: 'FLD000008',
         flexiLabel: 'autocomplete',
         id: 'FRM000001-FLD000008',
-        
+
         //formcontrol: 'auto-form',
         label: 'Country',
-        
+
         width: '100%',
         placeholder: 'Enter your Country',
         defaultValue: 'Indiana',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -299,7 +311,7 @@ export class FeFormSchemaService {
         //formcontrol: 'select-form',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -315,7 +327,7 @@ export class FeFormSchemaService {
         //formcontrol: 'select-form',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -330,7 +342,7 @@ export class FeFormSchemaService {
         //formcontrol: 'file-form',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -342,13 +354,13 @@ export class FeFormSchemaService {
         flexiLabel: 'multi',
         label: 'Multiselect',
         placeholder: '--SELECT--',
-        defaultValue: ['male','female'],
+        defaultValue: ['male', 'female'],
         options: ['male', 'female', 'others'],
         id: 'FRM000001-FLD000004',
         //formcontrol: 'select-form',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -366,7 +378,7 @@ export class FeFormSchemaService {
         //formcontrol: 'check-form',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -399,7 +411,7 @@ export class FeFormSchemaService {
         //formcontrol: 'radio-form',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -431,7 +443,7 @@ export class FeFormSchemaService {
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'bottom',
-       
+
         labelWidth: 0,
         width: '100%',
         customValidations: {
@@ -455,11 +467,11 @@ export class FeFormSchemaService {
             code: 'FLD000012',
             flexiLabel: 'fst_username',
             id: 'FRM000001-FLD000012',
-            
+
             //formcontrol: 'fst-username-form',
             customCssClass: 'custom-css-class1',
             label: 'Username',
-            
+
             disabled: false,
             prefix: '@',
             hidden: false,
@@ -469,12 +481,12 @@ export class FeFormSchemaService {
             description: 'This is a dummy field. Field description would be here',
             hideLabel: false,
             labelPosition: 'left',
-           
+
             labelWidth: 0,
             width: '100%',
             placeholder: 'Enter your Username',
             formClassValidations: {
-              customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+              customPattern: { message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
             },
             events: {
               change: {
@@ -492,7 +504,7 @@ export class FeFormSchemaService {
             },
             validations: {
               required: {
-                
+
                 'value': true,
                 'message': 'This Field is required'
               },
@@ -510,7 +522,7 @@ export class FeFormSchemaService {
             code: 'FLD000005',
             flexiLabel: 'fst-assword-1',
             id: 'FRM000001-FLD0000013',
-            
+
             //formcontrol: 'fst-password-form',
             type: 'TXT',
             label: 'FST Password',
@@ -520,7 +532,7 @@ export class FeFormSchemaService {
             labelWidth: 0,
             labelPosition: 'left',
             labelMargin: 0,
-            
+
             description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
             width: '100%',
             placeholder: 'Enter your Password',
@@ -540,7 +552,7 @@ export class FeFormSchemaService {
             },
             validations: {
               required: {
-                
+
                 'value': true,
                 'message': 'This Field is required'
               },
@@ -555,11 +567,11 @@ export class FeFormSchemaService {
             code: 'FLD000014',
             flexiLabel: 'fst-username-1',
             id: 'FRM000001-FLD000012',
-            
+
             //formcontrol: 'fst-username-form-1',
             customCssClass: 'custom-css-class1',
             label: 'Username Fst 1',
-            
+
             disabled: false,
             prefix: '@',
             hidden: false,
@@ -573,7 +585,7 @@ export class FeFormSchemaService {
             width: '50%',
             placeholder: 'Enter your Username',
             formClassValidations: {
-              customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+              customPattern: { message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
             },
             events: {
               change: {
@@ -591,7 +603,7 @@ export class FeFormSchemaService {
             },
             validations: {
               required: {
-                
+
                 'value': true,
                 'message': 'This Field is required'
               },
@@ -609,7 +621,7 @@ export class FeFormSchemaService {
             code: 'FLD000002',
             flexiLabel: 'pfst-assword-2',
             id: 'FRM000001-FLD000002',
-            
+
             //formcontrol: 'fst-password-form-2',
             type: 'TXT',
             label: 'FST Password 2',
@@ -619,7 +631,7 @@ export class FeFormSchemaService {
             labelWidth: 0,
             labelPosition: 'left',
             labelMargin: 0,
-            
+
             description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
             width: '50%',
             placeholder: 'Enter your Password',
@@ -639,7 +651,7 @@ export class FeFormSchemaService {
             },
             validations: {
               required: {
-                
+
                 'value': true,
                 'message': 'This Field is required'
               },
@@ -662,11 +674,11 @@ export class FeFormSchemaService {
                 code: 'FLD000017',
                 flexiLabel: 'fst_username-5',
                 id: 'FRM000001-FLD000017',
-                
+
                 //formcontrol: 'fst-username-form-5',
                 customCssClass: 'custom-css-class1',
                 label: 'Username',
-                
+
                 disabled: false,
                 prefix: '@',
                 hidden: false,
@@ -676,7 +688,7 @@ export class FeFormSchemaService {
                 description: 'This is a dummy field. Field description would be here',
                 hideLabel: false,
                 labelPosition: 'left',
-              
+
                 labelWidth: 0,
                 width: '50%',
                 placeholder: 'Enter your Username',
@@ -699,17 +711,17 @@ export class FeFormSchemaService {
                 },
                 validations: {
                   required: {
-                    
+
                     'value': true,
                     'message': 'This Field is required'
                   },
                   minLength: {
-                    
+
                     'value': 8,
                     'message': 'Minimum length should be XXLENGTHXX'
                   },
                   maxLength: {
-                    
+
                     'value': 19,
                     'message': 'Minimum length should be XXLENGTHXX'
                   }
@@ -719,7 +731,7 @@ export class FeFormSchemaService {
                 code: 'FLD000015',
                 flexiLabel: 'fst-assword-1',
                 id: 'FRM000001-FLD0000011',
-                
+
                 //formcontrol: 'fst-password-form-5',
                 type: 'TXT',
                 label: 'FST Password',
@@ -729,7 +741,7 @@ export class FeFormSchemaService {
                 labelWidth: 0,
                 labelPosition: 'left',
                 labelMargin: 0,
-                
+
                 description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
                 width: '50%',
                 placeholder: 'Enter your Password',
@@ -749,12 +761,12 @@ export class FeFormSchemaService {
                 },
                 validations: {
                   required: {
-                    
+
                     'value': true,
                     'message': 'This Field is required'
                   },
                   pattern: {
-                   
+
                     'value': '^[a-z0-9_-]{8,15}$',
                     'message': 'The Pattern is not correct'
                   }
@@ -765,11 +777,11 @@ export class FeFormSchemaService {
                 code: 'FLD000018',
                 flexiLabel: 'fst-username-5',
                 id: 'FRM000001-FLD000018',
-                
+
                 //formcontrol: 'fst-username-form-5',
                 customCssClass: 'custom-css-class1',
                 label: 'Username Fst 1',
-                
+
                 disabled: false,
                 prefix: '@',
                 hidden: false,
@@ -783,7 +795,7 @@ export class FeFormSchemaService {
                 width: '50%',
                 placeholder: 'Enter your Username',
                 formClassValidations: {
-                  customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                  customPattern: { message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
                 },
                 events: {
                   change: {
@@ -801,17 +813,17 @@ export class FeFormSchemaService {
                 },
                 validations: {
                   required: {
-                    
+
                     'value': true,
                     'message': 'This Field is required'
                   },
                   minLength: {
-                    
+
                     'value': 8,
                     'message': 'Minimum length should be XXLENGTHXX'
                   },
                   maxLength: {
-                    
+
                     'value': 19,
                     'message': 'Minimum length should be XXLENGTHXX'
                   }
@@ -821,7 +833,7 @@ export class FeFormSchemaService {
                 code: 'FLD000022',
                 flexiLabel: 'pfst-assword-8',
                 id: 'FRM000001-FLD000022',
-                
+
                 //formcontrol: 'fst-password-form-7',
                 type: 'TXT',
                 label: 'FST Password 2',
@@ -831,7 +843,7 @@ export class FeFormSchemaService {
                 labelWidth: 0,
                 labelPosition: 'left',
                 labelMargin: 0,
-                
+
                 description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
                 width: '50%',
                 placeholder: 'Enter your Password',
@@ -851,12 +863,12 @@ export class FeFormSchemaService {
                 },
                 validations: {
                   required: {
-                    
+
                     'value': true,
                     'message': 'This Field is required'
                   },
                   pattern: {
-                   
+
                     'value': '^[a-z0-9_-]{8,15}$',
                     'message': 'The Pattern is not correct'
                   }
@@ -875,11 +887,11 @@ export class FeFormSchemaService {
                     code: 'FLD000020',
                     flexiLabel: 'fst-username-6',
                     id: 'FRM000001-FLD000020',
-                    
+
                     //formcontrol: 'fst-username-form-9',
                     customCssClass: 'custom-css-class1',
                     label: 'Username Fst 1',
-                    
+
                     disabled: false,
                     prefix: '@',
                     hidden: false,
@@ -893,7 +905,7 @@ export class FeFormSchemaService {
                     width: '50%',
                     placeholder: 'Enter your Username',
                     formClassValidations: {
-                      customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                      customPattern: { message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
                     },
                     events: {
                       change: {
@@ -911,17 +923,17 @@ export class FeFormSchemaService {
                     },
                     validations: {
                       required: {
-                        
+
                         'value': true,
                         'message': 'This Field is required'
                       },
                       minLength: {
-                        
+
                         'value': 8,
                         'message': 'Minimum length should be XXLENGTHXX'
                       },
                       maxLength: {
-                        
+
                         'value': 19,
                         'message': 'Minimum length should be XXLENGTHXX'
                       }
@@ -931,7 +943,7 @@ export class FeFormSchemaService {
                     code: 'FLD000025',
                     flexiLabel: 'pfst-assword-9',
                     id: 'FRM000001-FLD000025',
-                    
+
                     //formcontrol: 'fst-password-form-8',
                     type: 'TXT',
                     label: 'FST Password 2',
@@ -941,7 +953,7 @@ export class FeFormSchemaService {
                     labelWidth: 0,
                     labelPosition: 'left',
                     labelMargin: 0,
-                    
+
                     description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
                     width: '50%',
                     placeholder: 'Enter your Password',
@@ -961,12 +973,12 @@ export class FeFormSchemaService {
                     },
                     validations: {
                       required: {
-                        
+
                         'value': true,
                         'message': 'This Field is required'
                       },
                       pattern: {
-                       
+
                         'value': '^[a-z0-9_-]{8,15}$',
                         'message': 'The Pattern is not correct'
                       }
@@ -986,7 +998,7 @@ export class FeFormSchemaService {
         label: 'Time',
         id: 'FRM000001-FLD000005',
         //formcontrol: 'time-form',
-        
+
         disabled: false,
         defaultValue: { hour: 12, minute: 13, second: 13 },
         prefix: '@',
@@ -997,12 +1009,12 @@ export class FeFormSchemaService {
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'top',
-       
+
         labelWidth: 0,
         width: '100%',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'This Field is required'
           }
@@ -1013,27 +1025,27 @@ export class FeFormSchemaService {
         code: 'FLD000006',
         flexiLabel: 'description',
         id: 'FRM000001-FRM000006',
-        
+
         //formcontrol: 'description-form',
         label: 'Description',
-        
+
         defaultValue: 'Some tet area default value',
         width: '100%',
         placeholder: 'Enter Description',
         ckeditor: 'Y',
         validations: {
           required: {
-            
+
             'value': true,
             'message': 'Field is required'
           },
           minLength: {
-            
+
             'value': 50,
             'message': 'Minimum length required is XXLENGTHXX.'
           },
           maxLength: {
-            
+
             'value': 150,
             'message': 'Maximum length required is XXLENGTHXX.'
           }
@@ -1047,7 +1059,7 @@ export class FeFormSchemaService {
         type: 'BTN',
         action: 'submit',
         label: 'Submit',
-        
+
         width: '',
         disabled: false,
         class: ['btn', 'btn-primary']
