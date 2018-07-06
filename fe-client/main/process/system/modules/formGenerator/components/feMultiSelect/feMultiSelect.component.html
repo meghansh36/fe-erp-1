@@ -3,29 +3,29 @@
 
         <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
             <div class="label">
-                <label for="{{ config.id }}" [ngClass]="defaultClasses.labelClasses">{{ config.label }}</label>
+                <label for="{{ id }}" [ngClass]="defaultClasses.labelClasses">{{ label }}</label>
             </div>
-            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
+            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="description">
                 <span [ngClass]="defaultClasses.fieldDescContainerClasses">
-                    <i class="material-icons " placement="right" [ngbTooltip]="config.description"> help</i>
+                    <i class="material-icons " placement="right" [ngbTooltip]="description"> help</i>
                 </span>
             </div>
         </div>
         <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-            <div class="input-group-prepend" *ngIf="config.prefix">
-                <span class="input-group-text"> {{ config.prefix }} </span>
+            <div class="input-group-prepend" *ngIf="prefix">
+                <span class="input-group-text"> {{ prefix }} </span>
             </div>
-            <ngx-select [multiple]="true" [formControlName]="config.flexiLabel" [items]="config.options">
+            <ngx-select [multiple]="true" [formControlName]="flexiLabel" [items]="options">
             </ngx-select>
-            <div class="input-group-append" *ngIf="config.suffix ">
-                <span class="input-group-text"> {{ config.suffix }} </span>
+            <div class="input-group-append" *ngIf="suffix ">
+                <span class="input-group-text"> {{ suffix }} </span>
             </div>
         </div>
     </div>
-    <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+    <div *ngIf="hasError"
         [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
         <span *ngFor="let err of errors">
-            <small class="text-danger error-message error-{{err.name}}" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+            <small class="text-danger error-message error-{{err.name}}" *ngIf="control.errors[err.name]">
                 {{err.message}}
                 <br>
             </small>

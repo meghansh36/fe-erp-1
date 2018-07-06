@@ -51,9 +51,9 @@ export class FeBaseField {
   refObj;
   componentname;
   setRef(reference) {
-    this.refObj = reference.ref;
+    this.refObj = reference;
     console.log('ref', reference)
-    //this.properties.componentname = reference.component.component.name;
+   // this.properties.componentname = reference.component.component.name;
   }
 
   close() {

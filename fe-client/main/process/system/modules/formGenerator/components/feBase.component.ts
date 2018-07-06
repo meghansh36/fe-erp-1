@@ -97,7 +97,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     ngAfterViewInit() {
         this.bindEvents();
+        this.addDisplayProps();
     }
+
 
     ngOnDestroy() {
         this.$statusChange.unsubscribe();
@@ -105,6 +107,14 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this.$simpleConditionChange.unsubscribe();
         this.$groupValueChange.unsubscribe();
     }
+
+    addDisplayProps() {
+        if ( this.type == 'HID' ) {
+            this.render.addClass( this.elemRef.nativeElement, 'hidden' );
+        }
+        this.render.addClass( this.elemRef.nativeElement, 'fe-field-component' );
+    }
+
 
     static evalFnArgs(argsStr) {
         try {
@@ -381,7 +391,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         }
 
         let fieldContainerClasses = {};
-        let classesStr = `form-field-container ${type}-container`;
+        let classesStr = `form-field-container frm-fld-container ${type}-container`;
         if (this.prefix || this.suffix) {
             classesStr += ' input-group';
         }

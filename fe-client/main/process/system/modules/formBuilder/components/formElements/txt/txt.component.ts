@@ -54,7 +54,7 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   ngOnInit() {
 
     console.log("initialized a new instance", this.properties);
-    this.setRef(this.fieldControlService.getFieldRef());
+    this.setRef(this.fieldControlService.getFieldRef().ref);
     this.uniqueKey = this.masterFormService.getCurrentKey();
     // this.masterFormService.setCurrentKey(this.uniqueKey);
     this.masterFormService.setProperties(this.properties);
