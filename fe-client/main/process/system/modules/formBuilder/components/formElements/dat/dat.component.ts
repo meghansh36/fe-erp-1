@@ -15,7 +15,9 @@ export class FeDatComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
   applicableProperties={
     inputMask:true,

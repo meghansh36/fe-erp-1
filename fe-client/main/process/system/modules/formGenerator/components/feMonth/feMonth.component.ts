@@ -3,8 +3,8 @@ import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/compone
 
 @Component({
   selector: 'fe-month',
-  styleUrls: ['feMonth.component.css'],
-  templateUrl: 'feMonth.component.html'
+  styleUrls: ['./feMonth.component.css'],
+  templateUrl: './feMonth.component.html'
 })
 export class FeMonthComponent extends FeBaseComponent {
 

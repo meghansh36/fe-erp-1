@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 import { NumComponent } from '@L3Process/system/modules/formBuilder/components/formElements/num/num.component';
@@ -18,9 +19,16 @@ import { AncComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/blk/blk.component';
 import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
+import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
+import { SelComponent } from '@L3Process/system/modules/formBuilder/components/formElements/sel/sel.component';
+import { MslComponent } from '@L3Process/system/modules/formBuilder/components/formElements/msl/msl.component';
+import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/formElements/icb/icb.component';
+import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
 
 @Injectable()
 export class FeFormBuilderService {
+
+
 
   referenceArray: Object[];
 
@@ -111,6 +119,27 @@ export class FeFormBuilderService {
       label: 'Button',
       icon: 'send',
       componentName: 'BtnComponent'
+    },
+    {
+      name: 'select',
+      component: SelComponent,
+      label: 'Select',
+      icon: 'list',
+      componentName: 'SelComponent'
+    },
+    {
+      name: 'multiselect',
+      component: MslComponent,
+      label: 'Multi Select',
+      icon: 'list',
+      componentName: 'MslComponent'
+    },
+    {
+      name: 'iconicButton',
+      component: IcbComponent,
+      label: 'Iconic Button',
+      icon: 'send',
+      componentName: 'IcbComponent'
     }
   ];
 
@@ -120,7 +149,6 @@ export class FeFormBuilderService {
        component: EmlComponent,
       label: 'Email',
       icon: 'email',
-      type: 'email',
       componentName: 'EmlComponent'
     },
     {
@@ -128,7 +156,6 @@ export class FeFormBuilderService {
        component: PhnComponent,
       label: 'Phone',
       icon: 'call',
-      type: 'number',
       componentName: 'PhnComponent'
     },
     {
@@ -136,7 +163,6 @@ export class FeFormBuilderService {
        component: AdrComponent,
       label: 'Address',
       icon: 'location_on',
-      type: 'text',
       componentName: 'AdrComponent'
     },
     {
@@ -144,7 +170,6 @@ export class FeFormBuilderService {
        component: CurComponent,
       label: 'Currency',
       icon: 'attach_money',
-      type: 'text',
       componentName: 'CurComponent'
     },
     {
@@ -152,7 +177,6 @@ export class FeFormBuilderService {
        component: DtiComponent,
       label: 'Date/Time',
       icon: 'add_alarm',
-      type: 'datetime',
       componentName: 'DtiComponent'
     },
     {
@@ -160,9 +184,26 @@ export class FeFormBuilderService {
        component: TimComponent,
       label: 'Time',
       icon: 'access_time',
-      type: 'time',
       componentName: 'TimComponent'
+    },
+    {
+      name: 'fieldset',
+      component: FstComponent,
+      label: 'FieldSet',
+      icon: 'access_time',
+      componentName: 'FstComponent'
+    },
+    {
+      name: 'autocomplete',
+      component: FstComponent,
+      label: 'Auto Complete',
+      icon: 'search',
+      componentName: 'AcsComponent'
     }
+  ];
+
+  layoutElements = [
+    
   ];
 
   component = {
@@ -255,23 +296,57 @@ export class FeFormBuilderService {
       name: 'radio',
       component: RadComponent,
       type: 'radio'
+    },
+    'FstComponent': {
+      name: 'fieldset',
+      component: FstComponent,
+      type: 'fieldset'
+    },
+    'SelComponent': {
+      name: 'select',
+      component: SelComponent,
+      type: 'select'
+    },
+    'MslComponent': {
+      name: 'multiselect',
+      component: MslComponent,
+      type: 'multiselect'
+    },
+    'IcbComponent': {
+      name: 'iconicButton',
+      component: IcbComponent,
+      type: 'button'
+    },
+    'AcsComponent': {
+      name: 'autocomplete',
+      component: AcsComponent,
+      type: 'text'
     }
 
   };
 
-  constructor() { }
+  constructor(public httpClient:HttpClient) { }
 
   getElementList(elementListToLoad) {
     if (elementListToLoad === 'basic') {
       return this.basicElements;
     }
     if (elementListToLoad === 'advanced') {
+      console.log('returning adv')
       return this.advancedElements;
+    }
+    if (elementListToLoad === 'layoutFields') {
+      console.log('returning')
+      return this.layoutElements;
     }
   }
 
   getComponent(name) {
     return this.component[name];
+  }
+
+  postData(data){
+    return this.httpClient.post('http://jsonplaceholder.typicode.com/posts',data)
   }
 
 }

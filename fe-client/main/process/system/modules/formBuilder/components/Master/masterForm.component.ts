@@ -38,17 +38,21 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.Json.name=this.masterFormService.name;
     this.Json.display=this.masterFormService.display;
     this.Json.formLabel=this.masterFormService.formLabel;
-    console.log('this.json',this.Json);
+
 
   }
 
-  ngDoCheck() {}
+  ngDoCheck() {
+
+
+  }
+
 
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
-    console.log("fields property in master component",this.instance);
+
   }
 
   close() {
@@ -75,7 +79,8 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     console.log('json after master',this.Json.components);
 
     this.masterFormService.setCurrentKey(this.currentKey);
-    this.masterFormService.setProperties(form);
+    //this.masterFormService.setProperties(form);
+    this.masterFormService.setProperties(this.instance.properties);
     this.formJsonService.buildFinalJSON();
 
     this.modalRef.close();
@@ -106,7 +111,13 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     // this.instance.properties.suffix = this.componentData.suffix;
     // this.instance.properties.description = this.componentData.description;
     // this.instance.properties.tooltip = this.componentData.tooltip;
-    if (this.componentData.hideLabel) {this.componentData.label = undefined; }
+    if (this.componentData.hideLabel) {
+      this.componentData.label=undefined;
+     }
+     else
+     {
+        this.componentData.label=this.componentData.label;
+     }
     console.log(this.componentData);
     //this.masterFormService.setProperties(this.componentData);
     this.instance.properties = _.assignIn({}, this.componentData);
@@ -117,6 +128,8 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
 
     console.log(' destroy called show edit ',this.instance.showEdit);
   }
+
+
 
 
 }

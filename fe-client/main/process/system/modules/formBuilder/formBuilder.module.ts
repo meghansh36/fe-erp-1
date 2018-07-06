@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormDragComponent } from '@L3Process/system/modules/formBuilder/components/formDrag/formDrag.component';
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule, FormControl } from '@angular/forms';
+import {FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 import { TxaComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txa/txa.component';
 import { TimComponent } from '@L3Process/system/modules/formBuilder/components/formElements/tim/tim.component';
@@ -31,9 +32,11 @@ import { AncComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { BlkComponent } from '@L3Process/system/modules/formBuilder/components/formElements/blk/blk.component';
 import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 import { RadComponent } from '@L3Process/system/modules/formBuilder/components/formElements/rad/rad.component';
-
-
-
+import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
+import { SelComponent } from '@L3Process/system/modules/formBuilder/components/formElements/sel/sel.component';
+import { MslComponent } from '@L3Process/system/modules/formBuilder/components/formElements/msl/msl.component';
+import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/formElements/icb/icb.component';
+import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
 
 
 @NgModule({
@@ -58,7 +61,12 @@ import { RadComponent } from '@L3Process/system/modules/formBuilder/components/f
     AncComponent,
     BlkComponent,
     BtnComponent,
-    RadComponent
+    RadComponent,
+    FstComponent,
+    SelComponent,
+    MslComponent,
+    IcbComponent,
+    AcsComponent
   ],
   imports: [
     CommonModule,
@@ -67,12 +75,16 @@ import { RadComponent } from '@L3Process/system/modules/formBuilder/components/f
     FormBuilderRoutes,
     FormsModule,
     SortablejsModule.forRoot({ animation: 500 }),
-    DragulaModule
+    DragulaModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
                     DatComponent, CurComponent, AdrComponent, ChkComponent,
-                    AncComponent, BlkComponent, BtnComponent, RadComponent],
+                    AncComponent, BlkComponent, BtnComponent, RadComponent,
+                    AcsComponent, FstComponent,IcbComponent, SelComponent,
+                    MslComponent],
   providers: [FormBuilderService, FormMasterService, FieldControlService, FormJsonService],
   bootstrap: [FormBuilderComponent]
 })

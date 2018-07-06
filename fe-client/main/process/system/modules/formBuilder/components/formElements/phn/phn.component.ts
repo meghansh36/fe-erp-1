@@ -15,15 +15,29 @@ export class FePhnComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
   applicableProperties={
-    inputMask:true,
     placeholder:true,
-    prefix:true,
-    suffix:true,
+    description:true,
+    inputMask:true,
+    clearValue:true,
+    hidden:true,
+    disabled:true,
+    appliedValidation:true,
+    minimumLength:true,
+    maximumLength:true,
+    regularExpression:true,
+    customErrorMessage:true,
+    customValidationFunction:true,
+    customJsonLogic:true,
+    customFunction:true,
+    jsonLogic:true,
+    inputFormat:true,
+    unique:true,
     ...this.applicableProperties
-
 }
   ngOnInit() {
 

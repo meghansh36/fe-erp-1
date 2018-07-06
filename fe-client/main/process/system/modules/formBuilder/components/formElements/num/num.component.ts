@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 import * as _ from 'lodash';
 @Component({
-  selector: 'num-input',
+  selector: 'num-input.fieldComponent',
   templateUrl: './num.component.html',
   styleUrls: ['./num.component.css', '../baseField/baseField.component.css']
 })
@@ -15,15 +15,31 @@ export class FeNumComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
   applicableProperties={
-    inputMask:true,
     placeholder:true,
+    description:true,
+    inputMask:true,
     prefix:true,
     suffix:true,
+    clearValue:true,
+    hidden:true,
+    disabled:true,
+    appliedValidation:true,
+    minimumLength:true,
+    maximumLength:true,
+    regularExpression:true,
+    customErrorMessage:true,
+    customValidationFunction:true,
+    customJsonLogic:true,
+    customFunction:true,
+    jsonLogic:true,
+    useDelimeter:true,
+    requiredDecimal:true,
     ...this.applicableProperties
-
 }
 
   ngOnInit() {

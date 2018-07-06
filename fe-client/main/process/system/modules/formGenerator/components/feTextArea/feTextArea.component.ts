@@ -3,8 +3,8 @@ import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/compone
 
 @Component({
     selector: 'fe-textarea',
-    styleUrls: ['feTextArea.component.css'],
-    templateUrl: 'feTextArea.component.html',
+    styleUrls: ['./feTextArea.component.css'],
+    templateUrl: './feTextArea.component.html',
     host: {
         '(keypress)': '_onKeypress($event)',
     }

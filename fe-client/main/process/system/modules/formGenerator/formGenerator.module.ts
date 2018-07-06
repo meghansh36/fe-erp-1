@@ -69,7 +69,21 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     FeIconicButtonComponent
   ],
   exports: [
-    FeFormComponent
+    FeFormComponent,
+    FeButtonComponent,
+    FeTextComponent,
+    FeSelectComponent,
+    FeTextAreaComponent,
+    FeDateComponent,
+    FeTimeComponent,
+    FeAutoCompleteComponent,
+    FeNumberComponent,
+    FeCheckBoxComponent,
+    FeRadioComponent,
+    FeMultiSelectComponent,
+    FeFieldSetComponent,
+    FeEmailComponent,
+    FeFilComponent
   ],
   entryComponents: [
     FeButtonComponent,
