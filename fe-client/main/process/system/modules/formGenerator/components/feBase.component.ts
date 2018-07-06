@@ -16,7 +16,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public group: FormGroup;
     public form: any;
     public formComponent: any;
-    
+
     public conditionClass: string;
     public error: string;
     public validators = [];
@@ -32,7 +32,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public $groupValueChange: any;
 
     // Config properties which are the properties of this class
-    
+
     protected _disabled: any;
     protected _label: any;
     protected _id: any;
@@ -79,8 +79,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     protected _config: FieldConfig;
 
 
-    
-    constructor(public elemRef: ElementRef,public validator: FeValidatorsService, public render: Renderer2) {
+
+    constructor(public elemRef: ElementRef, public validator: FeValidatorsService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
 
@@ -89,7 +89,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     init() {
-        this._config = _.assign( {}, this.config );
+        this._config = _.assign({}, this.config);
         this.applyDefaultValidations();
         this.initFieldStyle();
         this.applyObservers();
@@ -121,7 +121,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         }
     }
 
-    fieldEventHandler( eventName,  handlerData, event ) {
+    fieldEventHandler(eventName, handlerData, event) {
         try {
             let handlerOwnerType = handlerData.handlerOwner;
             let handlerFnName = handlerData.handlerName;
@@ -159,8 +159,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             let eventsObjArr: object = this.events;
             if (eventsObjArr) {
                 let field = this.fieldRef;
-                for( let eventName in eventsObjArr ) {
-                    this.render.listen( field, eventName, this.fieldEventHandler.bind(this, eventName, eventsObjArr[ eventName ]) );
+                for (let eventName in eventsObjArr) {
+                    this.render.listen(field, eventName, this.fieldEventHandler.bind(this, eventName, eventsObjArr[eventName]));
                 }
             }
         } catch (error) {
@@ -301,7 +301,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     applyNgValidators(): void {
-        this.validators = this.validators.concat(this.validator.getValidators( this.validations ));
+        this.validators = this.validators.concat(this.validator.getValidators(this.validations));
         this.errors = this.validator.transformToValidErr(this.validations);
     }
 
@@ -451,11 +451,11 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             nestedFieldContainerClasses
         };
 
-        classes = this.beforeSetDefaultClasses( classes );
+        classes = this.beforeSetDefaultClasses(classes);
         return classes;
     }
 
-    public beforeSetDefaultClasses( classes ) {
+    public beforeSetDefaultClasses(classes) {
         return classes;
     }
 
@@ -471,7 +471,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     getFieldStyles() {
         let fieldLabelContainerStyle: any = {};
         let fieldMainWrapperStyle = {};
-        
+
         let config = this._config;
         let labelWidth = this.labelWidth;
         let labelMargin = this.labelMargin;
@@ -487,8 +487,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         if (fieldWidth) {
             this.render.setStyle(this.elemRef.nativeElement, 'width', fieldWidth);
         }
-        if ( this.type == 'HID' ) {
-            this.render.addClass( this.elemRef.nativeElement, 'hidden' );
+        if (this.type == 'HID') {
+            this.render.addClass(this.elemRef.nativeElement, 'hidden');
         }
 
         if (labelMargin) {
@@ -544,11 +544,11 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             nestedFieldContainerStyle: {}
 
         };
-        inlineStyle = this.beforeSetDefaultStyle( inlineStyle );
+        inlineStyle = this.beforeSetDefaultStyle(inlineStyle);
         return inlineStyle;
     }
 
-    beforeSetDefaultStyle( styleObj ) {
+    beforeSetDefaultStyle(styleObj) {
         return styleObj;
     }
 
@@ -782,155 +782,155 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return this._config.rightIcon;
     }
 
-    set disabled( disabled ) {
+    set disabled(disabled) {
         this._config.disabled = disabled;
     }
 
-    set label( label ) {
+    set label(label) {
         this._config.label = label;
     }
 
-    set id( id ) {
+    set id(id) {
         this._config.id = id;
     }
 
-    set hideLabel( hideLabel ) {
+    set hideLabel(hideLabel) {
         this._config.hideLabel = hideLabel;
     }
 
-    set prefix( prefix ) {
+    set prefix(prefix) {
         this._config.prefix = prefix;
     }
 
-    set suffix( suffix ) {
+    set suffix(suffix) {
         this._config.suffix = suffix;
     }
 
-    set customCssClass( customCssClass ) {
+    set customCssClass(customCssClass) {
         this._config.customCssClass = customCssClass;
     }
 
-    set description( description ) {
+    set description(description) {
         this._config.description = description;
     }
 
-    set code( code ) {
+    set code(code) {
         this._config.code = code;
     }
 
-    set flexiLabel( flexiLabel ) {
+    set flexiLabel(flexiLabel) {
         this._config.flexiLabel = flexiLabel;
     }
 
-    set options( options ) {
+    set options(options) {
         this._config.options = options;
     }
 
-    set isParent( isParent ) {
+    set isParent(isParent) {
         this._config.isParent = isParent;
     }
 
-    set placeholder( placeholder ) {
+    set placeholder(placeholder) {
         this._config.placeholder = placeholder;
     }
 
-    set type( type ) {
+    set type(type) {
         this._config.type = type;
     }
 
-    set validation( validation ) {
+    set validation(validation) {
         this._config.validation = validation;
     }
 
-    set customValidations( customValidations ) {
+    set customValidations(customValidations) {
         this._config.customValidations = customValidations;
     }
 
-    set jsonValidations( jsonValidations ) {
+    set jsonValidations(jsonValidations) {
         this._config.jsonValidations = jsonValidations;
     }
 
-    set validations( validations ) {
+    set validations(validations) {
         this._config.validations = validations;
     }
 
-    set formClassValidations( formClassValidations ) {
+    set formClassValidations(formClassValidations) {
         this._config.formClassValidations = formClassValidations;
     }
 
-    set mask( mask ) {
+    set mask(mask) {
         this._config.mask = mask;
     }
 
-    set labelPosition( labelPosition ) {
+    set labelPosition(labelPosition) {
         this._config.labelPosition = labelPosition;
     }
 
-    set labelWidth( labelWidth ) {
+    set labelWidth(labelWidth) {
         this._config.labelWidth = labelWidth;
     }
 
-    set hidden( hidden ) {
+    set hidden(hidden) {
         this._config.hidden = hidden;
     }
 
-    set labelMargin( labelMargin ) {
+    set labelMargin(labelMargin) {
         this._config.labelMargin = labelMargin;
     }
 
-    set tabIndex( tabIndex ) {
+    set tabIndex(tabIndex) {
         this._config.tabIndex = tabIndex;
     }
 
-    set marginTop( marginTop ) {
+    set marginTop(marginTop) {
         this._config.marginTop = marginTop;
     }
 
-    set marginRight( marginRight ) {
+    set marginRight(marginRight) {
         this._config.marginRight = marginRight;
     }
 
-    set marginBottom( marginBottom ) {
+    set marginBottom(marginBottom) {
         this._config.marginBottom = marginBottom;
     }
 
-    set marginLeft( marginLeft ) {
+    set marginLeft(marginLeft) {
         this._config.marginLeft = marginLeft;
     }
 
-    set width( width ) {
+    set width(width) {
         this._config.width = width;
     }
 
-    set events( events ) {
+    set events(events) {
         this._config.events = events;
     }
 
-    set condition( condition ) {
+    set condition(condition) {
         this._config.condition = condition;
     }
 
-    set defaultValue( defaultValue ) {
+    set defaultValue(defaultValue) {
         this._config.defaultValue = defaultValue;
     }
 
-    set components( components ) {
+    set components(components) {
         this._config.components = components;
     }
 
-    set theme( theme ) {
+    set theme(theme) {
         this._config.theme = theme;
     }
 
-    set size( size ) {
+    set size(size) {
         this._config.size = size;
     }
 
-    set leftIcon( leftIcon ) {
+    set leftIcon(leftIcon) {
         this._config.leftIcon = leftIcon;
     }
 
-    set rightIcon( rightIcon ) {
+    set rightIcon(rightIcon) {
         this._config.rightIcon = rightIcon;
     }
 
@@ -938,7 +938,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return this._config.ckeditor;
     }
 
-    set ckeditor( ckeditor ) {
+    set ckeditor(ckeditor) {
         this._config.ckeditor = ckeditor;
     }
 
@@ -946,7 +946,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return this._config.tooltip;
     }
 
-    set tooltip( tooltip ) {
+    set tooltip(tooltip) {
         this._config.tooltip = tooltip;
     }
 

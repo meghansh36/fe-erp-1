@@ -144,8 +144,8 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   }
 
   static createControl(fb: FormBuilder, config: FieldConfig) {
-    const { disabled, validation, value } = config;
-    return fb.control({ disabled, value }, validation);
+    const { disabled, validation, defaultValue } = config;
+    return fb.control({ disabled, value: undefined }, validation);
   }
 
   handleSubmit(event: Event) {
