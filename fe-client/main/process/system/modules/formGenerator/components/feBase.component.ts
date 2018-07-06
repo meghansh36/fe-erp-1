@@ -45,7 +45,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public $simpleConditionChange: any;
     public $groupValueChange: any;
 
-    constructor(public elemRef: ElementRef,public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
+    constructor(public elemRef: ElementRef, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
 
@@ -143,7 +143,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             this.$valueChange = this.control.valueChanges.subscribe(this.onValueChange.bind(this));
         }
         if (this.config.condition) {
-            this.render.addClass(this.elemRef.nativeElement, 'hidden');
             let type = this.config.condition['type'];
             let conditionHandlerName = `${type}ConditionHandler`;
             if (this[conditionHandlerName] && typeof this[conditionHandlerName] == 'function') {
@@ -160,9 +159,18 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     simpleConditionHandler(condition: { [key: string]: any }) {
-        this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
-            data == condition.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
-        })
+        if (condition.show == true) {
+            this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
+                data == condition.eq ? this.render.removeClass(this.elemRef.nativeElement, 'hidden') : this.render.addClass(this.elemRef.nativeElement, 'hidden');
+            })
+        }
+        else {
+            this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            this.$simpleConditionChange = this.group.get(condition.when).valueChanges.subscribe((data) => {
+                data == condition.eq ? this.render.addClass(this.elemRef.nativeElement, 'hidden') : this.render.removeClass(this.elemRef.nativeElement, 'hidden');
+            })
+        }
     }
 
     advancedConditionHandler(condition: string) {

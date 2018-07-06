@@ -169,16 +169,15 @@ export class FeFormSchemaService {
           commaseperatedemail: {
             name: 'commaseperatedemail',
             validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null {
-              let regExp = /(^[a-z]([a-z_\.]*)@([a-z_\.]*)([.][a-z]{3})$)|(^[a-z]([a-z_\.]*)@([a-z_\.]*)(\.[a-z]{3})(\.[a-z]{2})*$)/i;
-              let emailArray = control.value.split(",");
-              return emailArray.forEach((eml) => {
-                if (regExp.test(eml)) {
+              let regExp = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4})(,[\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}){0,4}$/;
+              if (control.value !== undefined) {
+                if (regExp.test(control.value)) {
                   return null;
                 }
                 else {
                   return { 'commaseperatedemail': true };
                 }
-              });
+              }
             },
             message: 'Email should be correct'
           }
@@ -238,11 +237,11 @@ export class FeFormSchemaService {
         condition: {
           'type': 'advanced',
           'simple': {
-            'show': true,
+            'show': false,
             'when': 'number',
             'eq': 15
           },
-          'advanced': 'var show; return show = controls.number.value == 15 ? true : false;',
+          'advanced': 'var show; return show = controls.number.value == 150 ? true : false;',
           "json": {
             "condition": {
               "and": [
