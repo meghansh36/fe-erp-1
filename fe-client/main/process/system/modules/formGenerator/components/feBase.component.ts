@@ -960,4 +960,12 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this._config.tooltip = tooltip;
     }
 
+    get icon() {
+        return this._config.icon;
+    }
+
+    set icon(icon) {
+        this._config.tooltip = icon;
+    }
+
 }

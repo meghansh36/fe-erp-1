@@ -37,8 +37,8 @@ export class FeButtonComponent extends FeBaseComponent {
 
   defaultTheme: string = 'secondary';
 
-  
   beforeSetDefaultClasses( classesObj ) {
+    console.log('beforeSetDefaultClasses for field ', this.type, this.icon );
     let themeClass = buttonThemeClasses[ this.theme ];
     console.log("beforeSetDefaultClasses");
     if ( !themeClass ) {
