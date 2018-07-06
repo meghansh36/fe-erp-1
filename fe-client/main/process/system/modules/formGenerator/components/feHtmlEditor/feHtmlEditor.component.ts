@@ -2,20 +2,20 @@ import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
 
 @Component({
-    selector: 'fe-textarea',
-    styleUrls: ['./feTextArea.component.css'],
-    templateUrl: './feTextArea.component.html',
+    selector: 'fe-htmleditor',
+    styleUrls: ['./feHtmlEditor.component.css'],
+    templateUrl: './feHtmlEditor.component.html',
     host: {
         '(keypress)': '_onKeypress($event)',
     }
 })
-export class FeTextAreaComponent extends FeBaseComponent {
+export class FeHtmlEditorComponent extends FeBaseComponent {
     public length:number = 0;
     name = 'ng2-ckeditor';
     ckeConfig: any;
     mycontent: string = '';
     log: string = '';
-
+ 
     _onKeypress(e) {
         if (this.hasMaxLength) {
             const limit = +this.len;

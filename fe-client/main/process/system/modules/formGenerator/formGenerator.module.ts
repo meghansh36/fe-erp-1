@@ -28,6 +28,7 @@ import { FeHiddenComponent } from '@L1Process/system/modules/formGenerator/compo
 import { FeMonthComponent } from '@L1Process/system/modules/formGenerator/components/feMonth/feMonth.component';
 import { FeAnchorComponent } from '@L1Process/system/modules/formGenerator/components/feAnchor/feAnchor.component';
 import { FeBlankComponent } from '@L1Process/system/modules/formGenerator/components/feBlank/feBlank.component';
+import { FeHtmlEditorComponent } from '@L1Process/system/modules/formGenerator/components/feHtmlEditor/feHtmlEditor.component';
 import { FeIconicButtonComponent } from '@L1Process/system/modules/formGenerator/components/feIconicButton/feIconicButton.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
@@ -66,7 +67,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     FeMonthComponent,
     FeAnchorComponent,
     FeBlankComponent,
-    FeIconicButtonComponent
+    FeIconicButtonComponent,
+    FeHtmlEditorComponent
   ],
   exports: [
     FeFormComponent,
@@ -104,7 +106,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     FeMonthComponent,
     FeAnchorComponent,
     FeBlankComponent,
-    FeIconicButtonComponent
+    FeIconicButtonComponent,
+    FeHtmlEditorComponent
   ]
 })
 export class FormGeneratorModule {}

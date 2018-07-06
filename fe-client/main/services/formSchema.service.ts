@@ -1051,10 +1051,8 @@ export class FeFormSchemaService {
         defaultValue: 'Some tet area default value',
         width: '100%',
         placeholder: 'Enter Description',
-        ckeditor: 'Y',
         validations: {
           required: {
-
             'value': true,
             'message': 'Field is required'
           },
@@ -1067,6 +1065,25 @@ export class FeFormSchemaService {
 
             'value': 150,
             'message': 'Maximum length required is XXLENGTHXX.'
+          }
+        }
+      },
+      {
+        type: 'EDT',
+        code: 'FLD000016',
+        flexiLabel: 'editor',
+        id: 'FRM000001-FRM000016',
+
+        //formcontrol: 'description-form',
+        label: 'Html Description',
+
+        defaultValue: 'Some editor default value',
+        width: '100%',
+        placeholder: 'Enter Description',
+        validations: {
+          required: {
+            'value': true,
+            'message': 'Field is required'
           }
         }
       },
