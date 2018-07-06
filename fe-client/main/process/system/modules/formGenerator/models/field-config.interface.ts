@@ -50,6 +50,7 @@ export interface FieldConfig {
   rightIcon?: string,
   ckeditor?: string,
   tooltip?: string,
-  show?:any 
+  show?:any ,
+  icon?: string
 }
 

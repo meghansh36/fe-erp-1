@@ -28,7 +28,8 @@
       "@L1Root/*" : ["../../../../*"],
       "@L1Main/*" : ["../../../../main/*"],
       "@L1Process/*" : ["../../../../main/process/*"],
-      "@L1Forms/*" : ["../../../../main/forms/*"]
+      "@L1Forms/*" : ["../../../../main/forms/*"],
+      "@L1Styles/*" : ["../../../../styles"],
     }
   },
   "include": [

@@ -291,6 +291,15 @@ export class FeFormSchemaService {
         }
       },
       {
+        type: 'ICB',
+        code: 'FLD0401234',
+        flexiLabel: 'icb-field',
+        id: 'FRM000001-FLD0401234',
+        //formcontrol: 'auto-form',
+        label: 'ICB',
+        icon: 'md-assignment_returned'
+      },
+      {
         type: 'BLK',
         code: 'FLD0001234',
         flexiLabel: 'blank-field',
@@ -1078,7 +1087,7 @@ export class FeFormSchemaService {
         type: 'BTN',
         action: 'submit',
         label: 'Submit',
-
+        icon: 'md-save',
         width: '',
         disabled: false,
         class: ['btn', 'btn-primary']
