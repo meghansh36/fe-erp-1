@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, AfterViewIni
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
-import * as jsonLogic from 'json-logic-js'
+import * as jsonLogic from 'json-logic-js';
+import * as _ from 'lodash';
 
 @Component({
   exportAs: 'feForm',
@@ -27,6 +28,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   components: FieldConfig[] = [];
   public $simpleConditionChange: any;
   public $groupValueChange: any;
+  protected _schema: any;
 
 
   constructor(private fb: FormBuilder, private dependent: FeDependentService) {
@@ -55,6 +57,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   }
 
   ngOnInit() {
+    this._schema = _.assign( {}, this.schema );
     this.components = this.schema.components;
     this.form = this.createGroup();
     if (this.formInstance.schema['condition']) {
@@ -144,8 +147,8 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   }
 
   static createControl(fb: FormBuilder, config: FieldConfig) {
-    const { disabled, validation, value } = config;
-    return fb.control({ disabled, value }, validation);
+    const { disabled, validation } = config;
+    return fb.control({ disabled, value:undefined }, validation);
   }
 
   handleSubmit(event: Event) {
@@ -218,6 +221,10 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
 
   get controls() {
     return this.form.controls;
+  }
+
+  get code() {
+    return this._schema.code;
   }
 
   getControl(fldFlexiLabel) {
