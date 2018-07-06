@@ -147,7 +147,7 @@ export class FeFormSchemaService {
         labelMargin: 0,
         
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
-        width: '100%',
+        width: '33%',
         placeholder: 'Enter your Password',
         validations: {
           required: {
@@ -170,8 +170,8 @@ export class FeFormSchemaService {
         //formcontrol: 'number-form',
         label: 'Number',
         defaultValue: 123,
-        labelPosition: 'right',
-        width: '100%',
+        labelPosition: 'top',
+        width: '33%',
         placeholder: 'Enter your Number',
         validations: {
           required: {
@@ -210,7 +210,7 @@ export class FeFormSchemaService {
         
         //formcontrol: 'number-form',
         label: 'Condition Number',
-        width: '50%',
+        width: '33%',
         defaultValue: 1234,
         condition: {
           'type': 'advanced',
@@ -247,8 +247,8 @@ export class FeFormSchemaService {
         //formcontrol: 'mask-form',
         label: 'Mask Input',
         mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-        width: '500%',
-        labelPosition: 'left',
+        width: '33%',
+        labelPosition: 'top',
         placeholder: '(555) 233 4454',
         validators: [
           {
