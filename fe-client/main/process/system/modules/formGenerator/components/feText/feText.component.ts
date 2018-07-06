@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
 
@@ -11,6 +12,7 @@ import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/compone
 })
 export class FeTextComponent extends FeBaseComponent implements OnInit {
 
+  public length: number = 0;
   _onKeypress(e) {
     if (this.hasMaxLength) {
       const limit = +this.len;
@@ -56,9 +58,9 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
     return 0;
   }
 
-  get mask() {
-    if (this.config.mask) {
-      let mask = this.config.mask;
+  get maskConfig() {
+    if (this.mask) {
+      let mask = this.mask;
       return { mask };
     }
     return { mask: false };
@@ -77,5 +79,4 @@ export class FeTextComponent extends FeBaseComponent implements OnInit {
   get _Class() {
     return this.conditionClass;
   }
-
 }

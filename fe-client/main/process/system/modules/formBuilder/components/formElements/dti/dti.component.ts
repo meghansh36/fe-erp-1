@@ -15,16 +15,37 @@ export class FeDtiComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
 
   applicableProperties={
-    inputMask:true,
+    dateTimeFormat:true,
+    useLocalSetting:true,
+    numbersOfDate:true,
+    minimumDate:true,
+    maximumDate:true,
+    minimumMode:true,
+    maximumMode:true,
+    calculatedValue:true,
+    startingDay:true,
+    hourTime:true,
     placeholder:true,
+    description:true,
+    inputMask:true,
     prefix:true,
     suffix:true,
+    clearValue:true,
+    hidden:true,
+    disabled:true,
+    appliedValidation:true,
+    customErrorMessage:true,
+    customValidationFunction:true,
+    customJsonLogic:true,
+    customFunction:true,
+    jsonLogic:true,
     ...this.applicableProperties
-
 }
 
   ngOnInit() {

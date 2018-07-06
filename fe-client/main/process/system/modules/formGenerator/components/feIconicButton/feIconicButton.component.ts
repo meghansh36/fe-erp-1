@@ -3,8 +3,8 @@ import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/compone
 
 @Component({
   selector: 'fe-iconicButton',
-  styleUrls: ['feIconicButton.component.css'],
-  templateUrl: 'feIconicButton.component.html'
+  styleUrls: ['./feIconicButton.component.css'],
+  templateUrl: './feIconicButton.component.html'
 })
 export class FeIconicButtonComponent extends FeBaseComponent {
 

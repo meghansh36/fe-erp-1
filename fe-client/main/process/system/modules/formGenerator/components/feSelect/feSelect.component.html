@@ -3,21 +3,21 @@
 
         <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
             <div class="label">
-                <label for="{{ config.id }}" [ngClass]="defaultClasses.labelClasses" [ngStyle]="defaultClasses.labelStyle">{{ config.label }}</label>
+                <label for="{{ id }}" [ngClass]="defaultClasses.labelClasses" [ngStyle]="defaultClasses.labelStyle">{{ label }}</label>
             </div>
-            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
+            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="description">
                 <span [ngClass]="defaultClasses.fieldDescContainerClasses" [ngStyle]="defaultClasses.fieldDescContainerStyle">
-                    <i class="material-icons " placement="right" [ngbTooltip]="config.description"> help</i>
+                    <i class="material-icons " placement="right" [ngbTooltip]="description"> help</i>
                 </span>
             </div>
         </div>
         <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-            <div class="input-group-prepend" *ngIf="config.prefix">
-                <span class="input-group-text"> {{ config.prefix }} </span>
+            <div class="input-group-prepend" *ngIf="prefix">
+                <span class="input-group-text"> {{ prefix }} </span>
             </div>
-            <ngx-select [items]="options" [formControlName]="config.flexiLabel" [attr.placeholder]="config.placeholder"></ngx-select>
-            <div class="input-group-append" *ngIf="config.suffix ">
-                <span class="input-group-text"> {{ config.suffix }} </span>
+            <ngx-select [items]="options" [formControlName]="flexiLabel" [attr.placeholder]="placeholder"></ngx-select>
+            <div class="input-group-append" *ngIf="suffix ">
+                <span class="input-group-text"> {{ suffix }} </span>
             </div>
         </div>
     </div>

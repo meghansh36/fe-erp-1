@@ -15,13 +15,20 @@ export class FeChkComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+    ...this.properties
+};
 
   applicableProperties={
-    inputMask:true,
-    placeholder:true,
-    prefix:true,
-    suffix:true,
+    clearValue:true,
+    hidden:true,
+    disabled:true,
+    appliedValidation:true,
+    customErrorMessage:true,
+    customValidationFunction:true,
+    customJsonLogic:true,
+    customFunction:true,
+    jsonLogic:true,
     ...this.applicableProperties
 
 }

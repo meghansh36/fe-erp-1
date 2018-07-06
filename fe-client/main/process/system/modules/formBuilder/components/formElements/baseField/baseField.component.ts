@@ -7,12 +7,40 @@ import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/
 export class FeBaseField {
   uniqueKey;
 
-  applicableProperties = {
-    label: true,
-    labelPosition: true,
-    description: true,
-    tabIndex: true,
+  applicableProperties:any = {
+    label:true,
+    hideLabel:true,
+    labelPosition:true,
     tooltip:true,
+    errorLabel:true,
+    customCssClass:true,
+    tabIndex:true,
+    marginTop:true,
+    marginRight:true,
+    marginLeft:true,
+    marginBottom:true,
+    defaultValue:true,
+    sqlQuery:true,
+    nonPersistent:true,
+    autoComplete:true,
+  };
+
+  properties:any = {
+    hideLabel: false,
+    labelPosition: 'top',
+    tooltip: undefined,
+    errorLabel: undefined,
+    customCssClass: undefined,
+    tabIndex: undefined,
+    marginTop: 0,
+    marginRight: 0,
+    marginLeft: 0,
+    marginBottom: 0,
+    defaultValue: 'none',
+    sqlQuery: undefined,
+    nonPersistent: false,
+    autoComplete: undefined,
+    componentname: undefined
   };
 
   constructor(
@@ -21,9 +49,11 @@ export class FeBaseField {
     public formJsonService: FormJsonService
   ) {}
   refObj;
-
+  componentname;
   setRef(reference) {
-    this.refObj = reference;
+    this.refObj = reference.ref;
+    console.log('ref', reference)
+    this.properties.componentname = reference.component.component.name;
   }
 
   close() {

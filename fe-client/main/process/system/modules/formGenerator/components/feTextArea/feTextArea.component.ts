@@ -3,13 +3,14 @@ import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/compone
 
 @Component({
     selector: 'fe-textarea',
-    styleUrls: ['feTextArea.component.css'],
-    templateUrl: 'feTextArea.component.html',
+    styleUrls: ['./feTextArea.component.css'],
+    templateUrl: './feTextArea.component.html',
     host: {
         '(keypress)': '_onKeypress($event)',
     }
 })
 export class FeTextAreaComponent extends FeBaseComponent {
+    public length:number = 0;
     name = 'ng2-ckeditor';
     ckeConfig: any;
     mycontent: string = '';
@@ -72,14 +73,6 @@ export class FeTextAreaComponent extends FeBaseComponent {
         return 0;
     }
 
-    get mask() {
-        if (this.config.mask) {
-            let mask = this.config.mask;
-            return { mask };
-        }
-        return { mask: false };
-    }
-
     get len() {
         return this.length;
     }
@@ -93,5 +86,5 @@ export class FeTextAreaComponent extends FeBaseComponent {
     get _Class() {
         return this.conditionClass;
     }
-
+    
 }

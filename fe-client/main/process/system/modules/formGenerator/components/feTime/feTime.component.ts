@@ -14,7 +14,7 @@ export class FeTimeComponent  extends FeBaseComponent{
   time: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
 
   constructor(public elemRef: ElementRef, config: NgbTimepickerConfig,public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
-    super(elemRef, validator, dependent, render);
+    super(elemRef, validator, render);
     config.seconds = true;
     config.spinners = false;
   }
