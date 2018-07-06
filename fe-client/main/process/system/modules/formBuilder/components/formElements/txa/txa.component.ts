@@ -40,6 +40,7 @@ export class FeTxaComponent extends FeBaseField  implements OnInit, DoCheck {
     cksetting:true,
     enableSpellCheck:true,
     unique:true,
+    ...this.applicableProperties
 
 
 }

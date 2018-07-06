@@ -43,6 +43,8 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
     customFunction:true,
     jsonLogic:true,
     ...this.applicableProperties
+
+
 }
 
   ngOnInit() {
