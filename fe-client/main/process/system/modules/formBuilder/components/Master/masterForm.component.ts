@@ -79,7 +79,8 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     console.log('json after master',this.Json.components);
 
     this.masterFormService.setCurrentKey(this.currentKey);
-    this.masterFormService.setProperties(form);
+    //this.masterFormService.setProperties(form);
+    this.masterFormService.setProperties(this.instance.properties);
     this.formJsonService.buildFinalJSON();
 
     this.modalRef.close();

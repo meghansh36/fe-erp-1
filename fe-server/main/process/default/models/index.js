@@ -1,4 +1,4 @@
-/*var fs        = require('fs');
+/* var fs        = require('fs');
 var path      = require('path');
 var Sequelize = require('sequelize');
 //var basename  = path.basename(__filename);
@@ -47,4 +47,4 @@ const ASSOCIATE = 'associate';
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 module.exports = db;
-*/
+ */

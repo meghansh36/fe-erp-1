@@ -3,30 +3,30 @@
 
         <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
             <div class="label">
-                <label for="{{ config.id }}" [class.text-danger]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)" [class.text-valid]="group.controls[config.flexiLabel].valid && ( group.controls[config.flexiLabel].dirty)" [ngClass]="defaultClasses.labelClasses">{{ config.label }}</label>
+                <label for="{{ id }}"  [ngClass]="defaultClasses.labelClasses" [ngStyle]="style.labelStyle">{{ label }}</label>
             </div>
-            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="config.description">
+            <div [ngClass]="defaultClasses.fieldDescWrapperClasses" [ngStyle]="defaultClasses.fieldDescWrapperStyle" *ngIf="description">
                 <span [ngClass]="defaultClasses.fieldDescContainerClasses">
-                    <i class="material-icons " placement="right" [ngbTooltip]="config.description"> help</i>
+                    <i class="material-icons " placement="right" [ngbTooltip]="description"> help</i>
                 </span>
             </div>
         </div>
         <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-            <div class="input-group-prepend" *ngIf="config.prefix">
-                <span class="input-group-text"> {{ config.prefix }} </span>
+            <div class="input-group-prepend" *ngIf="prefix">
+                <span class="input-group-text"> {{ prefix }} </span>
             </div>
-            <input  class="form-control" [ngClass]="defaultClasses.fieldClasses" [class.is-invalid]="group.controls[config.flexiLabel].invalid && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
-                [attr.tabindex]="config.tabIndex" [attr.placeholder]="config.placeholder" [formControlName]="config.flexiLabel"
-                [attr.id]="config.id"  ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
-            <div class="input-group-append" *ngIf="config.suffix ">
-                <span class="input-group-text"> {{ config.suffix }} </span>
+            <input  class="form-control" 
+                [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" [formControlName]="flexiLabel"
+                [attr.id]="id"  ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+            <div class="input-group-append" *ngIf="suffix ">
+                <span class="input-group-text"> {{ suffix }} </span>
             </div>
         </div>
     </div>
-    <div *ngIf="group.controls[config.flexiLabel].errors && (group.controls[config.flexiLabel].dirty || group.controls[config.flexiLabel].touched)"
+    <div *ngIf="hasError"
             [ngClass]="defaultClasses.fieldErrorWrapperClasses" [ngStyle]="style.fieldErrorWrapperStyle">
         <span *ngFor="let err of errors">
-            <small class="text-danger error-message error-{{err.name}}" *ngIf="group.controls[config.flexiLabel].errors[err.name]">
+            <small class="text-danger error-message error-{{err.name}}" *ngIf="control.errors[err.name]">
                 {{err.message}}
                 <br>
             </small>

@@ -15,7 +15,9 @@ export class FeDtiComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
 
   applicableProperties={
@@ -43,6 +45,7 @@ export class FeDtiComponent extends FeBaseField implements OnInit, DoCheck {
     customJsonLogic:true,
     customFunction:true,
     jsonLogic:true,
+    ...this.applicableProperties
 }
 
   ngOnInit() {

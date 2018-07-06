@@ -1,25 +1,13 @@
-import {  OnInit, Injectable, Renderer2, ElementRef,  OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
+import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
-//import { Observable } from 'rxjs';
 import * as _ from 'lodash';
-// import { CustomValidators } from 'ng4-validators';
-// import { NgbDatepickerConfig, NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-// import { FeFormComponent } from '@L1Process/system/modules/formGenerator/components/feForm/feForm.component';
-// import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
-// import { log } from 'util';
-// import { resource } from 'selenium-webdriver/http';
-// import { BoundEventAst } from '@angular/compiler';
-// import { config } from 'rxjs';
-// import { groupBy } from 'rxjs/operators';
-// import { longStackSupport } from 'q';
-// import { sanitizeStyle } from '@angular/core/src/sanitization/sanitization';
-import { FeFormSchemaService } from '../../../../../services/formSchema.service';
-import { FeValidatorsService } from '../services/validators.service';
-import { FeDependentService } from '../services/dependent.service';
-import { Field } from '../models/field.interface';
-import { FieldConfig } from '../models/field-config.interface';
+import { FeFormSchemaService } from '@L1Main/services/formSchema.service';
+import { FeValidatorsService } from '@L1Process/system/modules/formGenerator/services/validators.service';
+import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
+import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
+import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js'
-//import * as ts from "typescript";
+
 
 @Injectable()
 export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
@@ -27,16 +15,14 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public config: FieldConfig;
     public group: FormGroup;
     public form: any;
-    
     public formComponent: any;
-    public length = 0;
+    
     public conditionClass: string;
     public error: string;
     public validators = [];
     public name: string;
     public errors = [];
     public style: any;
-    public _show: any = true;
     public defaultClasses: any;
     public defaultFieldWidth: any;
 
@@ -45,26 +31,73 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public $simpleConditionChange: any;
     public $groupValueChange: any;
 
-    constructor(public elemRef: ElementRef, public formSchemaService: FeFormSchemaService, public validator: FeValidatorsService, public dependent: FeDependentService, public render: Renderer2) {
+    // Config properties which are the properties of this class
+    
+    protected _disabled: any;
+    protected _label: any;
+    protected _id: any;
+    protected _hideLabel: any;
+    protected _prefix: any;
+    protected _suffix: any;
+    protected _customCssClass: any;
+    protected _description: any;
+    protected _code: any;
+    protected _flexiLabel: any;
+    protected _options: any;
+    protected _isParent: any;
+    protected _placeholder: any;
+    protected _type: any;
+    protected _validation: any;
+    protected _customValidations: any;
+    protected _jsonValidations: any;
+    protected _validations: any;
+    protected _formClassValidations: any;
+    protected _mask: any;
+    protected _labelPosition: any;
+    protected _labelWidth: any;
+    protected _hidden: any;
+    protected _labelMargin: any;
+    protected _tabIndex: any;
+    protected _marginTop: any;
+    protected _marginRight: any;
+    protected _marginBottom: any;
+    protected _marginLeft: any;
+    protected _width: any;
+    protected _events: any;
+    protected _condition: any;
+    protected _defaultValue: any;
+    protected _components: any;
+    protected _theme: any;
+    protected _size: any;
+    protected _leftIcon: any;
+    protected _rightIcon: any;
+    protected _ckeditor: any;
+    protected _tooltip: any;
+    protected _show: any;
+
+    //Copy config in its prop
+    protected _config: FieldConfig;
+
+
+    
+    constructor(public elemRef: ElementRef,public validator: FeValidatorsService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
 
     ngOnInit(): void {
+        this.init();
+    }
+
+    init() {
+        this._config = _.assign( {}, this.config );
         this.applyDefaultValidations();
         this.initFieldStyle();
-        this.applyWatch();
+        this.applyObservers();
     }
 
     ngAfterViewInit() {
         this.bindEvents();
     }
-
-
-    // ngAfterViewChecked() {
-    //     if ( this.defaultValue ) {
-    //         this.setDefaultValue();
-    //     }
-    // }
 
     ngOnDestroy() {
         this.$statusChange.unsubscribe();
@@ -73,62 +106,61 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this.$groupValueChange.unsubscribe();
     }
 
-    static evalFnArgs( argsStr ){
-      try {
-        let evaluatedArgsArr = [];
-        argsStr = argsStr.trim().split(',');
-        argsStr.forEach( ( value ) => {
-            value = value.trim();
-            let evalStr = eval(value);
-            evaluatedArgsArr.push(evalStr);
-        });
-        return evaluatedArgsArr;
-      } catch (error) {
-          console.log(error);
-      }
-    }
-
-    fieldEventHandler( handlerData, event ) {
+    static evalFnArgs(argsStr) {
         try {
-            let eventName = handlerData.name;
-            let handlerOwnerType = handlerData.handlerOwner;
-            let handlerFnName = handlerData.handlerName;
-            let args = handlerData.args;
-            let ownerObject: any = {};
-            if ( !handlerOwnerType ) {
-                handlerOwnerType = 'form';
-            } 
-            ownerObject =  this[ handlerOwnerType ]; //this.resource or this.form
-            if ( !ownerObject ) {
-                console.log( `Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.` );
-                return ;
-            }
-            if ( !ownerObject ) {
-                console.log( `Event handler type ${handlerOwnerType} does not exist in field component class for event ${eventName} for ${this.flexiLabel}` );
-                return ;
-            }
-            if ( ownerObject[ handlerFnName ] && typeof ownerObject[ handlerFnName ] == 'function' ) {
-                let argsArr = FeBaseComponent.evalFnArgs( args );
-                argsArr.push( this );
-                argsArr.push(event);
-                ownerObject[ handlerFnName ].apply( ownerObject, argsArr )
-            } else {
-                console.log( `Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}` );
-            }
-                    
+            let evaluatedArgsArr = [];
+            argsStr = argsStr.trim().split(',');
+            argsStr.forEach((value) => {
+                value = value.trim();
+                let evalStr = eval(value);
+                evaluatedArgsArr.push(evalStr);
+            });
+            return evaluatedArgsArr;
         } catch (error) {
             console.log(error);
         }
     }
 
-    
+    fieldEventHandler( eventName,  handlerData, event ) {
+        try {
+            let handlerOwnerType = handlerData.handlerOwner;
+            let handlerFnName = handlerData.handlerName;
+            let args = handlerData.args;
+            let ownerObject: any = {};
+            if (!handlerOwnerType) {
+                handlerOwnerType = 'form';
+            }
+            ownerObject = this[handlerOwnerType]; //this.resource or this.form
+            if (!ownerObject) {
+                console.log(`Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.`);
+                return;
+            }
+            if (!ownerObject) {
+                console.log(`Event handler type ${handlerOwnerType} does not exist in field component class for event ${eventName} for ${this.flexiLabel}`);
+                return;
+            }
+            if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
+                let argsArr = FeBaseComponent.evalFnArgs(args);
+                argsArr.push(this);
+                argsArr.push(event);
+                ownerObject[handlerFnName].apply(ownerObject, argsArr)
+            } else {
+                console.log(`Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}`);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     bindEvents() {
         try {
-            let eventsObjArr: object = this.config.events;
+            let eventsObjArr: object = this.events;
             if (eventsObjArr) {
                 let field = this.fieldRef;
                 for( let eventName in eventsObjArr ) {
-                    this.render.listen( field, eventName, this.fieldEventHandler.bind(this, eventsObjArr[ eventName ]) );
+                    this.render.listen( field, eventName, this.fieldEventHandler.bind(this, eventName, eventsObjArr[ eventName ]) );
                 }
             }
         } catch (error) {
@@ -136,17 +168,17 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         }
     }
 
-    applyWatch(): void {
+    applyObservers(): void {
         this.$statusChange = this.control.statusChanges.subscribe(this.onStatusChange.bind(this));
-        if (this.config.isParent) {
+        if (this.isParent) {
             this.$valueChange = this.control.valueChanges.subscribe(this.onValueChange.bind(this));
         }
-        if (this.config.condition) {
+        if (this.condition) {
             this.render.addClass(this.elemRef.nativeElement, 'hidden');
-            let type = this.config.condition['type'];
+            let type = this.condition['type'];
             let conditionHandlerName = `${type}ConditionHandler`;
             if (this[conditionHandlerName] && typeof this[conditionHandlerName] == 'function') {
-                this[conditionHandlerName](this.config.condition[type]);
+                this[conditionHandlerName](this.condition[type]);
             }
             else {
                 console.log(`Given condition handler is not a function for field ${this.flexiLabel}`);
@@ -242,31 +274,31 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     applyDefaultValidations(): void {
-        if (this.config.validations) {
+        if (this.validations) {
             this.applyNgValidators();
         }
-        if (this.config.customValidations) {
+        if (this.customValidations) {
             this.applyCustomValidations();
         }
 
-        if (this.config.formClassValidations) {
+        if (this.formClassValidations) {
             this.applyFormClassValidations();
         }
 
-        if (this.config.jsonValidations) {
+        if (this.jsonValidations) {
             this.applyJsonValidations();
         }
         this.control.setValidators(this.validators);
     }
 
     applyNgValidators(): void {
-        this.validators = this.validators.concat(this.validator.getValidators(this.config.validations));
-        this.errors = this.validator.transformToValidErr(this.config.validations);
+        this.validators = this.validators.concat(this.validator.getValidators( this.validations ));
+        this.errors = this.validator.transformToValidErr(this.validations);
     }
 
     applyCustomValidations(): void {
         try {
-            let validations = this.config.customValidations;
+            let validations = this.customValidations;
             for (let name in validations) {
                 let validation = validations[name];
                 let fn: any = validation.validatorFn;
@@ -290,15 +322,14 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     applyFormClassValidations(): void {
         try {
             if (!this.form) {
-                console.log(`Form class instance not found in field for applying form class validations for field ${this.config.code}`);
+                console.log(`Form class instance not found in field for applying form class validations for field ${this.code}`);
                 return;
             }
-            let validations = this.config.formClassValidations;
+            let validations = this.formClassValidations;
             for (let validationName in validations) {
                 let validation = validations[validationName];
                 let validatorFunc = validation.validatorFuncName;
                 let errorMessage = validation.message;
-
                 if (this.form[validatorFunc] && typeof this.form[validatorFunc] == 'function') {
                     this.control.setAsyncValidators(this.form[validatorFunc].bind(this.form));
                     let errorObj = {
@@ -307,7 +338,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
                     };
                     this.errors.push(errorObj);
                 } else {
-                    console.log(`Form class validator function ${validatorFunc} does not exist for ${validationName} custom validation for field ${this.config.code}.`);
+                    console.log(`Form class validator function ${validatorFunc} does not exist for ${validationName} custom validation for field ${this.code}.`);
                 }
             }
         } catch (err) {
@@ -316,7 +347,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     applyJsonValidations() {
-        let json = this.config.jsonValidations;
+        let json = this.jsonValidations;
         let fn = function (control: AbstractControl): { [key: string]: boolean } | null { if (jsonLogic.apply(json['json'], control) != true) { return { 'json': true }; } return null; }
         this.validators.push(fn);
         let errorObj = {
@@ -329,36 +360,34 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     initFieldStyle() {
         this.defaultClasses = this.getFieldClasses();
         this.style = this.getFieldStyles();
-        this.style = _.assign({}, this.style, this.config.style);
     }
 
     getFieldClasses() {
-        let config = this.config;
-        let type = config.type;
+        let type = this.type;
         let labelPosition = 'top';
-        let customCssClass = config.customCssClass || '';
+        let customCssClass = this.customCssClass || '';
 
-        if (!config.hideLabel && config.labelPosition) {
-            labelPosition = config.labelPosition;
+        if (!this.hideLabel && this.labelPosition) {
+            labelPosition = this.labelPosition;
         }
 
         let fieldContainerClasses = {};
         let classesStr = `form-field-container ${type}-container`;
-        if (config.prefix || config.suffix) {
+        if (this.prefix || this.suffix) {
             classesStr += ' input-group';
         }
         fieldContainerClasses = this._makeCssClassesObj(classesStr);
 
         let fieldMainWrapperClasses = {};
-        classesStr = `fe-field ${type}-container form-group`;
-        if (config.hidden) {
+        classesStr = `fe-field ${type}-container form-group ${labelPosition}-labeled-field`;
+        if (this.hidden) {
             classesStr += ' hidden';
         }
         fieldMainWrapperClasses = this._makeCssClassesObj(classesStr);
 
         let fieldLabelContainerClasses = {};
         classesStr = `fe-field-container field-label-container ${type}-label-container`;
-        if (config.hideLabel) {
+        if (this.hideLabel) {
             classesStr += ' hidden';
         }
         if (this.hasTextLenghtLimit) {
@@ -412,6 +441,12 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             fieldClasses,
             nestedFieldContainerClasses
         };
+
+        classes = this.beforeSetDefaultClasses( classes );
+        return classes;
+    }
+
+    public beforeSetDefaultClasses( classes ) {
         return classes;
     }
 
@@ -427,27 +462,31 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     getFieldStyles() {
         let fieldLabelContainerStyle: any = {};
         let fieldMainWrapperStyle = {};
-        let config = this.config;
-        let labelWidth = config.labelWidth;
-        let labelMargin = config.labelMargin;
+        
+        let config = this._config;
+        let labelWidth = this.labelWidth;
+        let labelMargin = this.labelMargin;
 
         if (labelWidth) {
             fieldLabelContainerStyle.width = `${labelWidth}px`;
         }
 
         let fieldWidth = this.defaultFieldWidth;
-        if (config.width) {
-            fieldWidth = config.width;
+        if (this.width) {
+            fieldWidth = this.width;
         }
         if (fieldWidth) {
             this.render.setStyle(this.elemRef.nativeElement, 'width', fieldWidth);
+        }
+        if ( this.type == 'HID' ) {
+            this.render.addClass( this.elemRef.nativeElement, 'hidden' );
         }
 
         if (labelMargin) {
             let margin: string = `${labelMargin}px`;
             let marginSide: string = 'margin-top';
 
-            switch (config.labelPosition) {
+            switch (this.labelPosition) {
                 case 'bottom': {
                     marginSide = 'margin-top';
                     break;
@@ -468,20 +507,20 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             fieldLabelContainerStyle[marginSide] = margin;
         }
 
-        if (config.marginLeft) {
-            fieldMainWrapperStyle['margin-left'] = config.marginLeft;
+        if (this.marginLeft) {
+            fieldMainWrapperStyle['margin-left'] = this.marginLeft;
         }
 
-        if (config.marginRight) {
-            fieldMainWrapperStyle['margin-right'] = config.marginRight;
+        if (this.marginRight) {
+            fieldMainWrapperStyle['margin-right'] = this.marginRight;
         }
 
-        if (config.marginTop) {
-            fieldMainWrapperStyle['margin-top'] = config.marginTop;
+        if (this.marginTop) {
+            fieldMainWrapperStyle['margin-top'] = this.marginTop;
         }
 
-        if (config.marginBottom) {
-            fieldMainWrapperStyle['margin-bottom'] = config.marginBottom;
+        if (this.marginBottom) {
+            fieldMainWrapperStyle['margin-bottom'] = this.marginBottom;
         }
 
         let inlineStyle = {
@@ -496,33 +535,34 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             nestedFieldContainerStyle: {}
 
         };
+        inlineStyle = this.beforeSetDefaultStyle( inlineStyle );
         return inlineStyle;
     }
 
+    beforeSetDefaultStyle( styleObj ) {
+        return styleObj;
+    }
+
     hasNgValidation(validationName: string) {
-        return (this.config.validations && this.config.validations[validationName] && this.config.validations[validationName].value);
+        return (this.validations && this.validations[validationName] && this.validations[validationName].value);
     }
 
     hasCustomValidation(validationName: string) {
-        return (this.config.customValidations && this.config.customValidations[validationName]);
+        return (this.customValidations && this.customValidations[validationName]);
     }
 
     hasFormClassValidation(validationName: string) {
-        return (this.config.formClassValidations && this.config.formClassValidations[validationName]);
+        return (this.formClassValidations && this.formClassValidations[validationName]);
     }
 
     hasValidation(validationName: string) {
         return (this.hasNgValidation(validationName) || this.hasCustomValidation(validationName) || this.hasFormClassValidation(validationName));
     }
 
-   
+
 
     get isMandatory(): boolean {
-        return (this.config.validations && this.config.validations['required'] && this.config.validations.required.value);
-    }
-
-    get flexiLabel(): string {
-        return this.config.flexiLabel;
+        return (this.validations && this.validations['required'] && this.validations.required.value);
     }
 
     get isValid() {
@@ -547,16 +587,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     get control(): AbstractControl {
         return this.group.controls[this.flexiLabel];
     }
-    get type() {
-        return this.config.type;
-    }
-
-    get defaultValue() {
-        return this.config.defaultValue;
-    }
 
     get fieldId() {
-        return this.config.id;
+        return this.id;
     }
 
     get fieldRef() {
@@ -572,20 +605,340 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return this.form.resource;
     }
 
-    set value( val: any  ) {
+    set value(val: any) {
         this.formComponent.setValue(this.flexiLabel, val);
     }
 
-    get value( ) {
-        return this.formComponent.getValue( this.flexiLabel );
+    get value() {
+        return this.formComponent.getValue(this.flexiLabel);
     }
 
     get show() {
-        return this._show;
+        return this._config.show;
     }
 
     set show(show) {
-        this._show = show;
+        this._config.show = show;
+    }
+
+    get disabled() {
+        return this._config.disabled;
+    }
+
+    get label() {
+        return this._config.label;
+    }
+
+    get id() {
+        return this._config.id;
+    }
+
+    get hideLabel() {
+        return this._config.hideLabel;
+    }
+
+    get prefix() {
+        return this._config.prefix;
+    }
+
+    get suffix() {
+        return this._config.suffix;
+    }
+
+    get customCssClass() {
+        return this._config.customCssClass;
+    }
+
+    get description() {
+        return this._config.description;
+    }
+
+    get code() {
+        return this._config.code;
+    }
+
+    get flexiLabel() {
+        return this._config.flexiLabel;
+    }
+
+    get options() {
+        return this._config.options;
+    }
+
+    get isParent() {
+        return this._config.isParent;
+    }
+
+    get placeholder() {
+        return this._config.placeholder;
+    }
+
+    get type() {
+        return this._config.type;
+    }
+
+    get validation() {
+        return this._config.validation;
+    }
+
+    get customValidations() {
+        return this._config.customValidations;
+    }
+
+    get jsonValidations() {
+        return this._config.jsonValidations;
+    }
+
+    get validations() {
+        return this._config.validations;
+    }
+
+    get formClassValidations() {
+        return this._config.formClassValidations;
+    }
+
+    get mask() {
+        return this._config.mask;
+    }
+
+    get labelPosition() {
+        return this._config.labelPosition;
+    }
+
+    get labelWidth() {
+        return this._config.labelWidth;
+    }
+
+    get hidden() {
+        return this._config.hidden;
+    }
+
+    get labelMargin() {
+        return this._config.labelMargin;
+    }
+
+    get tabIndex() {
+        return this._config.tabIndex;
+    }
+
+    get marginTop() {
+        return this._config.marginTop;
+    }
+
+    get marginRight() {
+        return this._config.marginRight;
+    }
+
+    get marginBottom() {
+        return this._config.marginBottom;
+    }
+
+    get marginLeft() {
+        return this._config.marginLeft;
+    }
+
+    get width() {
+        return this._config.width;
+    }
+
+    get events() {
+        return this._config.events;
+    }
+
+    get condition() {
+        return this._config.condition;
+    }
+
+    get defaultValue() {
+        return this._config.defaultValue;
+    }
+
+    get components() {
+        return this._config.components;
+    }
+
+    get theme() {
+        return this._config.theme;
+    }
+
+    get size() {
+        return this._config.size;
+    }
+
+    get leftIcon() {
+        return this._config.leftIcon;
+    }
+
+    get rightIcon() {
+        return this._config.rightIcon;
+    }
+
+    set disabled( disabled ) {
+        this._config.disabled = disabled;
+    }
+
+    set label( label ) {
+        this._config.label = label;
+    }
+
+    set id( id ) {
+        this._config.id = id;
+    }
+
+    set hideLabel( hideLabel ) {
+        this._config.hideLabel = hideLabel;
+    }
+
+    set prefix( prefix ) {
+        this._config.prefix = prefix;
+    }
+
+    set suffix( suffix ) {
+        this._config.suffix = suffix;
+    }
+
+    set customCssClass( customCssClass ) {
+        this._config.customCssClass = customCssClass;
+    }
+
+    set description( description ) {
+        this._config.description = description;
+    }
+
+    set code( code ) {
+        this._config.code = code;
+    }
+
+    set flexiLabel( flexiLabel ) {
+        this._config.flexiLabel = flexiLabel;
+    }
+
+    set options( options ) {
+        this._config.options = options;
+    }
+
+    set isParent( isParent ) {
+        this._config.isParent = isParent;
+    }
+
+    set placeholder( placeholder ) {
+        this._config.placeholder = placeholder;
+    }
+
+    set type( type ) {
+        this._config.type = type;
+    }
+
+    set validation( validation ) {
+        this._config.validation = validation;
+    }
+
+    set customValidations( customValidations ) {
+        this._config.customValidations = customValidations;
+    }
+
+    set jsonValidations( jsonValidations ) {
+        this._config.jsonValidations = jsonValidations;
+    }
+
+    set validations( validations ) {
+        this._config.validations = validations;
+    }
+
+    set formClassValidations( formClassValidations ) {
+        this._config.formClassValidations = formClassValidations;
+    }
+
+    set mask( mask ) {
+        this._config.mask = mask;
+    }
+
+    set labelPosition( labelPosition ) {
+        this._config.labelPosition = labelPosition;
+    }
+
+    set labelWidth( labelWidth ) {
+        this._config.labelWidth = labelWidth;
+    }
+
+    set hidden( hidden ) {
+        this._config.hidden = hidden;
+    }
+
+    set labelMargin( labelMargin ) {
+        this._config.labelMargin = labelMargin;
+    }
+
+    set tabIndex( tabIndex ) {
+        this._config.tabIndex = tabIndex;
+    }
+
+    set marginTop( marginTop ) {
+        this._config.marginTop = marginTop;
+    }
+
+    set marginRight( marginRight ) {
+        this._config.marginRight = marginRight;
+    }
+
+    set marginBottom( marginBottom ) {
+        this._config.marginBottom = marginBottom;
+    }
+
+    set marginLeft( marginLeft ) {
+        this._config.marginLeft = marginLeft;
+    }
+
+    set width( width ) {
+        this._config.width = width;
+    }
+
+    set events( events ) {
+        this._config.events = events;
+    }
+
+    set condition( condition ) {
+        this._config.condition = condition;
+    }
+
+    set defaultValue( defaultValue ) {
+        this._config.defaultValue = defaultValue;
+    }
+
+    set components( components ) {
+        this._config.components = components;
+    }
+
+    set theme( theme ) {
+        this._config.theme = theme;
+    }
+
+    set size( size ) {
+        this._config.size = size;
+    }
+
+    set leftIcon( leftIcon ) {
+        this._config.leftIcon = leftIcon;
+    }
+
+    set rightIcon( rightIcon ) {
+        this._config.rightIcon = rightIcon;
+    }
+
+    get ckeditor() {
+        return this._config.ckeditor;
+    }
+
+    set ckeditor( ckeditor ) {
+        this._config.ckeditor = ckeditor;
+    }
+
+    get tooltip() {
+        return this._config.tooltip;
+    }
+
+    set tooltip( tooltip ) {
+        this._config.tooltip = tooltip;
     }
 
 }

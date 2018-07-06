@@ -1,15 +1,16 @@
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
-import { FeBaseComponent } from '../feBase.component';
+import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
 
 @Component({
     selector: 'fe-textarea',
-    styleUrls: ['feTextArea.component.css'],
-    templateUrl: 'feTextArea.component.html',
+    styleUrls: ['./feTextArea.component.css'],
+    templateUrl: './feTextArea.component.html',
     host: {
         '(keypress)': '_onKeypress($event)',
     }
 })
 export class FeTextAreaComponent extends FeBaseComponent {
+    public length:number = 0;
     name = 'ng2-ckeditor';
     ckeConfig: any;
     mycontent: string = '';
@@ -33,7 +34,7 @@ export class FeTextAreaComponent extends FeBaseComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.control.valueChanges.subscribe(this.changeLength.bind(this));
+       // this.control.valueChanges.subscribe(this.changeLength.bind(this));
         this.ckeConfig = {
             allowedContent: false,
             extraPlugins: 'divarea',
@@ -41,7 +42,7 @@ export class FeTextAreaComponent extends FeBaseComponent {
           };
     }
 
-    changeLength(data: string) {
+    /* changeLength(data: string) {
         this.len = data.length;
         if (this.len < this.minLength) {
             this._Class = 'badge-danger';
@@ -49,7 +50,7 @@ export class FeTextAreaComponent extends FeBaseComponent {
         else {
             this._Class = 'badge-success';
         }
-    }
+    } */
 
     get hasMinLength() {
         return this.hasValidation('minLength');
@@ -72,14 +73,6 @@ export class FeTextAreaComponent extends FeBaseComponent {
         return 0;
     }
 
-    get mask() {
-        if (this.config.mask) {
-            let mask = this.config.mask;
-            return { mask };
-        }
-        return { mask: false };
-    }
-
     get len() {
         return this.length;
     }
@@ -93,5 +86,5 @@ export class FeTextAreaComponent extends FeBaseComponent {
     get _Class() {
         return this.conditionClass;
     }
-
+    
 }

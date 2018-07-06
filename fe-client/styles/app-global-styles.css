@@ -37,10 +37,17 @@
     justify-content:  center;
     padding-top:10px;
   }
-  .field-label-left .field-label-container.has-text-limit, .field-label-right .field-label-container.has-text-limit {
+  
+  /* .field-label-left .field-label-container, .field-label-right .field-label-container {
     padding-top: 25px;
   }
 
+  .fieldset-container  .field-label-left .field-label-container, .fieldset-container .field-label-right .field-label-container {
+    padding-top:0px !important;
+  } */
+  /* .left-labeled-field,.right-labeled-field {
+    padding-top: 32px !important;
+  } */
 
   .feForm .fe-field {
     padding-left: 10px;
@@ -84,6 +91,11 @@
 
 .fieldset-wrapper{
   text-align: center;
+}
+
+.fst-fields-container {
+  display: flex;
+  flex-flow: row wrap;
 }
   /*-------------------------}          */
   

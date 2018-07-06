@@ -15,7 +15,9 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties    
+};
 
   
 
@@ -40,6 +42,7 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
     customJsonLogic:true,
     customFunction:true,
     jsonLogic:true,
+    ...this.applicableProperties
 }
 
   ngOnInit() {

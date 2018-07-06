@@ -1,4 +1,4 @@
-<div class="feField feButton" [formGroup]="group">
-    <button [disabled]="config.disabled" type="submit" [ngClass]="defaultClasses.fieldClasses" class="btn btn-primary">{{ config.label }}</button>
+<div class="feField feButton" [ngClass]="defaultClasses.fieldMainWrapperClasses" [formGroup]="group" [ngStyle]="style.fieldMainWrapperStyle">
+    <button [disabled]="disabled" [ngClass]="defaultClasses.fieldClasses" [ngStyle]="defaultClasses.fieldStyle" >{{ label }}</button>
 </div>
 

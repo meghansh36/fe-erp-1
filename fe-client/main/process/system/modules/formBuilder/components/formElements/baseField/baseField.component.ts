@@ -7,7 +7,7 @@ import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/
 export class FeBaseField {
   uniqueKey;
 
-  applicableProperties = {
+  applicableProperties:any = {
     label:true,
     hideLabel:true,
     labelPosition:true,
@@ -25,7 +25,7 @@ export class FeBaseField {
     autoComplete:true,
   };
 
-  properties = {
+  properties:any = {
     hideLabel: false,
     labelPosition: 'top',
     tooltip: undefined,
@@ -52,6 +52,7 @@ export class FeBaseField {
   componentname;
   setRef(reference) {
     this.refObj = reference.ref;
+    console.log('ref', reference)
     this.properties.componentname = reference.component.component.name;
   }
 

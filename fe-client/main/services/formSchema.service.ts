@@ -12,65 +12,75 @@ export class FeFormSchemaService {
     id: 'FRM000001',
     name: 'form',
     code: 'FRM000001',
+    hideLabel: false,
     label: 'Employee Personal Information',
+    condition: {
+      type: 'json',
+      simple: {
+        disabled: true,
+        when: 'number',
+        eq: 15
+      },
+      advanced: 'var show; return show = controls.number.value == 155 ? true : false;',
+      json: {
+        condition: {
+          "and": [
+            { "===": [{ "var": "username.value" }, 'cool'] },
+            { "===": [{ "var": "number.value" }, 155] }
+          ]
+        }
+      }
+    },
     components: [
       {
         type: 'TXT',
         code: 'FLD000001',
         flexiLabel: 'username',
         id: 'FRM000001-FLD000001',
-        style: {},
-        formcontrol: 'username-form',
         customCssClass: 'custom-css-class1',
         label: 'Username',
-        height: '',
         disabled: false,
         prefix: '@',
         defaultValue: 'harish.rathor',
         hidden: false,
-        labelMargin: 20,
+        labelMargin: 0,
         tabIndex: '1',
         suffix: 'suff',
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
-        labelPosition: 'left',
-        marginTop: '10px',
-        marginRight: '10px',
-        marginBottom: '10px',
-        marginLeft: '10px',
-        labelWidth: 0,
-        width: '100%',
+        labelPosition: 'top',
+       
+        labelWidth: 0,//To be checked
+        width: '50%',
         placeholder: 'Enter your Username',
-        formClassValidations: {
-          customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+        formClassValidations: {//{valName:'Message'}
+          customPattern: { 
+            message: 'Custom pattern is not correct.',
+            validatorFuncName: 'asyncCustomPatternValidator' 
+          }
         },
         events: {
           change: {
-            event: 'change',
             handlerOwner: 'form',
-            handlerName: 'onUserNameChanged',
+            handlerName: '',
             args: "'change event','My' ,'Name  ',   'Is','Khan'"
           },
           focus: {
-            event: 'focus',
             handlerOwner: 'resource',
             handlerName: 'onUserNameFocus',
-            args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+            args: "'focus event','My' ,'Name  ',   'Is','Khan'"
           }
         },
         validations: {
           required: {
-            'name': 'required',
             'value': true,
             'message': 'This Field is required'
           },
           minLength: {
-            'name': 'minLength',
             'value': 8,
             'message': 'Minimum length should be XXLENGTHXX'
           },
           maxLength: {
-            'name': 'maxLength',
             'value': 19,
             'message': 'Minimum length should be XXLENGTHXX'
           }
@@ -80,8 +90,8 @@ export class FeFormSchemaService {
         code: 'FLD000002',
         flexiLabel: 'password',
         id: 'FRM000001-FLD000002',
-        style: {},
-        formcontrol: 'password-form',
+        
+        //formcontrol: 'password-form',
         type: 'TXT',
         label: 'Password',
         prefix: '#',
@@ -89,21 +99,21 @@ export class FeFormSchemaService {
         defaultValue: 'harishrathor',
         customCssClass: 'custom-css-class2',
         labelWidth: 0,
-        labelPosition: 'left',
+        labelPosition: 'top',
         labelMargin: 0,
-        height: '',
+        
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
         placeholder: 'Enter your Password',
         events: {
           input: {
-            event: 'input',
+            //event:'input',
             handlerOwner: 'form',
             handlerName: 'onPassWordInput',
             args: "'input','Harish','  Rathor'"
           },
           blur: {
-            event: 'blur',
+            //event:'blur',
             handlerOwner: 'resource',
             handlerName: 'onPassWordBlur',
             args: "'blur','event', 'Harish'   , 'Rathor'"
@@ -111,12 +121,10 @@ export class FeFormSchemaService {
         },
         validations: {
           required: {
-            'name': 'required',
             'value': true,
             'message': 'This Field is required'
           },
           pattern: {
-            'name': 'pattern',
             'value': '^[a-z0-9_-]{8,15}$',
             'message': 'The Pattern is not correct'
           }
@@ -126,8 +134,8 @@ export class FeFormSchemaService {
         code: 'FLD000014',
         flexiLabel: 'email',
         id: 'FRM000001-FLD000014',
-        style: {},
-        formcontrol: 'email-form',
+        
+        //formcontrol: 'email-form',
         type: 'EML',
         label: 'Email',
         prefix: '',
@@ -135,20 +143,19 @@ export class FeFormSchemaService {
         defaultValue: 'harish.rathor@gmail.com',
         customCssClass: 'custom-css-class2',
         labelWidth: 0,
-        labelPosition: 'left',
+        labelPosition: 'top',
         labelMargin: 0,
-        height: '',
+        
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
-        width: '50%',
+        width: '100%',
         placeholder: 'Enter your Password',
         validations: {
           required: {
-            'name': 'required',
             'value': true,
             'message': 'This Field is required'
           },
           email: {
-            'name': 'email',
+            
             'value': true,
             'message': 'This is not vaid email format'
           }
@@ -159,16 +166,16 @@ export class FeFormSchemaService {
         code: 'FLD000009',
         flexiLabel: 'number',
         id: 'FRM000001-FLD000009',
-        style: {},
-        formcontrol: 'number-form',
+        
+        //formcontrol: 'number-form',
         label: 'Number',
         defaultValue: 123,
-        height: '',
-        width: '40%',
+        labelPosition: 'right',
+        width: '100%',
         placeholder: 'Enter your Number',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -200,10 +207,10 @@ export class FeFormSchemaService {
         code: 'FLD000020',
         flexiLabel: 'condition',
         id: 'FRM000001-FLD000020',
-        style: {},
-        formcontrol: 'number-form',
+        
+        //formcontrol: 'number-form',
         label: 'Condition Number',
-        height: '',
+        width: '50%',
         defaultValue: 1234,
         condition: {
           'type': 'advanced',
@@ -222,11 +229,10 @@ export class FeFormSchemaService {
             }
           }
         },
-        width: '40%',
         placeholder: 'Enter your Number',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -237,17 +243,16 @@ export class FeFormSchemaService {
         code: 'FLD000009',
         flexiLabel: 'mask',
         id: 'FRM000001-FLD000019',
-        style: {},
-        defaultValue: '123456',
-        formcontrol: 'mask-form',
+        defaultValue: '1234562340',
+        //formcontrol: 'mask-form',
         label: 'Mask Input',
         mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-        height: '',
-        width: '40%',
+        width: '500%',
+        labelPosition: 'left',
         placeholder: '(555) 233 4454',
         validators: [
           {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -258,59 +263,16 @@ export class FeFormSchemaService {
         code: 'FLD000008',
         flexiLabel: 'autocomplete',
         id: 'FRM000001-FLD000008',
-        style: {},
-        formcontrol: 'auto-form',
+        
+        //formcontrol: 'auto-form',
         label: 'Country',
-        height: '',
+        
         width: '100%',
         placeholder: 'Enter your Country',
         defaultValue: 'Indiana',
         validations: {
           required: {
-            'name': 'required',
-            'value': true,
-            'message': 'This Field is required'
-          }
-        }
-      },
-      {
-        type: 'SEL',
-        code: 'FLD000003',
-        flexiLabel: 'gender',
-        label: 'Gender',
-        placeholder: '--SELECT--',
-        style: [{ 'name': 'width', 'value': '221px' }],
-        id: 'FRM000001-FLD000003',
-        formcontrol: 'select-form',
-        height: '',
-        disabled: false,
-        hidden: false,
-        labelMargin: 20,
-        tabIndex: '1',
-        description: 'This is a dummy field. Field description would be here',
-        hideLabel: false,
-        labelPosition: 'left',
-        marginTop: '10px',
-        marginRight: '10px',
-        marginBottom: '10px',
-        marginLeft: '10px',
-        labelWidth: 0,
-        defaultValue: 'HE',
-        width: '100%',
-        options: [
-          {
-            'code': 'HE',
-            'meaning': 'Male',
-            'tip': 'Male'
-          }, {
-            'code': 'SHE',
-            'meaning': 'Female',
-            'tip': 'Female'
-          }
-        ],
-        validations: {
-          required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -333,12 +295,11 @@ export class FeFormSchemaService {
           'meaning': 'USA',
           'tip': 'USA'
         }],
-        style: { 'width': '221px' },
         id: 'FRM000001-FLD000023',
-        formcontrol: 'select-form',
+        //formcontrol: 'select-form',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -350,12 +311,11 @@ export class FeFormSchemaService {
         flexiLabel: 'child',
         label: 'States',
         placeholder: '--SELECT--',
-        style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000023',
-        formcontrol: 'select-form',
+        //formcontrol: 'select-form',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -367,10 +327,10 @@ export class FeFormSchemaService {
         flexiLabel: 'file',
         label: 'file',
         id: 'FRM000001-FLD000015',
-        formcontrol: 'file-form',
+        //formcontrol: 'file-form',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -382,13 +342,13 @@ export class FeFormSchemaService {
         flexiLabel: 'multi',
         label: 'Multiselect',
         placeholder: '--SELECT--',
+        defaultValue: ['male','female'],
         options: ['male', 'female', 'others'],
-        style: [{ 'name': 'width', 'value': '221px' }],
         id: 'FRM000001-FLD000004',
-        formcontrol: 'select-form',
+        //formcontrol: 'select-form',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -403,10 +363,10 @@ export class FeFormSchemaService {
         options: ['male', 'female', 'others'],
         id: 'FRM000001-FLD000010',
         defaultValue: 'Y',
-        formcontrol: 'check-form',
+        //formcontrol: 'check-form',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -423,7 +383,7 @@ export class FeFormSchemaService {
             'code': 'HE',
             'meaning': 'Male',
             'tip': 'Male'
-          }, 
+          },
           {
             'code': 'SHE',
             'meaning': 'Female',
@@ -436,14 +396,23 @@ export class FeFormSchemaService {
           }
         ],
         id: 'FRM000001-FLD000011',
-        formcontrol: 'radio-form',
+        //formcontrol: 'radio-form',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
         }
+      },
+      {
+        type: 'ANC',
+        code: 'FLD000021',
+        flexiLabel: 'Anchor',
+        label: 'Anchor',
+        defaultValue: 'url',
+        value: 'http://google.com',
+        id: 'FRM000001-FLD000021',
       },
       {
         type: 'DAT',
@@ -451,22 +420,18 @@ export class FeFormSchemaService {
         flexiLabel: 'date',
         label: 'Date',
         id: 'FRM000001-FLD000004',
-        formcontrol: 'date-form',
+        //formcontrol: 'date-form',
         placeholder: 'yyyy-mm-dd',
-        height: '',
-        disabled: true,
+        disabled: false,
         hidden: false,
         labelMargin: 20,
         tabIndex: '1',
         suffix: 'suff',
-        defaultValue: {year: 2017, month: 2 , day: 13},
+        defaultValue: { year: 2017, month: 2, day: 13 },
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
         labelPosition: 'bottom',
-        marginTop: '10px',
-        marginRight: '10px',
-        marginBottom: '10px',
-        marginLeft: '10px',
+       
         labelWidth: 0,
         width: '100%',
         customValidations: {
@@ -479,9 +444,9 @@ export class FeFormSchemaService {
       },
       {
         code: 'FST000001',
-        flexiLabel: 'dummy-fst',
         id: 'FRM000001-FST000001',
         type: 'FST',
+        flexiLabel: 'fieldset-1',
         label: 'SMS Settings',
         hideLabel: false,
         components: [
@@ -490,11 +455,11 @@ export class FeFormSchemaService {
             code: 'FLD000012',
             flexiLabel: 'fst_username',
             id: 'FRM000001-FLD000012',
-            style: {},
-            formcontrol: 'fst-username-form',
+            
+            //formcontrol: 'fst-username-form',
             customCssClass: 'custom-css-class1',
             label: 'Username',
-            height: '',
+            
             disabled: false,
             prefix: '@',
             hidden: false,
@@ -504,43 +469,38 @@ export class FeFormSchemaService {
             description: 'This is a dummy field. Field description would be here',
             hideLabel: false,
             labelPosition: 'left',
-            marginTop: '10px',
-            marginRight: '10px',
-            marginBottom: '10px',
-            marginLeft: '10px',
+           
             labelWidth: 0,
-            width: '50%',
+            width: '100%',
             placeholder: 'Enter your Username',
             formClassValidations: {
-              customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+              customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
             },
             events: {
               change: {
-                event: 'change',
+                //event:'change',
                 handlerOwner: 'form',
                 handlerName: 'onUserNameChanged',
                 args: "'change event','My' ,'Name  ',   'Is','Khan'"
               },
               focus: {
-                event: 'focus',
+                //event:'focus',
                 handlerOwner: 'resource',
                 handlerName: 'onUserNameFocus',
-                args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                args: "'focus event','My' ,'Name  ',   'Is','Khan'"
               }
             },
             validations: {
               required: {
-                'name': 'required',
+                
                 'value': true,
                 'message': 'This Field is required'
               },
               minLength: {
-                'name': 'minLength',
                 'value': 8,
                 'message': 'Minimum length should be XXLENGTHXX'
               },
               maxLength: {
-                'name': 'maxLength',
                 'value': 19,
                 'message': 'Minimum length should be XXLENGTHXX'
               }
@@ -550,8 +510,8 @@ export class FeFormSchemaService {
             code: 'FLD000005',
             flexiLabel: 'fst-assword-1',
             id: 'FRM000001-FLD0000013',
-            style: {},
-            formcontrol: 'fst-password-form',
+            
+            //formcontrol: 'fst-password-form',
             type: 'TXT',
             label: 'FST Password',
             prefix: '#',
@@ -560,32 +520,31 @@ export class FeFormSchemaService {
             labelWidth: 0,
             labelPosition: 'left',
             labelMargin: 0,
-            height: '',
+            
             description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
-            width: '50%',
+            width: '100%',
             placeholder: 'Enter your Password',
             events: {
               input: {
-                event: 'input',
+                //event:'input',
                 handlerOwner: 'form',
                 handlerName: 'onPassWordInput',
                 args: "'input','Harish','  Rathor'"
               },
               blur: {
-                event: 'blur',
+                //event:'blur',
                 handlerOwner: 'resource',
                 handlerName: 'onPassWordBlur',
                 args: "'blur','event', 'Harish'   , 'Rathor'"
               }
             },
-            validations:{ 
+            validations: {
               required: {
-                'name': 'required',
+                
                 'value': true,
                 'message': 'This Field is required'
               },
               pattern: {
-                'name': 'pattern',
                 'value': '^[a-z0-9_-]{8,15}$',
                 'message': 'The Pattern is not correct'
               }
@@ -596,11 +555,11 @@ export class FeFormSchemaService {
             code: 'FLD000014',
             flexiLabel: 'fst-username-1',
             id: 'FRM000001-FLD000012',
-            style: {},
-            formcontrol: 'fst-username-form-1',
+            
+            //formcontrol: 'fst-username-form-1',
             customCssClass: 'custom-css-class1',
             label: 'Username Fst 1',
-            height: '',
+            
             disabled: false,
             prefix: '@',
             hidden: false,
@@ -614,35 +573,33 @@ export class FeFormSchemaService {
             width: '50%',
             placeholder: 'Enter your Username',
             formClassValidations: {
-              customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+              customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
             },
             events: {
               change: {
-                event: 'change',
+                //event:'change',
                 handlerOwner: 'form',
                 handlerName: 'onUserNameChanged',
                 args: "'change event','My' ,'Name  ',   'Is','Khan'"
               },
               focus: {
-                event: 'focus',
+                //event:'focus',
                 handlerOwner: 'resource',
                 handlerName: 'onUserNameFocus',
-                args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                args: "'focus event','My' ,'Name  ',   'Is','Khan'"
               }
             },
             validations: {
               required: {
-                'name': 'required',
+                
                 'value': true,
                 'message': 'This Field is required'
               },
               minLength: {
-                'name': 'minLength',
                 'value': 8,
                 'message': 'Minimum length should be XXLENGTHXX'
               },
               maxLength: {
-                'name': 'maxLength',
                 'value': 19,
                 'message': 'Minimum length should be XXLENGTHXX'
               }
@@ -652,8 +609,8 @@ export class FeFormSchemaService {
             code: 'FLD000002',
             flexiLabel: 'pfst-assword-2',
             id: 'FRM000001-FLD000002',
-            style: {},
-            formcontrol: 'fst-password-form-2',
+            
+            //formcontrol: 'fst-password-form-2',
             type: 'TXT',
             label: 'FST Password 2',
             prefix: '#',
@@ -662,32 +619,31 @@ export class FeFormSchemaService {
             labelWidth: 0,
             labelPosition: 'left',
             labelMargin: 0,
-            height: '',
+            
             description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
             width: '50%',
             placeholder: 'Enter your Password',
             events: {
               input: {
-                event: 'input',
+                //event:'input',
                 handlerOwner: 'form',
                 handlerName: 'onPassWordInput',
                 args: "'input','Harish','  Rathor'"
               },
               blur: {
-                event: 'blur',
+                //event:'blur',
                 handlerOwner: 'resource',
                 handlerName: 'onPassWordBlur',
                 args: "'blur','event', 'Harish'   , 'Rathor'"
               }
             },
-            validations:{ 
+            validations: {
               required: {
-                'name': 'required',
+                
                 'value': true,
                 'message': 'This Field is required'
               },
               pattern: {
-                'name': 'pattern',
                 'value': '^[a-z0-9_-]{8,15}$',
                 'message': 'The Pattern is not correct'
               }
@@ -706,11 +662,11 @@ export class FeFormSchemaService {
                 code: 'FLD000017',
                 flexiLabel: 'fst_username-5',
                 id: 'FRM000001-FLD000017',
-                style: {},
-                formcontrol: 'fst-username-form-5',
+                
+                //formcontrol: 'fst-username-form-5',
                 customCssClass: 'custom-css-class1',
                 label: 'Username',
-                height: '',
+                
                 disabled: false,
                 prefix: '@',
                 hidden: false,
@@ -720,43 +676,40 @@ export class FeFormSchemaService {
                 description: 'This is a dummy field. Field description would be here',
                 hideLabel: false,
                 labelPosition: 'left',
-                marginTop: '10px',
-                marginRight: '10px',
-                marginBottom: '10px',
-                marginLeft: '10px',
+              
                 labelWidth: 0,
                 width: '50%',
                 placeholder: 'Enter your Username',
                 formClassValidations: {
-                  customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                  customPattern: { message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
                 },
                 events: {
                   change: {
-                    event: 'change',
+                    //event:'change',
                     handlerOwner: 'form',
                     handlerName: 'onUserNameChanged',
                     args: "'change event','My' ,'Name  ',   'Is','Khan'"
                   },
                   focus: {
-                    event: 'focus',
+                    //event:'focus',
                     handlerOwner: 'resource',
                     handlerName: 'onUserNameFocus',
-                    args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                    args: "'focus event','My' ,'Name  ',   'Is','Khan'"
                   }
                 },
                 validations: {
                   required: {
-                    'name': 'required',
+                    
                     'value': true,
                     'message': 'This Field is required'
                   },
                   minLength: {
-                    'name': 'minLength',
+                    
                     'value': 8,
                     'message': 'Minimum length should be XXLENGTHXX'
                   },
                   maxLength: {
-                    'name': 'maxLength',
+                    
                     'value': 19,
                     'message': 'Minimum length should be XXLENGTHXX'
                   }
@@ -766,8 +719,8 @@ export class FeFormSchemaService {
                 code: 'FLD000015',
                 flexiLabel: 'fst-assword-1',
                 id: 'FRM000001-FLD0000011',
-                style: {},
-                formcontrol: 'fst-password-form-5',
+                
+                //formcontrol: 'fst-password-form-5',
                 type: 'TXT',
                 label: 'FST Password',
                 prefix: '#',
@@ -776,32 +729,32 @@ export class FeFormSchemaService {
                 labelWidth: 0,
                 labelPosition: 'left',
                 labelMargin: 0,
-                height: '',
+                
                 description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
                 width: '50%',
                 placeholder: 'Enter your Password',
                 events: {
                   input: {
-                    event: 'input',
+                    //event:'input',
                     handlerOwner: 'form',
                     handlerName: 'onPassWordInput',
                     args: "'input','Harish','  Rathor'"
                   },
                   blur: {
-                    event: 'blur',
+                    //event:'blur',
                     handlerOwner: 'resource',
                     handlerName: 'onPassWordBlur',
                     args: "'blur','event', 'Harish'   , 'Rathor'"
                   }
                 },
-                validations:{ 
+                validations: {
                   required: {
-                    'name': 'required',
+                    
                     'value': true,
                     'message': 'This Field is required'
                   },
                   pattern: {
-                    'name': 'pattern',
+                   
                     'value': '^[a-z0-9_-]{8,15}$',
                     'message': 'The Pattern is not correct'
                   }
@@ -812,11 +765,11 @@ export class FeFormSchemaService {
                 code: 'FLD000018',
                 flexiLabel: 'fst-username-5',
                 id: 'FRM000001-FLD000018',
-                style: {},
-                formcontrol: 'fst-username-form-5',
+                
+                //formcontrol: 'fst-username-form-5',
                 customCssClass: 'custom-css-class1',
                 label: 'Username Fst 1',
-                height: '',
+                
                 disabled: false,
                 prefix: '@',
                 hidden: false,
@@ -830,35 +783,35 @@ export class FeFormSchemaService {
                 width: '50%',
                 placeholder: 'Enter your Username',
                 formClassValidations: {
-                  customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                  customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
                 },
                 events: {
                   change: {
-                    event: 'change',
+                    //event:'change',
                     handlerOwner: 'form',
                     handlerName: 'onUserNameChanged',
                     args: "'change event','My' ,'Name  ',   'Is','Khan'"
                   },
                   focus: {
-                    event: 'focus',
+                    //event:'focus',
                     handlerOwner: 'resource',
                     handlerName: 'onUserNameFocus',
-                    args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                    args: "'focus event','My' ,'Name  ',   'Is','Khan'"
                   }
                 },
                 validations: {
                   required: {
-                    'name': 'required',
+                    
                     'value': true,
                     'message': 'This Field is required'
                   },
                   minLength: {
-                    'name': 'minLength',
+                    
                     'value': 8,
                     'message': 'Minimum length should be XXLENGTHXX'
                   },
                   maxLength: {
-                    'name': 'maxLength',
+                    
                     'value': 19,
                     'message': 'Minimum length should be XXLENGTHXX'
                   }
@@ -868,8 +821,8 @@ export class FeFormSchemaService {
                 code: 'FLD000022',
                 flexiLabel: 'pfst-assword-8',
                 id: 'FRM000001-FLD000022',
-                style: {},
-                formcontrol: 'fst-password-form-7',
+                
+                //formcontrol: 'fst-password-form-7',
                 type: 'TXT',
                 label: 'FST Password 2',
                 prefix: '#',
@@ -878,32 +831,32 @@ export class FeFormSchemaService {
                 labelWidth: 0,
                 labelPosition: 'left',
                 labelMargin: 0,
-                height: '',
+                
                 description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
                 width: '50%',
                 placeholder: 'Enter your Password',
                 events: {
                   input: {
-                    event: 'input',
+                    //event:'input',
                     handlerOwner: 'form',
                     handlerName: 'onPassWordInput',
                     args: "'input','Harish','  Rathor'"
                   },
                   blur: {
-                    event: 'blur',
+                    //event:'blur',
                     handlerOwner: 'resource',
                     handlerName: 'onPassWordBlur',
                     args: "'blur','event', 'Harish'   , 'Rathor'"
                   }
                 },
-                validations:{ 
+                validations: {
                   required: {
-                    'name': 'required',
+                    
                     'value': true,
                     'message': 'This Field is required'
                   },
                   pattern: {
-                    'name': 'pattern',
+                   
                     'value': '^[a-z0-9_-]{8,15}$',
                     'message': 'The Pattern is not correct'
                   }
@@ -916,17 +869,17 @@ export class FeFormSchemaService {
                 type: 'FST',
                 label: 'Some Settings',
                 hideLabel: true,
-                components:[
+                components: [
                   {
                     type: 'TXT',
                     code: 'FLD000020',
                     flexiLabel: 'fst-username-6',
                     id: 'FRM000001-FLD000020',
-                    style: {},
-                    formcontrol: 'fst-username-form-9',
+                    
+                    //formcontrol: 'fst-username-form-9',
                     customCssClass: 'custom-css-class1',
                     label: 'Username Fst 1',
-                    height: '',
+                    
                     disabled: false,
                     prefix: '@',
                     hidden: false,
@@ -940,35 +893,35 @@ export class FeFormSchemaService {
                     width: '50%',
                     placeholder: 'Enter your Username',
                     formClassValidations: {
-                      customPattern: { name: 'customPattern', message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+                      customPattern: {  message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
                     },
                     events: {
                       change: {
-                        event: 'change',
+                        //event:'change',
                         handlerOwner: 'form',
                         handlerName: 'onUserNameChanged',
                         args: "'change event','My' ,'Name  ',   'Is','Khan'"
                       },
                       focus: {
-                        event: 'focus',
+                        //event:'focus',
                         handlerOwner: 'resource',
                         handlerName: 'onUserNameFocus',
-                        args:  "'focus event','My' ,'Name  ',   'Is','Khan'"
+                        args: "'focus event','My' ,'Name  ',   'Is','Khan'"
                       }
                     },
                     validations: {
                       required: {
-                        'name': 'required',
+                        
                         'value': true,
                         'message': 'This Field is required'
                       },
                       minLength: {
-                        'name': 'minLength',
+                        
                         'value': 8,
                         'message': 'Minimum length should be XXLENGTHXX'
                       },
                       maxLength: {
-                        'name': 'maxLength',
+                        
                         'value': 19,
                         'message': 'Minimum length should be XXLENGTHXX'
                       }
@@ -978,8 +931,8 @@ export class FeFormSchemaService {
                     code: 'FLD000025',
                     flexiLabel: 'pfst-assword-9',
                     id: 'FRM000001-FLD000025',
-                    style: {},
-                    formcontrol: 'fst-password-form-8',
+                    
+                    //formcontrol: 'fst-password-form-8',
                     type: 'TXT',
                     label: 'FST Password 2',
                     prefix: '#',
@@ -988,32 +941,32 @@ export class FeFormSchemaService {
                     labelWidth: 0,
                     labelPosition: 'left',
                     labelMargin: 0,
-                    height: '',
+                    
                     description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
                     width: '50%',
                     placeholder: 'Enter your Password',
                     events: {
                       input: {
-                        event: 'input',
+                        //event:'input',
                         handlerOwner: 'form',
                         handlerName: 'onPassWordInput',
                         args: "'input','Harish','  Rathor'"
                       },
                       blur: {
-                        event: 'blur',
+                        //event:'blur',
                         handlerOwner: 'resource',
                         handlerName: 'onPassWordBlur',
                         args: "'blur','event', 'Harish'   , 'Rathor'"
                       }
                     },
-                    validations:{ 
+                    validations: {
                       required: {
-                        'name': 'required',
+                        
                         'value': true,
                         'message': 'This Field is required'
                       },
                       pattern: {
-                        'name': 'pattern',
+                       
                         'value': '^[a-z0-9_-]{8,15}$',
                         'message': 'The Pattern is not correct'
                       }
@@ -1032,8 +985,8 @@ export class FeFormSchemaService {
         flexiLabel: 'time',
         label: 'Time',
         id: 'FRM000001-FLD000005',
-        formcontrol: 'time-form',
-        height: '',
+        //formcontrol: 'time-form',
+        
         disabled: false,
         defaultValue: { hour: 12, minute: 13, second: 13 },
         prefix: '@',
@@ -1043,16 +996,13 @@ export class FeFormSchemaService {
         suffix: 'suff',
         description: 'This is a dummy field. Field description would be here',
         hideLabel: false,
-        labelPosition: 'right',
-        marginTop: '10px',
-        marginRight: '10px',
-        marginBottom: '10px',
-        marginLeft: '10px',
+        labelPosition: 'top',
+       
         labelWidth: 0,
         width: '100%',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'This Field is required'
           }
@@ -1063,27 +1013,27 @@ export class FeFormSchemaService {
         code: 'FLD000006',
         flexiLabel: 'description',
         id: 'FRM000001-FRM000006',
-        style: {},
-        formcontrol: 'description-form',
+        
+        //formcontrol: 'description-form',
         label: 'Description',
-        height: '',
+        
         defaultValue: 'Some tet area default value',
         width: '100%',
         placeholder: 'Enter Description',
         ckeditor: 'Y',
         validations: {
           required: {
-            'name': 'required',
+            
             'value': true,
             'message': 'Field is required'
           },
           minLength: {
-            'name': 'minLength',
+            
             'value': 50,
             'message': 'Minimum length required is XXLENGTHXX.'
           },
           maxLength: {
-            'name': 'maxLength',
+            
             'value': 150,
             'message': 'Maximum length required is XXLENGTHXX.'
           }
@@ -1093,14 +1043,13 @@ export class FeFormSchemaService {
         code: 'FLD000007',
         flexiLabel: 'submit',
         id: 'FRM000001-FLD000007',
-        formcontrol: 'button-form',
+        //formcontrol: 'button-form',
         type: 'BTN',
         action: 'submit',
         label: 'Submit',
-        height: '',
+        
         width: '',
         disabled: false,
-        value: 'submit',
         class: ['btn', 'btn-primary']
       }
     ]

@@ -15,7 +15,9 @@ export class FeChkComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+    ...this.properties
+};
 
   applicableProperties={
     clearValue:true,
@@ -27,7 +29,7 @@ export class FeChkComponent extends FeBaseField  implements OnInit, DoCheck {
     customJsonLogic:true,
     customFunction:true,
     jsonLogic:true,
-
+    ...this.applicableProperties
 
 }
 

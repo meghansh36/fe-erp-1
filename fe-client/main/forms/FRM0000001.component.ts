@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { DefaultFormComponent } from './DefaultForm.component';
-import { FeFormSchemaService } from '../services/formSchema.service';
+import { FeFormSchemaService } from '@L1Main/services/formSchema.service';
 import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
 
 @Component({
@@ -9,10 +9,11 @@ import { FeDependentService } from '@L1Process/system/modules/formGenerator/serv
     templateUrl: 'DefaultForm.component.html'
 })
 export class FRM0000001Component extends DefaultFormComponent {
-    protected code: String = 'FRM0000001';
     constructor(public formSchemaService: FeFormSchemaService, public dependent: FeDependentService) {
         super(formSchemaService);
-        super.setChildForm(this);
+       this.instance = this;
+        this.code = 'FRM0000001';
+       
     }
 
     asyncCustomPatternValidator(control: AbstractControl): { [key: string]: any } {

@@ -21,7 +21,8 @@ export class FeFstComponent extends FeBaseField  implements OnInit, DoCheck {
   placeholder:  'test',
   tooltip: undefined,
   labelPosition: 'top',
-  labelMargin: 10
+  labelMargin: 10,
+  ...this.properties
 };
 
   applicableProperties={

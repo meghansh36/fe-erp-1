@@ -15,7 +15,9 @@ export class FePhnComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
   applicableProperties={
     placeholder:true,
@@ -35,7 +37,7 @@ export class FePhnComponent extends FeBaseField implements OnInit, DoCheck {
     jsonLogic:true,
     inputFormat:true,
     unique:true,
-
+    ...this.applicableProperties
 }
   ngOnInit() {
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, Validators, AbstractControl } from '@angular/forms';
+import * as _ from 'lodash';
 
 @Injectable({
     providedIn: 'root'
@@ -26,7 +27,8 @@ export class FeValidatorsService {
         try {
             let validators = [];
             for( let name in validationConf )  {
-                let validation = validationConf[ name ];
+                let validation = _.assign({}, validationConf[ name ]);
+                validation.name = name;
                 let validator: ValidatorFn | null = this.getValidator( validation );
                 if ( validator ) {
                     validators.push( validator );
@@ -42,8 +44,8 @@ export class FeValidatorsService {
     transformToValidErr( validations ) {
         let errors = [];
         for ( let vName in validations ) {
-            let validation = validations[ vName ];
-            validation.name = validation.name.toLowerCase();
+            let validation = _.assign( {}, validations[ vName ] );
+            validation.name = vName.toLowerCase();
             if ( vName == 'maxLength' || vName == 'minLength' ) {
                 let message = validation.message;
                 message = message.replace( 'XXLENGTHXX', validation.value )

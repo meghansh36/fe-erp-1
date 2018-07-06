@@ -15,7 +15,9 @@ export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
   applicableProperties={
     action:true,
@@ -28,7 +30,7 @@ export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
     appliedValidation:true,
     customFunction:true,
     jsonLogic:true,
-
+    ...this.applicableProperties
 }
 
   ngOnInit() {

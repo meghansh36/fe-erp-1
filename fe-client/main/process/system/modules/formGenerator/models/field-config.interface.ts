@@ -3,7 +3,6 @@ import { ValidatorFn } from '@angular/forms';
 export interface FieldConfig {
   disabled?: boolean;
   label?: string;
-  // name: string;
   id?: string,
   hideLabel?: boolean,
   prefix?: string,
@@ -17,25 +16,22 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
-  ckeditor?: string;
   customValidations?: {
     [key: string]: { name: string, validatorFn: any, message: string }
   };
   jsonValidations?: { json: object, message: string },
   validations?: {
     [key: string]: {
-      name: string,
       value: any,
       message: string
     }
   };
   formClassValidations?: {
-    [key: string]: { name: string, validatorFuncName: string, message: string }
+    [key: string]: { message: string, validatorFuncName: string }
   };
   mask?: Array<string>;
-  value?: any;
   labelPosition?: string,
-  labelWidth?: number,
+  labelWidth?: number,//To be checked
   hidden?: boolean,
   labelMargin?: number,
   tabIndex?: string,
@@ -44,9 +40,16 @@ export interface FieldConfig {
   marginBottom?: string,
   marginLeft?: string,
   width?: string,
-  style?: object,
   events: object
   condition?: object,
   defaultValue?: any,
-  components?: any
+  components?: any,
+  theme?: string,
+  size?: string,
+  leftIcon?: string,
+  rightIcon?: string,
+  ckeditor?: string,
+  tooltip?: string,
+  show?:any 
 }
+

@@ -15,7 +15,9 @@ export class FeNumComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
   applicableProperties={
     placeholder:true,
@@ -37,6 +39,7 @@ export class FeNumComponent extends FeBaseField implements OnInit, DoCheck {
     jsonLogic:true,
     useDelimeter:true,
     requiredDecimal:true,
+    ...this.applicableProperties
 }
 
   ngOnInit() {

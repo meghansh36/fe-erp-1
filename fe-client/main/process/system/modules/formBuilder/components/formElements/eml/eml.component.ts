@@ -14,7 +14,9 @@ export class FeEmlComponent extends FeBaseField implements OnInit, DoCheck {
   suffix: '',
   description: '',
   placeholder: 'test',
-  tooltip: ''};
+  tooltip: '',
+  ...this.properties  
+};
 
   applicableProperties={
     placeholder:true,
@@ -36,8 +38,8 @@ export class FeEmlComponent extends FeBaseField implements OnInit, DoCheck {
     jsonLogic:true,
     inputFormat:true,
     kickboxEmailValidation:true,
-    unique:true
-
+    unique:true,
+    ...this.applicableProperties
 }
 
   ngOnInit() {
