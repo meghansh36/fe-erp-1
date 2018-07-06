@@ -1,2 +1,0 @@
-import { LgSelectElementDirective } from '@L2Process/system/modules/formRender/render/components/SEL/directives/element.directive';
-export class SelectElementDirective extends LgSelectElementDirective{}

@@ -1,2 +1,0 @@
-import { FeMulSelectElementDirective } from '@L1Process/system/modules/formRender/render/components/MSL/directives/element.directive';
-export class LgMulSelectElementDirective extends FeMulSelectElementDirective{}

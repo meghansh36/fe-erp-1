@@ -1,2 +1,0 @@
-import { LgTextAreaElementDirective } from '@L2Process/system/modules/formRender/render/components/TXA/directives/element.directive';
-export class TextAreaElementDirective extends LgTextAreaElementDirective{}

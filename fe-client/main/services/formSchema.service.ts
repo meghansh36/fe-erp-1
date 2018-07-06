@@ -196,7 +196,7 @@ export class FeFormSchemaService {
           agelimit: {
             name: 'agelimit',
             validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
-            message: 'Age should be less than 50'
+            message: 'Age should be greater than 50'
           }
         },
         jsonValidations: {
