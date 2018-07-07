@@ -18,7 +18,7 @@ var book = require('./routes/book');
 var login = require ('./fe-server/main/process/default/routes/login.js');
 var login_ctrl = require('./fe-server/main/process/default/controllers/login.js');
 var aureole_lookup = require('./fe-server/main/process/default/routes/aureole_lookup.js');
-var emp_details = require('./fe-server/main/process/default/routes/fe_hrm_emp_info_t.js')
+var emp_details = require('./fe-server/legislations/fe/clients/main/process/default/routes/fe_hrt_emp_info_t.js')
 var aureole_lookup_ctrl = require('./fe-server/main/process/default/controllers/login.js');
 var fe = express();
 var app = express(); 
@@ -66,7 +66,7 @@ app.use(passport.session());
 
 app.use('/api/default/login',login);
 app.use('/api/default/aureolelookup',aureole_lookup);
-//app.use('/api/default/empdetails',emp_details);
+app.use('/api/default/empdetails',emp_details);
 //app.get('/api/aureolelookup/*',aureole_lookup);
 //main get Route 
 /* app.use('/client/:id', function(req,res,next){
