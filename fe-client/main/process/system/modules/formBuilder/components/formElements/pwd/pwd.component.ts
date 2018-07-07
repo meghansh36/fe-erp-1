@@ -34,7 +34,8 @@ export class FePwdComponent extends FeBaseField implements OnInit, DoCheck {
     customJsonLogic:true,
     customFunction:true,
     jsonLogic:true,
-    unique:true
+    unique:true,
+    ...this.applicableProperties
 }
 
   ngOnInit() {

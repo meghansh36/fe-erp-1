@@ -49,7 +49,7 @@
     padding-top: 32px !important;
   } */
 
-  .feForm .fe-field {
+  .feForm .fe-field-component {
     padding-left: 10px;
     padding-right: 10px;
   } 
@@ -93,9 +93,18 @@
   text-align: center;
 }
 
+.ngx-select__clear .ngx-select__clear-icon {
+  font-size: 14px;
+}
+
 .fst-fields-container {
   display: flex;
   flex-flow: row wrap;
+}
+
+.ngx-select__selected .ngx-select__selected-plural {
+  color:unset !important;
+  background-color: #fff !important;
 }
   /*-------------------------}          */
   

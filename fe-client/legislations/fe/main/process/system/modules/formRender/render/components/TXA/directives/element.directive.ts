@@ -1,2 +1,0 @@
-import { FeTextAreaElementDirective } from '@L1Process/system/modules/formRender/render/components/TXA/directives/element.directive';
-export class LgTextAreaElementDirective extends FeTextAreaElementDirective{}
