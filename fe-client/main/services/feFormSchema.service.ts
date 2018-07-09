@@ -31,6 +31,20 @@ export class FeFormSchemaService {
         }
       }
     },
+    formButtons: [
+      {
+        id: 'BTN00001',
+        label: 'Submit',
+        icon: 'md-save',
+        events: {
+          click: {
+            handlerOwner: 'form',
+            handlerName: 'submitForm',
+            args: "'change event','My' ,'Name  ',   'Is','Khan'"
+          }
+        }
+      }
+    ],
     components: [
       {
         type: 'TXT',

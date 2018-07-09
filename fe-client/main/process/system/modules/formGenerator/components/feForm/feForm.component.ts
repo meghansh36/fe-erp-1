@@ -29,6 +29,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   public $simpleConditionChange: any;
   public $groupValueChange: any;
   protected _schema: any;
+  public buttons: any;
 
 
   constructor(private fb: FormBuilder, private dependent: DependentService) {
@@ -56,8 +57,16 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
     this.__disabled = disabled;
   }
 
+  get _buttons() {
+    return this.buttons;
+  }
+
+  set _buttons(button) {
+    this.buttons = button;
+  }
+
   ngOnInit() {
-    this._schema = _.assign( {}, this.schema );
+    this._schema = _.assign({}, this.schema);
     this.components = this.schema.components;
     this.form = this.createGroup();
     if (this.formInstance.schema['condition']) {
@@ -67,6 +76,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
         this[conditionHandlerName](this.formInstance.schema.condition[type]);
       }
     }
+    this._buttons = this.formInstance.schema['formButtons'];
   }
 
   ngOnDestroy() {
@@ -148,7 +158,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
 
   static createControl(fb: FormBuilder, config: FieldConfig) {
     const { disabled, validation } = config;
-    return fb.control({ disabled, value:undefined }, validation);
+    return fb.control({ disabled, value: undefined }, validation);
   }
 
   handleSubmit(event: Event) {
