@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 
-//router.get('/', aureole_lookup.findAll);
+router.get('/', aureole_lookup.findAll);
 
 
 module.exports = router;
