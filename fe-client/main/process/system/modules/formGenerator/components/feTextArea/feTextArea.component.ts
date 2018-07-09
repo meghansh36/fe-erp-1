@@ -10,45 +10,30 @@ import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/compone
     }
 })
 export class FeTextAreaComponent extends FeBaseComponent {
-    public length:number = 0;
-    name = 'ng2-ckeditor';
-    ckeConfig: any;
-    mycontent: string = '';
-    log: string = '';
-
+    public length: number = 0;
     _onKeypress(e) {
         if (this.hasMaxLength) {
             const limit = +this.len;
             if (e.target.value.length === this.maxLength) e.preventDefault();
         }
     }
-    _onChange(e) {
-        if (this.hasMaxLength) {
-            console.log(e);
-            const limit = +this.len;
-            //if (e.target.value.length === this.maxLength) e.preventDefault();
-        }
-    }
 
     ngOnInit() {
         super.ngOnInit();
-       // this.control.valueChanges.subscribe(this.changeLength.bind(this));
-        this.ckeConfig = {
-            allowedContent: false,
-            extraPlugins: 'divarea',
-            forcePasteAsPlainText: true
-          };
+        this.control.valueChanges.subscribe(this.changeLength.bind(this))
     }
 
-    /* changeLength(data: string) {
-        this.len = data.length;
-        if (this.len < this.minLength) {
-            this._Class = 'badge-danger';
+    changeLength(data: string) {
+        if (data != undefined) {
+            this.len = data.length;
+            if (this.len < this.minLength) {
+                this._Class = 'badge-danger';
+            }
+            else {
+                this._Class = 'badge-success';
+            }
         }
-        else {
-            this._Class = 'badge-success';
-        }
-    } */
+    }
 
     get hasMinLength() {
         return this.hasValidation('minLength');
@@ -84,5 +69,5 @@ export class FeTextAreaComponent extends FeBaseComponent {
     get _Class() {
         return this.conditionClass;
     }
-    
+
 }
