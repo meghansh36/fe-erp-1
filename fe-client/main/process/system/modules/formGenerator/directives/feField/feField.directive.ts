@@ -18,6 +18,7 @@ import { FeFilComponent } from '@L1Process/system/modules/formGenerator/componen
 import { FeAnchorComponent } from '@L1Process/system/modules/formGenerator/components/feAnchor/feAnchor.component';
 import { FeHiddenComponent } from '@L1Process/system/modules/formGenerator/components/feHidden/feHidden.component';
 import { FeBlankComponent } from '@L1Process/system/modules/formGenerator/components/feBlank/feBlank.component';
+import { FeHtmlEditorComponent } from '@L1Process/system/modules/formGenerator/components/feHtmlEditor/feHtmlEditor.component';
 import { FeIconicButtonComponent } from '@L1Process/system/modules/formGenerator/components/feIconicButton/feIconicButton.component';
 
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
@@ -41,7 +42,8 @@ const components: { [type: string]: Type<Field> } = {
   ANC: FeAnchorComponent,
   BLK: FeBlankComponent,
   HID: FeHiddenComponent,
-  ICB: FeIconicButtonComponent
+  ICB: FeIconicButtonComponent,
+  EDT: FeHtmlEditorComponent
 };
 
 @Directive({

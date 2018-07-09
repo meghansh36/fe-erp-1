@@ -72,6 +72,10 @@
     color: #999;
   } 
 
+  .form-field i {
+    vertical-align: middle;
+  }
+
   .text-length-info-container .text-length-info  {
     float:right;  
   }
