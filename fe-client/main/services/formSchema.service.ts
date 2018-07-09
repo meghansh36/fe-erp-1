@@ -1085,6 +1085,7 @@ export class FeFormSchemaService {
         id: 'FRM000001-FLD000007',
         //formcontrol: 'button-form',
         type: 'BTN',
+        size: 'small',
         action: 'submit',
         label: 'Submit',
         icon: 'md-save',

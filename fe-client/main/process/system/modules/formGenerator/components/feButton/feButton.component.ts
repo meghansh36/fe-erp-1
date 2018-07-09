@@ -28,6 +28,12 @@ const buttonThemeClasses = {
   "lg btn-primary": "btn btn-lg btn-primary"
 };
 
+const buttonSizeClasses = {
+  'large': 'btn-lg',
+  'small': 'btn-sm',
+  'medium': 'btn-md'
+};
+
 @Component({
   selector: 'feButton',
   styleUrls: ['feButton.component.css'],
@@ -40,11 +46,14 @@ export class FeButtonComponent extends FeBaseComponent {
   beforeSetDefaultClasses( classesObj ) {
     console.log('beforeSetDefaultClasses for field ', this.type, this.icon );
     let themeClass = buttonThemeClasses[ this.theme ];
-    console.log("beforeSetDefaultClasses");
     if ( !themeClass ) {
       themeClass = buttonThemeClasses[ this.defaultTheme ];
     }
     classesObj[ 'fieldClasses' ][ themeClass ] = true;
+
+    if ( this.size ) {
+      classesObj[ 'fieldClasses' ][ buttonSizeClasses[ this.size ] ] = true;
+    }
     return classesObj;
   }
 
