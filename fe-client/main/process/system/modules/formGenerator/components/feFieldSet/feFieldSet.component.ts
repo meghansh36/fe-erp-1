@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FeBaseComponent } from '../feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/Base.component';
 // import { FeFormSchemaService } from '@L1Main/services/formSchema.service';
 // import { FeValidatorsService } from '@L1Process/system/modules/formGenerator/services/validators.service';
 // import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';

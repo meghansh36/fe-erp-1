@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
+import { DependentService } from '@L3Process/system/modules/formGenerator/services/dependent.service';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
 import * as _ from 'lodash';
@@ -31,7 +31,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   protected _schema: any;
 
 
-  constructor(private fb: FormBuilder, private dependent: FeDependentService) {
+  constructor(private fb: FormBuilder, private dependent: DependentService) {
     this.instance = this;
     this.componentInstances = [];
   }

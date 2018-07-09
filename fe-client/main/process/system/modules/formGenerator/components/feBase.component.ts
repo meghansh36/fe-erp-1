@@ -1,7 +1,7 @@
 import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-import { FeValidatorsService } from '@L1Process/system/modules/formGenerator/services/validators.service';
+import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/validators.service';
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
@@ -78,7 +78,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
 
 
-    constructor(public elemRef: ElementRef, public validator: FeValidatorsService, public render: Renderer2) {
+    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
 
