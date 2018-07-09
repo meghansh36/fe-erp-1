@@ -2,6 +2,7 @@ import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, Si
 import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/validators.service';
+import { FeUtilityService } from '@L1Process/system/modules/formGenerator/services/utility.service';
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
@@ -78,7 +79,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
 
 
-    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2) {
+    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2, public utility: FeUtilityService) {
         this.defaultFieldWidth = '50%';
     }
 
@@ -107,60 +108,11 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     addDisplayProps() {
-        if ( this.type == 'HID' ) {
-            this.render.addClass( this.elemRef.nativeElement, 'hidden' );
+        if (this.type == 'HID') {
+            this.render.addClass(this.elemRef.nativeElement, 'hidden');
         }
-        this.render.addClass( this.elemRef.nativeElement, 'fe-field-component' );
+        this.render.addClass(this.elemRef.nativeElement, 'fe-field-component');
     }
-
-
-    static evalFnArgs(argsStr) {
-        try {
-            const evaluatedArgsArr = [];
-            argsStr = argsStr.trim().split(',');
-            argsStr.forEach((value) => {
-                value = value.trim();
-                const evalStr = eval(value);
-                evaluatedArgsArr.push(evalStr);
-            });
-            return evaluatedArgsArr;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    fieldEventHandler(eventName, handlerData, event) {
-        try {
-            let handlerOwnerType = handlerData.handlerOwner;
-            const handlerFnName = handlerData.handlerName;
-            const args = handlerData.args;
-            let ownerObject: any = {};
-            if (!handlerOwnerType) {
-                handlerOwnerType = 'form';
-            }
-            ownerObject = this[handlerOwnerType]; //this.resource or this.form
-            if (!ownerObject) {
-                console.log(`Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.`);
-                return;
-            }
-            if (!ownerObject) {
-                console.log(`Event handler type ${handlerOwnerType} does not exist in field component class for event ${eventName} for ${this.flexiLabel}`);
-                return;
-            }
-            if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
-                const argsArr = FeBaseComponent.evalFnArgs(args);
-                argsArr.push(this);
-                argsArr.push(event);
-                ownerObject[handlerFnName].apply(ownerObject, argsArr)
-            } else {
-                console.log(`Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName} for ${this.flexiLabel}`);
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
 
     bindEvents() {
         try {
@@ -168,7 +120,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             if (eventsObjArr) {
                 const field = this.fieldRef;
                 for (let eventName in eventsObjArr) {
-                    this.render.listen(field, eventName, this.fieldEventHandler.bind(this, eventName, eventsObjArr[eventName]));
+                    this.render.listen(field, eventName, this.utility.fieldEventHandler.bind(this.utility, eventName, eventsObjArr[eventName], this));
                 }
             }
         } catch (error) {
@@ -523,8 +475,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             fieldLabelContainerStyle[marginSide] = margin;
         }
 
-        if ( this.labelWidth ) {
-            fieldLabelContainerStyle[ 'width' ] = this.labelWidth;
+        if (this.labelWidth) {
+            fieldLabelContainerStyle['width'] = this.labelWidth;
         }
 
         if (this.marginLeft) {

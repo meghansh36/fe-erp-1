@@ -77,6 +77,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
       }
     }
     this._buttons = this.formInstance.schema['formButtons'];
+    console.log(this._buttons);
   }
 
   ngOnDestroy() {

@@ -2,5 +2,7 @@
       <ng-container *ngFor="let field of components;" feField [form]="formInstance" [schema]="schema" [config]="field" [group]="form"
             [formComponent]="instance">
       </ng-container>
-      <feFormButton *ngFor="let btn of _buttons" [buttonConfig]="btn" [group]="form" [form]="formInstance"></feFormButton>
 </form>
+<ng-container *ngFor="let btn of _buttons">
+      <feFormButton [buttonConfig]="btn" [group]="form" [form]="formInstance"></feFormButton>
+</ng-container>
