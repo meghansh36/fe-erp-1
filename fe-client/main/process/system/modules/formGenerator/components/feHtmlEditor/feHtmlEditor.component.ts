@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
-import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
 
 @Component({
     selector: 'fe-htmleditor',
@@ -9,7 +9,7 @@ import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/compone
         '(keypress)': '_onKeypress($event)',
     }
 })
-export class FeHtmlEditorComponent extends FeBaseComponent {
+export class HtmlEditorComponent extends BaseComponent {
     public length:number = 0;
     name = 'ng2-ckeditor';
     ckeConfig: any;

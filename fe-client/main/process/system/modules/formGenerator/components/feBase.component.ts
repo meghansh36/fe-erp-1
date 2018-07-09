@@ -1,14 +1,14 @@
 import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-import { FeValidatorsService } from '@L1Process/system/modules/formGenerator/services/validators.service';
-import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
-import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
+import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/feValidators.service';
+import { Field } from '@L3Process/system/modules/formGenerator/models/field.interface';
+import { FieldConfig } from '@L3Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
 
 
 @Injectable()
-export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
+export class BaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
 
     public config: FieldConfig;
     public group: FormGroup;

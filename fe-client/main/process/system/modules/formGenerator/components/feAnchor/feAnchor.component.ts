@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
 
 @Component({
   selector: 'fe-anchor',
   styleUrls: ['feAnchor.component.css'],
   templateUrl: 'feAnchor.component.html'
 })
-export class FeAnchorComponent extends FeBaseComponent {
+export class AnchorComponent extends BaseComponent {
 
 }

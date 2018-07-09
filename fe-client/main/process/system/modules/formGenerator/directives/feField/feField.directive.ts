@@ -1,55 +1,55 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { FeButtonComponent } from '@L1Process/system/modules/formGenerator/components/feButton/feButton.component';
-import { FeTextComponent } from '@L1Process/system/modules/formGenerator/components/feText/feText.component';
-import { FeTextAreaComponent } from '@L1Process/system/modules/formGenerator/components/feTextArea/feTextArea.component';
-import { FeSelectComponent } from '@L1Process/system/modules/formGenerator/components/feSelect/feSelect.component';
-import { FeMultiSelectComponent } from '@L1Process/system/modules/formGenerator/components/feMultiSelect/feMultiSelect.component';
-import { FeDateComponent } from '@L1Process/system/modules/formGenerator/components/feDate/feDate.component';
-import { FeTimeComponent } from '@L1Process/system/modules/formGenerator/components/feTime/feTime.component';
-import { FeAutoCompleteComponent } from '@L1Process/system/modules/formGenerator/components/feAutoComplete/feAutoComplete.component';
-import { FeNumberComponent } from '@L1Process/system/modules/formGenerator/components/feNumber/feNumber.component';
-import { FeCheckBoxComponent } from '@L1Process/system/modules/formGenerator/components/feCheckBox/feCheckBox.component';
-import { FeRadioComponent } from '@L1Process/system/modules/formGenerator/components/feRadio/feRadio.component';
-import { FeFieldSetComponent } from '@L1Process/system/modules/formGenerator/components/feFieldSet/feFieldSet.component';
-import { FeEmailComponent } from '@L1Process/system/modules/formGenerator/components/feEmail/feEmail.component';
-import { FeFilComponent } from '@L1Process/system/modules/formGenerator/components/feFile/feFile.component';
-import { FeAnchorComponent } from '@L1Process/system/modules/formGenerator/components/feAnchor/feAnchor.component';
-import { FeHiddenComponent } from '@L1Process/system/modules/formGenerator/components/feHidden/feHidden.component';
-import { FeBlankComponent } from '@L1Process/system/modules/formGenerator/components/feBlank/feBlank.component';
-import { FeHtmlEditorComponent } from '@L1Process/system/modules/formGenerator/components/feHtmlEditor/feHtmlEditor.component';
-import { FeIconicButtonComponent } from '@L1Process/system/modules/formGenerator/components/feIconicButton/feIconicButton.component';
+import { ButtonComponent } from '@L1Process/system/modules/formGenerator/components/feButton/feButton.component';
+import { TextComponent } from '@L1Process/system/modules/formGenerator/components/feText/feText.component';
+import { TextAreaComponent } from '@L1Process/system/modules/formGenerator/components/feTextArea/feTextArea.component';
+import { SelectComponent } from '@L1Process/system/modules/formGenerator/components/feSelect/feSelect.component';
+import { MultiSelectComponent } from '@L1Process/system/modules/formGenerator/components/feMultiSelect/feMultiSelect.component';
+import { DateComponent } from '@L1Process/system/modules/formGenerator/components/feDate/feDate.component';
+import { TimeComponent } from '@L1Process/system/modules/formGenerator/components/feTime/feTime.component';
+import { AutoCompleteComponent } from '@L1Process/system/modules/formGenerator/components/feAutoComplete/feAutoComplete.component';
+import { NumberComponent } from '@L1Process/system/modules/formGenerator/components/feNumber/feNumber.component';
+import { CheckBoxComponent } from '@L1Process/system/modules/formGenerator/components/feCheckBox/feCheckBox.component';
+import { RadioComponent } from '@L1Process/system/modules/formGenerator/components/feRadio/feRadio.component';
+import { FieldSetComponent } from '@L1Process/system/modules/formGenerator/components/feFieldSet/feFieldSet.component';
+import { EmailComponent } from '@L1Process/system/modules/formGenerator/components/feEmail/feEmail.component';
+import { FilComponent } from '@L1Process/system/modules/formGenerator/components/feFile/feFile.component';
+import { AnchorComponent } from '@L1Process/system/modules/formGenerator/components/feAnchor/feAnchor.component';
+import { HiddenComponent } from '@L1Process/system/modules/formGenerator/components/feHidden/feHidden.component';
+import { BlankComponent } from '@L1Process/system/modules/formGenerator/components/feBlank/feBlank.component';
+import { HtmlEditorComponent } from '@L1Process/system/modules/formGenerator/components/feHtmlEditor/feHtmlEditor.component';
+import { IconicButtonComponent } from '@L1Process/system/modules/formGenerator/components/feIconicButton/feIconicButton.component';
 
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 
 const components: { [type: string]: Type<Field> } = {
-  BTN: FeButtonComponent,
-  TXT: FeTextComponent,
-  SEL: FeSelectComponent,
-  TXA: FeTextAreaComponent,
-  DAT: FeDateComponent,
-  TIM: FeTimeComponent,
-  ACS: FeAutoCompleteComponent,
-  NUM: FeNumberComponent,
-  CHK: FeCheckBoxComponent,
-  RAD: FeRadioComponent,
-  MSL: FeMultiSelectComponent,
-  EML: FeEmailComponent,
-  FIL: FeFilComponent,
-  FST: FeFieldSetComponent,
-  ANC: FeAnchorComponent,
-  BLK: FeBlankComponent,
-  HID: FeHiddenComponent,
-  ICB: FeIconicButtonComponent,
-  EDT: FeHtmlEditorComponent
+  BTN: ButtonComponent,
+  TXT: TextComponent,
+  SEL: SelectComponent,
+  TXA: TextAreaComponent,
+  DAT: DateComponent,
+  TIM: TimeComponent,
+  ACS: AutoCompleteComponent,
+  NUM: NumberComponent,
+  CHK: CheckBoxComponent,
+  RAD: RadioComponent,
+  MSL: MultiSelectComponent,
+  EML: EmailComponent,
+  FIL: FilComponent,
+  FST: FieldSetComponent,
+  ANC: AnchorComponent,
+  BLK: BlankComponent,
+  HID: HiddenComponent,
+  ICB: IconicButtonComponent,
+  EDT: HtmlEditorComponent
 };
 
 @Directive({
   selector: '[feField]'
 })
-export class FeFieldDirective implements Field, OnChanges, OnInit {
+export class FieldDirective implements Field, OnChanges, OnInit {
   @Input()
   config: FieldConfig;
 

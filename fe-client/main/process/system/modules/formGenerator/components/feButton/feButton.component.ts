@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
 
 const buttonThemeClasses = {
   "primary": "btn btn-primary",
@@ -39,7 +39,7 @@ const buttonSizeClasses = {
   styleUrls: ['feButton.component.css'],
   templateUrl: 'feButton.component.html'
 })
-export class FeButtonComponent extends FeBaseComponent {
+export class FeButtonComponent extends BaseComponent {
 
   defaultTheme: string = 'secondary';
 

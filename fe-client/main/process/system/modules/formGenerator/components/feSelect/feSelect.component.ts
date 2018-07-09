@@ -1,12 +1,12 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
 
 @Component({
   selector: 'feSelect',
   styleUrls: ['feSelect.component.css'],
   templateUrl: 'feSelect.component.html',
 })
-export class FeSelectComponent extends FeBaseComponent implements OnInit {
+export class SelectComponent extends BaseComponent implements OnInit {
 
   protected _options: any;
 

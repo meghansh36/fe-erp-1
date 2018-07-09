@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
-import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
+import { DependentService } from '@L3Process/system/modules/formGenerator/services/feDependent.service';
+import { FieldConfig } from '@L3Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
 import * as _ from 'lodash';
 
@@ -11,7 +11,7 @@ import * as _ from 'lodash';
   styleUrls: ['feForm.component.css'],
   templateUrl: 'feForm.component.html'
 })
-export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
+export class FormComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
   @Input()
   schema: any;
 
@@ -31,7 +31,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   protected _schema: any;
 
 
-  constructor(private fb: FormBuilder, private dependent: FeDependentService) {
+  constructor(private fb: FormBuilder, private dependent: DependentService) {
     this.instance = this;
     this.componentInstances = [];
   }
@@ -42,7 +42,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   }
 
   get schemaControls() {
-    return FeFormComponent.filterValidControls(this.components);
+    return FormComponent.filterValidControls(this.components);
   }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
@@ -120,7 +120,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
         .filter((control) => !controls.includes(control))
         .forEach((flexiLabel) => {
           const config = this.components.find((control) => control.flexiLabel === flexiLabel);
-          this.form.addControl(flexiLabel, FeFormComponent.createControl(this.fb, config));
+          this.form.addControl(flexiLabel, FormComponent.createControl(this.fb, config));
         });
     }
   }
@@ -131,17 +131,17 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
 
   createGroup() {
     const group = this.fb.group({});
-    FeFormComponent.createControls(this.fb, group, this.schemaControls);
+    FormComponent.createControls(this.fb, group, this.schemaControls);
     return group;
   }
 
   static createControls(fb: FormBuilder, group: FormGroup, schemaControls: any) {
     schemaControls.forEach((config) => {
       if (config.type && config.type == 'FST') {
-        let components = FeFormComponent.filterValidControls(config.components);
-        FeFormComponent.createControls(fb, group, components)
+        let components = FormComponent.filterValidControls(config.components);
+        FormComponent.createControls(fb, group, components)
       } else {
-        group.addControl(config.flexiLabel, FeFormComponent.createControl(fb, config));
+        group.addControl(config.flexiLabel, FormComponent.createControl(fb, config));
       }
     });
   }

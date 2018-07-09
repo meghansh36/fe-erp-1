@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FeBaseComponent } from '../feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
 // import { FeFormSchemaService } from '@L1Main/services/formSchema.service';
 // import { FeValidatorsService } from '@L1Process/system/modules/formGenerator/services/validators.service';
 // import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
 //import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
-import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
+import { FieldConfig } from '@L3Process/system/modules/formGenerator/models/field-config.interface';
 import { FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 
@@ -14,7 +14,7 @@ import * as _ from 'lodash';
   styleUrls: ['feFieldSet.component.css'],
   templateUrl : 'feFieldSet.component.html'
 })
-export class FeFieldSetComponent  {
+export class FieldSetComponent  {
  //Inputs passes from parent form component
   public config: FieldConfig;
   public group: FormGroup;
