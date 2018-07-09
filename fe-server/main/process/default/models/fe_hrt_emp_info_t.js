@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 module.exports =  class FeEmpInfoModel extends Sequelize.Model {
-  static init(sequelize, Datatypes) {
+  static init(sequelize, DataTypes) {
     return super.init( 
       {	
 		attribute1: {
@@ -426,7 +426,7 @@ module.exports =  class FeEmpInfoModel extends Sequelize.Model {
       },
 	  { 
 		  tableName:'fe_hrt_emp_info_t',
-		  sequelize 
+		  sequelize
 		}
     );
   }

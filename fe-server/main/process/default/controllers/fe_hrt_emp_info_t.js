@@ -7,12 +7,13 @@ module.exports = class FeEmpDetails{
     empDetails(req,res,done){
         var empId = req.params.id;
         models.EmpInfoModel.findAll({
+            limit:10,
             subQuery: false,
-            //attributes: [['attribute11', 'Employee No'],['attribute4','Employee Name']],
+            attributes: [['attribute11', 'Employee No'],['attribute4','Employee Name']],
             where: {
-                attribute1: empId
-            },
-            required: true,
+               attribute1: empId
+           },
+           required: true
             // include:[
             //     {           
             //         model: models.fe_hrt_emp_job_t,

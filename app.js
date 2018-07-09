@@ -84,7 +84,7 @@ app.use(express.static(path.join(__dirname, "dist")));
  * Angular app serve route
  * All routes starting with "ng" are routed to serve angular's "index.html"
  */
-
+console.log('REQUEST COUNT');
 app.get("/fe/*", (req, res) => {
   console.log("/fe/*");
   console.log(req.session);
