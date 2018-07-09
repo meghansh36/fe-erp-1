@@ -42,7 +42,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   }
 
   get schemaControls() {
-    return FormComponent.filterValidControls(this.components);
+    return FeFormComponent.filterValidControls(this.components);
   }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
@@ -120,7 +120,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
         .filter((control) => !controls.includes(control))
         .forEach((flexiLabel) => {
           const config = this.components.find((control) => control.flexiLabel === flexiLabel);
-          this.form.addControl(flexiLabel, FormComponent.createControl(this.fb, config));
+          this.form.addControl(flexiLabel, FeFormComponent.createControl(this.fb, config));
         });
     }
   }
@@ -131,17 +131,17 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
 
   createGroup() {
     const group = this.fb.group({});
-    FormComponent.createControls(this.fb, group, this.schemaControls);
+    FeFormComponent.createControls(this.fb, group, this.schemaControls);
     return group;
   }
 
   static createControls(fb: FormBuilder, group: FormGroup, schemaControls: any) {
     schemaControls.forEach((config) => {
       if (config.type && config.type == 'FST') {
-        let components = FormComponent.filterValidControls(config.components);
-        FormComponent.createControls(fb, group, components)
+        let components = FeFormComponent.filterValidControls(config.components);
+        FeFormComponent.createControls(fb, group, components)
       } else {
-        group.addControl(config.flexiLabel, FormComponent.createControl(fb, config));
+        group.addControl(config.flexiLabel, FeFormComponent.createControl(fb, config));
       }
     });
   }

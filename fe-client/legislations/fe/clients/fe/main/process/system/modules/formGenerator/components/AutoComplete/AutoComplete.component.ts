@@ -1,4 +1,4 @@
-import { LgAnchorComponent } from '@L2Process/system/modules/formGenerator/components/lgAnchor/lgAnchor.component';
+import { LgAutoCompleteComponent } from '@L2Process/system/modules/formGenerator/components/lgAutoComplete/lgAutoComplete.component';
 
-export class AnchorComponent extends LgAnchorComponent {
+export class AutoCompleteComponent extends LgAutoCompleteComponent {
 }

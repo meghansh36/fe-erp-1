@@ -1,11 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FeButtonComponent } from '@L1Process/system/modules/formGenerator/components/feButton/feButton.component';
-
-@Component({
-  selector: 'fe-iconicButton',
-  styleUrls: ['./feIconicButton.component.css'],
-  templateUrl: './feIconicButton.component.html'
-})
-export class LgIconicButtonComponent extends FeButtonComponent {
+import { FeIconicButtonComponent } from '@L1Process/system/modules/formGenerator/components/feIconicButton/feIconicButton.component';
+export class LgIconicButtonComponent extends FeIconicButtonComponent {
 
 }

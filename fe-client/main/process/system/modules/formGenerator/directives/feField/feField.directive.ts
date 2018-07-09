@@ -14,7 +14,7 @@ import { CheckBoxComponent } from '@L3Process/system/modules/formGenerator/compo
 import { RadioComponent } from '@L3Process/system/modules/formGenerator/components/Radio/Radio.component';
 import { FieldSetComponent } from '@L3Process/system/modules/formGenerator/components/FieldSet/FieldSet.component';
 import { EmailComponent } from '@L3Process/system/modules/formGenerator/components/Email/Email.component';
-import { FilComponent } from '@L3Process/system/modules/formGenerator/components/File/File.component';
+import { FileComponent } from '@L3Process/system/modules/formGenerator/components/File/File.component';
 import { AnchorComponent } from '@L3Process/system/modules/formGenerator/components/Anchor/Anchor.component';
 import { HiddenComponent } from '@L3Process/system/modules/formGenerator/components/Hidden/Hidden.component';
 import { BlankComponent } from '@L3Process/system/modules/formGenerator/components/Blank/Blank.component';
@@ -37,7 +37,7 @@ const components: { [type: string]: Type<Field> } = {
   RAD: RadioComponent,
   MSL: MultiSelectComponent,
   EML: EmailComponent,
-  FIL: FilComponent,
+  FIL: FileComponent,
   FST: FieldSetComponent,
   ANC: AnchorComponent,
   BLK: BlankComponent,

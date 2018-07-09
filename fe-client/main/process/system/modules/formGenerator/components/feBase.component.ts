@@ -148,7 +148,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
                 return;
             }
             if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
-                const argsArr = BaseComponent.evalFnArgs(args);
+                const argsArr = FeBaseComponent.evalFnArgs(args);
                 argsArr.push(this);
                 argsArr.push(event);
                 ownerObject[handlerFnName].apply(ownerObject, argsArr)

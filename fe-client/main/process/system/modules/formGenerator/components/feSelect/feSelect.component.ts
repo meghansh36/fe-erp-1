@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { BaseComponent } from '@L1Process/system/modules/formGenerator/components/Base.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/Base.component';
 
 @Component({
   selector: 'feSelect',
