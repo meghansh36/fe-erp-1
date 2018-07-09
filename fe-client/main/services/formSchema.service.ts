@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class FeFormSchemaService {
+export class FormSchemaService {
 
   constructor() { }
 

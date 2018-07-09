@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
-import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/Base.component';
 
 @Component({
     selector: 'fe-textarea',
@@ -9,7 +9,7 @@ import { BaseComponent } from '@L3Process/system/modules/formGenerator/component
         '(keypress)': '_onKeypress($event)',
     }
 })
-export class TextAreaComponent extends BaseComponent {
+export class FeTextAreaComponent extends BaseComponent {
     public length: number = 0;
     _onKeypress(e) {
         if (this.hasMaxLength) {

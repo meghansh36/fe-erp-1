@@ -1,4 +1,4 @@
-import { LgMultiSelect } from '@L2Process/system/modules/formGenerator/components/MultiSelect/MultiSelect.component';
+import { LgMultiSelectComponent } from '@L2Process/system/modules/formGenerator/components/lgMultiSelect/lgMultiSelect.component';
 
-export class MultiSelect extends LgMultiSelect {
+export class MultiSelectComponent extends LgMultiSelectComponent {
 }

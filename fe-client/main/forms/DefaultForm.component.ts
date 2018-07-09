@@ -1,5 +1,5 @@
 import { OnInit, Input, AfterViewInit } from '@angular/core';
-import { FeFormSchemaService } from '@L1Main/services/formSchema.service';
+import { FormSchemaService } from '@L1Main/services/formSchema.service';
 
 
 export class DefaultFormComponent implements OnInit, AfterViewInit {
@@ -13,7 +13,7 @@ export class DefaultFormComponent implements OnInit, AfterViewInit {
 
     public formComponent;
 
-    constructor(protected formSchemaService: FeFormSchemaService) { }
+    constructor(protected formSchemaService: FormSchemaService) { }
 
     ngOnInit() {
         this.init();

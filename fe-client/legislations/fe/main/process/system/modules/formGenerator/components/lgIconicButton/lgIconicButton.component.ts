@@ -6,6 +6,6 @@ import { FeButtonComponent } from '@L1Process/system/modules/formGenerator/compo
   styleUrls: ['./feIconicButton.component.css'],
   templateUrl: './feIconicButton.component.html'
 })
-export class FeIconicButtonComponent extends FeButtonComponent {
+export class LgIconicButtonComponent extends FeButtonComponent {
 
 }

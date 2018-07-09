@@ -1,11 +1,4 @@
-import { Component } from '@angular/core';
-import { FeBaseComponent } from '@L1Process/system/modules/formGenerator/components/feBase.component';
+import { FeNumberComponent } from '@L1Process/system/modules/formGenerator/components/feNumber/feNumber.component';
 
-@Component({
-  selector: 'fe-number',
-  styleUrls: ['feNumber.component.css'],
-  templateUrl: 'feNumber.component.html'
-})
-export class FeNumberComponent extends FeBaseComponent {
-  
+export class LgNumberComponent extends FeNumberComponent {
 }

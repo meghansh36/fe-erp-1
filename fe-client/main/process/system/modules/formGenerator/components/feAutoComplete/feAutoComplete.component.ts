@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/Base.component';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
   styleUrls: ['feAutoComplete.component.css'],
   templateUrl: 'feAutoComplete.component.html'
 })
-export class AutoCompleteComponent extends BaseComponent {
+export class FeAutoCompleteComponent extends BaseComponent {
   @ViewChild('block') block: ElementRef;
   private states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
     'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',

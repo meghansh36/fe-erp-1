@@ -1,14 +1,14 @@
 import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/feValidators.service';
-import { Field } from '@L3Process/system/modules/formGenerator/models/field.interface';
-import { FieldConfig } from '@L3Process/system/modules/formGenerator/models/field-config.interface';
+import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/validators.service';
+import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
+import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
 
 
 @Injectable()
-export class BaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
+export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
 
     public config: FieldConfig;
     public group: FormGroup;
@@ -78,7 +78,7 @@ export class BaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
 
 
 
-    constructor(public elemRef: ElementRef, public validator: FeValidatorsService, public render: Renderer2) {
+    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2) {
         this.defaultFieldWidth = '50%';
     }
 
@@ -148,7 +148,7 @@ export class BaseComponent implements Field, OnInit, OnDestroy, AfterViewInit {
                 return;
             }
             if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
-                const argsArr = FeBaseComponent.evalFnArgs(args);
+                const argsArr = BaseComponent.evalFnArgs(args);
                 argsArr.push(this);
                 argsArr.push(event);
                 ownerObject[handlerFnName].apply(ownerObject, argsArr)

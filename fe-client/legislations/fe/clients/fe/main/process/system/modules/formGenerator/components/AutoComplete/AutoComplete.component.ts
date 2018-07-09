@@ -1,4 +1,4 @@
-import { LgAnchorComponent } from '@L2Process/system/modules/formGenerator/components/Anchor/Anchor.component';
+import { LgAnchorComponent } from '@L2Process/system/modules/formGenerator/components/lgAnchor/lgAnchor.component';
 
 export class AnchorComponent extends LgAnchorComponent {
 }

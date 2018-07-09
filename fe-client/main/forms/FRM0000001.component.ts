@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { DefaultFormComponent } from './DefaultForm.component';
-import { FeFormSchemaService } from '@L1Main/services/formSchema.service';
-import { FeDependentService } from '@L1Process/system/modules/formGenerator/services/dependent.service';
+import { FormSchemaService } from '@L1Main/services/formSchema.service';
+import { DependentService } from '@L3Process/system/modules/formGenerator/services/dependent.service';
 
 @Component({
     selector: 'FRM0000001',
     templateUrl: 'DefaultForm.component.html'
 })
 export class FRM0000001Component extends DefaultFormComponent {
-    constructor(public formSchemaService: FeFormSchemaService, public dependent: FeDependentService) {
+    constructor(public formSchemaService: FormSchemaService, public dependent: DependentService) {
         super(formSchemaService);
        this.instance = this;
         this.code = 'FRM0000001';

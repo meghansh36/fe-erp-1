@@ -14,7 +14,7 @@ import { routes  } from '@L3Process/default/modules/home/home.routing';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { FormGeneratorModule } from '@L1Process/system/modules/formGenerator/formGenerator.module';
+import { FormGeneratorModule } from '@L3Process/system/modules/formGenerator/formGenerator.module';
 
 
 // function getToken():string{

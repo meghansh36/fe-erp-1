@@ -1,4 +1,4 @@
-import { LgFileComponent } from '@L2Process/system/modules/formGenerator/components/File/File.component';
+import { LgFileComponent } from '@L2Process/system/modules/formGenerator/components/lgFile/lgFile.component';
 
 export class FileComponent extends LgFileComponent {
 }

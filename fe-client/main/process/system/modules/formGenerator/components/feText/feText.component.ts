@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/Base.component';
 
 @Component({
   selector: 'fe-text',
@@ -9,7 +9,7 @@ import { BaseComponent } from '@L3Process/system/modules/formGenerator/component
     '(keypress)': '_onKeypress($event)',
   }
 })
-export class TextComponent extends BaseComponent implements OnInit {
+export class FeTextComponent extends BaseComponent implements OnInit {
 
   public length: number = 0;
   _onKeypress(e) {

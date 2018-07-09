@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/feBase.component';
+import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/Base.component';
 
 const buttonThemeClasses = {
   "primary": "btn btn-primary",

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import { DependentService } from '@L3Process/system/modules/formGenerator/services/feDependent.service';
-import { FieldConfig } from '@L3Process/system/modules/formGenerator/models/field-config.interface';
+import { DependentService } from '@L3Process/system/modules/formGenerator/services/dependent.service';
+import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
 import * as _ from 'lodash';
 
@@ -11,7 +11,7 @@ import * as _ from 'lodash';
   styleUrls: ['feForm.component.css'],
   templateUrl: 'feForm.component.html'
 })
-export class FormComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
+export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
   @Input()
   schema: any;
 
