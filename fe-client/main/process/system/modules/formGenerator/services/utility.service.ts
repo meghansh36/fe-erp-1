@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class FeUtilityService {
+   
     evalFnArgs(argsStr) {
         try {
             const evaluatedArgsArr = [];
@@ -19,30 +20,30 @@ export class FeUtilityService {
         }
     }
 
-    fieldEventHandler(eventName, handlerData, form, event) {
+    fieldEventHandler(eventName, handlerData, fieldComponent, event) {
         try {
-            console.log(handlerData);
             let handlerOwnerType = handlerData.handlerOwner;
             const handlerFnName = handlerData.handlerName;
             const args = handlerData.args;
             let ownerObject: any = {};
-            if (!handlerOwnerType) {
+            if (!handlerOwnerType || handlerOwnerType == 'form' ) {
                 handlerOwnerType = 'form';
+            } else if ( handlerOwnerType == 'resource' ) {
+                handlerOwnerType = 'resource';
+            } else {
+                console.log(`Handler owner type ${handlerOwnerType} is not supported.`);
+                return;
             }
-            ownerObject = form; //this.resource or this.form
-            console.log(form);
+            ownerObject = fieldComponent[ handlerOwnerType ]; //this.resource or this.form
             if (!ownerObject) {
                 console.log(`Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.`);
                 return;
             }
-            if (!ownerObject) {
-                console.log(`Event handler type ${handlerOwnerType} does not exist in field component class`);
-                return;
-            }
+            
             if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
                 const argsArr = this.evalFnArgs(args);
-                argsArr.push(this);
-                argsArr.push(event);
+                argsArr.push( fieldComponent );
+                argsArr.push( event );
                 ownerObject[handlerFnName].apply(ownerObject, argsArr)
             } else {
                 console.log(`Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName}`);
