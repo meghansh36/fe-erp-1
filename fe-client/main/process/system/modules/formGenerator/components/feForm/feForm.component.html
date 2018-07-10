@@ -3,6 +3,8 @@
             [formComponent]="instance">
       </ng-container>
 </form>
-<ng-container *ngFor="let btn of _buttons">
-      <feFormButton [buttonConfig]="btn" [group]="form" [form]="formInstance"></feFormButton>
-</ng-container>
+<div class="form-buttons">
+      <ng-container *ngFor="let btn of _buttons">
+            <feFormButton [buttonConfig]="btn" [group]="form" [form]="formInstance"></feFormButton>
+      </ng-container>
+</div>

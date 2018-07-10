@@ -84,6 +84,12 @@
 .form-btn i {
     vertical-align: middle;
 }
+.form-buttons {
+  display: flex;
+}
+.form-buttons feformbutton {
+  margin-left: 10px;
+}
 
 .text-length-info-container .text-length-info {
     float: right;
