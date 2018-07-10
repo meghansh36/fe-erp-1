@@ -50,7 +50,7 @@ export class FeFormButtonComponent implements OnInit, AfterViewInit {
         const field = this.fieldRef;
         for (let eventName in eventsObjArr) {
           console.log(field);
-          this.render.listen(field, eventName, this.utilityService.fieldEventHandler.bind(this.utilityService, eventName, eventsObjArr[eventName], this.form));
+          this.render.listen(field, eventName, this.utilityService.fieldEventHandler.bind(this.utilityService, eventName, eventsObjArr[eventName], this));
         }
       }
     } catch (error) {
