@@ -30,6 +30,7 @@ import { AnchorComponent } from '@L3Process/system/modules/formGenerator/compone
 import { BlankComponent } from '@L3Process/system/modules/formGenerator/components/Blank/Blank.component';
 import { HtmlEditorComponent } from '@L3Process/system/modules/formGenerator/components/HtmlEditor/HtmlEditor.component';
 import { IconicButtonComponent } from '@L3Process/system/modules/formGenerator/components/IconicButton/IconicButton.component';
+import { FeFormButtonComponent } from '@L1Process/system/modules/formGenerator/components/feFormButtons/feFormButton.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
   optionValueField: 'code',
@@ -68,7 +69,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     AnchorComponent,
     BlankComponent,
     IconicButtonComponent,
-    HtmlEditorComponent
+    HtmlEditorComponent,
+    FeFormButtonComponent
   ],
   exports: [
     FormComponent,

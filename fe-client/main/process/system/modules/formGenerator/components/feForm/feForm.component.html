@@ -1,5 +1,8 @@
-<form [attr.id]="code" class="feForm" [formGroup]="form"  (submit)="handleSubmit($event)">
+<form [attr.id]="code" class="feForm" [formGroup]="form" (submit)="handleSubmit($event)">
       <ng-container *ngFor="let field of components;" feField [form]="formInstance" [schema]="schema" [config]="field" [group]="form"
             [formComponent]="instance">
       </ng-container>
 </form>
+<ng-container *ngFor="let btn of _buttons">
+      <feFormButton [buttonConfig]="btn" [group]="form" [form]="formInstance"></feFormButton>
+</ng-container>

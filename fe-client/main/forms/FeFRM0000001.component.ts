@@ -11,9 +11,9 @@ import { DependentService } from '@L3Process/system/modules/formGenerator/servic
 export class FeFRM0000001Component extends DefaultFormComponent {
     constructor(public formSchemaService: FormSchemaService, public dependent: DependentService) {
         super(formSchemaService);
-       this.instance = this;
+        this.instance = this;
         this.code = 'FRM0000001';
-       
+
     }
 
     asyncCustomPatternValidator(control: AbstractControl): { [key: string]: any } {
@@ -28,12 +28,17 @@ export class FeFRM0000001Component extends DefaultFormComponent {
             }, 1000);
         });
     }
-    
-    onUserNameChanged( ...args ) {
+
+    onUserNameChanged(...args) {
         console.log("Form class onUserNameChanged called argument:", args);
     }
 
-    onPassWordInput(  ...args ) {
+    onPassWordInput(...args) {
         console.log("Form class onPassWordInput called argument:", args);
     }
+
+    submitForm(...args) {
+        console.log("Form Submitted",args);
+    }
+
 }

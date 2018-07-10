@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '@L3Process/system/modules/formGenerator/components/Base.component';
 
 const buttonThemeClasses = {
@@ -43,16 +43,16 @@ export class FeButtonComponent extends BaseComponent {
 
   defaultTheme: string = 'secondary';
 
-  beforeSetDefaultClasses( classesObj ) {
-    console.log('beforeSetDefaultClasses for field ', this.type, this.icon );
-    let themeClass = buttonThemeClasses[ this.theme ];
-    if ( !themeClass ) {
-      themeClass = buttonThemeClasses[ this.defaultTheme ];
+  beforeSetDefaultClasses(classesObj) {
+    console.log('beforeSetDefaultClasses for field ', this.type, this.icon);
+    let themeClass = buttonThemeClasses[this.theme];
+    if (!themeClass) {
+      themeClass = buttonThemeClasses[this.defaultTheme];
     }
-    classesObj[ 'fieldClasses' ][ themeClass ] = true;
+    classesObj['fieldClasses'][themeClass] = true;
 
-    if ( this.size ) {
-      classesObj[ 'fieldClasses' ][ buttonSizeClasses[ this.size ] ] = true;
+    if (this.size) {
+      classesObj['fieldClasses'][buttonSizeClasses[this.size]] = true;
     }
     return classesObj;
   }
