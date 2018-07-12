@@ -1,19 +1,19 @@
 import { Component, Input, OnInit, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FeUtilityService } from '@L1Process/system/modules/formGenerator/services/utility.service';
+import { UtilityService } from '@L3Process/system/modules/formGenerator/services/utility.service';
 
 @Component({
   selector: 'feFormButton',
   styleUrls: ['feFormButton.component.css'],
   templateUrl: 'feFormButton.component.html'
 })
-export class FeFormButtonComponent implements OnInit, AfterViewInit {
+export class FeFormButtonsComponent implements OnInit, AfterViewInit {
 
   @Input() buttonConfig: any;
   @Input() group: FormGroup;
   @Input() form: any;
 
-  constructor(public elemRef: ElementRef, public render: Renderer2, public utilityService: FeUtilityService) { }
+  constructor(public elemRef: ElementRef, public render: Renderer2, public utilityService: UtilityService) { }
 
   get label() {
     return this.buttonConfig.label;

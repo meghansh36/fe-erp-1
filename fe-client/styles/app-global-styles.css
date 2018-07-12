@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 /*---------------------{  Style for managing form field label position. */
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
 .hidden {
     display: none !important;
@@ -99,7 +102,12 @@
     content: "*";
     color: red;
 }
-
+.margin_top {
+  margin-top: auto;
+}
+.pointer {
+  cursor: pointer;
+}
 .valid-field-label {
     color: green;
 }
@@ -119,6 +127,11 @@ fe-fieldset {
 .fst-fields-container {
     display: flex;
     flex-flow: row wrap;
+}
+
+.grid-li {
+  margin-left: 10px;
+  list-style-type: none;
 }
 
 .ngx-select__selected .ngx-select__selected-plural {
