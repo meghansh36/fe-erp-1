@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { FeDataTableService } from '@L1Process/system/modules/gridGenerator/services/feDataTable.service';
-//import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
-import { DataTable } from '../../models/data-table.interface';
+import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';

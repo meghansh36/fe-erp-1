@@ -1,9 +1,8 @@
 import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
+import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { DataTable } from '../models/data-table.interface';
 
 @Injectable({
     providedIn: 'root'
