@@ -338,7 +338,7 @@
                         </label>
                         <!-- <textarea ngModel name="ckSettings" id="ckSetting"  rows="3" class='form-control' ngModel [(ngModel)]="componentData.ckSettings">
                         </textarea> -->
-                        <json-editor [(ngModel)]="componentData.ckSetting" id="ckSetting" jsonModal name="ckSetting" [config]="jsonEditorConfig"  #ckSetting='ngModel' required >
+                        <json-editor [(ngModel)]="componentData.ckSetting" id="ckSetting" jsonModal name="ckSetting" [config]="jsonEditorConfig"  #ckSetting='ngModel' >
                           </json-editor>
                       </div>
                       </div>
@@ -452,7 +452,7 @@
                         <textarea class="form-control" rows="3" id="error-label" placeholder='Sql' [(ngModel)]='componentData.defaultValueSqlQuery' ngModel name='defaultValueSqlQuery'
                           #defaultValueSqlQuery='ngModel' required></textarea>
 
-                        <div class="alert alert-danger" *ngIf='defaultValueSqlQuery.touched && defaultValueSqlQueryQuery.invalid'>Sql Query is required.
+                        <div class="alert alert-danger" *ngIf='defaultValueSqlQuery.touched && defaultValueSqlQuery.invalid'>Sql Query is required.
 
                         </div>
                       </div>
@@ -718,7 +718,7 @@
                         <!-- <textarea class="form-control" rows="3" id="valid" placeholder="Provide a json string." #customFuncValidationVal="ngModel" name='customFuncValidationVal'
                         ngModel [(ngModel)]='componentData.customFuncValidationVal'>
                       </textarea> -->
-                      <json-editor id = "validationEditor" [(ngModel)]="componentData.customFuncValidationVal" jsonModal name="customFuncValidationVal" [config]="jsonEditorConfig"  #customFuncValidationVal='ngModel' required >
+                      <json-editor id = "validationEditor" [(ngModel)]="componentData.customFuncValidationVal" jsonModal name="customFuncValidationVal" [config]="jsonEditorConfig"  #customFuncValidationVal='ngModel' >
                         </json-editor>
                       <div class="alert alert-danger" *ngIf='customFuncValidationVal.touched && customFuncValidationVal.invalid'>Please provide json  value.</div>
                       </div>
@@ -756,7 +756,7 @@
                         <!-- <textarea class="form-control" rows="3" id="jsonLogicVal" placeholder='Provide JSON for JSON Logic. ' [(ngModel)]='componentData.jsonLogicVal' #jsonLogicVal="ngModel"
                           ngModel name='jsonLogicVal'>
                         </textarea> -->
-                        <json-editor id = "jsonLogicVal" [(ngModel)]="componentData.jsonLogicVal" jsonModal name="jsonLogicVal" [config]="jsonEditorConfig"  #jsonLogicVal='ngModel' required >
+                        <json-editor id = "jsonLogicVal" [(ngModel)]="componentData.jsonLogicVal" jsonModal name="jsonLogicVal" [config]="jsonEditorConfig"  #jsonLogicVal='ngModel' >
                           </json-editor>
                         <div class="alert alert-danger" *ngIf='jsonLogicVal.touched && jsonLogicVal.invalid'>Please provide json string value.</div>
                       </div>
@@ -791,7 +791,7 @@
                           <!-- <textarea class="form-control" rows="3" id="formClassValidationVal" placeholder='JSON for form class validation' [(ngModel)]="componentData.formClassValidationVal"
                             ngModel name='formClassValidationVal' #formClassValidationVal="ngModel" class='form-control'>
                           </textarea> -->
-                          <json-editor id="formClassValidationVal" [(ngModel)]="componentData.formClassValidationVal" jsonModal name="formClassValidationVal" [config]="jsonEditorConfig"  #formClassValidationVal='ngModel' required >
+                          <json-editor id="formClassValidationVal" [(ngModel)]="componentData.formClassValidationVal" jsonModal name="formClassValidationVal" [config]="jsonEditorConfig"  #formClassValidationVal='ngModel' >
                             </json-editor>
                           <div class="alert alert-danger" *ngIf='formClassValidationVal.touched && formClassValidationVal.invalid'>Please provide json string value.</div>
                       </div>
@@ -816,7 +816,7 @@
                           </label>
                           <!-- <textarea ngModel name="events" id="events"  rows="3" class='form-control' ngModel [(ngModel)]="componentData.events" placeholder="JSON.">
                           </textarea> -->
-                          <json-editor id="events"  [(ngModel)]="componentData.events" jsonModal name="events" [config]="jsonEditorConfig"  #events='ngModel' required >
+                          <json-editor id="events"  [(ngModel)]="componentData.events" jsonModal name="events" [config]="jsonEditorConfig"  #events='ngModel' >
                             </json-editor>
                         </div>
                     </div>
@@ -912,7 +912,7 @@
                         <!-- <textarea class="form-control" rows="3" id="condition" placeholder='JSON' [(ngModel)]='componentData.condition'
                           ngModel name='condition'>
                         </textarea> -->
-                        <json-editor id="condition"  [(ngModel)]="componentData.condition" jsonModal name="condition" [config]="jsonEditorConfig"  #condition='ngModel' required >
+                        <json-editor id="condition"  [(ngModel)]="componentData.condition" jsonModal name="condition" [config]="jsonEditorConfig"  #condition='ngModel' >
                           </json-editor>
                       </div>
 
@@ -938,7 +938,7 @@
                           <!-- <textarea class="form-control" rows="3" id="fldDisabledCondition" placeholder='JSON' [(ngModel)]='componentData.condifldDisabledConditiontion'
                             ngModel name='fldDisabledCondition'>
                           </textarea> -->
-                          <json-editor id="fldDisabledCondition" [(ngModel)]="componentData.fldDisabledCondition" jsonModal name="fldDisabledCondition" [config]="jsonEditorConfig"  #fldDisabledCondition='ngModel' required >
+                          <json-editor id="fldDisabledCondition" [(ngModel)]="componentData.fldDisabledCondition" jsonModal name="fldDisabledCondition" [config]="jsonEditorConfig"  #fldDisabledCondition='ngModel' >
                             </json-editor>
                         </div>
 

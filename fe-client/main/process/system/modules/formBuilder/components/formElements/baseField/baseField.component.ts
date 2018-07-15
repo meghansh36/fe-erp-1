@@ -1,10 +1,13 @@
 import { FormMasterService } from "@L3Process/system/modules/formBuilder/services/formMaster.service";
 import { FieldControlService } from "@L3Process/system/modules/formBuilder/services/fieldControl.service";
-import { Injectable, OnInit, DoCheck } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/formJson.service";
+import * as _ from 'lodash';
+
 
 @Injectable()
-export class FeBaseField  implements OnInit, DoCheck {
+export class FeBaseField  implements OnInit {
+	showEdit = true;
   uniqueKey;
   refObj;
   componentname;
@@ -72,14 +75,14 @@ export class FeBaseField  implements OnInit, DoCheck {
   	// jsonLogicValFlag:true,
   	jsonLogicVal: true,
   	// formClassValFlag:true,
-	formClassValidationVal: true,
-	minimumLength:true,
-	maximumLength:true,
-	events: true,
-	condition: true,
-	type: true,
-	fldDisabledCondition: true,
-	active: true
+		formClassValidationVal: true,
+		minimumLength:true,
+		maximumLength:true,
+		events: true,
+		condition: true,
+		type: true,
+		fldDisabledCondition: true,
+		active: true
   };
 
   public properties:any = {
@@ -128,30 +131,32 @@ export class FeBaseField  implements OnInit, DoCheck {
 		public fieldControlService: FieldControlService,
 		public masterFormService: FormMasterService,
 		public formJsonService: FormJsonService
-  ) { 
-	  
-  }
-
-  ngDoCheck() {
-	  
-  }
+  ) { }
 
   ngOnInit() {
-	
+		console.log("initialized a new instance 1", this.properties);
+    this.setRef(this.fieldControlService.getFieldRef().ref);
+    this.uniqueKey = this.masterFormService.getCurrentKey();
+    this.masterFormService.setProperties(this.properties);
   }
 
-  setRef(reference) {
+  public setRef(reference) {
 		this.refObj = reference;
-		console.log('ref', reference)
   }
 
-  close() {
+  public close() {
 		this.formJsonService.removeComponent(this.uniqueKey);
 		this.refObj.destroy();
 		this.formJsonService.buildFinalJSON();
   }
 
-  openModal() {
-	  
+  public openModal() {
+    this.masterFormService.setCurrentKey(this.uniqueKey);
+    this.masterFormService.setProperties(this.properties);
+    this.fieldControlService.getFieldRef().parent.openModal();
+  }
+
+  public update(propsFromMasterForm) {
+    this.properties = _.assignIn({}, propsFromMasterForm);
   }
 }

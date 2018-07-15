@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
 @Component({
@@ -7,15 +6,16 @@ import { FeBaseField } from '../baseField/baseField.component';
   templateUrl: './btn.component.html',
   styleUrls: ['./btn.component.css', '../baseField/baseField.component.css']
 })
-export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
+export class FeBtnComponent extends FeBaseField implements OnInit{
   showEdit = true;
   properties = {
 		btnTheme: 'default',
 		btnSize: 'small',
 		btnLeftIcon:  '',
 		btnRightIcon: '',
+		type: 'BTN',
 		...this.properties
-};
+	};
 
   applicableProperties={
 		btnTheme: true,
@@ -24,49 +24,30 @@ export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
   	btnRightIcon: true,
   	btnAction: true,
 		btnActArgs: true,
-	...this.applicableProperties
-}
-
-  ngOnInit() {
-
-	// this.properties = {
-	//   label: 'test',
-	//   prefix: '',
-	//   suffix: '',
-	//   description: '',
-	//   placeholder: 'test',
-	//   tooltip: ''
-	// };
-	console.log("initialized a new instance", this.properties);
-	this.setRef(this.fieldControlService.getFieldRef().ref);
-	this.uniqueKey = this.masterFormService.getCurrentKey();
-	console.log(this.uniqueKey);
-   // this.masterFormService.setCurrentKey(this.uniqueKey);
-	this.masterFormService.setProperties(this.properties);
-	// this.applicableProperties={
-	//   ...this.textApplicableProperties,
-	//   ...this.applicableProperties
-	// }
-
-		console.log("base field property is ",this.applicableProperties);
-
-  }
-
-  ngDoCheck() {
-  //   const propsFromMasterForm = this.masterFormService.getProperties(this.uniqueKey);
-  //  // console.log("master form props", propsFromMasterForm);
-  //   if (propsFromMasterForm) {
-  //     this.update(propsFromMasterForm);
-  // }
-}
-
-  openModal() {
-	this.masterFormService.setCurrentKey(this.uniqueKey);
-	this.masterFormService.setProperties(this.properties);
-	this.fieldControlService.getFieldRef().parent.openModal();
-  }
-
-  update(propsFromMasterForm) {
-	this.properties = _.assignIn({}, propsFromMasterForm);
-  }
+		label:true,
+  	hideLabel:true,
+  	labelPosition:true,
+		tooltip:true,
+		customCssClass:true,
+  	tabIndex:true,
+  	marginTop:true,
+  	marginRight:true,
+  	marginLeft:true,
+		marginBottom:true,
+		hidden: true,
+		disabled: true,
+		flexiLabel: true,
+		validations: true,
+  	// customValFuncFlag:true,
+  	customFuncValidationVal: true,
+  	// jsonLogicValFlag:true,
+  	jsonLogicVal: true,
+  	// formClassValFlag:true,
+		formClassValidationVal: true,
+		events: true,
+		condition: true,
+		type: true,
+		fldDisabledCondition: true,
+		active: true
+	}
 }
