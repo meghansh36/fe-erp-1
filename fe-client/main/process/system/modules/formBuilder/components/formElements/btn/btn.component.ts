@@ -10,51 +10,45 @@ import { FeBaseField } from '../baseField/baseField.component';
 export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
   showEdit = true;
   properties = {
-  label: 'test',
-  prefix: '',
-  suffix: '',
-  description: '',
-  placeholder: 'test',
-  tooltip: '',
-  ...this.properties  
+		btnTheme: 'default',
+		btnSize: 'small',
+		btnLeftIcon:  '',
+		btnRightIcon: '',
+		...this.properties
 };
 
   applicableProperties={
-    action:true,
-    theme:true,
-    size:true,
-    leftIcon:true,
-    rightIcon:true,
-    hidden:true,
-    disabled:true,
-    appliedValidation:true,
-    customFunction:true,
-    jsonLogic:true,
-    ...this.applicableProperties
+		btnTheme: true,
+    btnSize: true,
+  	btnLeftIcon:  true,
+  	btnRightIcon: true,
+  	btnAction: true,
+		btnActArgs: true,
+	...this.applicableProperties
 }
 
   ngOnInit() {
 
-    // this.properties = {
-    //   label: 'test',
-    //   prefix: '',
-    //   suffix: '',
-    //   description: '',
-    //   placeholder: 'test',
-    //   tooltip: ''
-    // };
-    console.log("initialized a new instance", this.properties);
-    this.setRef(this.fieldControlService.getFieldRef().ref);
-    this.uniqueKey = this.masterFormService.getCurrentKey();
-    console.log(this.uniqueKey);
+	// this.properties = {
+	//   label: 'test',
+	//   prefix: '',
+	//   suffix: '',
+	//   description: '',
+	//   placeholder: 'test',
+	//   tooltip: ''
+	// };
+	console.log("initialized a new instance", this.properties);
+	this.setRef(this.fieldControlService.getFieldRef().ref);
+	this.uniqueKey = this.masterFormService.getCurrentKey();
+	console.log(this.uniqueKey);
    // this.masterFormService.setCurrentKey(this.uniqueKey);
-    this.masterFormService.setProperties(this.properties);
-    // this.applicableProperties={
-    //   ...this.textApplicableProperties,
-    //   ...this.applicableProperties
-    // }
+	this.masterFormService.setProperties(this.properties);
+	// this.applicableProperties={
+	//   ...this.textApplicableProperties,
+	//   ...this.applicableProperties
+	// }
 
-    console.log("base field property is ",this.applicableProperties);
+		console.log("base field property is ",this.applicableProperties);
 
   }
 
@@ -67,12 +61,12 @@ export class FeBtnComponent extends FeBaseField  implements OnInit, DoCheck {
 }
 
   openModal() {
-    this.masterFormService.setCurrentKey(this.uniqueKey);
-    this.masterFormService.setProperties(this.properties);
-    this.fieldControlService.getFieldRef().parent.openModal();
+	this.masterFormService.setCurrentKey(this.uniqueKey);
+	this.masterFormService.setProperties(this.properties);
+	this.fieldControlService.getFieldRef().parent.openModal();
   }
 
   update(propsFromMasterForm) {
-    this.properties = _.assignIn({}, propsFromMasterForm);
+	this.properties = _.assignIn({}, propsFromMasterForm);
   }
 }

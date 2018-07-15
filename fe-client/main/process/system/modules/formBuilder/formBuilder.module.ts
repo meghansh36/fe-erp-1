@@ -37,7 +37,8 @@ import { SelComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { MslComponent } from '@L3Process/system/modules/formBuilder/components/formElements/msl/msl.component';
 import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/formElements/icb/icb.component';
 import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
-
+import { NgxSelectModule } from 'ngx-select-ex';
+import { JSONEditorModule } from 'ngx-jsoneditor';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/f
   ],
   imports: [
     CommonModule,
+    NgxSelectModule,
     NgbModule,
     DndModule.forRoot(),
     FormBuilderRoutes,
@@ -77,7 +79,8 @@ import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/f
     SortablejsModule.forRoot({ animation: 500 }),
     DragulaModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JSONEditorModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,

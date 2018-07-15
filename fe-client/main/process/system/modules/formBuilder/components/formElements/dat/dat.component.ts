@@ -9,21 +9,19 @@ import * as _ from 'lodash';
 export class FeDatComponent extends FeBaseField implements OnInit, DoCheck {
 
   showEdit = true;
-  properties = {
-  label: 'test',
-  prefix: '',
-  suffix: '',
-  description: '',
-  placeholder: 'test',
-  tooltip: '',
-  ...this.properties  
+    properties = {
+    minimumDate: '',
+    maximumDate: '',
+    dateTimeFormat: '',
+    dateFormat: '',
+  ...this.properties
 };
 
-  applicableProperties={
-    inputMask:true,
-    placeholder:true,
-    prefix:true,
-    suffix:true,
+  applicableProperties = {
+    minimumDate: true,
+    maximumDate: true,
+    dateTimeFormat: true,
+    dateFormat: true,
     ...this.applicableProperties
 
 }
