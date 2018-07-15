@@ -1,9 +1,9 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
-import { Component, ViewEncapsulation, OnInit, DoCheck,
+import { Component, ViewEncapsulation, OnInit,
   ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import { NgBootstrapService } from '@L3Main/services/NgBootstrap.service';
+import { NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
-import { clearOverrides } from '@angular/core/src/view';
 import { builderFieldCompInterface } from './masterForm.interface';
 import * as _ from 'lodash';
 import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
@@ -16,35 +16,25 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 }
 )
 
-export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
+export class FeMasterFormComponent implements OnInit, OnDestroy{
 
-  Json = {id: 'FRM000001', name: '',code:'FRM000001',formLabel:'',display:'',components: []};
-  // @ViewChild('f')tempData;
+  Json = {id: 'FRM000001', name: '',code:'FRM000001',formLabel:'',display:'',hidden: false, disabled: false,conditionalHidden: '', conditionalDisabled: '', active:true, help: '', components: []};
   backupProps;
   componentData = <builderFieldCompInterface>{};
   modalRef: NgbModalRef;
   instance;
   showEdit: boolean;
   currentKey;
-
+  jsonHelp;
+  jsonEditorConfig;
+  //appliedValidations;
   @ViewChild('preview', {read: ViewContainerRef}) preview: ViewContainerRef;
-  constructor(private modalService: NgbModal, private masterFormService: FormMasterService,
+  constructor(private masterFormService: FormMasterService,
               public fieldControlService: FieldControlService,
               private componentFactoryResolver: ComponentFactoryResolver,
-              private formJsonService: FormJsonService
+              private formJsonService: FormJsonService,
+              private _ngBootstrap: NgBootstrapService
     ) {
-    // this.Json.components.push(this.componentData.name);
-    // console.log(this.fieldControlService.getFieldRef().ref);
-    this.Json.name=this.masterFormService.name;
-    this.Json.display=this.masterFormService.display;
-    this.Json.formLabel=this.masterFormService.formLabel;
-
-
-  }
-
-  ngDoCheck() {
-
-
   }
 
 
@@ -52,40 +42,143 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
+    this.init();
+  }
 
+  init() {
+    this.jsonEditorConfig = {
+       mode: 'code', onChange: this.update 
+    };
+    this.jsonHelp = {
+        lovHelp: 
+        {
+          'options':[{
+            'code': 'IND',
+            'meaning': 'India',
+            'tip': 'India'
+          }, 
+          {
+            'code': 'USA',
+            'meaning': 'USA',
+            'tip': 'USA'
+          }]
+        },
+        customFuncValidationHelp: 
+        {
+          yearlimit: {
+            validatorFn: " if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; ",
+            message: 'Year should be greater than 2010'
+          },
+          agelimit: {
+            validatorFn:`if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; `,
+            message: 'Age should be greater than 50'
+          }
+        },
+        enableCkHelp:
+        {
+
+        },
+        jsonLogicValHelp: 
+        {
+          condition1: {
+            "and": [
+              { "===": [{ "var": "username.value" }, 'cool'] },
+              { "===": [{ "var": "number.value" }, 155] }
+            ]
+          },
+          condition2: {
+            "and": [
+              { "===": [{ "var": "someFieldControl.value" }, 'value'] },
+              { "===": [{ "var": "someOtherFieldControl.value" }, 155] }
+            ]
+          }
+      },
+      formClassValidationValHelp: {//{valName:'Message'}
+        customPattern: {
+          message: 'Custom pattern is not correct.',
+          validatorFuncName: 'asyncCustomPatternValidator'
+        },
+        someOtherValidationName: {
+          message: 'Error Message',
+          validatorFuncName: 'formClassFunctionName'
+        }
+      },
+      eventsHelp: {
+        change: {
+          handlerOwner: 'form',
+          handlerName: '',
+          args: "'arg one','arg2' ,'arg 3'"
+        },
+        focus: {
+          handlerOwner: 'resource',
+          handlerName: 'onUserNameFocus',
+          args: "'arg one','arg2' ,'arg 3'"
+        }
+      },
+      conditionHelp: {
+        'simple': {
+          'show': false,
+          'when': 'number',
+          'eq': 15
+        },
+        'advanced': ['var show; return show = controls.number.value == 150 ? true : false;','var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
+        "json": {
+          "condition": {
+            "and": [
+              { "===": [{ "var": "username.value" }, 'apple'] },
+              { "===": [{ "var": "number.value" }, 15] }
+            ]
+          },
+          "condition1": {
+            "and": [
+              { "===": [{ "var": "someControl.value" }, 'someValue'] },
+              { "===": [{ "var": "someOtherControl.value" }, 'value'] }
+            ]
+          }
+        }
+      },
+      fldDisabledConditionHelp: {
+        'simple': {
+          'show': false,
+          'when': 'number',
+          'eq': 15
+        },
+        'advanced': ['var disable; return disable = controls.number.value == 150 ? true : false;','var disable; return disable = controls.otherControl.value == 150 ? true : false;'],
+        "json": {
+          "condition": {
+            "and": [
+              { "===": [{ "var": "username.value" }, 'apple'] },
+              { "===": [{ "var": "number.value" }, 15] }
+            ]
+          },
+          "condition1": {
+            "and": [
+              { "===": [{ "var": "someControl.value" }, 'someValue'] },
+              { "===": [{ "var": "someOtherControl.value" }, 'value'] }
+            ]
+          }
+        }
+      }
+    };
   }
 
   close() {
-    this.modalRef.close();
+    this._ngBootstrap.closeModal( this.modalRef );
   }
 
   onReset() {
     this.instance.properties = _.assign({}, this.backupProps);
     this.componentData = _.assignIn({}, this.backupProps);
+    console.log("Component data in reset", this.componentData);
   }
 
   onSubmit(form) {
-
-    console.log("after final submit json is ",form);
-
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
-    this.formJsonService.MasterJSON.id=this.Json.id;
-    this.formJsonService.MasterJSON.code=this.Json.code;
-    this.formJsonService.MasterJSON.name=this.Json.name;
-    this.formJsonService.MasterJSON.formLabel=this.Json.formLabel;
-    this.formJsonService.MasterJSON.display=this.Json.display;
-
-    this.Json.components.push(form);
-    // JSON.stringify(this.Json);
-
-
     this.masterFormService.setCurrentKey(this.currentKey);
-    //this.masterFormService.setProperties(form);
     this.masterFormService.setProperties(this.instance.properties);
     this.formJsonService.buildFinalJSON();
-
-    this.modalRef.close();
+    this.close();
   }
 
   createComponentFunc(component) {
@@ -94,44 +187,24 @@ export class FeMasterFormComponent implements OnInit,DoCheck,OnDestroy{
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.instance = componentRef.instance;
-    this.instance.showEdit = false;
     this.currentKey = this.masterFormService.getCurrentKey();
-    console.log("master form instance", this.instance);
+    this.initInstance();
+  }
+
+  initInstance() {
     const propsFromBuilder = this.masterFormService.getProperties(this.currentKey);
+    this.instance.showEdit = false;
     this.backupProps = propsFromBuilder;
     this.instance.properties = _.assignIn({}, propsFromBuilder);
-    this.componentData = _.assignIn({}, this.instance.properties);
+    this.componentData = this.instance.properties;
   }
 
   update(event) {
-
-    // if ( !this.componentData.hideLabel) { const masterJSON = this.masterJsonService.getMasterJSON();
-    //   this.instance.properties.label = this.componentData.label;
-    // } else {
-    //   this.instance.properties.label = undefined;
-    // }
-    // this.instance.properties.suffix = this.componentData.suffix;
-    // this.instance.properties.description = this.componentData.description;
-    // this.instance.properties.tooltip = this.componentData.tooltip;
-    if (this.componentData.hideLabel) {
-      this.componentData.label=undefined;
-     }
-     else
-     {
-        this.componentData.label=this.componentData.label;
-     }
     console.log(this.componentData);
-    //this.masterFormService.setProperties(this.componentData);
-    this.instance.properties = _.assignIn({}, this.componentData);
     console.log('instance props', this.instance.properties);
   }
 
   ngOnDestroy() {
-
     console.log(' destroy called show edit ',this.instance.showEdit);
   }
-
-
-
-
 }

@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
+import { Component } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 
@@ -8,9 +8,9 @@ import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
   templateUrl: './txt.component.html',
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
-export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
+export class FeTxtComponent extends FeBaseField  {
   showEdit = true;
-
+/* 
   properties = {
   ...this.properties,
   flexiLabel: 'username',
@@ -22,9 +22,9 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
   labelPosition: 'top',
   labelMargin: 10 ,
   width: '100%',
-};
+}; */
 
-  applicableProperties = {
+  /* applicableProperties = {
     ...this.applicableProperties,
     placeholder:true,
     description:true,
@@ -45,7 +45,7 @@ export class FeTxtComponent extends FeBaseField  implements OnInit, DoCheck {
     jsonLogic:true,
     ...this.applicableProperties
 
-};
+}; */
 
 // form = new FormGroup({
 //   username: new FormControl()

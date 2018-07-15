@@ -10,11 +10,16 @@ export class FeFormMasterService {
   currentEventType;
   key;
   Json;
-
-
   formLabel:string;
   name :string;
-  display='conventional';
+  display: string ='conventional';
+  disabled: boolean;
+  hidden: boolean;
+  conditionalHidden: string;
+  conditionalDisabled: string;
+  active: boolean;
+  help: string; 
+
 
   constructor(private masterJsonService: FormJsonService) {
     console.log('formBuider data',this.formLabel,this.name,this.display);

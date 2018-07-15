@@ -10,12 +10,7 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
 
   showEdit = true;
   properties = {
-  label: 'test',
-  prefix: '',
-  suffix: '',
-  description: '',
-  placeholder: 'test',
-  tooltip: '',
+    allowMultipleAddress: false,
   ...this.properties    
 };
 
@@ -23,25 +18,7 @@ export class FeAdrComponent extends FeBaseField  implements OnInit, DoCheck {
 
   applicableProperties=
   {
-    regionBias:true,
-    googleMapApi:true,
-    allowMultipleAddress:true,
-    inputFormat:true,
-    unique:true,
-    placeholder:true,
-    description:true,
-    clearValue:true,
-    hidden:true,
-    disabled:true,
-    appliedValidation:true,
-    minimumLength:true,
-    maximumLength:true,
-    regularExpression:true,
-    customErrorMessage:true,
-    customValidationFunction:true,
-    customJsonLogic:true,
-    customFunction:true,
-    jsonLogic:true,
+    allowMultipleAddress: true,
     ...this.applicableProperties
 
 

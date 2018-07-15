@@ -24,12 +24,12 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   form: FormGroup;
   instance: any;
   componentInstances: any;
-  private __disabled: boolean;
+  protected _disabled: boolean;
   components: FieldConfig[] = [];
   public $simpleConditionChange: any;
   public $groupValueChange: any;
   protected _schema: any;
-  public buttons: any;
+  protected _buttons: any;
 
 
   constructor(private fb: FormBuilder, private dependent: DependentService) {
@@ -50,19 +50,19 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   get value() { return this.form.value; }
 
   get disabled() {
-    return this.__disabled;
+    return this._disabled;
   }
 
   set disabled(disabled) {
-    this.__disabled = disabled;
+    this._disabled = disabled;
   }
 
-  get _buttons() {
-    return this.buttons;
+  get buttons() {
+    return this._buttons;
   }
 
-  set _buttons(button) {
-    this.buttons = button;
+  set buttons(button) {
+    this._buttons = button;
   }
 
   ngOnInit() {
@@ -70,14 +70,14 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
     this.components = this.schema.components;
     this.form = this.createGroup();
     if (this.formInstance.schema['condition']) {
-      let type = this.formInstance.schema.condition['type'];
-      let conditionHandlerName = `${type}EnableHandler`;
+      const type = this.formInstance.schema.condition['type'];
+      const conditionHandlerName = `${type}EnableHandler`;
       if (this[conditionHandlerName] && typeof this[conditionHandlerName] == 'function') {
         this[conditionHandlerName](this.formInstance.schema.condition[type]);
       }
     }
-    this._buttons = this.formInstance.schema['formButtons'];
-    console.log(this._buttons);
+    this.buttons = this.formInstance.schema['formButtons'];
+    console.log(this.buttons);
   }
 
   ngOnDestroy() {
@@ -90,7 +90,6 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   }
 
   simpleEnableHandler(condition: { [key: string]: any }) {
-    let disabled: boolean;
     this.$simpleConditionChange = this.form.controls[condition.when].valueChanges.subscribe((data) => {
       if (data == condition.eq) {
         this.form.disable({ emitEvent: false });
@@ -99,9 +98,9 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
   }
 
   advancedEnableHandler(condition: string) {
-    let theInstructions = new Function('controls', condition);
+    const theInstructions = new Function('controls', condition);
     function handler() {
-      let show = theInstructions(this.form.controls);
+      const show = theInstructions(this.form.controls);
       if (show == true) {
         this.form.disable({ emitEvent: false });
       }

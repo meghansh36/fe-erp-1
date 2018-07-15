@@ -10,43 +10,22 @@ import * as _ from 'lodash';
 export class FeTxaComponent extends FeBaseField  implements OnInit, DoCheck {
   showEdit = true;
   properties = {
-  label: 'test',
-  prefix: '',
-  suffix: '',
-  description: '',
-  placeholder: 'test',
-  tooltip: ''};
+    enableCk: true,
+    ckSettings: '',
+    enableSpellCheck: true,
+    rows: 5,
+    ...this.properties
+  };
 
   applicableProperties={
-    placeholder:true,
-    description:true,
-    inputMask:true,
-    prefix:true,
-    suffix:true,
-    clearValue:true,
-    hidden:true,
-    disabled:true,
-    minimumLength:true,
-    maximumLength:true,
-    regularExpression:true,
-    customErrorMessage:true,
-    customValidationFunction:true,
-    customJsonLogic:true,
-    marginTop:true,
-    customFunction:true,
-    jsonLogic:true,
-    rows:true,
+    enableSpellCheck: true,
     enableCk:true,
-    cksetting:true,
-    enableSpellCheck:true,
-    unique:true,
+    ckSettings:true,
+    rows: true,
     ...this.applicableProperties
-
-
 }
 
   ngOnInit() {
-
     // this.properties = {
     //   label: 'test',
     //   prefix: '',
