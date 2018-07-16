@@ -1105,7 +1105,7 @@ export class FeFormSchemaService {
             'message': 'Maximum length required is XXLENGTHXX.'
           }
         }
-      },
+      }/* ,
       {
         type: 'EDT',
         code: 'FLD000016',
@@ -1124,7 +1124,7 @@ export class FeFormSchemaService {
             'message': 'Field is required'
           }
         }
-      },
+      } */,
       {
         code: 'FLD000007',
         flexiLabel: 'submit',

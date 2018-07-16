@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { CKEditorModule } from 'ng2-ckeditor';
-//import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { NgxSelectModule, INgxSelectOptions } from 'ngx-select-ex';
 
 import { FieldDirective } from '@L3Process/system/modules/formGenerator/directives/Field/Field.directive';
@@ -30,7 +29,7 @@ import { AnchorComponent } from '@L3Process/system/modules/formGenerator/compone
 import { BlankComponent } from '@L3Process/system/modules/formGenerator/components/Blank/Blank.component';
 import { HtmlEditorComponent } from '@L3Process/system/modules/formGenerator/components/HtmlEditor/HtmlEditor.component';
 import { IconicButtonComponent } from '@L3Process/system/modules/formGenerator/components/IconicButton/IconicButton.component';
-import { FeFormButtonComponent } from '@L1Process/system/modules/formGenerator/components/feFormButtons/feFormButton.component';
+import { FormButtonsComponent } from '@L3Process/system/modules/formGenerator/components/FormButtons/FormButton.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
   optionValueField: 'code',
@@ -70,7 +69,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     BlankComponent,
     IconicButtonComponent,
     HtmlEditorComponent,
-    FeFormButtonComponent
+    FormButtonsComponent
   ],
   exports: [
     FormComponent,
@@ -110,6 +109,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     BlankComponent,
     IconicButtonComponent,
     HtmlEditorComponent
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class FeFormGeneratorModule {}

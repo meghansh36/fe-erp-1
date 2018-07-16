@@ -15,6 +15,7 @@ import { routes  } from '@L3Process/default/modules/home/home.routing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FormGeneratorModule } from '@L3Process/system/modules/formGenerator/formGenerator.module';
+import { FeGridGeneratorModule } from '@L1Process/system/modules/gridGenerator/feGridGenerator.module';
 
 
 // function getToken():string{
@@ -43,6 +44,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
   ],
   imports: [
     BrowserModule,
+    FeGridGeneratorModule,
     FormGeneratorModule,
     NgbModule.forRoot(),
     routing,

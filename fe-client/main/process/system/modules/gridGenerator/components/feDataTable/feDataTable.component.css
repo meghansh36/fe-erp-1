@@ -1,0 +1,7 @@
+.dropdown-toggle::after {
+    display: none;
+}
+
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+    background-color: rgba(192,192,192,0.3);
+}

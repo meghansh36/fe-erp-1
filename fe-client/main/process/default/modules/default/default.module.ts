@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DefaultComponent } from '@L3Process/default/modules/default/default.component';
 import { FRM0000001Component } from '@L3Forms/FRM0000001.component';
 import { FormGeneratorModule } from '@L3Process/system/modules/formGenerator/formGenerator.module';
+import { FeGridGeneratorModule } from '@L1Process/system/modules/gridGenerator/feGridGenerator.module';
 import { routes } from '@L3Process/default/modules/default/default.routing';
 
 const routing: ModuleWithProviders = RouterModule.forChild(routes);
@@ -17,7 +18,8 @@ const routing: ModuleWithProviders = RouterModule.forChild(routes);
   imports: [
     CommonModule,
     routing,
-    FormGeneratorModule
+    FeGridGeneratorModule,
+    FormGeneratorModule,
   ],
   providers: [],
 })
