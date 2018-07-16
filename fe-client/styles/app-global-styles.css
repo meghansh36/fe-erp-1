@@ -74,6 +74,12 @@
 .field-label-container {
     display: flex;
 }
+.card-label{
+    width: 98%;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
 
 .field-desc i {
     font-size: 17px;
@@ -143,6 +149,22 @@ fe-fieldset {
     color: unset !important;
     background-color: #fff !important;
 }
+.help-icon-containe {
+    display: inline-block;
+}
+.json-help-container {
+    display: none;
+}
+.json-help {
+ color: #e83e8c;
+}
+
+.json-help {
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+
 
 .round-input {
     border-radius: 50px;

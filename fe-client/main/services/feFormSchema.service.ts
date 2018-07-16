@@ -179,9 +179,13 @@ export class FeFormSchemaService {
           required: {
             'value': true,
             'message': 'This Field is required'
+          },
+          commaseperatedemail: {
+            value: true,
+            message: 'Please give comma separated emails.'
           }
         },
-        customValidations: {
+       /*  customValidations: {
           commaseperatedemail: {
             name: 'commaseperatedemail',
             validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null {
@@ -197,8 +201,8 @@ export class FeFormSchemaService {
             },
             message: 'Email should be correct'
           }
-        }
-      },
+        }*/
+      }, 
       {
         type: 'NUM',
         code: 'FLD000009',
@@ -213,15 +217,13 @@ export class FeFormSchemaService {
         placeholder: 'Enter your Number',
         validations: {
           required: {
-
             'value': true,
             'message': 'This Field is required'
           }
         },
         customValidations: {
           agelimit: {
-            name: 'agelimit',
-            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; },
+            validatorFn:`if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; `,
             message: 'Age should be greater than 50'
           }
         },
@@ -502,9 +504,8 @@ export class FeFormSchemaService {
         width: '100%',
         customValidations: {
           yearlimit: {
-            name: 'yearlimit',
-            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null { if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; },
-            'message': 'Year should be greater than 2010'
+            validatorFn: " if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; ",
+            message: 'Year should be greater than 2010'
           }
         }
       },
@@ -540,7 +541,9 @@ export class FeFormSchemaService {
             width: '100%',
             placeholder: 'Enter your Username',
             formClassValidations: {
-              customPattern: { message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' }
+              customPattern: { 
+                message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' 
+              }
             },
             events: {
               change: {

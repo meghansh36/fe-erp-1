@@ -169,10 +169,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         const theInstructions = new Function('controls', 'formObject', 'fieldObject', condition);
         function handler() {
             const show = theInstructions(this.group.controls, this.form, this);
-            if (show == true) {
+            if (show === true) {
                 this.render.removeClass(this.elemRef.nativeElement, 'hidden');
-            }
-            else {
+            } else {
                 this.render.addClass(this.elemRef.nativeElement, 'hidden');
             }
         }
@@ -261,7 +260,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     applyNgValidators(): void {
-        this.validators = this.validators.concat(this.validator.getValidators(this.validations));
+        this.validators = this.validators.concat(this.validator.getValidators(this.validations, this.control));
         this.errors = this.validator.transformToValidErr(this.validations);
     }
 
@@ -270,7 +269,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             const validations = this.customValidations;
             for (let name in validations) {
                 const validation = validations[name];
-                const fn: any = validation.validatorFn;
+                const fnStr: string = validation.validatorFn;
+                const fn = new Function('control', fnStr);
                 const message: string = validation.message;
                 if (typeof fn == 'function') {
                     this.validators.push(fn);
@@ -575,8 +575,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         return this.form.resource;
     }
 
-    set value(val: any) {
-        this.formComponent.setValue(this.flexiLabel, val);
+    set value(value: any) {
+        this.control.setValue(value, { emitEvent: true, onlySelf: true });
     }
 
     get value() {
@@ -916,7 +916,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     set icon(icon) {
-        this._config.tooltip = icon;
+        this._config.icon = icon;
     }
 
 }
