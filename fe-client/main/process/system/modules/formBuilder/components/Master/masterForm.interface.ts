@@ -25,7 +25,7 @@ export interface builderFieldCompInterface{
   disabled:boolean,
   defaultValueType:string,
   defaultValueSqlQuery:string,
-  defaultValueStringValue: string,
+  defaultValueString: string,
   lovType: string,
   lovSqlQuery: string,
   lovJson: string,

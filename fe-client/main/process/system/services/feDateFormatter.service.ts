@@ -28,7 +28,7 @@ function monTomm( monMonth ) {
 }
 
 @Injectable()
-export class NgbDateFRParserFormatter extends NgbDateParserFormatter {
+export class FeDateFormatterService extends NgbDateParserFormatter {
 
     formatters = {
         'dd/mm/yyyy': this.formatDDMMYYYY,
