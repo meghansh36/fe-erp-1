@@ -11,4 +11,5 @@ export class FeTimComponent extends FeBaseField {
     type: 'TIM',
     ...this.properties
   };
+
 }

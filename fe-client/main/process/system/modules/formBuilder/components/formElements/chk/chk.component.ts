@@ -13,4 +13,8 @@ export class FeChkComponent extends FeBaseField  {
     ...this.properties
   };
 
+  public applicableProperties = {//Add more properties for multiple checkbox
+    ...this.applicableProperties
+  };
+
 }

@@ -7,14 +7,16 @@ import { FeBaseField } from '../baseField/baseField.component';
 })
 export class FeAdrComponent extends FeBaseField {
 
-  showEdit = true;
-  properties = {
+  public properties = {
+    type: 'ADR',
     allowMultipleAddress: false,
-  ...this.properties    
+    ...this.properties
   };
 
-  applicableProperties = {
+  
+  public applicableProperties: any = {
     allowMultipleAddress: true,
     ...this.applicableProperties
   };
+
 }

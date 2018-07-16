@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FeBaseField } from '../baseField/baseField.component';
+import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 
 @Component({
   selector: 'phn-input',
   templateUrl: './phn.component.html',
   styleUrls: ['./phn.component.css', '../baseField/baseField.component.css']
 })
-export class FePhnComponent extends FeBaseField  {
+export class FePhnComponent extends TxtComponent  {
  
   public properties = {
     type: 'PHN',

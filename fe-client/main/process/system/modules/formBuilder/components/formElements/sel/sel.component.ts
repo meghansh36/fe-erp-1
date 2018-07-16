@@ -12,4 +12,11 @@ export class FeSelComponent extends FeBaseField {
     type: 'SEL',
     ...this.properties
   };
+
+  public applicableProperties: any = {
+    lovType: true,
+  	lovSqlQuery:true,
+  	lovJson:true,
+    ...this.applicableProperties
+  };
 }

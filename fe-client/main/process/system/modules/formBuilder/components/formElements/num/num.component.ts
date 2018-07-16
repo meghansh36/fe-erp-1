@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FeBaseField } from '../baseField/baseField.component';
+import { Component } from '@angular/core';
+import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 @Component({
   selector: 'num-input.fieldComponent',
   templateUrl: './num.component.html',
   styleUrls: ['./num.component.css', '../baseField/baseField.component.css']
 })
-export class FeNumComponent extends FeBaseField implements OnInit {
+export class FeNumComponent extends TxtComponent {
 
   properties = {
     type: 'NUM',
@@ -22,6 +22,6 @@ export class FeNumComponent extends FeBaseField implements OnInit {
     useDelimeter: true,
     requiredDecimal: true,
     ...this.applicableProperties
-  }
+  };
 
 }
