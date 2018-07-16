@@ -21,13 +21,17 @@ export class FeDataTableService {
         limit: "3",
         offset: "0",
         footerHeight: '50',
-        pager: false,
-        limitShow: false,
+        pager: true,
+        limitShow: true,
+        selectionType: "checkbox",
+        selectAllRowsOnPage: false,
+        checkboxable: true,
+        headerCheckboxable: true,
         columns: [
             { prop: "username", name: "username", sortable: true, frozenLeft: true },
-            { prop: "email", name: "email", sortable: true },
-            { prop: "country", name: "country", sortable: true, resizeable: false },
-            { prop: "state", name: "state", sortable: true },
+            { prop: "email", name: "email", sortable: true, width: '200' },
+            { prop: "country", name: "country", sortable: true, resizeable: false, width: '200' },
+            { prop: "state", name: "state", sortable: true, width: '200' },
             { prop: "date", name: "date", sortable: false, width: '200' }
         ]
     }

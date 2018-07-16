@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { FeDataTableService } from '@L1Process/system/modules/gridGenerator/services/feDataTable.service';
+import { DataTableService } from '@L3Process/system/modules/gridGenerator/services/DataTable.service';
 import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'fe-dataTable',
@@ -20,6 +20,9 @@ export class FeDataTableComponent implements OnInit {
   private allColumns = [];
   private _pageHide: boolean;
   private _limitShow: boolean;
+  private selected = [];
+  private _checkboxable: boolean;
+  private _headerCheckboxable: boolean;
 
   get rows() {
     return this.table.rows;
@@ -101,7 +104,48 @@ export class FeDataTableComponent implements OnInit {
     this._limitShow = limitShow;
   }
 
-  constructor(private dataTableService: FeDataTableService, private modalService: NgbModal) { }
+  get pagerShowHideCondition() {
+    if (((this.table.rowCount / this.table.pageSize) > 1) && this.pager) {
+      return false;
+    }
+    else return true;
+  }
+
+  get selectionType() {
+    return this.table.selectionType;
+  }
+
+  set selectionType(selectionType) {
+    this.table.selectionType = selectionType;
+  }
+
+  get selectAllRowsOnPage() {
+    return this.table.selectAllRowsOnPage;
+  }
+
+  set selectAllRowsOnPage(selectAllRowsOnPage) {
+    this.table.selectAllRowsOnPage = selectAllRowsOnPage;
+  }
+
+  get checkboxable() {
+    return this._checkboxable;
+  }
+
+  set checkboxable(checkboxable) {
+    this._checkboxable = checkboxable
+  }
+
+  get headerCheckboxable() {
+    return this._headerCheckboxable;
+  }
+
+  set headerCheckboxable(headerCheckboxable) {
+    this._headerCheckboxable = headerCheckboxable;
+  }
+
+  constructor(private dataTableService: DataTableService, private modalService: NgbModal, private config: NgbDropdownConfig) {
+    config.autoClose = false;
+  }
 
   ngOnInit() {
     let gridData = this.dataTableService.getColumn();
@@ -138,6 +182,18 @@ export class FeDataTableComponent implements OnInit {
       }
       if (key == 'limitShow') {
         this.limitShow = gridData[key];
+      }
+      if (key == 'selectionType') {
+        this.selectionType = gridData[key];
+      }
+      if (key == 'selectAllRowsOnPage') {
+        this.selectAllRowsOnPage = gridData[key];
+      }
+      if (key == 'checkboxable') {
+        this.checkboxable = gridData[key];
+      }
+      if (key == 'headerCheckboxable') {
+        this.headerCheckboxable = gridData[key];
       }
     }
   }
@@ -184,6 +240,23 @@ export class FeDataTableComponent implements OnInit {
     let pageNumber = this.offset;
     let prevLimit = this.limit;
     this.dataTableService.fetchLimitData(limit, pageNumber, prevLimit);
+  }
+
+  onSelect({ selected }) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+  }
+
+  add() {
+    this.selected.push(this.rows[1], this.rows[3]);
+  }
+
+  update() {
+    this.selected = [this.rows[1], this.rows[3]];
+  }
+
+  remove() {
+    this.selected = [];
   }
 
 }

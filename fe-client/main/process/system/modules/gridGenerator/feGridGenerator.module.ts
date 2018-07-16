@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { FeDataTableComponent } from '@L1Process/system/modules/gridGenerator/components/feDataTable/feDataTable.component';
+import { DataTableComponent } from '@L3Process/system/modules/gridGenerator/components/DataTable/DataTable.component';
 
 @NgModule({
   imports: [
@@ -13,9 +13,10 @@ import { FeDataTableComponent } from '@L1Process/system/modules/gridGenerator/co
     NgbModule,
     NgxDatatableModule
   ],
-  exports: [FeDataTableComponent],
+  exports: [DataTableComponent],
   declarations: [
-    FeDataTableComponent
-  ]
+    DataTableComponent
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class FeGridGeneratorModule { }
