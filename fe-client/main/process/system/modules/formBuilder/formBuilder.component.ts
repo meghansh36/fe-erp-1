@@ -1,6 +1,6 @@
 import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck, Renderer2, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { NgBootstrapService } from '@L3Main/services/NgBootstrap.service';
+import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 })
 export class FeFormBuilderComponent implements DoCheck, OnInit {
 
-  @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
+  @ViewChild('host', { read: ViewContainerRef }) host: ViewContainerRef;
   @ViewChild('content') content;
   cond: Boolean = false;
   basic: String = 'basic';
@@ -32,26 +32,25 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   public formJsonHelp;
 
   constructor(private bootstrapService: NgBootstrapService,
-              private masterFormService: FormMasterService,
-              private componentFactoryResolver: ComponentFactoryResolver,
-              private fieldControlService: FieldControlService,
-              private formJsonService: FormJsonService,
-              private dragulaService: DragulaService,
-              private formBuilderService: FormBuilderService,
-              private renderer: Renderer2
-              ) 
-  {
+    private masterFormService: FormMasterService,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private fieldControlService: FieldControlService,
+    private formJsonService: FormJsonService,
+    private dragulaService: DragulaService,
+    private formBuilderService: FormBuilderService,
+    private renderer: Renderer2
+  ) {
     this.formJson = this.formJsonService.MasterJSON;
     this.dragulaService.setOptions('bag-one', {
       revertOnSpill: true,
-      copy: function(el, source) {
+      copy: function (el, source) {
         return source.id === 'not_copy';
       }
     });
 
     this.dragulaService.drop.subscribe((value) => {
       // const componentName = value[1].attributes[2].nodeValue;
-      console.log("dragulaService.drop.subscribe", value,'rootDrop', this.rootDrop);
+      console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
       if (this.rootDrop === undefined) {
         this.rootDrop = value[2];
       }
@@ -62,7 +61,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
         console.log("componentName", componentName);
         const index = this.calculateIndex(value);
         this.dropComplete(this.formBuilderService.getComponent(componentName), index, value);
-      } 
+      }
     });
   }
 
@@ -76,21 +75,21 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     this.init()
   }
 
-  update( event ) {
+  update(event) {
 
   }
 
   init() {
     this.jsonEditorConfig = {
-      mode: 'code', onChange: this.update 
-   };
+      mode: 'code', onChange: this.update
+    };
     this.formJsonHelp = {
       'simple': {
         'show': false,
         'when': 'number',
         'eq': 15
       },
-      'advanced': ['var show; return show = controls.number.value == 150 ? true : false;','var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
+      'advanced': ['var show; return show = controls.number.value == 150 ? true : false;', 'var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
       "json": {
         "condition": {
           "and": [
@@ -115,7 +114,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     if (sibling === null) {
       return children.length;
     } else {
-      return Array.prototype.indexOf.call(children, sibling) ;
+      return Array.prototype.indexOf.call(children, sibling);
     }
   }
 
@@ -127,33 +126,33 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
 
 
   openModal() {
-    this.modalRef = this.bootstrapService.openModal(this.content, {size: 'lg'});
+    this.modalRef = this.bootstrapService.openModal(this.content, { size: 'lg' });
     this.masterFormService.setModalRef(this.modalRef);
   }
-  
-  openFormSettingModal( content ) {
-    this.bootstrapService.openModal( content, { size: 'lg' } );
+
+  openFormSettingModal(content) {
+    this.bootstrapService.openModal(content, { size: 'lg' });
   }
 
   generateNewKey() {
-    return  '_' + Math.random().toString(36).substr(2, 9);
+    return '_' + Math.random().toString(36).substr(2, 9);
   }
 
   createComponentFunc(componentObj, index, target, value) {
-   
+
     const key = this.generateNewKey();
-    console.log('createComponentFunc', 'target', target, 'value', value, 'key', key) ;
+    console.log('createComponentFunc', 'target', target, 'value', value, 'key', key);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
 
     console.log('target.id', target.id, 'target.className', target.className);
-    let  viewContainerRef = this.host;
+    let viewContainerRef = this.host;
     const targetClassesArr = target.className.trim().split(" ");
-    if ( _.includes(targetClassesArr, 'FSTdropZone')) {
-       console.log("target.className",target.className, targetClassesArr);
+    if (_.includes(targetClassesArr, 'FSTdropZone')) {
+      console.log("target.className", target.className, targetClassesArr);
       viewContainerRef = this.fieldControlService.getFstCollection(target.id);
     }
-    
+
     console.log("viewContainerRef", viewContainerRef, viewContainerRef.length);
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
     console.log("componentRef", target, viewContainerRef, viewContainerRef.length);
@@ -166,16 +165,16 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     console.log(this.formJsonService.getMasterJSON());
   }
 
-  save(){
+  save() {
     this.formBuilderService.postData(this.finalJSON)
-    .subscribe((res)=>{console.log('resolve data')},
-                (err)=>{console.log('getting error')} );
+      .subscribe((res) => { console.log('resolve data') },
+        (err) => { console.log('getting error') });
   }
 
   reset() {
   }
 
 
-  preview(){
+  preview() {
   }
 }

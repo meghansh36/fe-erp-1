@@ -8,8 +8,20 @@ import { FeBtnComponent } from '../btn/btn.component';
   styleUrls: ['./icb.component.css', '../baseField/baseField.component.css']
 })
 export class FeIcbComponent extends FeBtnComponent  {
+  
   public properties = {
     type: 'ICB',
+    icon: '',
     ...this.properties
   };
+
+  public applicableProperties = {
+		btnTheme: true,
+    btnSize: true,
+  	btnLeftIcon:  false,
+    btnRightIcon: false,
+    icon: true,
+  	...this.applicableProperties
+	};
+
 }

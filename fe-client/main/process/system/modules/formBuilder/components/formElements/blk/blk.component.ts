@@ -9,6 +9,13 @@ import { FeBaseField } from '../baseField/baseField.component';
 export class FeBlkComponent extends FeBaseField  {
   applicableProperties={
     flexiLabel: true,
-    label: true
-  }
+    label: true,
+    type:true
+  };
+
+  properties = {
+    flexiLabel: '',
+    label: '',
+    type:'BLK'
+  };
 }

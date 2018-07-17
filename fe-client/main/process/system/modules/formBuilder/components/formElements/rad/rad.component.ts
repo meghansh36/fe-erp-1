@@ -13,4 +13,5 @@ export class FeRadComponent extends FeBaseField  {
     type: 'RAD',
     ...this.properties
   };
+
 }

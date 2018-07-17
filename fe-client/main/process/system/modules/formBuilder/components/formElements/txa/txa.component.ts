@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FeBaseField } from '../baseField/baseField.component';
+import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 
 @Component({
   selector: 'txa-input',
   templateUrl: './txa.component.html',
-  styleUrls: ['./txa.component.css', '../baseField/baseField.component.css']
+  styleUrls: ['./txa.component.css']
 })
-export class FeTxaComponent extends FeBaseField   {
+export class FeTxaComponent extends TxtComponent   {
   showEdit = true;
   properties = {
     type: 'TXA',
@@ -17,12 +17,12 @@ export class FeTxaComponent extends FeBaseField   {
     ...this.properties
   };
 
-  applicableProperties={
+  public applicableProperties: any = {
     enableSpellCheck: true,
     enableCk:true,
     ckSettings:true,
     rows: true,
     ...this.applicableProperties
-  }
+  };
 
 }

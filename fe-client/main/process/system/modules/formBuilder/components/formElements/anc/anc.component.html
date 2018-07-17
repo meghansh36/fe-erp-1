@@ -19,19 +19,13 @@
           <i class="material-icons"> help </i>
         </a>
       </span> -->
-    <div class="input-group" >
-    <div class="input-group-prepend" *ngIf='applicableProperties.prefix'>
-      <span class="input-group-text" id="basic-addon1">{{properties.prefix}}</span>
-    </div>
-    <a href = ''> {{properties.placeholder}}</a>
 
-    <div class="input-group-append" *ngIf='applicableProperties.suffix'>
-      <span class="input-group-text">{{properties.suffix}}</span>
-    </div>
+    <div class="field anc-field" >
+  
+    <a [href] = "properties.defaultValueString" class="anc-field-link"  target="_blank"> {{properties.label}}</a>
+
    </div>
     <br>
-
     <div role="presentation"><a >{{properties.description}}</a></div>
-
 </div>
 </div>

@@ -36,7 +36,7 @@
 
                         <!-- Hide Label CheckBox -->
                         <div class="form-check mb-2 mt-3">
-                          <input  class="form-check-input" type="checkbox" value="Y" id="hideLabel" name='hideLabel' #hideLabel = 'ngModel' [(ngModel)]='componentData.hideLabel'
+                          <input class="form-check-input" type="checkbox" value="Y" id="hideLabel" name='hideLabel' #hideLabel='ngModel' [(ngModel)]='componentData.hideLabel'
                             ngModel change-event='replace'>
                           <label class="form-check-label" for="hideLabel">
                             Hide Label
@@ -89,18 +89,18 @@
                         <label for='width'>
                           Width
                         </label>
-                        <input id='width' class='form-control' name='width' placeholder = 'Field Width e.g. 100px or 50%' ngModel [(ngModel)]='componentData.width' placeholder='enter width'
-                        />
+                        <input id='width' class='form-control' name='width' placeholder='Field Width e.g. 100px or 50%' ngModel [(ngModel)]='componentData.width'
+                          placeholder='enter width' />
                       </div>
 
 
-					  			
+
                       <!--      Dropdown For button Theme -->
                       <div class='mt-2' *ngIf='instance.applicableProperties.btnTheme'>
                         <label for='btnTheme'>
                           Button Theme
                         </label>
-                        <select id='theme' ngModel name='btnTheme'  class='form-control' [(ngModel)]='componentData.btnTheme' change-event='replace'>
+                        <select id='theme' ngModel name='btnTheme' class='form-control' [(ngModel)]='componentData.btnTheme' change-event='replace'>
                           <option value="none">--Select--</option>
                           <option value="default" selected>Default</option>
                           <option value='primary'>Primary</option>
@@ -117,8 +117,8 @@
                         <label for='btnSize'>
                           Button Size
                         </label>
-                        <select ngModel name="btnSize" id="btnSize"  ngModel  class='form-control' [(ngModel)]='componentData.btnSize' change-event='replace'>
-                            <option value="none">--Select--</option>
+                        <select ngModel name="btnSize" id="btnSize" ngModel class='form-control' [(ngModel)]='componentData.btnSize' change-event='replace'>
+                          <option value="none">--Select--</option>
                           <option value="large">Large</option>
                           <option value="medium">Medium</option>
                           <option value="small" selected>Small</option>
@@ -132,47 +132,49 @@
                         <label for='btnLeftIcon'>
                           Left Icon
                         </label>
-                        <input type='text' id ="btnLeftIcon" class='form-control' name='btnLeftIcon' placeholder="Material Icon Class e.g. md-icon_content" ngModel [(ngModel)]="componentData.btnLeftIcon"/>
+                        <input type='text' id="btnLeftIcon" class='form-control' name='btnLeftIcon' placeholder="Material Icon Class e.g. md-icon_content"
+                          ngModel [(ngModel)]="componentData.btnLeftIcon" />
                       </div>
 
 
 
                       <!--Right Icon  text for button -->
                       <div class='mt-2' *ngIf='instance.applicableProperties.btnRightIcon'>
-                          <label for='btnRightIcon'>
-                            Button Right Icon
-                          </label>
-                          <input type='text' class='form-control' id='btnRightIcon' placeholder="Material Icon Class e.g. md-icon_content" name='btnRightIcon' ngModel [(ngModel)]="componentData.btnRightIcon"/>
-                      </div>
-
-                     
-
-
-                <!-- input field for date time format       -->
-
-                    <div class='mt-2'   *ngIf='instance.applicableProperties.dateTimeFormat'>
-                        <label for='dateTimeFormat'>
-                             Date-Time Format
+                        <label for='btnRightIcon'>
+                          Button Right Icon
                         </label>
-                        <input type='text' id='dateTimeFormat' ngModel [(ngModel)]="componentData.dateTimeFormat"  name='dateTimeFormat' class='form-control'
-                        placeholder='DD-Mon-YY HH:MM:SS'/>
+                        <input type='text' class='form-control' id='btnRightIcon' placeholder="Material Icon Class e.g. md-icon_content" name='btnRightIcon'
+                          ngModel [(ngModel)]="componentData.btnRightIcon" />
+                      </div>
+
+
+
+
+                      <!-- input field for date time format       -->
+
+                      <div class='mt-2' *ngIf='instance.applicableProperties.dateTimeFormat'>
+                        <label for='dateTimeFormat'>
+                          Date-Time Format
+                        </label>
+                        <input type='text' id='dateTimeFormat' ngModel [(ngModel)]="componentData.dateTimeFormat" name='dateTimeFormat' class='form-control'
+                          placeholder='DD-Mon-YY HH:MM:SS' />
 
                       </div>
 
 
-                 <!-- input box for format       -->
+                      <!-- input box for format       -->
 
-                     <div class='mt-2'   *ngIf='instance.applicableProperties.format'>
-                          <label for='fordateFormatmat'>
-                               Format
-                          </label>
-                          <input type='text' id='dateFormat' ngModel [(ngModel)]="componentData.dateFormat" name='dateFormat' class='form-control'
-                          placeholder='Enter Date Format Default: DD-Mon-YY'/>
+                      <div class='mt-2' *ngIf='instance.applicableProperties.format'>
+                        <label for='fordateFormatmat'>
+                          Format
+                        </label>
+                        <input type='text' id='dateFormat' ngModel [(ngModel)]="componentData.dateFormat" name='dateFormat' class='form-control'
+                          placeholder='Enter Date Format Default: DD-Mon-YY' />
 
                       </div>
 
-              <!-- input for region setting -->
-                    <!-- <div class='mt-2'   *ngIf='instance.applicableProperties.regionBias'>
+                      <!-- input for region setting -->
+                      <!-- <div class='mt-2'   *ngIf='instance.applicableProperties.regionBias'>
                           <label for='regionBias'>
                                Region Bias
                           </label>
@@ -183,25 +185,25 @@
 
 
                       <!-- input for fileMinimum size -->
-                      <div class='mt-2'   *ngIf='instance.applicableProperties.fileMinimumSize'>
-                          <label for='fileMinimumSize'>
-                               File Minimum size
-                          </label>
-                          <input type='text' id='format' ngModel name='fileMinimumSize' class='form-control'
-                          placeholder='Enter minimum file size'/>
+                      <div class='mt-2' *ngIf='instance.applicableProperties.fileMinimumSize'>
+                        <label for='fileMinimumSize'>
+                          File Minimum size
+                        </label>
+                        <input type='text' id='format' ngModel name='fileMinimumSize' class='form-control' placeholder='Enter minimum file size'
+                        />
 
                       </div>
 
 
 
-           <!-- input for fileMaximum Size -->
+                      <!-- input for fileMaximum Size -->
 
-                      <div class='mt-2'   *ngIf='instance.applicableProperties.fileMaximumSize'>
-                          <label for='fileMaximumSize'>
-                               File Maximum size
-                          </label>
-                          <input type='text' id='fileMaximumSize' ngModel name='fileMaximumSize' class='form-control'
-                          placeholder='Enter maximum file size'/>
+                      <div class='mt-2' *ngIf='instance.applicableProperties.fileMaximumSize'>
+                        <label for='fileMaximumSize'>
+                          File Maximum size
+                        </label>
+                        <input type='text' id='fileMaximumSize' ngModel name='fileMaximumSize' class='form-control' placeholder='Enter maximum file size'
+                        />
 
                       </div>
 
@@ -230,23 +232,23 @@
 
 
 
-                <!-- input for text area rows -->
+                      <!-- input for text area rows -->
 
-                     <div class='mt-2' *ngIf='instance.applicableProperties.rows'>
-                       <label for='rows'>
-                            Default Rows
-                       </label>
-                       <input type='number' class='form-control' ngModel  [(ngModel)]="componentData.rows" name='rows'/>
-                     </div>
-
-
+                      <div class='mt-2' *ngIf='instance.applicableProperties.rows'>
+                        <label for='rows'>
+                          Default Rows
+                        </label>
+                        <input type='number' class='form-control' ngModel [(ngModel)]="componentData.rows" name='rows' />
+                      </div>
 
 
-                     <!-- Commented because descripition is shown as tooltip. -->
+
+
+                      <!-- Commented because descripition is shown as tooltip. -->
                       <!-- Input Box for ToolTip -->
                       <div *ngIf='instance.applicableProperties.tooltip'>
                         <label for='tooltip' class='mt-3'>Tooltip</label>
-                        <input type="text" class="form-control" id='tooltip' placeholder='to add tooltip to this field' [(ngModel)]='componentData.tooltip'
+                        <input type="text" class="form-control" id='tooltip'  [(ngModel)]='componentData.tooltip'
                           ngModel name='tooltip' change-event='replace'>
                       </div>
 
@@ -287,10 +289,10 @@
 
 
                       <!-- input box for custom classes -->
-                     <div *ngIf='instance.applicableProperties.customCssClass'>
-                      <label for='custom' class='mt-3'>Custom CssClass</label>
-                      <input type="text" class="form-control" id='custom' placeholder="add custom classes" [(ngModel)]='componentData.customCssClass'
-                        ngModel name='customCss'>
+                      <div *ngIf='instance.applicableProperties.customCssClass'>
+                        <label for='custom' class='mt-3'>Custom CssClass</label>
+                        <input type="text" class="form-control" id='custom' placeholder="add custom classes" [(ngModel)]='componentData.customCssClass'
+                          ngModel name='customCss'>
                       </div>
 
 
@@ -303,44 +305,44 @@
                       </div>
 
 
-                  <!-- check box for enableCk     -->
-                    <div *ngIf='instance.applicableProperties.enableCk'>
-                      <div class='for-check mt-3 ml-4'>
-                        <input class='form-check-input' type='checkbox'
-                        ngModel name='enableCk' id='enableCk' [(ngModel)]="componentData.enableCk"
-                        #enableCk='ngModel'>
-                        <label for='enableck' class='form-check-label' value='enableCk'>
-                           Enable CK Editor
-                        </label>
-                      </div>
+                      <!-- check box for enableCk     -->
+                      <div *ngIf='instance.applicableProperties.enableCk'>
+                        <div class='for-check mt-3 ml-4'>
+                          <input class='form-check-input' type='checkbox' ngModel name='enableCk' id='enableCk' [(ngModel)]="componentData.enableCk"
+                            #enableCk='ngModel'>
+                          <label for='enableck' class='form-check-label' value='enableCk'>
+                            Enable CK Editor
+                          </label>
+                        </div>
 
 
 
-                 <!-- text area for cksetting -->
+                        <!-- text area for cksetting -->
 
-                      <div class='mt-2' *ngIf='enableCk.value'>
+                        <div class='mt-2' *ngIf='enableCk.value'>
                           <div class="json-help-container">
-                              <ng-template #enableCkHelp>
-                                <div class="json-help-wrapper">
-                                    <pre class="json-help">
+                            <ng-template #enableCkHelp>
+                              <div class="json-help-wrapper">
+                                <pre class="json-help">
                                         {{ jsonHelp.enableCkHelp | json }}
                                     </pre>
-                                </div>
-                              </ng-template>
-                            </div>
-                        <label for='ckSetting' >
+                              </div>
+                            </ng-template>
+                          </div>
+                          <label for='ckSetting'>
                             Ck Settings&nbsp;&nbsp;
-                            <span  class='help-icon-container'  >
-                                <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="enableCkHelp" popoverTitle="CK Editor Settings JSON Struture">
-                                  <i style='font-size: 16px;' class="material-icons"> help </i>
-                                </a>
-                              </span>
-                        </label>
-                        <!-- <textarea ngModel name="ckSettings" id="ckSetting"  rows="3" class='form-control' ngModel [(ngModel)]="componentData.ckSettings">
+                            <span class='help-icon-container'>
+                              <a class='card-tooltip mt-2' placement="right" [ngbPopover]="enableCkHelp" popoverTitle="CK Editor Settings JSON Struture">
+                                <i style='font-size: 16px;' class="material-icons"> help </i>
+                              </a>
+                            </span>
+                          </label>
+                          <!-- <textarea ngModel name="ckSettings" id="ckSetting"  rows="3" class='form-control' ngModel [(ngModel)]="componentData.ckSettings">
                         </textarea> -->
-                        <json-editor [(ngModel)]="componentData.ckSetting" id="ckSetting" jsonModal name="ckSetting" [config]="jsonEditorConfig"  #ckSetting='ngModel' >
+                          <json-editor [(ngModel)]="componentData.ckSetting" id="ckSetting" jsonModal name="ckSetting" [config]="jsonEditorConfig"
+                            #ckSetting='ngModel'>
                           </json-editor>
-                      </div>
+                        </div>
                       </div>
 
 
@@ -348,8 +350,8 @@
 
                       <!-- check boxes for clear value when Hidden -->
                       <div class="form-check  mt-3" *ngIf='instance.applicableProperties.clearWhenHidden'>
-                        <input class="form-check-input" type="checkbox" value="Y" id="clearWhenHidden" [(ngModel)]='componentData.clearWhenHidden' ngModel
-                          name='clearWhenHidden' change-event='replace'>
+                        <input class="form-check-input" type="checkbox" value="Y" id="clearWhenHidden" [(ngModel)]='componentData.clearWhenHidden'
+                          ngModel name='clearWhenHidden' change-event='replace'>
                         <label class="form-check-label" for="clearWhenHidden">
                           Clear value when Hidden
                         </label>
@@ -359,20 +361,22 @@
                       <!-- check box for enable spell check -->
 
                       <div class="form-check mb-2 mt-3" *ngIf='instance.applicableProperties.enableSpellCheck'>
-                          <input class="form-check-input" type="checkbox" value="enableSpellCheck" id="enableSpellCheck" ngModel name='enableSpellCheck' [(ngModel)]="componentData.enableSpellCheck">
-                          <label class="form-check-label" for="enableSpellCheck">
-                            Enable Spell Check
-                          </label>
+                        <input class="form-check-input" type="checkbox" value="enableSpellCheck" id="enableSpellCheck" ngModel name='enableSpellCheck'
+                          [(ngModel)]="componentData.enableSpellCheck">
+                        <label class="form-check-label" for="enableSpellCheck">
+                          Enable Spell Check
+                        </label>
                       </div>
 
 
-                <!-- checkbox for multiple address       -->
+                      <!-- checkbox for multiple address       -->
 
                       <div class="form-check mb-2 mt-3" *ngIf='instance.applicableProperties.allowMultipleAddress'>
-                          <input class="form-check-input" type="checkbox" value="multipleAddress" id="multipleAddress" ngModel name='multipleAddress' ngModel [(ngModel)]="componentData.allowMultipleAddress">
-                          <label class="form-check-label" for="multipleAddress">
-                            Allow Multiple Address
-                          </label>
+                        <input class="form-check-input" type="checkbox" value="multipleAddress" id="multipleAddress" ngModel name='multipleAddress'
+                          ngModel [(ngModel)]="componentData.allowMultipleAddress">
+                        <label class="form-check-label" for="multipleAddress">
+                          Allow Multiple Address
+                        </label>
                       </div>
 
 
@@ -380,7 +384,8 @@
 
                       <!-- Check box for Hidden -->
                       <div class="form-check mb-2 mt-3" *ngIf='instance.applicableProperties.hidden'>
-                        <input class="form-check-input" type="checkbox" value="Y" id="hidden"  name='hidden' #hidden = 'ngModel' [(ngModel)]='componentData.hidden' ngModel change-event='replace'>
+                        <input class="form-check-input" type="checkbox" value="Y" id="hidden" name='hidden' #hidden='ngModel' [(ngModel)]='componentData.hidden'
+                          ngModel change-event='replace'>
                         <label class="form-check-label" for="hidden">
                           Hidden
                         </label>
@@ -399,8 +404,8 @@
 
                       <!-- check box for ative -->
                       <div class="form-check mb-2 mt-3" *ngIf='instance.applicableProperties.active'>
-                        <input class="form-check-input" type="checkbox" value="Y" id="active" [(ngModel)]='componentData.active' ngModel
-                          name='active' change-event='replace'>
+                        <input class="form-check-input" type="checkbox" value="Y" id="active" [(ngModel)]='componentData.active' ngModel name='active'
+                          change-event='replace'>
                         <label class="form-check-label" for="active">
                           Active
                         </label>
@@ -425,69 +430,70 @@
 
                       <!-- Dropdown for Default Value -->
                       <div *ngIf='instance.applicableProperties.defaultValueType'>
-                      <label for="defaultValueType" class='mt-3'>Default Value Type</label>
-                      <select id="defaultValueType" class="form-control" name='defaultValueType' [(ngModel)]='componentData.defaultValueType'
-                        ngModel #defaultValueType='ngModel'>
-                        <option value="none">--Select--</option>
-                        <option value='string'>String</option>
-                        <option value='sqlQuery'>Sql Query</option>
-                      </select>
-                     </div>
+                        <label for="defaultValueType" class='mt-3'>Default Value Type</label>
+                        <select id="defaultValueType" class="form-control" name='defaultValueType' [(ngModel)]='componentData.defaultValueType' ngModel
+                          #defaultValueType='ngModel'>
+                          <option value="none">--Select--</option>
+                          <option value='string'>String</option>
+                          <option value='sqlQuery'>Sql Query</option>
+                        </select>
+                      </div>
 
-                       <!-- Text Area for Default String Value -->
-                       <div *ngIf="componentData.defaultValueType=='string'">
-                          <label for="Sql" class='mt-1 requiredClass'>String Value</label>
-                          <textarea class="form-control" rows="3" id="error-label" placeholder='String' [(ngModel)]='componentData.defaultValueStringValue' ngModel name='defaultValueStringValue'
-                            #defaultValueStringValue='ngModel' required></textarea>
+                      <!-- Text Area for Default String Value -->
+                      <div *ngIf="componentData.defaultValueType=='string'">
+                        <label for="Sql" class='mt-1 requiredClass'>String Value</label>
+                        <textarea class="form-control" rows="3" id="error-label" placeholder='String' [(ngModel)]='componentData.defaultValueString'
+                          ngModel name='defaultValueString' #defaultValueString='ngModel' required></textarea>
 
-                          <div class="alert alert-danger" *ngIf='defaultValueStringValue.touched && defaultValueStringValue.invalid'>
-                            This field is required.
-                          </div>
+                        <div class="alert alert-danger" *ngIf='defaultValueString.touched && defaultValueString.invalid'>
+                          This field is required.
                         </div>
+                      </div>
 
 
                       <!-- Text Area for defult value Sql Query -->
                       <div *ngIf="componentData.defaultValueType=='sqlQuery'">
                         <label for="Sql" class='mt-1 requiredClass'>Sql Query</label>
-                        <textarea class="form-control" rows="3" id="error-label" placeholder='Sql' [(ngModel)]='componentData.defaultValueSqlQuery' ngModel name='defaultValueSqlQuery'
-                          #defaultValueSqlQuery='ngModel' required></textarea>
+                        <textarea class="form-control" rows="3" id="error-label" placeholder='Sql' [(ngModel)]='componentData.defaultValueSqlQuery'
+                          ngModel name='defaultValueSqlQuery' #defaultValueSqlQuery='ngModel' required></textarea>
 
                         <div class="alert alert-danger" *ngIf='defaultValueSqlQuery.touched && defaultValueSqlQuery.invalid'>Sql Query is required.
 
                         </div>
                       </div>
+                      <!--  -->
 
-                    <!-- input fot minimumValue -->
-                    <div class='mt-2' *ngIf='instance.applicableProperties.minimumValue'>
+                      <!-- input fot minimumValue -->
+                      <div class='mt-2' *ngIf='instance.applicableProperties.minimumValue'>
                         <label for='minimumValue'>
-                            Minimum Value
+                          Minimum Value
                         </label>
 
-                        <input type='number' class='form-control' name='minimumValue' id='minimumValue' ngModel [(ngModel)]="componentData.minimumValue" >
-                    </div>
+                        <input type='number' class='form-control' name='minimumValue' id='minimumValue' ngModel [(ngModel)]="componentData.minimumValue">
+                      </div>
 
-                    <!-- input fot maximumValue -->
-                    <div class='mt-2' *ngIf='instance.applicableProperties.minimumValue'>
+                      <!-- input fot maximumValue -->
+                      <div class='mt-2' *ngIf='instance.applicableProperties.minimumValue'>
                         <label for='maximumValue'>
-                            Maximum Value
+                          Maximum Value
                         </label>
                         <input type='number' class='form-control' name='maximumValue' id='maximumValue' ngModel [(ngModel)]="componentData.maximumValue">
-                    </div>
+                      </div>
 
 
-                    <div class='mt-2' *ngIf="instance.applicableProperties.lovType">
-                      <label for='lovType'>
+                      <div class='mt-2' *ngIf="instance.applicableProperties.lovType">
+                        <label for='lovType'>
                           List of Value Type
-                      </label>
-                      <select ngModel name='lovType' id='lovType' class='form-control' [(ngModel)]='componentData.lovType' ngModel  #lovType='ngModel'  >
-                            <option value="none">--Select--</option>
-                            <option value="sqlQuery"> SQL Query </option>
-                            <option value="json">JSON</option>
-                      </select>
-                    </div>
+                        </label>
+                        <select ngModel name='lovType' id='lovType' class='form-control' [(ngModel)]='componentData.lovType' ngModel #lovType='ngModel'>
+                          <option value="none">--Select--</option>
+                          <option value="sqlQuery"> SQL Query </option>
+                          <option value="json">JSON</option>
+                        </select>
+                      </div>
 
 
-                 <!-- Text Area for  -->
+                      <!-- Text Area for  -->
 
                       <div *ngIf="componentData.lovType=='sqlQuery'">
                         <label for="lovType" class='mt-3 requiredClass'>SQL Query</label>
@@ -497,14 +503,14 @@
                         <div class="alert alert-danger" *ngIf='lovSqlQuery.touched && lovSqlQuery.invalid'>SQL Query is required.</div>
                       </div>
 
-                    
-             <!-- text area for json Logic -->
+
+                      <!-- text area for json Logic -->
                       <div *ngIf="componentData.lovType=='json'">
 
                         <div class="json-help-container">
                           <ng-template #lovJsonHelp>
                             <div class="json-help-wrapper">
-                                <pre class="json-help">
+                              <pre class="json-help">
                                     {{ jsonHelp.lovHelp | json }}
                                 </pre>
                             </div>
@@ -513,92 +519,89 @@
 
                         <!-- Text Area for JSON Logic -->
                         <label for="JSON" class='mt-3 requiredClass'>JSON &nbsp;
-                            <span  class='help-icon-container'  >
-                              <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="lovJsonHelp" popoverTitle="LOV JSON Structure">
-                                <i style='font-size: 16px;' class="material-icons"> help </i>
-                              </a>
-                            </span>
-                          </label>
-                        
+                          <span class='help-icon-container'>
+                            <a class='card-tooltip mt-2' placement="right" [ngbPopover]="lovJsonHelp" popoverTitle="LOV JSON Structure">
+                              <i style='font-size: 16px;' class="material-icons"> help </i>
+                            </a>
+                          </span>
+                        </label>
+
                         <!-- <textarea class="form-control" rows="3" id="lovJson" placeholder='Enter JSON (Not JSON Logic)' [(ngModel)]='componentData.lovJson' ngModel
                           name='lovJson' #lovJson='ngModel' required>
                         </textarea> -->
 
-                        <json-editor [(ngModel)]="componentData.lovJson" jsonModal name="lovJson" [config]="jsonEditorConfig"  #lovJson='ngModel' required >
+                        <json-editor [(ngModel)]="componentData.lovJson" jsonModal name="lovJson" [config]="jsonEditorConfig" #lovJson='ngModel'
+                          required>
                         </json-editor>
 
                         <div class="alert alert-danger" *ngIf='lovJson.touched && lovJson.invalid'>JSON is required.</div>
                       </div>
 
-                     
+
 
 
 
                       <!-- Check box for non-persistence of data     -->
 
-                    <div *ngIf='instance.applicableProperties.nonPersistent'>
-                      <div class="form-check  mt-3">
-                        <input class="form-check-input" type="checkbox" value="nonPersistent" id="non-persistent" [(ngModel)]='componentData.nonPersistent'
-                          ngModel name='nonPersistent'>
-                        <label class="form-check-label" for="non-persistent">
-                          Non-Persistent
-                        </label>
-                        <br>
+                      <div *ngIf='instance.applicableProperties.nonPersistent'>
+                        <div class="form-check  mt-3">
+                          <input class="form-check-input" type="checkbox" value="nonPersistent" id="non-persistent" [(ngModel)]='componentData.nonPersistent'
+                            ngModel name='nonPersistent'>
+                          <label class="form-check-label" for="non-persistent">
+                            Non-Persistent
+                          </label>
+                          <br>
+                        </div>
                       </div>
-                    </div>
 
 
-                <!-- input for minimum date -->
-                    <div class='mt-2'
-                    *ngIf='instance.applicableProperties.minimumDate'>
-                      <label for='minimumDate'>
+                      <!-- input for minimum date -->
+                      <div class='mt-2' *ngIf='instance.applicableProperties.minimumDate'>
+                        <label for='minimumDate'>
                           Minimum date
-                      </label>
-                      <input id='minimumDate' class='form-control' placeholder='"{\"year\":\"1970\",\"month\":\"01\",\"date\":\"01\"}"' ngModel [(ngModel)]="componentData.minimumDate"
-                      name='minimumDate' ngModel [(ngModel)]="componentData.minimumDate">
-                    </div>
+                        </label>
+                        <input id='minimumDate' class='form-control' placeholder='"{\"year\":\"1970\",\"month\":\"01\",\"date\":\"01\"}"' ngModel
+                          [(ngModel)]="componentData.minimumDate" name='minimumDate' ngModel [(ngModel)]="componentData.minimumDate">
+                      </div>
 
-       <!-- input for maximum date -->
-                    <div class='mt-2'
-                    *ngIf='instance.applicableProperties.maximumDate'>
-                      <label for='maximumDate'>
+                      <!-- input for maximum date -->
+                      <div class='mt-2' *ngIf='instance.applicableProperties.maximumDate'>
+                        <label for='maximumDate'>
                           Maximum date
-                      </label>
-                      <input id='maximumDate' class='form-control' laceholder='"{\"year\":\"2019\",\"month\":\"01\",\"date\":\"01\"}"' ngModel [(ngModel)]="componentData.maximumDate"
-                      name='maximumDate' ngModel [(ngModel)]="componentData.maximumDate">
-                    </div>
+                        </label>
+                        <input id='maximumDate' class='form-control' laceholder='"{\"year\":\"2019\",\"month\":\"01\",\"date\":\"01\"}"' ngModel
+                          [(ngModel)]="componentData.maximumDate" name='maximumDate' ngModel [(ngModel)]="componentData.maximumDate">
+                      </div>
 
-       <!-- input for calculated Value -->
-                    <div class='mt-2'
-                    *ngIf='instance.applicableProperties.calculatedValue'>
-                      <label for='calculatedValue'>
+                      <!-- input for calculated Value -->
+                      <div class='mt-2' *ngIf='instance.applicableProperties.calculatedValue'>
+                        <label for='calculatedValue'>
                           Calculated value
-                      </label>
-                      <input id='calculatedValue' class='form-control' ngModel
-                      name='calculatedValue'>
-                    </div>
+                        </label>
+                        <input id='calculatedValue' class='form-control' ngModel name='calculatedValue'>
+                      </div>
 
                       <!-- input for autocomplete -->
                       <div *ngIf="componentData.nonPersistent" class='mt-2'>
-                        <input name='auto' type='text' id="auto-complete" autocomplete='on' [(ngModel)]='componentData.dbColumn' ngModel
-                        name='dbColumn' #dbColumn='ngModel' ngMoldel name='dbColumn' />
+                        <input name='auto' type='text' id="auto-complete" autocomplete='on' [(ngModel)]='componentData.dbColumn' ngModel name='dbColumn'
+                          #dbColumn='ngModel' ngMoldel name='dbColumn' />
                       </div>
 
                       <!-- checkbox for use delimeter -->
                       <div class='form-check mt-3' *ngIf='instance.applicableProperties.useDelimeter'>
-                         <input class='form-check-input' ngModel name='useDelimeter' type='checkbox' />
-                         <label class='form-check-label'>
-                             Use Delimeter
-                         </label>
+                        <input class='form-check-input' ngModel name='useDelimeter' type='checkbox' />
+                        <label class='form-check-label'>
+                          Use Delimeter
+                        </label>
                       </div>
 
-           <!-- check box for required decimal -->
+                      <!-- check box for required decimal -->
                       <div class='form-check mt-3' *ngIf='instance.applicableProperties.requiredDecimal'>
-                          <input class='form-check-input' ngModel name='requiredDecimal' type='checkbox' />
-                          <label class='form-check-label'>
-                              required decimal
-                          </label>
-                       </div>
+                        <input class='form-check-input' ngModel name='requiredDecimal' type='checkbox' />
+                        <label class='form-check-label'>
+                          required decimal
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -612,8 +615,8 @@
                   <div class="row">
                     <div class="col-md-10">
                       <div *ngIf='instance.applicableProperties.validations'>
-                      <label for="validations" class="mt-3">Applied Validation</label>
-                      <!-- <select [(ngModel)]='componentData.validations' ngModel name='validations' id="validations" class="form-control">
+                        <label for="validations" class="mt-3">Applied Validation</label>
+                        <!-- <select [(ngModel)]='componentData.validations' ngModel name='validations' id="validations" class="form-control">
                         <option value="none">--Select--</option>
                         <option  value="required">Required</option>
                         <option value="number+">Number +</option>
@@ -623,43 +626,44 @@
                         <option value="alphabet">Alphabet</option>
                         <option value="alphanum">Alphanumeric</option>
                       </select> -->
-                      <ngx-select  name='validations' id="validations" class="validations-msl" optionValueField = "id" optionTextField="text" [multiple]="true" [items]="instance.appliedValidations" [(ngModel)]="componentData.validations" placeholder="Select Validations"> 
-                      </ngx-select>
-                    </div>
+                        <ngx-select name='validations' id="validations" class="validations-msl" optionValueField="id" optionTextField="text" [multiple]="true"
+                          [items]="instance.appliedValidations" [(ngModel)]="componentData.validations" placeholder="Select Validations">
+                        </ngx-select>
+                      </div>
 
-                    <div class='form-check mt-3' *ngIf='instance.applicableProperties.unique'>
-                        <input class='form-check-input' ngModel name='unique' id="unique" type='checkbox'  [(ngModel)]="componentData.unique">
+                      <div class='form-check mt-3' *ngIf='instance.applicableProperties.unique'>
+                        <input class='form-check-input' ngModel name='unique' id="unique" type='checkbox' [(ngModel)]="componentData.unique">
                         <label class='form-check-label' for="unique">
-                            Unique
+                          Unique
                         </label>
                       </div>
 
                       <!-- input text for minimum length -->
                       <div *ngIf='instance.applicableProperties.minimumLength'>
-                      <label for='min-length' class='mt-3'>Minimum Length</label>
-                      <input type="number" class="form-control" id='min-lenght' placeholder='minimum length' [(ngModel)]='componentData.minimumLength'
-                        ngModel name='minimumLenght'>
+                        <label for='min-length' class='mt-3'>Minimum Length</label>
+                        <input type="number" class="form-control" id='min-lenght' placeholder='minimum length' [(ngModel)]='componentData.minimumLength'
+                          ngModel name='minimumLenght'>
                       </div>
 
                       <!-- input text for maximum length -->
                       <div *ngIf='instance.applicableProperties.maximumLength'>
-                      <label for='max-length' class='mt-3'>Maximum Length</label>
-                      <input type="number" class="form-control" id='max-lenght' placeholder='maximum length' ngModel [(ngModel)]='componentData.maximumLength'
-                        name='maximumLength'>
+                        <label for='max-length' class='mt-3'>Maximum Length</label>
+                        <input type="number" class="form-control" id='max-lenght' placeholder='maximum length' ngModel [(ngModel)]='componentData.maximumLength'
+                          name='maximumLength'>
                       </div>
 
                       <!-- input text for Regular Expression -->
                       <div *ngIf='instance.applicableProperties.regularExpression'>
-                      <label for='regular' class='mt-3'>Regular Expression</label>
-                      <input type="number" class="form-control" id='regular' placeholder='Regular Expression Pattern' [(ngModel)]='componentData.regularExpression'
-                        ngModel name='regularExpression'>
+                        <label for='regular' class='mt-3'>Regular Expression</label>
+                        <input type="number" class="form-control" id='regular' placeholder='Regular Expression Pattern' [(ngModel)]='componentData.regularExpression'
+                          ngModel name='regularExpression'>
                       </div>
 
                       <!-- input text for custom error message -->
                       <div *ngIf='instance.applicableProperties.regularExpression'>
-                      <label for='custom' class='mt-3'>Custom Error Message</label>
-                      <input type="number" class="form-control" id='custom' placeholder='custom error message' name='customErrorMessage' ngModel
-                        [(ngModel)]='componentData.customErrorFunction'>
+                        <label for='custom' class='mt-3'>Custom Error Message</label>
+                        <input type="number" class="form-control" id='custom' placeholder='custom error message' name='customErrorMessage' ngModel
+                          [(ngModel)]='componentData.customErrorFunction'>
                       </div>
 
                       <!-- <div class='mt-2'>
@@ -683,7 +687,7 @@
                             Custom Function Validation
                           </label>
                         </div> -->
-                        <!-- {
+                      <!-- {
                         agelimit: {
                             validatorFn: " if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null;",
                             message: 'Age should be greater than 50'
@@ -695,32 +699,33 @@
                         } -->
 
                       <div class="validation-container" *ngIf="instance.applicableProperties.customFuncValidationVal">
-                          <div class="json-help-container">
-                              <ng-template #customValidationHelp>
-                                <div class="json-help-wrapper">
-                                    <pre class="json-help">
+                        <div class="json-help-container">
+                          <ng-template #customValidationHelp>
+                            <div class="json-help-wrapper">
+                              <pre class="json-help">
                                         {{ jsonHelp.customFuncValidationHelp | json }}
                                     </pre>
-                                </div>
-                              </ng-template>
                             </div>
+                          </ng-template>
+                        </div>
 
 
                         <label for="valid" class='mt-3'>Custom Validation Function&nbsp;&nbsp;
-                            <span  class='help-icon-container'  >
-                                <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="customValidationHelp" popoverTitle="Custom Validations JSON Structure ('control' will be passed to function.)">
-                                  <i style='font-size: 16px;' class="material-icons"> help </i>
-                                </a>
-                              </span>
+                          <span class='help-icon-container'>
+                            <a class='card-tooltip mt-2' placement="right" [ngbPopover]="customValidationHelp" popoverTitle="Custom Validations JSON Structure ('control' will be passed to function.)">
+                              <i style='font-size: 16px;' class="material-icons"> help </i>
+                            </a>
+                          </span>
 
                         </label>
 
                         <!-- <textarea class="form-control" rows="3" id="valid" placeholder="Provide a json string." #customFuncValidationVal="ngModel" name='customFuncValidationVal'
                         ngModel [(ngModel)]='componentData.customFuncValidationVal'>
                       </textarea> -->
-                      <json-editor id = "validationEditor" [(ngModel)]="componentData.customFuncValidationVal" jsonModal name="customFuncValidationVal" [config]="jsonEditorConfig"  #customFuncValidationVal='ngModel' >
+                        <json-editor id="validationEditor" [(ngModel)]="componentData.customFuncValidationVal" jsonModal name="customFuncValidationVal"
+                          [config]="jsonEditorConfig" #customFuncValidationVal='ngModel'>
                         </json-editor>
-                      <div class="alert alert-danger" *ngIf='customFuncValidationVal.touched && customFuncValidationVal.invalid'>Please provide json  value.</div>
+                        <div class="alert alert-danger" *ngIf='customFuncValidationVal.touched && customFuncValidationVal.invalid'>Please provide json value.</div>
                       </div>
 
                       <!-- text area for custom JSON logic      -->
@@ -734,30 +739,31 @@
 
                       <div class="validation-container" *ngIf="instance.applicableProperties.jsonLogicVal">
 
-                          <div class="json-help-container">
-                              <ng-template #jsonLogicValHelp>
-                                <div class="json-help-wrapper">
-                                    <pre class="json-help">
+                        <div class="json-help-container">
+                          <ng-template #jsonLogicValHelp>
+                            <div class="json-help-wrapper">
+                              <pre class="json-help">
                                         {{ jsonHelp.jsonLogicValHelp | json }}
                                     </pre>
-                                </div>
-                              </ng-template>
                             </div>
-                        
+                          </ng-template>
+                        </div>
+
 
                         <label for="custom-JSON" class='mt-3'>JSON Logic&nbsp;
-                            <span  class='help-icon-container'  >
-                                <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="jsonLogicValHelp" popoverTitle="JSON Logic JSON Structure.(Please refer JsonLogic first.)">
-                                  <i style='font-size: 16px;' class="material-icons"> help </i>
-                                </a>
-                              </span>
+                          <span class='help-icon-container'>
+                            <a class='card-tooltip mt-2' placement="right" [ngbPopover]="jsonLogicValHelp" popoverTitle="JSON Logic JSON Structure.(Please refer JsonLogic first.)">
+                              <i style='font-size: 16px;' class="material-icons"> help </i>
+                            </a>
+                          </span>
 
                         </label>
                         <!-- <textarea class="form-control" rows="3" id="jsonLogicVal" placeholder='Provide JSON for JSON Logic. ' [(ngModel)]='componentData.jsonLogicVal' #jsonLogicVal="ngModel"
                           ngModel name='jsonLogicVal'>
                         </textarea> -->
-                        <json-editor id = "jsonLogicVal" [(ngModel)]="componentData.jsonLogicVal" jsonModal name="jsonLogicVal" [config]="jsonEditorConfig"  #jsonLogicVal='ngModel' >
-                          </json-editor>
+                        <json-editor id="jsonLogicVal" [(ngModel)]="componentData.jsonLogicVal" jsonModal name="jsonLogicVal" [config]="jsonEditorConfig"
+                          #jsonLogicVal='ngModel'>
+                        </json-editor>
                         <div class="alert alert-danger" *ngIf='jsonLogicVal.touched && jsonLogicVal.invalid'>Please provide json string value.</div>
                       </div>
 
@@ -771,54 +777,55 @@
                       </div> -->
 
                       <div class="validation-container" *ngIf="instance.applicableProperties.formClassValidationVal">
-                          <div class="json-help-container">
-                              <ng-template #formClassValidationValHelp>
-                                <div class="json-help-wrapper">
-                                    <pre class="json-help">
+                        <div class="json-help-container">
+                          <ng-template #formClassValidationValHelp>
+                            <div class="json-help-wrapper">
+                              <pre class="json-help">
                                         {{ jsonHelp.formClassValidationValHelp | json }}
                                     </pre>
-                                </div>
-                              </ng-template>
                             </div>
+                          </ng-template>
+                        </div>
 
-                          <label for="formClassValidationVal" class='mt-3'>Form Class Custom Validation&nbsp;&nbsp;
-                              <span  class='help-icon-container'  >
-                                  <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="formClassValidationValHelp" popoverTitle="Form Class Validation JSON Structure.">
-                                    <i style='font-size: 16px;' class="material-icons"> help </i>
-                                  </a>
-                                </span>
-                              </label>
-                          <!-- <textarea class="form-control" rows="3" id="formClassValidationVal" placeholder='JSON for form class validation' [(ngModel)]="componentData.formClassValidationVal"
+                        <label for="formClassValidationVal" class='mt-3'>Form Class Custom Validation&nbsp;&nbsp;
+                          <span class='help-icon-container'>
+                            <a class='card-tooltip mt-2' placement="right" [ngbPopover]="formClassValidationValHelp" popoverTitle="Form Class Validation JSON Structure.">
+                              <i style='font-size: 16px;' class="material-icons"> help </i>
+                            </a>
+                          </span>
+                        </label>
+                        <!-- <textarea class="form-control" rows="3" id="formClassValidationVal" placeholder='JSON for form class validation' [(ngModel)]="componentData.formClassValidationVal"
                             ngModel name='formClassValidationVal' #formClassValidationVal="ngModel" class='form-control'>
                           </textarea> -->
-                          <json-editor id="formClassValidationVal" [(ngModel)]="componentData.formClassValidationVal" jsonModal name="formClassValidationVal" [config]="jsonEditorConfig"  #formClassValidationVal='ngModel' >
-                            </json-editor>
-                          <div class="alert alert-danger" *ngIf='formClassValidationVal.touched && formClassValidationVal.invalid'>Please provide json string value.</div>
+                        <json-editor id="formClassValidationVal" [(ngModel)]="componentData.formClassValidationVal" jsonModal name="formClassValidationVal"
+                          [config]="jsonEditorConfig" #formClassValidationVal='ngModel'>
+                        </json-editor>
+                        <div class="alert alert-danger" *ngIf='formClassValidationVal.touched && formClassValidationVal.invalid'>Please provide json string value.</div>
                       </div>
 
                       <div class='mt-2' *ngIf='instance.applicableProperties.events'>
-                          <div class="json-help-container">
-                              <ng-template #eventsHelp>
-                                <div class="json-help-wrapper">
-                                    <pre class="json-help">
+                        <div class="json-help-container">
+                          <ng-template #eventsHelp>
+                            <div class="json-help-wrapper">
+                              <pre class="json-help">
                                         {{ jsonHelp.eventsHelp | json }}
                                     </pre>
-                                </div>
-                              </ng-template>
                             </div>
-                          <label for='events' >
-                             Events &nbsp;&nbsp;
-                             <span  class='help-icon-container'  >
-                                 <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="eventsHelp" popoverTitle="Events JSON Structure.">
-                                   <i style='font-size: 16px;' class="material-icons"> help </i>
-                                 </a>
-                               </span>
-                          </label>
-                          <!-- <textarea ngModel name="events" id="events"  rows="3" class='form-control' ngModel [(ngModel)]="componentData.events" placeholder="JSON.">
-                          </textarea> -->
-                          <json-editor id="events"  [(ngModel)]="componentData.events" jsonModal name="events" [config]="jsonEditorConfig"  #events='ngModel' >
-                            </json-editor>
+                          </ng-template>
                         </div>
+                        <label for='events'>
+                          Events &nbsp;&nbsp;
+                          <span class='help-icon-container'>
+                            <a class='card-tooltip mt-2' placement="right" [ngbPopover]="eventsHelp" popoverTitle="Events JSON Structure.">
+                              <i style='font-size: 16px;' class="material-icons"> help </i>
+                            </a>
+                          </span>
+                        </label>
+                        <!-- <textarea ngModel name="events" id="events"  rows="3" class='form-control' ngModel [(ngModel)]="componentData.events" placeholder="JSON.">
+                          </textarea> -->
+                        <json-editor id="events" [(ngModel)]="componentData.events" jsonModal name="events" [config]="jsonEditorConfig" #events='ngModel'>
+                        </json-editor>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -836,30 +843,32 @@
                   <div class="row">
                     <div class="col-md-10">
 
-                    <div *ngIf='instance.applicableProperties.marginTop'>
-                      <label for='margin-top' class='mt-3'>Margin Top</label>
-                      <input type="text" class="form-control" id='margin-top' placeholder='Margin e.g. 10% or 10px' name='marginTop' [(ngModel)]='componentData.marginTop'
-                        ngModel>
+                      <div *ngIf='instance.applicableProperties.marginTop'>
+                        <label for='margin-top' class='mt-3'>Margin Top</label>
+                        <input type="text" class="form-control" id='margin-top' placeholder='Margin e.g. 10% or 10px' name='marginTop' [(ngModel)]='componentData.marginTop'
+                          ngModel>
                       </div>
 
                       <!-- input for margin right -->
-                     <div *ngIf='instance.applicableProperties.marginRight'>
-                      <label for='margin-right' class='mt-3'>Margin Right</label>
-                      <input type="text" class="form-control" id='margin-right' placeholder='Margin e.g. 10% or 10px'name='marginRight' ngModel [(ngModel)]='componentData.marginRight'>
-                    </div>
+                      <div *ngIf='instance.applicableProperties.marginRight'>
+                        <label for='margin-right' class='mt-3'>Margin Right</label>
+                        <input type="text" class="form-control" id='margin-right' placeholder='Margin e.g. 10% or 10px' name='marginRight' ngModel
+                          [(ngModel)]='componentData.marginRight'>
+                      </div>
 
 
-                  <!-- input for margin bottom -->
-                  <div *ngIf='instance.applicableProperties.marginBottom'>
-                      <label for='margin-bottom' class='mt-3'>Margin Bottom</label>
-                      <input type="text" class="form-control" id='margin-bottom' placeholder='Margin e.g. 10% or 10px' name='marginBottom' ngModel [(ngModel)]='componentData.marginBottom'>
-                    </div>
+                      <!-- input for margin bottom -->
+                      <div *ngIf='instance.applicableProperties.marginBottom'>
+                        <label for='margin-bottom' class='mt-3'>Margin Bottom</label>
+                        <input type="text" class="form-control" id='margin-bottom' placeholder='Margin e.g. 10% or 10px' name='marginBottom' ngModel
+                          [(ngModel)]='componentData.marginBottom'>
+                      </div>
 
 
-                    <div *ngIf='instance.applicableProperties.marginLeft'>
-                      <label for='margin-left' class='mt-3'>Margin Left</label>
-                      <input type="text" class="form-control" id='margin-left' placeholder='Margin e.g. 10% or 10px' name='marginLeft' [(ngModel)]='componentData.marginLeft'
-                        ngModel>
+                      <div *ngIf='instance.applicableProperties.marginLeft'>
+                        <label for='margin-left' class='mt-3'>Margin Left</label>
+                        <input type="text" class="form-control" id='margin-left' placeholder='Margin e.g. 10% or 10px' name='marginLeft' [(ngModel)]='componentData.marginLeft'
+                          ngModel>
                       </div>
 
                     </div>
@@ -879,7 +888,7 @@
                   <div class="row">
                     <div class="col-md-10">
 
-                       <!-- <div>
+                      <!-- <div>
                           <label for='conditionType'>Condition Type</label>
                           <select name="conditionType" class='form-control' ngModel #conditionType='ngModel'>
                             <option value="customFunction">custom Function</option>
@@ -893,59 +902,61 @@
                       <!-- text area for custom Function -->
 
                       <div class="txa-container" *ngIf="instance.applicableProperties.condition">
-                          <div class="json-help-container">
-                              <ng-template #conditionHelp>
-                                <div class="json-help-wrapper">
-                                    <pre class="json-help">
+                        <div class="json-help-container">
+                          <ng-template #conditionHelp>
+                            <div class="json-help-wrapper">
+                              <pre class="json-help">
                                         {{ jsonHelp.conditionHelp | json }}
                                     </pre>
-                                </div>
-                              </ng-template>
                             </div>
+                          </ng-template>
+                        </div>
                         <label for="custom-func" class='mt-3'>Field Conditional Show/Hide JSON&nbsp;&nbsp;
-                            <span  class='help-icon-container'  >
-                                <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="conditionHelp" popoverTitle="Custom Validations JSON Structure ('control' will be passed to function.)">
-                                  <i style='font-size: 16px;' class="material-icons"> help </i>
-                                </a>
-                              </span>
-                            </label>
+                          <span class='help-icon-container'>
+                            <a class='card-tooltip mt-2' placement="right" [ngbPopover]="conditionHelp" popoverTitle="Custom Validations JSON Structure ('control' will be passed to function.)">
+                              <i style='font-size: 16px;' class="material-icons"> help </i>
+                            </a>
+                          </span>
+                        </label>
                         <!-- <textarea class="form-control" rows="3" id="condition" placeholder='JSON' [(ngModel)]='componentData.condition'
                           ngModel name='condition'>
                         </textarea> -->
-                        <json-editor id="condition"  [(ngModel)]="componentData.condition" jsonModal name="condition" [config]="jsonEditorConfig"  #condition='ngModel' >
-                          </json-editor>
+                        <json-editor id="condition" [(ngModel)]="componentData.condition" jsonModal name="condition" [config]="jsonEditorConfig"
+                          #condition='ngModel'>
+                        </json-editor>
                       </div>
 
-                        <!-- text area for custom Function -->
+                      <!-- text area for custom Function -->
 
-                        <div class="txa-container" *ngIf="instance.applicableProperties.fldDisabledCondition">
-                            <div class="json-help-container">
-                                <ng-template #fldDisabledConditionHelp>
-                                  <div class="json-help-wrapper">
-                                      <pre class="json-help">
+                      <div class="txa-container" *ngIf="instance.applicableProperties.fldDisabledCondition">
+                        <div class="json-help-container">
+                          <ng-template #fldDisabledConditionHelp>
+                            <div class="json-help-wrapper">
+                              <pre class="json-help">
                                           {{ jsonHelp.fldDisabledConditionHelp | json }}
                                       </pre>
-                                  </div>
-                                </ng-template>
-                              </div>
-                          <label for="custom-func" class='mt-3'>Field Conditional Disabled JSON&nbsp;&nbsp;
-                              <span  class='help-icon-container'  >
-                                  <a  class='card-tooltip mt-2' placement="right" [ngbPopover]="fldDisabledConditionHelp" popoverTitle="Field Disabled Condition.">
-                                    <i style='font-size: 16px;' class="material-icons"> help </i>
-                                  </a>
-                                </span>
-                              </label>
-                          <!-- <textarea class="form-control" rows="3" id="fldDisabledCondition" placeholder='JSON' [(ngModel)]='componentData.condifldDisabledConditiontion'
+                            </div>
+                          </ng-template>
+                        </div>
+                        <label for="custom-func" class='mt-3'>Field Conditional Disabled JSON&nbsp;&nbsp;
+                          <span class='help-icon-container'>
+                            <a class='card-tooltip mt-2' placement="right" [ngbPopover]="fldDisabledConditionHelp" popoverTitle="Field Disabled Condition.">
+                              <i style='font-size: 16px;' class="material-icons"> help </i>
+                            </a>
+                          </span>
+                        </label>
+                        <!-- <textarea class="form-control" rows="3" id="fldDisabledCondition" placeholder='JSON' [(ngModel)]='componentData.condifldDisabledConditiontion'
                             ngModel name='fldDisabledCondition'>
                           </textarea> -->
-                          <json-editor id="fldDisabledCondition" [(ngModel)]="componentData.fldDisabledCondition" jsonModal name="fldDisabledCondition" [config]="jsonEditorConfig"  #fldDisabledCondition='ngModel' >
-                            </json-editor>
-                        </div>
+                        <json-editor id="fldDisabledCondition" [(ngModel)]="componentData.fldDisabledCondition" jsonModal name="fldDisabledCondition"
+                          [config]="jsonEditorConfig" #fldDisabledCondition='ngModel'>
+                        </json-editor>
+                      </div>
 
-                     
 
 
-<!-- 
+
+                      <!-- 
                       <!-- text area for json logic  -/->
                       <div *ngIf="conditionType.value=='customJsonLogic'">
                       <label for="json-logic" class='mt-3'> custom JSON Logic</label>
