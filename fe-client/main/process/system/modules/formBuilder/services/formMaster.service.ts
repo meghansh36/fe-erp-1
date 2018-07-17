@@ -36,13 +36,22 @@ export class FeFormMasterService {
   setProperties(props) {
     const masterJSON = this.masterJsonService.getMasterJSON();
     console.log("master json", props);
-    masterJSON.components[this.key].instance.properties = _.assignIn({}, props);
+    if (masterJSON.components[this.key] === undefined) {
+      masterJSON.buttons[this.key].instance.properties = _.assignIn({}, props);
+    }
+    else {
+      masterJSON.components[this.key].instance.properties = _.assignIn({}, props);
+    }
+    
     this.masterJsonService.setMasterJSON(masterJSON);
   }
 
   getProperties(key) {
     //console.log(this.properties);
     const masterJSON = this.masterJsonService.getMasterJSON();
+    if (masterJSON.components[key] === undefined) {
+      return masterJSON.buttons[key].instance.properties;
+    }
     return masterJSON.components[key].instance.properties;
   }
 
