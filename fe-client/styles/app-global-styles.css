@@ -218,4 +218,10 @@ fe-fieldset {
     cursor: pointer;
 }
 
+.gray_clr {
+    color: gray;
+}
+.mr_10 {
+    margin-left: 10px;
+}
 /*-------------------------}          */
