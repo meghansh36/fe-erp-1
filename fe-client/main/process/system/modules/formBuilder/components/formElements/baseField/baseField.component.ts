@@ -41,7 +41,7 @@ export class FeBaseField  implements OnInit {
 			text: 'Alphanumeric'
 		}
 
-	
+
 	];
   public applicableProperties: any = {
   	label:true,
@@ -76,8 +76,8 @@ export class FeBaseField  implements OnInit {
   	jsonLogicVal: true,
   	// formClassValFlag:true,
 		formClassValidationVal: true,
-		minimumLength:true,
-		maximumLength:true,
+		minimumLength: true,
+		maximumLength: true,
 		events: true,
 		condition: true,
 		type: true,
@@ -85,7 +85,7 @@ export class FeBaseField  implements OnInit {
     active: true,
   };
 
-  public properties:any = {
+	public properties: any = {
 		label: undefined,
 		hideLabel: false,
 		labelPosition: 'top',
@@ -99,7 +99,7 @@ export class FeBaseField  implements OnInit {
 		marginBottom: '',
 		defaultValueType: 'none',
 		defaultValueSqlQuery: '',
-		defaultValueStringValue: '',
+		defaultValueString: '',
 		lovType: 'none',
 		lovSqlQuery: '',
 		lovJson: '',
@@ -113,11 +113,8 @@ export class FeBaseField  implements OnInit {
 		prefix: '',
 		suffix: '',
 		validations: '',
-		// customValFuncFlag: false,
 		customFuncValidationVal: '',
-		// jsonLogicValFlag: false,
 		jsonLogicVal: '',
-		// formClassValFlag: false,
 		formClassValidationVal: '',
 		minimumLength: undefined,
 		maximumLength: undefined,
@@ -125,38 +122,38 @@ export class FeBaseField  implements OnInit {
 		condition: '',
 		fldDisabledCondition: '',
 		active: true,
-  };
+	};
 
-  constructor(
+	constructor(
 		public fieldControlService: FieldControlService,
 		public masterFormService: FormMasterService,
 		public formJsonService: FormJsonService
-  ) { }
+	) { }
 
-  ngOnInit() {
+	ngOnInit() {
 		console.log("initialized a new instance 1", this.properties);
-    this.setRef(this.fieldControlService.getFieldRef().ref);
-    this.uniqueKey = this.masterFormService.getCurrentKey();
-    this.masterFormService.setProperties(this.properties);
-  }
+		this.setRef(this.fieldControlService.getFieldRef().ref);
+		this.uniqueKey = this.masterFormService.getCurrentKey();
+		this.masterFormService.setProperties(this.properties);
+	}
 
-  public setRef(reference) {
+	public setRef(reference) {
 		this.refObj = reference;
-  }
+	}
 
-  public close() {
+	public close() {
 		this.formJsonService.removeComponent(this.uniqueKey);
 		this.refObj.destroy();
 		this.formJsonService.buildFinalJSON();
-  }
+	}
 
-  public openModal() {
-    this.masterFormService.setCurrentKey(this.uniqueKey);
-    this.masterFormService.setProperties(this.properties);
-    this.fieldControlService.getFieldRef().parent.openModal();
-  }
+	public openModal() {
+		this.masterFormService.setCurrentKey(this.uniqueKey);
+		this.masterFormService.setProperties(this.properties);
+		this.fieldControlService.getFieldRef().parent.openModal();
+	}
 
-  public update(propsFromMasterForm) {
-    this.properties = _.assignIn({}, propsFromMasterForm);
-  }
+	public update(propsFromMasterForm) {
+		this.properties = _.assignIn({}, propsFromMasterForm);
+	}
 }

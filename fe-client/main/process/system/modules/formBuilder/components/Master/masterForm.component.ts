@@ -1,7 +1,7 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 import { Component, ViewEncapsulation, OnInit,
   ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
-import { NgBootstrapService } from '@L3Main/services/NgBootstrap.service';
+import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
 import { builderFieldCompInterface } from './masterForm.interface';

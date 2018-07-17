@@ -16,12 +16,13 @@ export class FeDefaultFormComponent implements OnInit, AfterViewInit {
     constructor(protected formSchemaService: FormSchemaService) { }
 
     ngOnInit() {
+        this.resource.formInstance = this;
         this.init();
     }
 
     ngAfterViewInit() {
         console.log('this.code', this.code);
-        console.log('this.instance.code',this.instance.code)
+        console.log('this.instance.code', this.instance.code)
     }
 
     public init() {
@@ -38,7 +39,7 @@ export class FeDefaultFormComponent implements OnInit, AfterViewInit {
         return this._schema;
     }
 
-    set schema( schema ) {
+    set schema(schema) {
         this._schema = schema;
     }
 
@@ -46,7 +47,7 @@ export class FeDefaultFormComponent implements OnInit, AfterViewInit {
         return this.__instance;
     }
 
-    set instance( instance ) {
+    set instance(instance) {
         this.__instance = instance;
     }
 
@@ -58,16 +59,24 @@ export class FeDefaultFormComponent implements OnInit, AfterViewInit {
         return this._code;
     }
 
-    set code( code ) {
-        this._code = code ;
+    set code(code) {
+        this._code = code;
     }
 
     get components() {
         return this._components;
     }
 
-    set components( components ) {
+    set components(components) {
         this._components = components;
     }
-    
+
+    detail(row: any) {
+        console.log(row);
+    }
+
+    options(row: any) {
+        console.log(row);
+    }
+
 }
