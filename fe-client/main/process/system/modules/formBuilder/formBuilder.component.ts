@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck, Renderer2, OnInit } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck, Renderer2, OnInit, Injector } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgBootstrapService } from '@L3Main/services/NgBootstrap.service';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -17,6 +17,7 @@ import * as _ from 'lodash';
 export class FeFormBuilderComponent implements DoCheck, OnInit {
 
   @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
+  @ViewChild('buttonHost', {read: ViewContainerRef}) buttonHost: ViewContainerRef;
   @ViewChild('content') content;
   cond: Boolean = false;
   basic: String = 'basic';
@@ -46,6 +47,15 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
       revertOnSpill: true,
       copy: function(el, source) {
         return source.id === 'not_copy';
+      },
+      accepts: function(el, target, source, sibling) {
+        const targetClassesArr = target.className.trim().split(' ');
+        const fieldClassesArr = el.className.trim().split(' ');
+        if (_.includes(targetClassesArr, 'buttonDropZone') && _.includes(fieldClassesArr, 'button')) {
+          return true;
+        } else if (_.includes(targetClassesArr, 'FstDropZone') || _.includes(targetClassesArr, 'customDropZone')) {
+          return true;
+        }
       }
     });
 
@@ -58,11 +68,11 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
       if (value[1].nodeName === 'LI') {
         value[1].innerHTML = '';
         value[1].outerHTML = '';
-        const componentName = value[1].attributes[2].nodeValue;
+        const componentName = value[1].attributes.getNamedItem('componentName').nodeValue;
         console.log("componentName", componentName);
         const index = this.calculateIndex(value);
         this.dropComplete(this.formBuilderService.getComponent(componentName), index, value);
-      } 
+      }
     });
   }
 
@@ -142,27 +152,34 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   createComponentFunc(componentObj, index, target, value) {
    
     const key = this.generateNewKey();
-    console.log('createComponentFunc', 'target', target, 'value', value, 'key', key) ;
+    //console.log('createComponentFunc', 'target', target, 'value', value, 'key', key) ;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
 
-    console.log('target.id', target.id, 'target.className', target.className);
-    let  viewContainerRef = this.host;
+    //console.log('target.id', target.id, 'target.className', target.className);
+    let  viewContainerRef;
     const targetClassesArr = target.className.trim().split(" ");
+
     if ( _.includes(targetClassesArr, 'FSTdropZone')) {
-       console.log("target.className",target.className, targetClassesArr);
+       //console.log("target.className", target.className, targetClassesArr);
       viewContainerRef = this.fieldControlService.getFstCollection(target.id);
+      console.log('..................');
+    } else if (_.includes(targetClassesArr, 'buttonDropZone')){
+      viewContainerRef = this.buttonHost;
+    } else {
+      viewContainerRef = this.host;
     }
-    
+
     console.log("viewContainerRef", viewContainerRef, viewContainerRef.length);
+    console.log("index",index);
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
-    console.log("componentRef", target, viewContainerRef, viewContainerRef.length);
+    console.log("componentRef", componentRef);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index);
-    target.children[index].generatedKey = key;
-    target.children[index].parentComponent = target.id;
-    this.formJsonService.updateMasterJSON(target);
-    this.formJsonService.buildFinalJSON();
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index);
+    // target.children[index].generatedKey = key;
+    // target.children[index].parentComponent = target.id;
+    // this.formJsonService.updateMasterJSON(target);
+    // this.formJsonService.buildFinalJSON();
     console.log(this.formJsonService.getMasterJSON());
   }
 

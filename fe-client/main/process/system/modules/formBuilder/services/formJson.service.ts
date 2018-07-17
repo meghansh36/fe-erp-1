@@ -16,7 +16,8 @@ export class FeFormJsonService {
         conditionalDisabled: '',
         active: true,
         help: '',
-        components: {}
+        components: {},
+        buttons: {}
     };
 
     finalJSON;
@@ -31,9 +32,16 @@ export class FeFormJsonService {
     }
 
     addComponentToMasterJSON(key, component, parent, index) {
-        component.parent = parent;
+        const targetClassesArr = parent.className.trim().split(" ");
+        component.parent = parent.id;
         component.order = index;
-        this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: component});
+        if (_.includes(targetClassesArr, 'customDropZone')) {
+            this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: component});
+        } else if (_.includes(targetClassesArr, 'buttonDropZone')) {
+            this.MasterJSON.buttons = _.merge(this.MasterJSON.buttons, {[key]: component});
+        } else {
+            this.MasterJSON.components[parent.id] = _.merge(this.MasterJSON.components[parent.id], {[key]: component});
+        }
     }
 
     removeComponent(key) {
@@ -41,6 +49,7 @@ export class FeFormJsonService {
     }
 
     updateMasterJSON(parent) {
+        console.log(this.MasterJSON);
         console.log('update', parent);
         for (let i = 0; i < parent.children.length; i++) {
            const childKey = parent.children[i].generatedKey;
@@ -54,7 +63,7 @@ export class FeFormJsonService {
          const finalJSON = {
             ...this.MasterJSON
         };
-       const tempComponents = [];
+       let tempComponents = [];
         for (const key in this.MasterJSON.components) {
             if (key) {
                 tempComponents.push(this.MasterJSON.components[key].instance.properties);
@@ -64,7 +73,17 @@ export class FeFormJsonService {
             }
         }
         finalJSON.components = tempComponents;
-        this.finalJSON = finalJSON; 
+        tempComponents = [];
+        for (const key in this.MasterJSON.buttons) {
+            if (key) {
+                tempComponents.push(this.MasterJSON.buttons[key].instance.properties);
+                tempComponents[tempComponents.length - 1].key = key;
+                tempComponents[tempComponents.length - 1].parent = this.MasterJSON.buttons[key].parent;
+                tempComponents[tempComponents.length - 1].order = this.MasterJSON.buttons[key].order;
+            }
+        }
+        finalJSON.buttons = tempComponents;
+        this.finalJSON = finalJSON;
     }
 
     getFinalJSON() {

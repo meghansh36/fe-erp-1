@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class FeBaseField  implements OnInit {
-	showEdit = true;
+  showEdit = true;
   uniqueKey;
   refObj;
   componentname;
@@ -58,7 +58,7 @@ export class FeBaseField  implements OnInit {
   	defaultValueType:true,
   	defaultValueSqlQuery:true,
   	defaultValueStringValue: true,
-  	lovType: true,
+    lovType: true,
   	lovSqlQuery:true,
   	lovJson:true,
   	nonPersistent:true,
@@ -82,7 +82,7 @@ export class FeBaseField  implements OnInit {
 		condition: true,
 		type: true,
 		fldDisabledCondition: true,
-		active: true
+    active: true,
   };
 
   public properties:any = {

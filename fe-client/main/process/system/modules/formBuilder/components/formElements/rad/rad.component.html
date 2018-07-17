@@ -19,16 +19,14 @@
           <i class="material-icons"> help </i>
         </a>
       </span> -->
-    <div class="input-group" >
-    <div class="input-group-prepend" *ngIf='applicableProperties.prefix'>
-      <span class="input-group-text" id="basic-addon1">{{properties.prefix}}</span>
-    </div>
-     <input type="radio" value={{properties.placeholder}} class="form-control">
-
-    <div class="input-group-append" *ngIf='applicableProperties.suffix'>
-      <span class="input-group-text">{{properties.suffix}}</span>
-    </div>
-   </div>
+      <div class="input-group" *ngFor="let field of properties.inputPropsArray">
+          <div class="form-check" >
+              <input class="form-check-input" type="radio" value={{field.value}} name="radioInput">
+              <label class="form-check-label" for={{field.label}}>
+                {{field.label}}
+              </label>
+          </div>
+         </div>
     <br>
 
     <div role="presentation"><a >{{properties.description}}</a></div>
