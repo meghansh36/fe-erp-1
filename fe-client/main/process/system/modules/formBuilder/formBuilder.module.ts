@@ -38,7 +38,7 @@ import { MslComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/formElements/icb/icb.component';
 import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
 import { NgxSelectModule } from 'ngx-select-ex';
-//import { JSONEditorModule } from 'ngx-jsoneditor';
+import { JSONEditorModule } from 'ngx-jsoneditor';
 
 @NgModule({
   declarations: [
@@ -80,7 +80,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
     DragulaModule,
     HttpClientModule,
     ReactiveFormsModule,
-    //JSONEditorModule
+    JSONEditorModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,

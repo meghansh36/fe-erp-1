@@ -35,7 +35,7 @@ export class FeFormMasterService {
 
   setProperties(props) {
     const masterJSON = this.masterJsonService.getMasterJSON();
-    console.log("master json", props);
+    console.log("master json", masterJSON);
     if (masterJSON.components[this.key] === undefined) {
       masterJSON.buttons[this.key].instance.properties = _.assignIn({}, props);
     }

@@ -52,7 +52,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
         const fieldClassesArr = el.className.trim().split(' ');
         if (_.includes(targetClassesArr, 'buttonDropZone') && _.includes(fieldClassesArr, 'button')) {
           return true;
-        } else if (_.includes(targetClassesArr, 'FstDropZone') || _.includes(targetClassesArr, 'customDropZone')) {
+        } else if (_.includes(targetClassesArr, 'FSTdropZone') || _.includes(targetClassesArr, 'customDropZone')) {
           return true;
         }
       }
@@ -60,7 +60,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
 
     this.dragulaService.drop.subscribe((value) => {
       // const componentName = value[1].attributes[2].nodeValue;
-      console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
+     // console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
       if (this.rootDrop === undefined) {
         this.rootDrop = value[2];
       }
@@ -120,7 +120,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   calculateIndex(value) {
     const [bag, el, target, source, sibling] = value;
     const children = target.children;
-
+    console.log(value);
     if (sibling === null) {
       return children.length;
     } else {
@@ -130,7 +130,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
 
   dropComplete(componentObj, index, value) {
     this.createComponentFunc(componentObj, index, value[2], value);
-    this.openModal();
+    //this.openModal();
 
   }
 
@@ -173,13 +173,13 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     console.log("index",index);
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
     console.log("componentRef", componentRef);
-    this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index);
+     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
+     this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index);
     // target.children[index].generatedKey = key;
     // target.children[index].parentComponent = target.id;
     // this.formJsonService.updateMasterJSON(target);
     // this.formJsonService.buildFinalJSON();
-    console.log(this.formJsonService.getMasterJSON());
+    //console.log(this.formJsonService.getMasterJSON());
   }
 
   save() {
