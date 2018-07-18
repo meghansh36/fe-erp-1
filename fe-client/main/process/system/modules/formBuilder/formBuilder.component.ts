@@ -8,6 +8,8 @@ import { DragulaService } from 'ng2-dragula';
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
 import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
 import * as _ from 'lodash';
+import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
+
 // import { FieldRenderDirective } from '@L3Process/system/modules/formBuilder/directives/fieldRender.directive';
 @Component({
   selector: 'form-builder',
@@ -22,7 +24,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   cond: Boolean = false;
   basic: String = 'basic';
   advanced: String = 'advanced';
-  modalRef: NgbModalRef;
+  modalRef: any;
   //formSettingModalRef: 
   component: any;
   finalJSON;
@@ -39,7 +41,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     private formJsonService: FormJsonService,
     private dragulaService: DragulaService,
     private formBuilderService: FormBuilderService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {
     this.formJson = this.formJsonService.MasterJSON;
     this.dragulaService.setOptions('bag-one', {
@@ -52,7 +54,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
         const fieldClassesArr = el.className.trim().split(' ');
         if (_.includes(targetClassesArr, 'buttonDropZone') && _.includes(fieldClassesArr, 'button')) {
           return true;
-        } else if (_.includes(targetClassesArr, 'FstDropZone') || _.includes(targetClassesArr, 'customDropZone')) {
+        } else if (_.includes(targetClassesArr, 'FSTdropZone') || _.includes(targetClassesArr, 'customDropZone')) {
           return true;
         }
       }
@@ -60,16 +62,18 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
 
     this.dragulaService.drop.subscribe((value) => {
       // const componentName = value[1].attributes[2].nodeValue;
-      console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
+     // console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
       if (this.rootDrop === undefined) {
         this.rootDrop = value[2];
       }
       if (value[1].nodeName === 'LI') {
-        value[1].innerHTML = '';
-        value[1].outerHTML = '';
+        // value[1].innerHTML = '';
+        // value[1].outerHTML = '';
+        
         const componentName = value[1].attributes.getNamedItem('componentName').nodeValue;
         console.log("componentName", componentName);
         const index = this.calculateIndex(value);
+        value[1].remove();
         this.dropComplete(this.formBuilderService.getComponent(componentName), index, value);
       }
     });
@@ -120,22 +124,21 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   calculateIndex(value) {
     const [bag, el, target, source, sibling] = value;
     const children = target.children;
-
+    console.log(value);
     if (sibling === null) {
-      return children.length;
+      return children.length - 1 ;
     } else {
-      return Array.prototype.indexOf.call(children, sibling);
+      return Array.prototype.indexOf.call(children, sibling) - 1;
     }
   }
 
   dropComplete(componentObj, index, value) {
     this.createComponentFunc(componentObj, index, value[2], value);
-    this.openModal();
-
+    //this.openModal();
   }
 
-
   openModal() {
+    console.log(this.content);
     this.modalRef = this.bootstrapService.openModal(this.content, { size: 'lg' });
     this.masterFormService.setModalRef(this.modalRef);
   }
@@ -151,16 +154,11 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   createComponentFunc(componentObj, index, target, value) {
 
     const key = this.generateNewKey();
-    //console.log('createComponentFunc', 'target', target, 'value', value, 'key', key) ;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
-
-    //console.log('target.id', target.id, 'target.className', target.className);
     let  viewContainerRef;
     const targetClassesArr = target.className.trim().split(" ");
-
     if ( _.includes(targetClassesArr, 'FSTdropZone')) {
-       //console.log("target.className", target.className, targetClassesArr);
       viewContainerRef = this.fieldControlService.getFstCollection(target.id);
       console.log('..................');
     } else if (_.includes(targetClassesArr, 'buttonDropZone')){
@@ -172,14 +170,15 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     console.log("viewContainerRef", viewContainerRef, viewContainerRef.length);
     console.log("index",index);
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
+    console.log('view ref', componentRef._viewRef);
     console.log("componentRef", componentRef);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
     this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index);
-    // target.children[index].generatedKey = key;
-    // target.children[index].parentComponent = target.id;
-    // this.formJsonService.updateMasterJSON(target);
-    // this.formJsonService.buildFinalJSON();
-    console.log(this.formJsonService.getMasterJSON());
+    target.children[index].generatedKey = key;
+    target.children[index].parentComponent = target.id;
+    this.formJsonService.updateMasterJSON(target);
+    this.formJsonService.buildFinalJSON();
+    //console.log(this.formJsonService.getMasterJSON());
   }
 
   save() {

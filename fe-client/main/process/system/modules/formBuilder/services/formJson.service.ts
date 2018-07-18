@@ -35,16 +35,20 @@ export class FeFormJsonService {
         const targetClassesArr = parent.className.trim().split(" ");
         component.parent = parent.id;
         component.order = index;
-        if (_.includes(targetClassesArr, 'customDropZone')) {
+        if (_.includes(targetClassesArr, 'customDropZone') || _.includes(targetClassesArr, 'FSTdropZone')) {
             this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: component});
         } else if (_.includes(targetClassesArr, 'buttonDropZone')) {
             this.MasterJSON.buttons = _.merge(this.MasterJSON.buttons, {[key]: component});
-        } else {
-            this.MasterJSON.components[parent.id] = _.merge(this.MasterJSON.components[parent.id], {[key]: component});
         }
     }
 
     removeComponent(key) {
+        for (const comp in this.MasterJSON.components) {
+            if (this.MasterJSON.components[comp].parent === key)
+             {
+                 _.unset(this.MasterJSON.components, comp);
+             }
+        }
         _.unset(this.MasterJSON.components, key);
     }
 

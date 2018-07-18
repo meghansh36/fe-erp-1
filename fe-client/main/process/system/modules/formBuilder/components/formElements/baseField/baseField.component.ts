@@ -49,7 +49,7 @@ export class FeBaseField  implements OnInit {
   	labelPosition:true,
   	tooltip:true,
   	errorLabel:true,
-  	customCssClass:true,
+  	customCssClass: true,
   	tabIndex:true,
   	marginTop:true,
   	marginRight:true,
@@ -134,7 +134,7 @@ export class FeBaseField  implements OnInit {
 		console.log("initialized a new instance 1", this.properties);
 		this.setRef(this.fieldControlService.getFieldRef().ref);
 		this.uniqueKey = this.masterFormService.getCurrentKey();
-		this.masterFormService.setProperties(this.properties);
+		 this.masterFormService.setProperties(this.properties);
 	}
 
 	public setRef(reference) {

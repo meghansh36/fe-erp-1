@@ -64,8 +64,8 @@
               <ng-template #formDisabledHelp>
                 <div class="json-help-wrapper">
                   <pre class="json-help">
-                                                {{ formJsonHelp | json }}
-                                            </pre>
+                    {{ formJsonHelp | json }}
+                  </pre>
                 </div>
               </ng-template>
             </div>
@@ -185,38 +185,25 @@
         <div class="card-header">
           Drag And Drop Fields
         </div>
-        <!-- <div class="card-body" dnd-droppable (onDropSuccess) = "dropComplete($event,content)">
-                        <div dnd-sortable-container > -->
-                    <div class="card-body customDropZone" [dragula]='"bag-one"' id="root_drop" (hostRef) = 'fstHandler($event)'>
-                        <ng-template #host> </ng-template>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <div class="card" >
-                        <div class="card-header">
-                            Drag And Drop Buttons
-                        </div>
-                        <div class="card-body buttonDropZone" [dragula]='"bag-one"' id="button_drop">
-                            <ng-template #buttonHost></ng-template>
-                            <!-- </div> -->
-                        </div>
-                    </div>
-               <div class='builder-buttons'>
-                 <button type='button' (click)='save()'  class="btn btn-primary">Save</button>
-                 <button type='button' (click)='reset()' class="btn btn-secondary ml-2 mr-2">Reset</button>
-                 <button type='button' (click)='preview()'  class="btn btn-success">Preview</button>
-               </div>
+         <div class="card-body customDropZone" [dragula]='"bag-one"' id="root_drop" (hostRef) = 'fstHandler($event)'>
+            <ng-template #host></ng-template>
+         </div>
+      </div>
+      <div class="card" >
+        <div class="card-header">
+            Drag And Drop Buttons
+        </div>
+        <div class="card-body buttonDropZone" [dragula]='"bag-one"' id="button_drop">
+            <ng-template #buttonHost></ng-template>
         </div>
       </div>
       <div class='builder-buttons'>
-        <button type='button' (click)='save()' class="btn btn-primary">Save</button>
+        <button type='button' (click)='save()'  class="btn btn-primary">Save</button>
         <button type='button' (click)='reset()' class="btn btn-secondary ml-2 mr-2">Reset</button>
-        <button type='button' (click)='preview()' class="btn btn-success">Preview</button>
+        <button type='button' (click)='preview()'  class="btn btn-success">Preview</button>
       </div>
     </div>
-
   </div>
-
 </div>
 <div data-spy='scroll' data-offset='100'>
   <div class='container'>

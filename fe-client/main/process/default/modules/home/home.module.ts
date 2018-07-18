@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormGeneratorModule } from '@L3Process/system/modules/formGenerator/formGenerator.module';
 import { FeGridGeneratorModule } from '@L1Process/system/modules/gridGenerator/feGridGenerator.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 // function getToken():string{
