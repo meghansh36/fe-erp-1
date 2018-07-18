@@ -31,14 +31,14 @@ export class FeFormJsonService {
         this.MasterJSON = masterJson;
     }
 
-    addComponentToMasterJSON(key, component, parent, index) {
+    addComponentToMasterJSON(key, componentRef, parent, index) {
         const targetClassesArr = parent.className.trim().split(" ");
-        component.parent = parent.id;
-        component.order = index;
+        componentRef.parent = parent.id;
+        componentRef.order = index;
         if (_.includes(targetClassesArr, 'customDropZone') || _.includes(targetClassesArr, 'FSTdropZone')) {
-            this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: component});
+            this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: componentRef});
         } else if (_.includes(targetClassesArr, 'buttonDropZone')) {
-            this.MasterJSON.buttons = _.merge(this.MasterJSON.buttons, {[key]: component});
+            this.MasterJSON.buttons = _.merge(this.MasterJSON.buttons, {[key]: componentRef});
         }
     }
 
