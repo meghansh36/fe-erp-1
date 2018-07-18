@@ -16,9 +16,11 @@ export class FeHTMLComponent extends TxaComponent   {
   };
 
   public applicableProperties: any = {
-    enableCk:true,
+    enableCk: false,
     ckSettings:true,
-    ...this.applicableProperties
+    ...this.applicableProperties,
+    rows: false,
+    mask: false
   };
 
 }

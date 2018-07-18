@@ -24,10 +24,14 @@ export class FeTxtComponent extends FeBaseField  {
 
   get maskConfig() {
     if (this.mask) {
-      let mask = this.mask;
+      const mask = this.mask;
       return { mask };
     }
-    return { mask: false };
+    return { mask: null };
+    // if ( this.mask ) {
+    //   return this.mask;
+    // }
+    // return null;
   }
 
   get len() {

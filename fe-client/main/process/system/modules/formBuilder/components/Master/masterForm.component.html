@@ -110,11 +110,11 @@
 
 
                       <!--      Dropdown For button Theme -->
-                      <div class='mt-2' *ngIf='instance.applicableProperties.btnTheme'>
-                        <label for='btnTheme'>
+                      <div class='mt-2' *ngIf='instance.applicableProperties.theme'>
+                        <label for='theme'>
                           Button Theme
                         </label>
-                        <select id='theme' ngModel name='btnTheme' class='form-control' [(ngModel)]='componentData.btnTheme' change-event='replace'>
+                        <select id='theme' ngModel name='theme' class='form-control' [(ngModel)]='componentData.theme' change-event='replace'>
                           <option value="none">--Select--</option>
                           <option value="default" selected>Default</option>
                           <option value='primary'>Primary</option>
@@ -127,11 +127,11 @@
 
                       <!-- Dropdown for button size       -->
 
-                      <div class='mt-2' *ngIf='instance.applicableProperties.btnSize'>
-                        <label for='btnSize'>
+                      <div class='mt-2' *ngIf='instance.applicableProperties.size'>
+                        <label for='size'>
                           Button Size
                         </label>
-                        <select ngModel name="btnSize" id="btnSize" ngModel class='form-control' [(ngModel)]='componentData.btnSize' change-event='replace'>
+                        <select ngModel name="size" id="size" ngModel class='form-control' [(ngModel)]='componentData.size' change-event='replace'>
                           <option value="none">--Select--</option>
                           <option value="large">Large</option>
                           <option value="medium">Medium</option>
@@ -148,6 +148,16 @@
                         </label>
                         <input type='text' id="btnLeftIcon" class='form-control' name='btnLeftIcon' placeholder="Material Icon Class e.g. md-icon_content"
                           ngModel [(ngModel)]="componentData.btnLeftIcon" />
+                      </div>
+
+                      <!-- left Icon text for button -->
+
+                      <div class='mt-2' *ngIf='instance.applicableProperties.icon'>
+                        <label for='icon'>
+                          Icon
+                        </label>
+                        <input type='text' id="icon" class='form-control' name='icon' placeholder="Material Icon Class e.g. md-icon_content"
+                          ngModel [(ngModel)]="componentData.icon" />
                       </div>
 
 
@@ -345,7 +355,7 @@
                               </div>
                             </ng-template>
                           </div>
-                          <label for='ckSetting'>
+                          <label for='ckSettings'>
                             Ck Settings&nbsp;&nbsp;
                             <span class='help-icon-container'>
                               <a class='card-tooltip mt-2' placement="right" [ngbPopover]="enableCkHelp" popoverTitle="CK Editor Settings JSON Struture">
@@ -355,7 +365,7 @@
                           </label>
                           <!-- <textarea ngModel name="ckSettings" id="ckSetting"  rows="3" class='form-control' ngModel [(ngModel)]="componentData.ckSettings">
                         </textarea> -->
-                          <json-editor [(ngModel)]="componentData.ckSetting" id="ckSetting" jsonModal name="ckSetting" [config]="jsonEditorConfig"
+                          <json-editor [(ngModel)]="componentData.ckSettings" id="ckSettings" jsonModal name="ckSettings" [config]="jsonEditorConfig"
                             #ckSetting='ngModel'>
                           </json-editor>
                         </div>

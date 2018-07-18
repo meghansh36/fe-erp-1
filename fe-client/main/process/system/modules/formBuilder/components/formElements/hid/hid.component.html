@@ -37,7 +37,7 @@
                 <div class="input-group-prepend" *ngIf="prefix">
                     <span class="input-group-text"> {{ prefix }} </span>
                 </div>
-                <input type="hidden" [textMask]="maskConfig" class="form-control" [ngClass]="defaultClasses.fieldClasses" [attr.flexilabel]="flexiLabel" [ngStyle]="defaultClasses.fieldStyle" 
+                <input type="hidden" [textMask]="maskConfig" class="form-control" [ngClass]="defaultClasses.fieldClasses" [attr.flexilabel]="flexiLabel" [ngStyle]="style.fieldStyle" 
                     [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" 
                     [attr.id]="id">
                 <div class="input-group-append" *ngIf="suffix ">

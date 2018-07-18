@@ -20,7 +20,7 @@
         <label></label>
     </div>
     <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-        <button [disabled]="disabled" [attr.flexilabel]="flexiLabel" [ngClass]="defaultClasses.fieldClasses" [attr.id]="id" [ngStyle]="defaultClasses.fieldStyle">
+        <button [disabled]="disabled" [attr.flexilabel]="flexiLabel" [ngClass]="defaultClasses.fieldClasses" [attr.id]="id" [ngStyle]="style.fieldStyle">
             <i *ngIf="!!icon" [ngClass]="icon"></i>
         </button>
     </div>

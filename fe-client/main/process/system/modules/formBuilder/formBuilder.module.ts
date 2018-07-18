@@ -43,6 +43,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { JSONEditorModule } from 'ngx-jsoneditor';
 import { HTMLComponent } from "@L3Process/system/modules/formBuilder/components/formElements/html/html.component";
 import { FileComponent } from "@L3Process/system/modules/formBuilder/components/formElements/file/file.component";
+import { CKEditorModule } from 'ng2-ckeditor';
 @NgModule({
   declarations: [
     FormBuilderComponent,
@@ -86,7 +87,8 @@ import { FileComponent } from "@L3Process/system/modules/formBuilder/components/
     HttpClientModule,
     ReactiveFormsModule,
     JSONEditorModule,
-    TextMaskModule
+    TextMaskModule,
+    CKEditorModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
