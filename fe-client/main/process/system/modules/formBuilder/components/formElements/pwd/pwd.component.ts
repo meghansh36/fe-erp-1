@@ -9,8 +9,10 @@ import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/f
 export class FePwdComponent extends TxtComponent  {
   
   public properties = {
+    
+    ...this.properties,
     type: 'PWD',
-    ...this.properties
+
   };
 
  

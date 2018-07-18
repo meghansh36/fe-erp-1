@@ -21,7 +21,7 @@
             <label class="form-check-label" for="frmDisabled">
               Disabled
             </label>
-            <input class="form-check-input  ml-5 mt-2" type="checkbox" value="Y" id="frmDisabled" [(ngModel)]='formJson.disabled' ngModel
+            <input class="form-check-input  ml-5 mt-2" type="checkbox" value="Y" id="frmDisabled" [(ngModel)]='formJson.disabled' (change)="onDisabled()" ngModel
               name='frmDisabled' change-event='replace'>
           </div>
 
@@ -29,7 +29,7 @@
             <label class="form-check-label" for="frmHidden">
               Hidden
             </label>
-            <input class="form-check-input  ml-5 mt-2" type="checkbox" value="Y" id="frmHidden" [(ngModel)]='formJson.hidden' ngModel
+            <input class="form-check-input  ml-5 mt-2" type="checkbox" value="Y" id="frmHidden" [(ngModel)]='formJson.hidden' (change)="onHidden()" ngModel
               name='frmHidden' change-event='replace'>
           </div>
         </div>

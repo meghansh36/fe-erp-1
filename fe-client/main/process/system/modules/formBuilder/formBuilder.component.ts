@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck, Renderer2, OnInit } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck, Renderer2, OnInit, AfterViewInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -14,7 +14,7 @@ import * as _ from 'lodash';
   templateUrl: './formBuilder.component.html',
   styleUrls: ['./formBuilder.component.css']
 })
-export class FeFormBuilderComponent implements DoCheck, OnInit {
+export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
   @ViewChild('host', { read: ViewContainerRef }) host: ViewContainerRef;
   @ViewChild('content') content;
@@ -71,18 +71,57 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     this.finalJSON = this.formJsonService.getFinalJSON();
   }
 
+  onHidden() {
+    this.hideFields( this.hidden );
+  }
+
+  onDisabled() {
+    this.disableFields( this.disabled );
+  }
+
   ngOnInit() {
-    this.init()
+    this.init();
+  }
+
+  ngAfterViewInit() {
+    this.applyDisplayProps();
   }
 
   update(event) {
-
   }
 
   init() {
     this.jsonEditorConfig = {
       mode: 'code', onChange: this.update
     };
+    this.initFormJsonHelp();
+    //this.applyDisplayProps();
+  }
+
+
+
+  applyDisplayProps() {
+    this.disableFields( this.disabled );
+    this.hideFields( this.hidden );
+  }
+
+  disableFields( disableFlag ) {
+    const fieldComponents = this.components;
+    for( let keyRef in fieldComponents ) {
+      const componentInstance = fieldComponents[ keyRef ].instance;
+      componentInstance.formDisabled = disableFlag;
+    }
+  }
+
+  hideFields( hiddenFlag ) {
+    const fieldComponents = this.components;
+    for( let keyRef in fieldComponents ) {
+      const componentInstance = fieldComponents[ keyRef ].instance;
+      componentInstance.formHidden = hiddenFlag;
+    }
+  }
+
+  initFormJsonHelp() {
     this.formJsonHelp = {
       'simple': {
         'show': false,
@@ -121,7 +160,6 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
   dropComplete(componentObj, index, value) {
     this.createComponentFunc(componentObj, index, value[2], value);
     this.openModal();
-
   }
 
 
@@ -145,17 +183,13 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
 
-    console.log('target.id', target.id, 'target.className', target.className);
     let viewContainerRef = this.host;
     const targetClassesArr = target.className.trim().split(" ");
     if (_.includes(targetClassesArr, 'FSTdropZone')) {
-      console.log("target.className", target.className, targetClassesArr);
       viewContainerRef = this.fieldControlService.getFstCollection(target.id);
     }
 
-    console.log("viewContainerRef", viewContainerRef, viewContainerRef.length);
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
-    console.log("componentRef", target, viewContainerRef, viewContainerRef.length);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
     this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index);
     target.children[index].generatedKey = key;
@@ -176,5 +210,101 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
 
 
   preview() {
+  }
+
+  get id() {
+    return this.formJson.id;
+  }
+
+  get code() {
+    return this.formJson.code;
+  }
+
+  get formLabel() {
+    return this.formJson.formLabel;
+  }
+
+  get name() {
+    return this.formJson.name;
+  }
+
+  get display() {
+    return this.formJson.display;
+  }
+
+  get disabled() {
+    return this.formJson.disabled;
+  }
+
+  get hidden() {
+    return this.formJson.hidden;
+  }
+
+  get conditionalHidden() {
+    return this.formJson.conditionalHidden;
+  }
+
+  get conditionalDisabled() {
+    return this.formJson.conditionalDisabled;
+  }
+
+  get active() {
+    return this.formJson.active;
+  }
+
+  get help() {
+    return this.formJson.help;
+  }
+
+  get components() {
+    return this.formJson.components;
+  }
+
+  set id( id ) {
+    this.formJson.id = id;
+  }
+
+  set code( code ) {
+    this.formJson.code = code;
+  }
+
+  set formLabel( formLabel ) {
+    this.formJson.formLabel = formLabel;
+  }
+
+  set name( name ) {
+    this.formJson.name = name;
+  }
+
+  set display( display ) {
+    this.formJson.display = display;
+  }
+
+  set disabled( disabled ) {
+    this.formJson.disabled = disabled;
+  }
+
+  set hidden( hidden ) {
+    this.formJson.hidden = hidden;
+  }
+
+  set conditionalHidden( conditionalHidden ) {
+    this.formJson.conditionalHidden = conditionalHidden;
+  }
+
+  set conditionalDisabled( conditionalDisabled ) {
+    this.formJson.conditionalDisabled = conditionalDisabled;
+  }
+
+  set active( active ) {
+    this.formJson.active = active;
+  }
+
+  set help( help ) {
+    this.formJson.help = help;
+  }
+
+  set components( components ) {
+    this.formJson.components = components;
   }
 }

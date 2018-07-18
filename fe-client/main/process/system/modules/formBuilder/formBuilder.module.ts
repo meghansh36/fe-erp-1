@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormDragComponent } from '@L3Process/system/modules/formBuilder/components/formDrag/formDrag.component';
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
 import { SortablejsModule } from 'angular-sortablejs/dist';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import {FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txt/txt.component';
 import { TxaComponent } from '@L3Process/system/modules/formBuilder/components/formElements/txa/txa.component';
@@ -39,7 +41,8 @@ import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { JSONEditorModule } from 'ngx-jsoneditor';
-
+import { HTMLComponent } from "@L3Process/system/modules/formBuilder/components/formElements/html/html.component";
+import { FileComponent } from "@L3Process/system/modules/formBuilder/components/formElements/file/file.component";
 @NgModule({
   declarations: [
     FormBuilderComponent,
@@ -67,7 +70,9 @@ import { JSONEditorModule } from 'ngx-jsoneditor';
     SelComponent,
     MslComponent,
     IcbComponent,
-    AcsComponent
+    AcsComponent,
+    HTMLComponent,
+    FileComponent
   ],
   imports: [
     CommonModule,
@@ -80,15 +85,17 @@ import { JSONEditorModule } from 'ngx-jsoneditor';
     DragulaModule,
     HttpClientModule,
     ReactiveFormsModule,
-    JSONEditorModule
+    JSONEditorModule,
+    TextMaskModule
   ],
   entryComponents: [TxtComponent, TxaComponent, TimComponent, PwdComponent, PhnComponent,
                     NumComponent, MonComponent, HidComponent, EmlComponent, DtiComponent,
                     DatComponent, CurComponent, AdrComponent, ChkComponent,
                     AncComponent, BlkComponent, BtnComponent, RadComponent,
-                    AcsComponent, FstComponent,IcbComponent, SelComponent,
-                    MslComponent],
-  providers: [FormBuilderService, FormMasterService, FieldControlService, FormJsonService],
-  bootstrap: [FormBuilderComponent]
+                    AcsComponent, FstComponent, IcbComponent, SelComponent,
+                    MslComponent, HTMLComponent, FileComponent],
+  providers: [FormBuilderService, FormMasterService, FieldControlService, FormJsonService, DefaultsService],
+  bootstrap: [FormBuilderComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FeFormBuilderModule { }

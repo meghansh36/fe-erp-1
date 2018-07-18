@@ -15,7 +15,7 @@
                 <div class="input-group-prepend" *ngIf="prefix">
                     <span class="input-group-text"> {{ prefix }} </span>
                 </div>
-                <ngb-timepicker  class="form-control" [(ngModel)]="time" [formControlName]="flexiLabel"  [attr.id]="id" [attr.tabindex]="tabIndex" [ngClass]="defaultClasses.fieldClasses"></ngb-timepicker>
+                <ngb-timepicker  class="form-control" [(ngModel)]="time" [formControlName]="flexiLabel" [attr.flexilabel]="flexiLabel"  [attr.id]="id" [attr.tabindex]="tabIndex" [ngClass]="defaultClasses.fieldClasses"></ngb-timepicker>
                 <div class="input-group-append" *ngIf="suffix ">
                     <span class="input-group-text"> {{ suffix }} </span>
                 </div>

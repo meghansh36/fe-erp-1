@@ -17,7 +17,7 @@
             </div>
             <input type="email" class="form-control" [ngClass]="defaultClasses.fieldClasses" 
                 [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" [formControlName]="flexiLabel"
-                [attr.id]="id">
+                [attr.id]="id" [attr.flexilabel]="flexiLabel">
             <div class="input-group-append" *ngIf="suffix ">
                 <span class="input-group-text"> {{ suffix }} </span>
             </div>

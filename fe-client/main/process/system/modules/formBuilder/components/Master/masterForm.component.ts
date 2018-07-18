@@ -1,6 +1,6 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 import { Component, ViewEncapsulation, OnInit,
-  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy, DoCheck } from '@angular/core';
 import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -16,7 +16,7 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 }
 )
 
-export class FeMasterFormComponent implements OnInit, OnDestroy{
+export class FeMasterFormComponent implements OnInit, OnDestroy, DoCheck {
 
   Json = {id: 'FRM000001', name: '',code:'FRM000001',formLabel:'',display:'',hidden: false, disabled: false,conditionalHidden: '', conditionalDisabled: '', active:true, help: '', components: []};
   backupProps;
@@ -43,6 +43,11 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
     const component = this.fieldControlService.getFieldRef().component.component;
     this.createComponentFunc(component);
     this.init();
+  }
+
+  ngDoCheck() {
+    this.formJsonService.buildFinalJSON();
+    //this.finalJSON = this.formJsonService.getFinalJSON();
   }
 
   init() {
@@ -167,12 +172,13 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
   }
 
   onReset() {
-    this.instance.properties = _.assign({}, this.backupProps);
+    //this.instance.properties = _.assign({}, this.backupProps);
     this.componentData = _.assignIn({}, this.backupProps);
     console.log("Component data in reset", this.componentData);
   }
 
   onSubmit(form) {
+    console.log("Component data in submit", this.componentData);
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
     this.masterFormService.setCurrentKey(this.currentKey);

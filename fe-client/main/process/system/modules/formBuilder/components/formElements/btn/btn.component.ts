@@ -22,6 +22,11 @@ export class FeBtnComponent extends FeBaseField implements OnInit{
     btnSize: true,
   	btnLeftIcon:  true,
 		btnRightIcon: true,
-  	...this.applicableProperties
+		...this.applicableProperties,
+		labelPosition: false,
+		labelWidth: false,
+		labelMargin: false,
+		hideLabel: false,
+		width: false
 	};
 }

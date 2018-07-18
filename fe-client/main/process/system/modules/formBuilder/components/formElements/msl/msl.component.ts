@@ -10,7 +10,9 @@ import { SelComponent } from '@L3Process/system/modules/formBuilder/components/f
 export class FeMslComponent extends SelComponent  {
   
   public properties = {
+    
+    ...this.properties,
     type: 'MSL',
-    ...this.properties
+
   };
 }
