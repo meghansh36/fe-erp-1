@@ -38,11 +38,10 @@ export class FeFormMasterService {
     console.log("master json", masterJSON);
     if (masterJSON.components[this.key] === undefined) {
       masterJSON.buttons[this.key].instance.properties = _.assignIn({}, props);
-    }
-    else {
+    } else {
       masterJSON.components[this.key].instance.properties = _.assignIn({}, props);
     }
-    
+
     this.masterJsonService.setMasterJSON(masterJSON);
   }
 

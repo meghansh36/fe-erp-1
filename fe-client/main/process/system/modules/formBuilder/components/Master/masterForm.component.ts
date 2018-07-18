@@ -1,6 +1,6 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 import { Component, ViewEncapsulation, OnInit,
-  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+  ComponentFactoryResolver, ViewContainerRef, ViewChild} from '@angular/core';
 import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -16,7 +16,7 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 }
 )
 
-export class FeMasterFormComponent implements OnInit, OnDestroy{
+export class FeMasterFormComponent implements OnInit {
 
   Json = {id: 'FRM000001', name: '',code:'FRM000001',formLabel:'',display:'',hidden: false, disabled: false,conditionalHidden: '', conditionalDisabled: '', active:true, help: '', components: []};
   backupProps;
@@ -41,13 +41,14 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
+    //const component = this.fieldControlService.getFieldRef().viewRef;
     this.createComponentFunc(component);
     this.init();
   }
 
   init() {
     this.jsonEditorConfig = {
-       mode: 'code', onChange: this.update 
+       mode: 'code', onChange: this.update
     };
     this.jsonHelp = {
         lovHelp: 
@@ -182,13 +183,17 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
   }
 
   createComponentFunc(component) {
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    const viewContainerRef = this.preview;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+       const view = this.preview;
+    //console.log("master form view container", view);
+    //viewContainerRef.clear();
+    const componentRef = view.createComponent(componentFactory, 0, view.injector);
+    console.log('master form component ref', componentRef);
     this.instance = componentRef.instance;
     this.currentKey = this.masterFormService.getCurrentKey();
-    this.initInstance();
+   this.initInstance();
+    //view.insert(component);
   }
 
   initInstance() {
@@ -214,7 +219,4 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
     console.log('instance props', this.instance.properties);
   }
 
-  ngOnDestroy() {
-    console.log(' destroy called show edit ',this.instance.showEdit);
-  }
 }

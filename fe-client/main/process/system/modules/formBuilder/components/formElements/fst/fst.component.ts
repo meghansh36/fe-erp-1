@@ -34,9 +34,10 @@ export class FeFstComponent extends FeBaseField implements OnInit {
 
 
   ngOnInit() {
-    this.setRef(this.fieldControlService.getFieldRef().ref);
-    this.uniqueKey = this.masterFormService.getCurrentKey();
-    this.masterFormService.setProperties(this.properties);
+    console.log("initialized a new instance 1", this.properties);
+		this.setRef(this.fieldControlService.getFieldRef().ref);
+		this.uniqueKey = this.masterFormService.getCurrentKey();
+		this.masterFormService.setProperties(this.properties);
     this.fieldControlService.addToFstCollection(this.fstContainer, this.uniqueKey);
   }
 }
