@@ -7,17 +7,26 @@ import { Component } from '@angular/core';
 })
 export class FeDefaultComponent {
   public instance: any;
-  
+  public formInstance: any;
+
   constructor() {
     this.instance = this;
   }
 
-  onUserNameFocus( ...args ) {
-    console.log("Resource class onUserNameFocus called arguments:", args );
+  onUserNameFocus(...args) {
+    console.log("Resource class onUserNameFocus called arguments:", args);
   }
-  
-  onPassWordBlur( ...args ) {
-      console.log("Resource class onPassWordBlur called argument:", args );
-  }  
+
+  onPassWordBlur(...args) {
+    console.log("Resource class onPassWordBlur called argument:", args);
+  }
+
+  sendMail(row: any) {
+    console.log(row);
+  }
+
+  addPerson(row: any) {
+    console.log(row);
+  }
 
 }

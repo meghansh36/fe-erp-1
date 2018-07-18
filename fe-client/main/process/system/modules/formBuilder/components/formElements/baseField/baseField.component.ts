@@ -294,6 +294,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 
         classes = this.beforeSetDefaultClasses(classes);
         return classes;
+		// this.masterFormService.setProperties(this.properties);
 	}
 	
 	public beforeSetDefaultClasses(classes) {

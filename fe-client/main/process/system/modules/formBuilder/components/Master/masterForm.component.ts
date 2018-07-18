@@ -41,6 +41,7 @@ export class FeMasterFormComponent implements OnInit, OnDestroy, DoCheck {
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
+    //const component = this.fieldControlService.getFieldRef().viewRef;
     this.createComponentFunc(component);
     this.init();
   }
@@ -52,7 +53,7 @@ export class FeMasterFormComponent implements OnInit, OnDestroy, DoCheck {
 
   init() {
     this.jsonEditorConfig = {
-       mode: 'code', onChange: this.update 
+       mode: 'code', onChange: this.update
     };
     this.jsonHelp = {
         lovHelp: 
@@ -188,13 +189,17 @@ export class FeMasterFormComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   createComponentFunc(component) {
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    const viewContainerRef = this.preview;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+       const view = this.preview;
+    //console.log("master form view container", view);
+    //viewContainerRef.clear();
+    const componentRef = view.createComponent(componentFactory, 0, view.injector);
+    console.log('master form component ref', componentRef);
     this.instance = componentRef.instance;
     this.currentKey = this.masterFormService.getCurrentKey();
-    this.initInstance();
+   this.initInstance();
+    //view.insert(component);
   }
 
   initInstance() {
@@ -205,12 +210,19 @@ export class FeMasterFormComponent implements OnInit, OnDestroy, DoCheck {
     this.componentData = this.instance.properties;
   }
 
+  deleteInput(index) {
+    this.instance.deleteInput(index);
+  }
+  
+  addInput(event) {
+    event.preventDefault();
+    this.instance.addInput();
+    console.log(this.componentData);
+  }
+
   update(event) {
     console.log(this.componentData);
     console.log('instance props', this.instance.properties);
   }
 
-  ngOnDestroy() {
-    console.log(' destroy called show edit ',this.instance.showEdit);
-  }
 }

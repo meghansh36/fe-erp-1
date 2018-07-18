@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { DataTableService } from '@L3Process/system/modules/gridGenerator/services/DataTable.service';
 import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
@@ -7,256 +7,415 @@ import 'rxjs/add/operator/do';
 import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'fe-dataTable',
-  styleUrls: ['feDataTable.component.css'],
-  templateUrl: 'feDataTable.component.html',
-  encapsulation: ViewEncapsulation.None
+	selector: 'fe-dataTable',
+	styleUrls: ['feDataTable.component.css'],
+	templateUrl: 'feDataTable.component.html',
+	encapsulation: ViewEncapsulation.None
 })
 export class FeDataTableComponent implements OnInit {
+	@Input() formInstance: any;
+	@ViewChild('dropdown') dropdown: any;
+	@ViewChild(DatatableComponent) table: DatatableComponent;
 
-  @ViewChild(DatatableComponent) table: DatatableComponent;
+	private temp = [];
+	private allColumns = [];
+	private openOrClose: boolean = true;
+	private _formCode: string;
+	private _pageHide: boolean;
+	private _limitShow: boolean;
+	private selected = [];
+	private _checkboxable: boolean;
+	private _headerCheckboxable: boolean;
+	private _filterable: boolean;
+	private _editableIcon: boolean;
+	private _message: string;
+	private _rows: any;
+	private _limit: any;
+	private _columns: any;
+	private _rowHeight: any;
+	private _scrollbarH: any;
+	private _offset: any;
+	private _headerHeight: any;
+	private _footerHeight: any;
+	private _rowActions: any;
+	private _buttons: any;
+	private _actionButtons: any;
+	private _title: string;
+	private _subTitle: string;
 
-  private temp = [];
-  private allColumns = [];
-  private _pageHide: boolean;
-  private _limitShow: boolean;
-  private selected = [];
-  private _checkboxable: boolean;
-  private _headerCheckboxable: boolean;
+	get rows() {
+		return this._rows;
+	}
 
-  get rows() {
-    return this.table.rows;
-  }
+	set rows(rows) {
+		this._rows = rows;
+	}
 
-  set rows(rows) {
-    this.table.rows = rows;
-  }
+	get formCode() {
+		return this._formCode;
+	}
 
-  get limit() {
-    return this.table.limit;
-  }
+	set formCode(formCode) {
+		this._formCode = formCode;
+	}
 
-  set limit(limit) {
-    this.table.limit = limit;
-  }
+	get limit() {
+		return this.table.limit;
+	}
 
-  get columns() {
-    return this.table.columns;
-  }
+	set limit(limit) {
+		this.table.limit = limit;
+	}
 
-  set columns(column) {
-    this.table.columns = column;
-  }
+	get columns() {
+		return this._columns;
+	}
 
-  get rowHeight() {
-    return this.table.rowHeight;
-  }
+	set columns(column) {
+		this._columns = column;
+	}
 
-  set rowHeight(rowHeight) {
-    this.table.rowHeight = rowHeight;
-  }
+	get rowHeight() {
+		return this._rowHeight;
+	}
 
-  get scrollbarH() {
-    return this.table.scrollbarH;
-  }
+	set rowHeight(rowHeight) {
+		this._rowHeight = rowHeight;
+	}
 
-  set scrollbarH(scrollbarH) {
-    this.table.scrollbarH = scrollbarH;
-  }
+	get scrollbarH() {
+		return this._scrollbarH;
+	}
 
-  get headerHeight() {
-    return this.table.headerHeight;
-  }
+	set scrollbarH(scrollbarH) {
+		this._scrollbarH = scrollbarH;
+	}
 
-  set headerHeight(headerHeight) {
-    this.table.headerHeight = headerHeight
-  }
+	get headerHeight() {
+		return this._headerHeight;
+	}
 
-  get offset() {
-    return this.table.offset;
-  }
+	set headerHeight(headerHeight) {
+		this._headerHeight = headerHeight
+	}
 
-  set offset(offset) {
-    this.table.offset = offset;
-  }
+	get offset() {
+		return this._offset;
+	}
 
-  get footerHeight() {
-    return this.table.footerHeight;
-  }
+	set offset(offset) {
+		this._offset = offset;
+	}
 
-  set footerHeight(footerHeight) {
-    this.table.footerHeight = footerHeight;
-  }
+	get footerHeight() {
+		return this._footerHeight;
+	}
 
-  get pager() {
-    return this._pageHide;
-  }
+	set footerHeight(footerHeight) {
+		this._footerHeight = footerHeight;
+	}
 
-  set pager(pager) {
-    this._pageHide = pager;
-  }
+	get pager() {
+		return this._pageHide;
+	}
 
-  get limitShow() {
-    return this._limitShow;
-  }
+	set pager(pager) {
+		this._pageHide = pager;
+	}
 
-  set limitShow(limitShow) {
-    this._limitShow = limitShow;
-  }
+	get limitShow() {
+		return this._limitShow;
+	}
 
-  get pagerShowHideCondition() {
-    if (((this.table.rowCount / this.table.pageSize) > 1) && this.pager) {
-      return false;
-    }
-    else return true;
-  }
+	set limitShow(limitShow) {
+		this._limitShow = limitShow;
+	}
 
-  get selectionType() {
-    return this.table.selectionType;
-  }
+	get pagerShowHideCondition() {
+		if (((this.table.rowCount / this.table.pageSize) > 1) && this.pager) {
+			return false;
+		}
+		else return true;
+	}
 
-  set selectionType(selectionType) {
-    this.table.selectionType = selectionType;
-  }
+	get selectionType() {
+		return this.table.selectionType;
+	}
 
-  get selectAllRowsOnPage() {
-    return this.table.selectAllRowsOnPage;
-  }
+	set selectionType(selectionType) {
+		this.table.selectionType = selectionType;
+	}
 
-  set selectAllRowsOnPage(selectAllRowsOnPage) {
-    this.table.selectAllRowsOnPage = selectAllRowsOnPage;
-  }
+	get selectAllRowsOnPage() {
+		return this.table.selectAllRowsOnPage;
+	}
 
-  get checkboxable() {
-    return this._checkboxable;
-  }
+	set selectAllRowsOnPage(selectAllRowsOnPage) {
+		this.table.selectAllRowsOnPage = selectAllRowsOnPage;
+	}
 
-  set checkboxable(checkboxable) {
-    this._checkboxable = checkboxable
-  }
+	get checkboxable() {
+		return this._checkboxable;
+	}
 
-  get headerCheckboxable() {
-    return this._headerCheckboxable;
-  }
+	set checkboxable(checkboxable) {
+		this._checkboxable = checkboxable
+	}
 
-  set headerCheckboxable(headerCheckboxable) {
-    this._headerCheckboxable = headerCheckboxable;
-  }
+	get headerCheckboxable() {
+		return this._headerCheckboxable;
+	}
 
-  constructor(private dataTableService: DataTableService, private modalService: NgbModal, private config: NgbDropdownConfig) {
-    config.autoClose = false;
-  }
+	set headerCheckboxable(headerCheckboxable) {
+		this._headerCheckboxable = headerCheckboxable;
+	}
 
-  ngOnInit() {
-    let gridData = this.dataTableService.getColumn();
-    this.setGrid(gridData);
-    let rowData = this.dataTableService.fetch();
-    this.setRows(rowData);
-  }
+	get filterable() {
+		return this._filterable;
+	}
 
-  setGrid(gridData) {
-    for (var key in gridData) {
-      if (key == 'columns') {
-        this.columns = this.allColumns = gridData[key];
-      }
-      if (key == 'limit') {
-        this.limit = gridData[key];
-      }
-      if (key == 'footerHeight') {
-        this.footerHeight = gridData[key];
-      }
-      if (key == 'offset') {
-        this.offset = gridData[key];
-      }
-      if (key == 'headerHeight') {
-        this.headerHeight = gridData[key];
-      }
-      if (key == 'scrollbarH') {
-        this.scrollbarH = gridData[key];
-      }
-      if (key == 'rowHeight') {
-        this.rowHeight = gridData[key];
-      }
-      if (key == 'pager') {
-        this.pager = gridData[key];
-      }
-      if (key == 'limitShow') {
-        this.limitShow = gridData[key];
-      }
-      if (key == 'selectionType') {
-        this.selectionType = gridData[key];
-      }
-      if (key == 'selectAllRowsOnPage') {
-        this.selectAllRowsOnPage = gridData[key];
-      }
-      if (key == 'checkboxable') {
-        this.checkboxable = gridData[key];
-      }
-      if (key == 'headerCheckboxable') {
-        this.headerCheckboxable = gridData[key];
-      }
-    }
-  }
+	set filterable(filterable) {
+		this._filterable = filterable;
+	}
 
-  setRows(rowData: Observable<DataTable[]>) {
-    rowData.subscribe((ele: DataTable[]) => {
-      this.rows = [...ele];
-      this.temp = [...ele];
-    });
-  }
+	get editableIcon() {
+		return this._editableIcon;
+	}
 
-  updateFilter(event) {
-    const val = event.target.value.toLowerCase();
-    const temp = this.temp.filter(function (d) {
-      return d.username.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-    this.rows = temp;
-  }
+	set editableIcon(editableIcon) {
+		this._editableIcon = editableIcon;
+	}
 
-  toggle(col) {
-    const isChecked = this.isChecked(col);
+	get message() {
+		return this._message;
+	}
 
-    if (isChecked) {
-      this.columns = this.columns.filter(c => {
-        return c.name !== col.name;
-      });
-    } else {
-      this.columns = [...this.columns, col];
-    }
-  }
+	set message(message) {
+		this._message = message;
+	}
 
-  isChecked(col) {
-    return this.columns.find(c => {
-      return c.name === col.name;
-    });
-  }
+	get rowActions() {
+		return this._rowActions;
+	}
 
-  openModal(content) {
-    this.modalService.open(content, { centered: true });
-  }
+	set rowActions(rowActions) {
+		this._rowActions = rowActions;
+	}
 
-  getLimitedData(event) {
-    let limit = event.target.value;
-    let pageNumber = this.offset;
-    let prevLimit = this.limit;
-    this.dataTableService.fetchLimitData(limit, pageNumber, prevLimit);
-  }
+	get actionButtons() {
+		return this._actionButtons;
+	}
 
-  onSelect({ selected }) {
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...selected);
-  }
+	set actionButtons(actionButtons) {
+		this._actionButtons = actionButtons;
+	}
 
-  add() {
-    this.selected.push(this.rows[1], this.rows[3]);
-  }
+	get buttons() {
+		return this._buttons;
+	}
 
-  update() {
-    this.selected = [this.rows[1], this.rows[3]];
-  }
+	set buttons(buttons) {
+		this._buttons = buttons;
+	}
 
-  remove() {
-    this.selected = [];
-  }
+	get title() {
+		return this._title;
+	}
+
+	set title(title) {
+		this._title = title;
+	}
+
+	get subTitle() {
+		return this._subTitle;
+	}
+
+	set subTitle(subTitle) {
+		this._subTitle = subTitle;
+	}
+
+	constructor(private dataTableService: DataTableService, private modalService: NgbModal, private config: NgbDropdownConfig) {
+		config.autoClose = false;
+	}
+
+	ngOnInit() {
+		let gridData = this.dataTableService.getColumn();
+		this.setGrid(gridData);
+		let rowData = this.dataTableService.fetch();
+		this.setRows(rowData);
+	}
+
+	setGrid(gridData) {
+		for (var key in gridData) {
+			if (key == 'formCode') {
+				this.formCode = gridData[key];
+			}
+			if (key == 'columns') {
+				this.columns = this.allColumns = gridData[key];
+			}
+			if (key == 'limit') {
+				this.limit = gridData[key];
+			}
+			if (key == 'footerHeight') {
+				this.footerHeight = gridData[key];
+			}
+			if (key == 'offset') {
+				this.offset = gridData[key];
+			}
+			if (key == 'headerHeight') {
+				this.headerHeight = gridData[key];
+			}
+			if (key == 'scrollbarH') {
+				this.scrollbarH = gridData[key];
+			}
+			if (key == 'rowHeight') {
+				this.rowHeight = gridData[key];
+			}
+			if (key == 'pager') {
+				this.pager = gridData[key];
+			}
+			if (key == 'limitShow') {
+				this.limitShow = gridData[key];
+			}
+			if (key == 'selectionType') {
+				this.selectionType = gridData[key];
+			}
+			if (key == 'selectAllRowsOnPage') {
+				this.selectAllRowsOnPage = gridData[key];
+			}
+			if (key == 'checkboxable') {
+				this.checkboxable = gridData[key];
+			}
+			if (key == 'headerCheckboxable') {
+				this.headerCheckboxable = gridData[key];
+			}
+			if (key == 'filterable') {
+				this.filterable = gridData[key];
+			}
+			if (key == 'editableIcon') {
+				this.editableIcon = gridData[key];
+			}
+			if (key == 'message') {
+				this.message = gridData[key];
+			}
+			if (key == 'rowActions') {
+				this.rowActions = gridData[key];
+			}
+			if (key == 'actionButtons') {
+				this.actionButtons = gridData[key];
+			}
+			if (key == 'buttons') {
+				this.buttons = gridData[key];
+			}
+			if (key == 'title') {
+				this.title = gridData[key];
+			}
+			if (key == 'subTitle') {
+				this.subTitle = gridData[key];
+			}
+		}
+	}
+
+	setRows(rowData: Observable<DataTable[]>) {
+		rowData.subscribe((ele: DataTable[]) => {
+			this.rows = [...ele];
+			this.temp = [...ele];
+		});
+	}
+
+	updateFilter(event) {
+		const val = event.target.value.toLowerCase();
+		const temp = this.temp.filter(function (d) {
+			return d.username.toLowerCase().indexOf(val) !== -1 || !val;
+		});
+		this.rows = temp;
+	}
+
+	toggle(col) {
+		const isChecked = this.isChecked(col);
+
+		if (isChecked) {
+			this.columns = this.columns.filter(c => {
+				return c.name !== col.name;
+			});
+		} else {
+			this.columns = [...this.columns, col];
+		}
+	}
+
+	isChecked(col) {
+		return this.columns.find(c => {
+			return c.name === col.name;
+		});
+	}
+
+	openModal(content) {
+		this.modalService.open(content, { centered: true });
+	}
+
+	getLimitedData(event) {
+		let limit = event.target.value;
+		let pageNumber = this.offset;
+		let prevLimit = this.limit;
+		this.dataTableService.fetchLimitData(limit, pageNumber, prevLimit);
+	}
+
+	onSelect({ selected }) {
+		this.selected.splice(0, this.selected.length);
+		this.selected.push(...selected);
+	}
+
+	add() {
+		this.selected.push(this.rows[1], this.rows[3]);
+	}
+
+	update() {
+		this.selected = [this.rows[1], this.rows[3]];
+	}
+
+	remove() {
+		this.selected = [];
+	}
+
+	dropDownOpenClose(type: any) {
+		if (this.openOrClose) {
+			this[type].open();
+			this.openOrClose = !this.openOrClose;
+		}
+		else {
+			this[type].close();
+			this.openOrClose = !this.openOrClose;
+		}
+	}
+
+	onAction(action: any, arg: any) {
+		try {
+			if (action.handlerOwner == 'form') {
+				console.log(this.formInstance);
+				if (this.formInstance.formInstance[action.clickEvent]) {
+					this.formInstance.formInstance[action.clickEvent](arg);
+				}
+			}
+			if (action.handlerOwner == 'resource') {
+				if (this.formInstance[action.clickEvent]) {
+					this.formInstance[action.clickEvent](arg);
+				}
+			}
+		}
+		catch (error) {
+			console.log(error);
+		}
+	}
+
+	btnAction(action: any) {
+		try {
+			if (this[action.clickEvent]) {
+				this[action.clickEvent](action.type);
+			}
+		}
+		catch (error) {
+			console.log(error);
+		}
+	}
 
 }

@@ -243,4 +243,10 @@ a.disabled {
     text-decoration: underline;
 }
 
+.gray_clr {
+    color: gray;
+}
+.mr_10 {
+    margin-left: 10px;
+}
 /*-------------------------}          */

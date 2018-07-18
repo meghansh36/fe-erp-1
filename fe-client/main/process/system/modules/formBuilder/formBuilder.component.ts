@@ -8,6 +8,8 @@ import { DragulaService } from 'ng2-dragula';
 import { FormBuilderService } from '@L3Process/system/modules/formBuilder/services/formBuilder.service';
 import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
 import * as _ from 'lodash';
+import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
+
 // import { FieldRenderDirective } from '@L3Process/system/modules/formBuilder/directives/fieldRender.directive';
 @Component({
   selector: 'form-builder',
@@ -16,12 +18,13 @@ import * as _ from 'lodash';
 })
 export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
-  @ViewChild('host', { read: ViewContainerRef }) host: ViewContainerRef;
+  @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
+  @ViewChild('buttonHost', {read: ViewContainerRef}) buttonHost: ViewContainerRef;
   @ViewChild('content') content;
   cond: Boolean = false;
   basic: String = 'basic';
   advanced: String = 'advanced';
-  modalRef: NgbModalRef;
+  modalRef: any;
   //formSettingModalRef: 
   component: any;
   finalJSON;
@@ -38,28 +41,39 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     private formJsonService: FormJsonService,
     private dragulaService: DragulaService,
     private formBuilderService: FormBuilderService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {
     this.formJson = this.formJsonService.MasterJSON;
     this.dragulaService.setOptions('bag-one', {
       revertOnSpill: true,
       copy: function (el, source) {
         return source.id === 'not_copy';
+      },
+      accepts: function(el, target, source, sibling) {
+        const targetClassesArr = target.className.trim().split(' ');
+        const fieldClassesArr = el.className.trim().split(' ');
+        if (_.includes(targetClassesArr, 'buttonDropZone') && _.includes(fieldClassesArr, 'button')) {
+          return true;
+        } else if (_.includes(targetClassesArr, 'FSTdropZone') || _.includes(targetClassesArr, 'customDropZone')) {
+          return true;
+        }
       }
     });
 
     this.dragulaService.drop.subscribe((value) => {
       // const componentName = value[1].attributes[2].nodeValue;
-      console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
+     // console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
       if (this.rootDrop === undefined) {
         this.rootDrop = value[2];
       }
       if (value[1].nodeName === 'LI') {
-        value[1].innerHTML = '';
-        value[1].outerHTML = '';
-        const componentName = value[1].attributes[2].nodeValue;
+        // value[1].innerHTML = '';
+        // value[1].outerHTML = '';
+        
+        const componentName = value[1].attributes.getNamedItem('componentName').nodeValue;
         console.log("componentName", componentName);
         const index = this.calculateIndex(value);
+        value[1].remove();
         this.dropComplete(this.formBuilderService.getComponent(componentName), index, value);
       }
     });
@@ -149,21 +163,21 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
   calculateIndex(value) {
     const [bag, el, target, source, sibling] = value;
     const children = target.children;
-
+    console.log(value);
     if (sibling === null) {
-      return children.length;
+      return children.length - 1 ;
     } else {
-      return Array.prototype.indexOf.call(children, sibling);
+      return Array.prototype.indexOf.call(children, sibling) - 1;
     }
   }
 
   dropComplete(componentObj, index, value) {
     this.createComponentFunc(componentObj, index, value[2], value);
-    this.openModal();
+    //this.openModal();
   }
 
-
   openModal() {
+    console.log(this.content);
     this.modalRef = this.bootstrapService.openModal(this.content, { size: 'lg' });
     this.masterFormService.setModalRef(this.modalRef);
   }
@@ -179,24 +193,27 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
   createComponentFunc(componentObj, index, target, value) {
 
     const key = this.generateNewKey();
-    console.log('createComponentFunc', 'target', target, 'value', value, 'key', key);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
-
-    let viewContainerRef = this.host;
+    let  viewContainerRef;
     const targetClassesArr = target.className.trim().split(" ");
-    if (_.includes(targetClassesArr, 'FSTdropZone')) {
+    if ( _.includes(targetClassesArr, 'FSTdropZone')) {
       viewContainerRef = this.fieldControlService.getFstCollection(target.id);
+      console.log('..................');
+    } else if (_.includes(targetClassesArr, 'buttonDropZone')){
+      viewContainerRef = this.buttonHost;
+    } else {
+      viewContainerRef = this.host;
     }
 
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index);
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index);
     target.children[index].generatedKey = key;
     target.children[index].parentComponent = target.id;
     this.formJsonService.updateMasterJSON(target);
     this.formJsonService.buildFinalJSON();
-    console.log(this.formJsonService.getMasterJSON());
+    //console.log(this.formJsonService.getMasterJSON());
   }
 
   save() {

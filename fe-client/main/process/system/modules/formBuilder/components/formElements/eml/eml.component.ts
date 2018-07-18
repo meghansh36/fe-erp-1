@@ -7,8 +7,8 @@ import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/f
 })
 export class FeEmlComponent extends TxtComponent {
   public properties = {
+    ...this.properties,
     type: 'EML',
-    ...this.properties
   };
 
   public applicableProperties: any = {
