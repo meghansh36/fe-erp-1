@@ -249,4 +249,12 @@ a.disabled {
 .mr_10 {
     margin-left: 10px;
 }
+
+.radio-field {
+    padding-top: 3px;
+}
+
+.radio-label {
+    padding-left: 5px;
+}
 /*-------------------------}          */

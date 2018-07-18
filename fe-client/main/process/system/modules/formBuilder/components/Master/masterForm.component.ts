@@ -1,6 +1,6 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 import { Component, ViewEncapsulation, OnInit,
-  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy, DoCheck } from '@angular/core';
+  ComponentFactoryResolver, ViewContainerRef, ViewChild, DoCheck } from '@angular/core';
 import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -16,7 +16,7 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 }
 )
 
-export class FeMasterFormComponent implements OnInit, OnDestroy, DoCheck {
+export class FeMasterFormComponent implements OnInit,  DoCheck {
 
   Json = {id: 'FRM000001', name: '',code:'FRM000001',formLabel:'',display:'',hidden: false, disabled: false,conditionalHidden: '', conditionalDisabled: '', active:true, help: '', components: []};
   backupProps;
