@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck, Renderer2, OnInit, Injector } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, DoCheck, Renderer2, OnInit, AfterViewInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -16,7 +16,7 @@ import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/compo
   templateUrl: './formBuilder.component.html',
   styleUrls: ['./formBuilder.component.css']
 })
-export class FeFormBuilderComponent implements DoCheck, OnInit {
+export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
   @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
   @ViewChild('buttonHost', {read: ViewContainerRef}) buttonHost: ViewContainerRef;
@@ -85,18 +85,57 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
     this.finalJSON = this.formJsonService.getFinalJSON();
   }
 
+  onHidden() {
+    this.hideFields( this.hidden );
+  }
+
+  onDisabled() {
+    this.disableFields( this.disabled );
+  }
+
   ngOnInit() {
-    this.init()
+    this.init();
+  }
+
+  ngAfterViewInit() {
+    this.applyDisplayProps();
   }
 
   update(event) {
-
   }
 
   init() {
     this.jsonEditorConfig = {
       mode: 'code', onChange: this.update
     };
+    this.initFormJsonHelp();
+    //this.applyDisplayProps();
+  }
+
+
+
+  applyDisplayProps() {
+    this.disableFields( this.disabled );
+    this.hideFields( this.hidden );
+  }
+
+  disableFields( disableFlag ) {
+    const fieldComponents = this.components;
+    for( let keyRef in fieldComponents ) {
+      const componentInstance = fieldComponents[ keyRef ].instance;
+      componentInstance.formDisabled = disableFlag;
+    }
+  }
+
+  hideFields( hiddenFlag ) {
+    const fieldComponents = this.components;
+    for( let keyRef in fieldComponents ) {
+      const componentInstance = fieldComponents[ keyRef ].instance;
+      componentInstance.formHidden = hiddenFlag;
+    }
+  }
+
+  initFormJsonHelp() {
     this.formJsonHelp = {
       'simple': {
         'show': false,
@@ -167,11 +206,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
       viewContainerRef = this.host;
     }
 
-    console.log("viewContainerRef", viewContainerRef, viewContainerRef.length);
-    console.log("index",index);
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
-    console.log('view ref', componentRef._viewRef);
-    console.log("componentRef", componentRef);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
     this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index);
     target.children[index].generatedKey = key;
@@ -192,5 +227,101 @@ export class FeFormBuilderComponent implements DoCheck, OnInit {
 
 
   preview() {
+  }
+
+  get id() {
+    return this.formJson.id;
+  }
+
+  get code() {
+    return this.formJson.code;
+  }
+
+  get formLabel() {
+    return this.formJson.formLabel;
+  }
+
+  get name() {
+    return this.formJson.name;
+  }
+
+  get display() {
+    return this.formJson.display;
+  }
+
+  get disabled() {
+    return this.formJson.disabled;
+  }
+
+  get hidden() {
+    return this.formJson.hidden;
+  }
+
+  get conditionalHidden() {
+    return this.formJson.conditionalHidden;
+  }
+
+  get conditionalDisabled() {
+    return this.formJson.conditionalDisabled;
+  }
+
+  get active() {
+    return this.formJson.active;
+  }
+
+  get help() {
+    return this.formJson.help;
+  }
+
+  get components() {
+    return this.formJson.components;
+  }
+
+  set id( id ) {
+    this.formJson.id = id;
+  }
+
+  set code( code ) {
+    this.formJson.code = code;
+  }
+
+  set formLabel( formLabel ) {
+    this.formJson.formLabel = formLabel;
+  }
+
+  set name( name ) {
+    this.formJson.name = name;
+  }
+
+  set display( display ) {
+    this.formJson.display = display;
+  }
+
+  set disabled( disabled ) {
+    this.formJson.disabled = disabled;
+  }
+
+  set hidden( hidden ) {
+    this.formJson.hidden = hidden;
+  }
+
+  set conditionalHidden( conditionalHidden ) {
+    this.formJson.conditionalHidden = conditionalHidden;
+  }
+
+  set conditionalDisabled( conditionalDisabled ) {
+    this.formJson.conditionalDisabled = conditionalDisabled;
+  }
+
+  set active( active ) {
+    this.formJson.active = active;
+  }
+
+  set help( help ) {
+    this.formJson.help = help;
+  }
+
+  set components( components ) {
+    this.formJson.components = components;
   }
 }

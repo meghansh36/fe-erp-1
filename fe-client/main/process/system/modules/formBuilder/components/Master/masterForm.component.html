@@ -19,10 +19,14 @@
                     <div class="col-md-10">
 
                       <!-- Label for Flexiele -->
-                      <label for="flexiLabel" class='requiredClass mt-3'>Flexiele Label</label>
-                      <input type="text" class="form-control" id='flexiLabel' placeholder="text" required ngModel name='flexiLabel' [(ngModel)]='componentData.flexiLabel'
-                        #flexiLabel='ngModel'>
-                      <div class="alert alert-danger" *ngIf='flexiLabel.touched && flexiLabel.invalid'>FlexieleLabel is required.</div>
+                      <div *ngIf='instance.applicableProperties.flexiLabel'>
+                        <label for="flexiLabel" class='requiredClass mt-3'>Flexiele Label</label>
+                        <input type="text" class="form-control" id='flexiLabel' placeholder="text" required ngModel name='flexiLabel' [(ngModel)]='componentData.flexiLabel'
+                          #flexiLabel='ngModel'>
+                        <div class="alert alert-danger" *ngIf='flexiLabel.touched && flexiLabel.invalid'>FlexieleLabel is required.
+
+                        </div>
+                      </div>
 
                       <!-- Label -->
                       <div *ngIf='instance.applicableProperties.label'>
@@ -33,8 +37,10 @@
                         <div *ngIf='!componentData.label'>
                           <div class="alert alert-danger" *ngIf='label.touched && label.invalid'>Label is required.</div>
                         </div>
+                      </div>
 
-                        <!-- Hide Label CheckBox -->
+                      <!-- Hide Label CheckBox -->
+                      <div *ngIf='instance.applicableProperties.hideLabel'>
                         <div class="form-check mb-2 mt-3">
                           <input class="form-check-input" type="checkbox" value="Y" id="hideLabel" name='hideLabel' #hideLabel='ngModel' [(ngModel)]='componentData.hideLabel'
                             ngModel change-event='replace'>
@@ -52,10 +58,12 @@
                           <option value='none'>--Select--</option>
                           <option value='top'>Top</option>
                           <option value='bottom'>Bottom</option>
-                          <option value='left-L'>Left(Left Aligned)</option>
+                          <!-- <option value='left-L'>Left(Left Aligned)</option>
                           <option value='left-R'>Left(Right Aligned)</option>
                           <option value='right-R'>Right(Right Aligned)</option>
-                          <option value='right-L'>Right(Left Aligned)</option>
+                          <option value='right-L'>Right(Left Aligned)</option> -->
+                          <option value="left">Left</option>
+                          <option value="right">Right</option>
                         </select>
                         <div class="alert alert-danger" *ngIf='labelPosition.touched && labelPosition.invalid'>Label Position is required.</div>
 
@@ -64,23 +72,29 @@
 
                       <!-- input box for Label Width -->
 
-                      <div *ngIf="componentData.labelPosition=='left-L'
+                      <!-- <div *ngIf="componentData.labelPosition=='left-L'
                         ||componentData.labelPosition=='left-R'||
                         componentData.labelPosition=='right-L'||
-                        componentData.labelPosition=='right-R'">
+                        componentData.labelPosition=='right-R'"> -->
+                      <div *ngIf='instance.applicableProperties.labelWidth'>
                         <label for="label-width" class='mt-3 requiredClass'>Label Width</label>
-                        <input required [(ngModel)]='componentData.labelWidth' ngModel type="text" class="form-control" id='label-width' placeholder='Enter Label width e.g. 10px or 10%'
+                        <input [(ngModel)]='componentData.labelWidth' ngModel type="text" class="form-control" id='label-width' placeholder='Enter Label width e.g. 10px or 10%'
                           name='labelWidth' #labelWidth='ngModel' change-event='replace'>
-                        <div class="alert alert-danger" *ngIf='labelWidth.touched && labelWidth.invalid'>FlexieleLabel is required.</div>
+                        <div class="alert alert-danger" *ngIf='labelWidth.touched && labelWidth.invalid'>FlexieleLabel is required.
+
+                        </div>
+                      </div>
 
 
-                        <!-- input box for Label Margin -->
+                      <!-- input box for Label Margin -->
 
-
+                      <div *ngIf='instance.applicableProperties.labelMargin'>
                         <label for="label-margin" class='mt-3 requiredClass'>Label Margin</label>
                         <input type="text" class="form-control" id='label-margin' placeholder='Enter Label margin e.g. 10px or 10%' [(ngModel)]='componentData.labelMargin'
-                          ngModel name='labelMargin' #labelMargin='ngModel' required change-event='replace'>
-                        <div class="alert alert-danger" *ngIf='labelMargin.touched && labelMargin.invalid'>Label Margin is required.</div>
+                          ngModel name='labelMargin' #labelMargin='ngModel' change-event='replace'>
+                        <div class="alert alert-danger" *ngIf='labelMargin.touched && labelMargin.invalid'>Label Margin is required.
+
+                        </div>
                       </div>
 
 
@@ -209,28 +223,7 @@
                       </div> -->
 
 
-                      <!-- input for fileMinimum size -->
-                      <div class='mt-2' *ngIf='instance.applicableProperties.fileMinimumSize'>
-                        <label for='fileMinimumSize'>
-                          File Minimum size
-                        </label>
-                        <input type='text' id='format' ngModel name='fileMinimumSize' class='form-control' placeholder='Enter minimum file size'
-                        />
-
-                      </div>
-
-
-
-                      <!-- input for fileMaximum Size -->
-
-                      <div class='mt-2' *ngIf='instance.applicableProperties.fileMaximumSize'>
-                        <label for='fileMaximumSize'>
-                          File Maximum size
-                        </label>
-                        <input type='text' id='fileMaximumSize' ngModel name='fileMaximumSize' class='form-control' placeholder='Enter maximum file size'
-                        />
-
-                      </div>
+                     
 
 
 
@@ -250,7 +243,7 @@
 
                       <!-- Input box for Description -->
                       <div *ngIf='instance.applicableProperties.description'>
-                        <label for="desc" class='mt-3'>Description</label>
+                        <label for="desc" class='mt-3'>Tooltip ( Description about field) </label>
                         <input type="text" class="form-control" id='desc' placeholder='description for this field' [(ngModel)]='componentData.description'
                           ngModel name='description' change-event='replace'>
                       </div>
@@ -273,8 +266,7 @@
                       <!-- Input Box for ToolTip -->
                       <div *ngIf='instance.applicableProperties.tooltip'>
                         <label for='tooltip' class='mt-3'>Tooltip</label>
-                        <input type="text" class="form-control" id='tooltip'  [(ngModel)]='componentData.tooltip'
-                          ngModel name='tooltip' change-event='replace'>
+                        <input type="text" class="form-control" id='tooltip' [(ngModel)]='componentData.tooltip' ngModel name='tooltip' change-event='replace'>
                       </div>
 
 
@@ -290,10 +282,9 @@
 
 
                       <!-- Input box for Input masking -->
-                      <div *ngIf='instance.applicableProperties.inputMask'>
+                      <div *ngIf='instance.applicableProperties.mask'>
                         <label for='mask' class='mt-3'>Input Mask</label>
-                        <input type="text" class="form-control" id='mask' placeholder='input mask' [(ngModel)]='componentData.inputMask' ngModel
-                          name='inputMask'>
+                        <input type="text" class="form-control" id='mask' placeholder='input mask' [(ngModel)]='componentData.mask' ngModel name='mask'>
                       </div>
 
 
@@ -624,7 +615,7 @@
                       <div class='form-check mt-3' *ngIf='instance.applicableProperties.requiredDecimal'>
                         <input class='form-check-input' ngModel name='requiredDecimal' type='checkbox' />
                         <label class='form-check-label'>
-                          required decimal
+                          Required decimal
                         </label>
                       </div>
                     </div>
@@ -641,19 +632,17 @@
                     <div class="col-md-10">
                       <div *ngIf='instance.applicableProperties.validations'>
                         <label for="validations" class="mt-3">Applied Validation</label>
-                        <!-- <select [(ngModel)]='componentData.validations' ngModel name='validations' id="validations" class="form-control">
-                        <option value="none">--Select--</option>
-                        <option  value="required">Required</option>
-                        <option value="number+">Number +</option>
-                        <option value="number-">Number -</option>
-                        <option value="email">Email</option>
-                        <option value="commaseperatedemail">Multiple Email</option>
-                        <option value="alphabet">Alphabet</option>
-                        <option value="alphanum">Alphanumeric</option>
-                      </select> -->
+                        
                         <ngx-select name='validations' id="validations" class="validations-msl" optionValueField="id" optionTextField="text" [multiple]="true"
                           [items]="instance.appliedValidations" [(ngModel)]="componentData.validations" placeholder="Select Validations">
                         </ngx-select>
+                      </div>
+
+                      <div class='form-check mt-3' *ngIf='instance.applicableProperties.required'>
+                        <input class='form-check-input' ngModel name='required' id="required" type='checkbox' [(ngModel)]="componentData.required">
+                        <label class='form-check-label' for="required">
+                          Required
+                        </label>
                       </div>
 
                       <div class='form-check mt-3' *ngIf='instance.applicableProperties.unique'>
@@ -661,6 +650,29 @@
                         <label class='form-check-label' for="unique">
                           Unique
                         </label>
+                      </div>
+
+                       <!-- input for fileMinimum size -->
+                       <div class='mt-2' *ngIf='instance.applicableProperties.fileMinimumSize'>
+                        <label for='fileMinimumSize'>
+                          File Minimum size
+                        </label>
+                        <input type='text' id='format' ngModel name='fileMinimumSize' class='form-control' placeholder='Enter minimum file size'
+                        />
+
+                      </div>
+
+
+
+                      <!-- input for fileMaximum Size -->
+
+                      <div class='mt-2' *ngIf='instance.applicableProperties.fileMaximumSize'>
+                        <label for='fileMaximumSize'>
+                          File Maximum size
+                        </label>
+                        <input type='text' id='fileMaximumSize' ngModel name='fileMaximumSize' class='form-control' placeholder='Enter maximum file size'
+                        />
+
                       </div>
 
                       <!-- input text for minimum length -->

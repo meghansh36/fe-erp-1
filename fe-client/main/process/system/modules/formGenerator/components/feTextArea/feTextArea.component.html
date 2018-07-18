@@ -24,7 +24,7 @@
             </span>
         </span>
         <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-            <textarea class="form-control" cols="50" rows="8" 
+            <textarea class="form-control" cols="50" rows="8" [attr.flexilabel]="flexiLabel"
                 [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" [formControlName]="flexiLabel"
                 [attr.id]="id"></textarea>
         </div>

@@ -1,6 +1,7 @@
 import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/validators.service';
 import { UtilityService } from '@L3Process/system/modules/formGenerator/services/utility.service';
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
@@ -23,64 +24,18 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     public errors = [];
     public style: any;
     public defaultClasses: any;
-    public defaultFieldWidth: any;
 
     public $statusChange: any;
     public $valueChange: any;
     public $simpleConditionChange: any;
     public $groupValueChange: any;
 
-    // Config properties which are the properties of this class
-
-    protected _disabled: any;
-    protected _label: any;
-    protected _id: any;
-    protected _hideLabel: any;
-    protected _prefix: any;
-    protected _suffix: any;
-    protected _customCssClass: any;
-    protected _description: any;
-    protected _code: any;
-    protected _flexiLabel: any;
-    protected _options: any;
-    protected _isParent: any;
-    protected _placeholder: any;
-    protected _type: any;
-    protected _validation: any;
-    protected _customValidations: any;
-    protected _jsonValidations: any;
-    protected _validations: any;
-    protected _formClassValidations: any;
-    protected _mask: any;
-    protected _labelPosition: any;
-    protected _labelWidth: any;
-    protected _hidden: any;
-    protected _labelMargin: any;
-    protected _tabIndex: any;
-    protected _marginTop: any;
-    protected _marginRight: any;
-    protected _marginBottom: any;
-    protected _marginLeft: any;
-    protected _width: any;
-    protected _events: any;
-    protected _condition: any;
-    protected _defaultValue: any;
-    protected _components: any;
-    protected _theme: any;
-    protected _size: any;
-    protected _leftIcon: any;
-    protected _rightIcon: any;
-    protected _ckeditor: any;
-    protected _tooltip: any;
-    protected _show: any;
-
     //Copy config in its prop
     protected _config: FieldConfig;
 
 
 
-    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2, public utility: UtilityService) {
-        this.defaultFieldWidth = '50%';
+    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2, public utility: UtilityService, public defaults: DefaultsService) {
     }
 
     ngOnInit(): void {
@@ -110,6 +65,9 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     addDisplayProps() {
         if (this.type == 'HID') {
             this.render.addClass(this.elemRef.nativeElement, 'hidden');
+        }
+        if ( this.disabled ) {
+            this.control.disable( { onlySelf: true, emitEvent: true } );
         }
         this.render.addClass(this.elemRef.nativeElement, 'fe-field-component');
     }
@@ -333,7 +291,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     getFieldClasses() {
         const type = this.type;
-        let labelPosition = 'top';
+        let labelPosition = this.defaults.LABEL_POSITION;
         const customCssClass = this.customCssClass || '';
 
         if (!this.hideLabel && this.labelPosition) {
@@ -439,7 +397,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
             fieldLabelContainerStyle.width = `${labelWidth}px`;
         }
 
-        let fieldWidth = this.defaultFieldWidth;
+        let fieldWidth = this.defaults.FIELD_WIDTH;
         if (this.width) {
             fieldWidth = this.width;
         }

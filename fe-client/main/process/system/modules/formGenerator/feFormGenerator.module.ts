@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { NgxSelectModule, INgxSelectOptions } from 'ngx-select-ex';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 
 import { FieldDirective } from '@L3Process/system/modules/formGenerator/directives/Field/Field.directive';
 import { FormComponent } from '@L3Process/system/modules/formGenerator/components/Form/Form.component';
@@ -110,6 +111,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     IconicButtonComponent,
     HtmlEditorComponent
   ],
-  schemas: [NO_ERRORS_SCHEMA]
+  providers: [ DefaultsService ],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FeFormGeneratorModule {}

@@ -9,8 +9,10 @@ import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/f
 export class FePhnComponent extends TxtComponent  {
  
   public properties = {
+    
+    ...this.properties,
     type: 'PHN',
-    ...this.properties
+
   };
 
 }
