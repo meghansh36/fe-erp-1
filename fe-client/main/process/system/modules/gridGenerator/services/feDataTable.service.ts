@@ -31,17 +31,18 @@ export class FeDataTableService {
 		filterable: true,
 		editableIcon: true,
 		title: "Users",
+		exportToExcel: 'Y',
 		subTitle: "Showing all users",
 		message: {
 			emptyMessage: "No Data to Show"
 		},
 		buttons: [
-			{ icon: "md-settings", clickEvent: "dropDownOpenClose", type: 'dropdown' },
+			{ icon: "md-settings", clickEvent: "dropDownOpenClose", type: 'dropdown', customCssClass: 'gray_clr mr_10 pointer' },
 		],
 		columns: [
 			{ prop: "username", name: "username", sortable: true, resizeable: true, width: '100', frozenLeft: true },
-			{ prop: "email", name: "email", sortable: true, resizeable: true, width: '200' },
-			{ prop: "country", name: "country", sortable: true, resizeable: false, width: '200' },
+			{ prop: "email", name: "email", sortable: true, resizeable: true, filterable: true, width: '200', align: 'left' },
+			{ prop: "country", name: "country", sortable: true, resizeable: false, filterable: true, width: '200', align: 'left' },
 			{ prop: "state", name: "state", sortable: true, resizeable: true, width: '200' },
 			{ prop: "date", name: "date", sortable: false, resizeable: true, width: '200' }
 		],
@@ -51,6 +52,17 @@ export class FeDataTableService {
 		actionButtons: [
 			{ icon: 'md-email', clickEvent: 'sendMail', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
 			{ icon: 'md-person_add', clickEvent: 'addPerson', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' }
+		],
+		applicableFilters: [
+			{
+				type: "TXT", code: "FLD0001001", flexiLabel: "email", label: 'email'
+			},
+			{
+				type: "TXT", code: "FLD0001002", flexiLabel: "country", label: 'country'
+			},
+			{
+				type: "SEL", code: "FLD0001003", flexiLabel: "date", label: 'date', lov: ['25 may', '14 june', '12 jan']
+			}
 		]
 	}
 

@@ -1,0 +1,26 @@
+<div class="filter-form-container">
+	<div class="filter-form-popup ">
+		<div class="card">
+			<div class="card-header popup-header" [attr.id]="'filterPopUpHeader'+ id">
+				{{label}}
+				<i class="float-left md-close pointer" (click)="closePopUp()"></i>
+			</div>
+			<div class="card-body" [attr.id]="'filterPopUpBody'+ id">
+				<span class="form-group" id="TXT" *ngIf="type == 'TXT'">
+					<label class="form-control-label" for="'TXT_'+ id">{{label}}</label>
+					<input type="text" [attr.id]="'TXT_'+ id" [(ngModel)]="filter" class="form-control">
+				</span>
+				<span class="form-group" id="TXT" *ngIf="type == 'SEL'">
+					<label class="form-control-label" for="'SEL_'+ id">{{label}}</label>
+					<select [attr.id]="'TXT_'+ id" class="form-control" (change)="selectItem($event)" >
+						<option value="">--select--</option>
+						<option *ngFor="let opt of lov" value="{{opt}}">{{opt}}</option>
+					</select>
+				</span>
+			</div>
+			<div class="card-footer text-right text-muted filter-popup-footer">
+				<button class="btn btn-secondary" (click)="applyFilter()">Apply</button>
+			</div>
+		</div>
+	</div>
+</div>

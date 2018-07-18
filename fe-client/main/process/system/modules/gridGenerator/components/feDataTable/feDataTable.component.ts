@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Output, EventEmitter, TemplateRef, Renderer2 } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { DataTableService } from '@L3Process/system/modules/gridGenerator/services/DataTable.service';
 import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
@@ -14,7 +14,10 @@ import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/
 })
 export class FeDataTableComponent implements OnInit {
 	@Input() formInstance: any;
+	@Output() reorder = new EventEmitter;
 	@ViewChild('dropdown') dropdown: any;
+	@ViewChild('myDrop') myDrop: any;
+	@ViewChild('nameSummaryCell') nameSummaryCell: TemplateRef<any>;
 	@ViewChild(DatatableComponent) table: DatatableComponent;
 
 	private temp = [];
@@ -42,6 +45,10 @@ export class FeDataTableComponent implements OnInit {
 	private _actionButtons: any;
 	private _title: string;
 	private _subTitle: string;
+	private _filterableCol = [];
+	private _columnsFiltersTobeApplied = [];
+	private checked: boolean = false;
+	private _filteredCol: any;
 
 	get rows() {
 		return this._rows;
@@ -234,7 +241,31 @@ export class FeDataTableComponent implements OnInit {
 		this._subTitle = subTitle;
 	}
 
-	constructor(private dataTableService: DataTableService, private modalService: NgbModal, private config: NgbDropdownConfig) {
+	get filteredCol() {
+		return this._filteredCol;
+	}
+
+	set filteredCol(filteredCol) {
+		this._filteredCol = filteredCol;
+	}
+
+	get filterableCol() {
+		return this._filterableCol;
+	}
+
+	set filterableCol(filterableCol) {
+		this._filterableCol = filterableCol;
+	}
+
+	get columnsFiltersTobeApplied() {
+		return this._columnsFiltersTobeApplied
+	}
+
+	set columnsFiltersTobeApplied(columnsFiltersTobeApplied) {
+		this._columnsFiltersTobeApplied = columnsFiltersTobeApplied;
+	}
+
+	constructor(private dataTableService: DataTableService, private modalService: NgbModal, private config: NgbDropdownConfig, private render: Renderer2) {
 		config.autoClose = false;
 	}
 
@@ -313,6 +344,9 @@ export class FeDataTableComponent implements OnInit {
 			if (key == 'subTitle') {
 				this.subTitle = gridData[key];
 			}
+			if (key == 'applicableFilters') {
+				this.columnsFiltersTobeApplied = gridData[key];
+			}
 		}
 	}
 
@@ -376,7 +410,7 @@ export class FeDataTableComponent implements OnInit {
 	remove() {
 		this.selected = [];
 	}
-
+	//----------------------buttons actions ----------------------------
 	dropDownOpenClose(type: any) {
 		if (this.openOrClose) {
 			this[type].open();
@@ -391,7 +425,6 @@ export class FeDataTableComponent implements OnInit {
 	onAction(action: any, arg: any) {
 		try {
 			if (action.handlerOwner == 'form') {
-				console.log(this.formInstance);
 				if (this.formInstance.formInstance[action.clickEvent]) {
 					this.formInstance.formInstance[action.clickEvent](arg);
 				}
@@ -415,6 +448,44 @@ export class FeDataTableComponent implements OnInit {
 		}
 		catch (error) {
 			console.log(error);
+		}
+	}
+	//----------------------***************** ----------------------------
+	//-------------------------- Filters ---------------------------------
+	popUp(col: any) {
+		console.log(col);
+		this.checked = !this.checked;
+		this.filteredCol = col;
+		this.myDrop.close();
+	}
+
+	closePopUp(event: any) {
+		this.checked = event;
+	}
+
+	closeThisChip(event: any) {
+		let code = event.code;
+		let element = document.querySelector(`#chip${code}`);
+		this.filterableCol = this.filterableCol.filter((ele) => ele.code != code);
+		this.enableElement(code);
+		element.remove();
+	}
+
+	addFilter(filter: any) {
+		this.filterableCol.push(filter);
+		this.checked = filter.checked;
+		let element = document.querySelector(`#btn${filter.code}`);
+		element.setAttribute('disabled', 'true');
+	}
+
+	enableElement(code: any) {
+		let field = document.querySelector(`#btn${code}`);
+		field.removeAttribute('disabled');
+	}
+	//-------------------------- *********** ---------------------------------
+	reorderColumn({ column, newValue, prevValue }: any): void {
+		if (column.frozenLeft) {
+			return;
 		}
 	}
 
