@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Output, EventEmitter, TemplateRef, Renderer2 } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { DataTableService } from '@L3Process/system/modules/gridGenerator/services/DataTable.service';
+import { FeFilteredDataService } from '@L1Process/system/modules/gridGenerator/services/feFilteredData.service';
 import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
@@ -14,34 +15,43 @@ import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/
 })
 export class FeDataTableComponent implements OnInit {
 	@Input() formInstance: any;
+	@Output() reorder = new EventEmitter;
 	@ViewChild('dropdown') dropdown: any;
+	@ViewChild('myDrop') myDrop: any;
+	@ViewChild('nameSummaryCell') nameSummaryCell: TemplateRef<any>;
 	@ViewChild(DatatableComponent) table: DatatableComponent;
 
-	private temp = [];
-	private allColumns = [];
-	private openOrClose: boolean = true;
-	private _formCode: string;
-	private _pageHide: boolean;
-	private _limitShow: boolean;
-	private selected = [];
-	private _checkboxable: boolean;
-	private _headerCheckboxable: boolean;
-	private _filterable: boolean;
-	private _editableIcon: boolean;
-	private _message: string;
-	private _rows: any;
-	private _limit: any;
-	private _columns: any;
-	private _rowHeight: any;
-	private _scrollbarH: any;
-	private _offset: any;
-	private _headerHeight: any;
-	private _footerHeight: any;
-	private _rowActions: any;
-	private _buttons: any;
-	private _actionButtons: any;
-	private _title: string;
-	private _subTitle: string;
+	protected temp = [];
+	protected allColumns = [];
+	protected openOrClose: boolean = true;
+	protected _formCode: string;
+	protected _pageHide: boolean;
+	protected _limitShow: boolean;
+	protected selected = [];
+	protected _checkboxable: boolean;
+	protected _headerCheckboxable: boolean;
+	protected _filterable: boolean;
+	protected _editableIcon: boolean;
+	protected _message: string;
+	protected _rows: any;
+	protected _limit: any;
+	protected _columns: any;
+	protected _rowHeight: any;
+	protected _scrollbarH: any;
+	protected _offset: any;
+	protected _headerHeight: any;
+	protected _footerHeight: any;
+	protected _rowActions: any;
+	protected _buttons: any;
+	protected _actionButtons: any;
+	protected _title: string;
+	protected _subTitle: string;
+	protected _filterableCol = [];
+	protected _columnsFiltersTobeApplied = [];
+	protected checked: boolean = false;
+	protected _filteredCol: any;
+	protected _filterData = [];
+	protected _sortedData = [];
 
 	get rows() {
 		return this._rows;
@@ -234,7 +244,47 @@ export class FeDataTableComponent implements OnInit {
 		this._subTitle = subTitle;
 	}
 
-	constructor(private dataTableService: DataTableService, private modalService: NgbModal, private config: NgbDropdownConfig) {
+	get filteredCol() {
+		return this._filteredCol;
+	}
+
+	set filteredCol(filteredCol) {
+		this._filteredCol = filteredCol;
+	}
+
+	get filterableCol() {
+		return this._filterableCol;
+	}
+
+	set filterableCol(filterableCol) {
+		this._filterableCol = filterableCol;
+	}
+
+	get columnsFiltersTobeApplied() {
+		return this._columnsFiltersTobeApplied
+	}
+
+	set columnsFiltersTobeApplied(columnsFiltersTobeApplied) {
+		this._columnsFiltersTobeApplied = columnsFiltersTobeApplied;
+	}
+
+	get filterData() {
+		return this._filterData;
+	}
+
+	set filterData(filterData) {
+		this._filterData = filterData;
+	}
+
+	get sortedData() {
+		return this._sortedData;
+	}
+
+	set sortedData(sortedData) {
+		this._sortedData = sortedData;
+	}
+
+	constructor(protected dataTableService: DataTableService, protected modalService: NgbModal, protected config: NgbDropdownConfig, protected filterService: FeFilteredDataService) {
 		config.autoClose = false;
 	}
 
@@ -313,6 +363,9 @@ export class FeDataTableComponent implements OnInit {
 			if (key == 'subTitle') {
 				this.subTitle = gridData[key];
 			}
+			if (key == 'applicableFilters') {
+				this.columnsFiltersTobeApplied = gridData[key];
+			}
 		}
 	}
 
@@ -323,13 +376,13 @@ export class FeDataTableComponent implements OnInit {
 		});
 	}
 
-	updateFilter(event) {
+	/* updateFilter(event) {
 		const val = event.target.value.toLowerCase();
 		const temp = this.temp.filter(function (d) {
 			return d.username.toLowerCase().indexOf(val) !== -1 || !val;
 		});
 		this.rows = temp;
-	}
+	} */
 
 	toggle(col) {
 		const isChecked = this.isChecked(col);
@@ -355,7 +408,7 @@ export class FeDataTableComponent implements OnInit {
 
 	getLimitedData(event) {
 		let limit = event.target.value;
-		let pageNumber = this.offset;
+		let pageNumber = this.table.offset;
 		let prevLimit = this.limit;
 		this.dataTableService.fetchLimitData(limit, pageNumber, prevLimit);
 	}
@@ -376,7 +429,7 @@ export class FeDataTableComponent implements OnInit {
 	remove() {
 		this.selected = [];
 	}
-
+	//----------------------buttons actions ----------------------------
 	dropDownOpenClose(type: any) {
 		if (this.openOrClose) {
 			this[type].open();
@@ -391,7 +444,6 @@ export class FeDataTableComponent implements OnInit {
 	onAction(action: any, arg: any) {
 		try {
 			if (action.handlerOwner == 'form') {
-				console.log(this.formInstance);
 				if (this.formInstance.formInstance[action.clickEvent]) {
 					this.formInstance.formInstance[action.clickEvent](arg);
 				}
@@ -415,6 +467,104 @@ export class FeDataTableComponent implements OnInit {
 		}
 		catch (error) {
 			console.log(error);
+		}
+	}
+	//----------------------***************** ----------------------------
+
+	//-------------------------- Filters ---------------------------------
+
+	popUp(col: any) {
+		console.log(col);
+		this.checked = !this.checked;
+		this.filteredCol = col;
+		this.myDrop.close();
+	}
+
+	closePopUp(event: any) {
+		this.checked = event;
+	}
+
+	closeThisChip(event: any) {
+		let code = event.code;
+		event.filter = undefined;
+		let element = document.querySelector(`#chip${code}`);
+		element.remove();
+		this.filterableCol = this.filterableCol.filter((ele) => ele.code != code);
+		this.enableElement(code);
+		this.manipulateStructureOfFilter(event);
+	}
+
+	addFirstFilter(event: any) {
+		this.filterableCol.push(event);
+		this.checked = event.checked;
+		this.manipulateStructureOfFilter(event);
+		let element = document.querySelector(`#btn${event.code}`);
+		element.setAttribute('disabled', 'true');
+	}
+
+	applyModifiedFilter(event: any) {
+		this.manipulateStructureOfFilter(event);
+	}
+
+	manipulateStructureOfFilter(event: any) {
+		this.convertToValidFilterJson(event);
+		this.applyFilter();
+	}
+
+
+	convertToValidFilterJson(filter: any) {
+		this.filterData = this.filterData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
+		if (filter.filter != undefined) {
+			let obj = {
+				[filter.flexiLabel]: {
+					operator: filter.operator,
+					value: filter.filter
+				}
+			}
+			this.filterData.push(obj);
+		}
+	}
+
+	enableElement(code: any) {
+		let field = document.querySelector(`#btn${code}`);
+		field.removeAttribute('disabled');
+	}
+
+	//-------------------------- *********** ---------------------------------
+
+	//-------------------------- sorting filter ------------------------------
+
+	filterOnSorting({ sorts, column, prevValue, newValue }) {
+		this.convertToValidSortingJson(sorts);
+		this.applyFilter();
+	}
+
+	convertToValidSortingJson(sorts: any) {
+		this.sortedData = this.sortedData.filter((ele) => ele.flexiLabel != sorts[0].prop);
+		let obj = {
+			flexiLabel: sorts[0].prop, type: sorts[0].dir
+		}
+		this.sortedData.push(obj);
+	}
+
+
+	//-------------------------- *********** ---------------------------------
+
+	applyFilter() {
+		let obj = {
+			page: this.table.offset,
+			recordsPerPage: this.limit,
+			filters: this.filterData,
+			formCode: this.formCode,
+			sorting: this.sortedData
+		}
+		this.filterService.sendFilterOption(obj);
+	}
+
+
+	reorderColumn({ column, newValue, prevValue }: any): void {
+		if (column.frozenLeft) {
+			return;
 		}
 	}
 
