@@ -10,18 +10,21 @@ import { FeBtnComponent } from '../btn/btn.component';
 export class FeIcbComponent extends FeBtnComponent  {
   
   public properties = {
+   
+    ...this.properties,
     type: 'ICB',
     icon: '',
-    ...this.properties
   };
 
   public applicableProperties = {
-		btnTheme: true,
-    btnSize: true,
+	
+    ...this.applicableProperties,
+    theme: true,
+    size: true,
   	btnLeftIcon:  false,
     btnRightIcon: false,
     icon: true,
-  	...this.applicableProperties
+    label: false
 	};
 
 }

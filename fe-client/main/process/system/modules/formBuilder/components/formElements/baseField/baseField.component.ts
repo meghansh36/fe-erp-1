@@ -123,9 +123,11 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		fldDisabledCondition: true,
 		active: true,
 		required: true,
-		labelWidth: '',
-		labelMargin: '',
-		width: ''
+		labelWidth: true,
+		labelMargin: true,
+		width: true,
+		icon: true
+
 	}; */
 
 	public properties: any = {
@@ -170,7 +172,8 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		labelMargin: '',
 		width: '',
 		mask: [],
-		description: ''
+		description: '',
+		icon: ''
 	};
 
 	constructor(

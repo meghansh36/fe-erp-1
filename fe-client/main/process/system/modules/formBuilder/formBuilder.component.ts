@@ -208,12 +208,35 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index);
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index, false);
     target.children[index].generatedKey = key;
     target.children[index].parentComponent = target.id;
     this.formJsonService.updateMasterJSON(target);
     this.formJsonService.buildFinalJSON();
     //console.log(this.formJsonService.getMasterJSON());
+  }
+
+  createComponentsFromJSON(componentProps) {
+    const parentID = componentProps.parent;
+    let viewContainerRef;
+    if (parentID === 'root_drop') {
+      viewContainerRef = this.host;
+    } else {
+      viewContainerRef = this.fieldControlService.getFstCollection(parentID);
+    }
+    
+  }
+
+  populateFormBuilder(json) {
+    for (let i = 0; i < json.components.length; i++) {
+      if (json.components[i].components === undefined) {
+        this.createComponentsFromJSON(json.components[i]);
+      } else {
+        this.populateFormBuilder(json.components[i]);
+      }
+    }
+
+    return;
   }
 
   save() {
