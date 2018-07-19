@@ -3,7 +3,7 @@ import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/validators.service';
-import { UtilityService } from '@L3Process/system/modules/formGenerator/services/utility.service';
+import { UtilityService } from '@L3Process/system/services/Utility.service';
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 import * as jsonLogic from 'json-logic-js';
@@ -285,189 +285,14 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
     }
 
     initFieldStyle() {
-        this.defaultClasses = this.getFieldClasses();
-        this.style = this.getFieldStyles();
-    }
-
-    getFieldClasses() {
-        const type = this.type;
-        let labelPosition = this.defaults.LABEL_POSITION;
-        const customCssClass = this.customCssClass || '';
-
-        if (!this.hideLabel && this.labelPosition) {
-            labelPosition = this.labelPosition;
-        }
-
-        let fieldContainerClasses = {};
-        let classesStr = `form-field-container frm-fld-container ${type}-container`;
-        if (this.prefix || this.suffix) {
-            classesStr += ' input-group';
-        }
-        fieldContainerClasses = this._makeCssClassesObj(classesStr);
-
-        let fieldMainWrapperClasses = {};
-        classesStr = `fe-field ${type}-container form-group ${labelPosition}-labeled-field`;
-        if (this.hidden) {
-            classesStr += ' hidden';
-        }
-        fieldMainWrapperClasses = this._makeCssClassesObj(classesStr);
-
-        let fieldLabelContainerClasses = {};
-        classesStr = `fe-field-container field-label-container ${type}-label-container`;
-        if (this.hideLabel) {
-            classesStr += ' hidden';
-        }
-        if (this.hasTextLenghtLimit) {
-            classesStr += ' has-text-limit';
-        }
-        fieldLabelContainerClasses = this._makeCssClassesObj(classesStr);
-
-        let fieldWrapperClasses = {};
-        classesStr = `field-wrapper ${type}-field-wrapper field-label-${labelPosition}`;
-        fieldWrapperClasses = this._makeCssClassesObj(classesStr);
-
-        let fieldDescWrapperClasses = {};
-        classesStr = `field-desc-container ${type}-desc-cont`;
-        fieldDescWrapperClasses = this._makeCssClassesObj(classesStr);
-
-        let fieldDescContainerClasses = {};
-        classesStr = `form-text text-muted field-desc ${type}-desc`;
-        fieldDescContainerClasses = this._makeCssClassesObj(classesStr);
-
-        let labelClasses = {};
-        classesStr = `field-label ${type}-label`;
-        if (this.isMandatory) {
-            classesStr += ` mandatory-field-label`;
-        }
-        labelClasses = this._makeCssClassesObj(classesStr);
-
-        let fieldErrorWrapperClasses = {};
-        classesStr = `field-error-wrapper ${type}-error-wrapper`;
-        fieldErrorWrapperClasses = this._makeCssClassesObj(classesStr);
-
-        let fieldClasses = {};
-        classesStr = `form-field ${type}-field ${customCssClass}`;
-        if (this.isMandatory) {
-            classesStr += ` mandatory-field`;
-        }
-        fieldClasses = this._makeCssClassesObj(classesStr);
-
-        let nestedFieldContainerClasses = {};
-        classesStr = `fe-field-container fe-${type}-wrapper`;
-        nestedFieldContainerClasses = this._makeCssClassesObj(classesStr);
-
-        let classes: any = {
-            fieldMainWrapperClasses,
-            fieldWrapperClasses,
-            fieldLabelContainerClasses,
-            fieldContainerClasses,
-            fieldDescWrapperClasses,
-            fieldDescContainerClasses,
-            labelClasses,
-            fieldErrorWrapperClasses,
-            fieldClasses,
-            nestedFieldContainerClasses
-        };
-
-        classes = this.beforeSetDefaultClasses(classes);
-        return classes;
+        this.defaultClasses = this.utility.getFieldClasses( this );
+        this.style = this.utility.getFieldStyles( this );
     }
 
     public beforeSetDefaultClasses(classes) {
         return classes;
     }
 
-    _makeCssClassesObj(cssClassesStr: string): any {
-        const cssClassesObj = {};
-        const cssClassArr = cssClassesStr.trim().split(' ')
-        cssClassArr.forEach((cssClass) => {
-            cssClassesObj[cssClass] = true;
-        });
-        return cssClassesObj;
-    }
-
-    getFieldStyles() {
-        const fieldLabelContainerStyle: any = {};
-        const fieldMainWrapperStyle = {};
-
-        const labelWidth = this.labelWidth;
-        const labelMargin = this.labelMargin;
-
-        if (labelWidth) {
-            fieldLabelContainerStyle.width = `${labelWidth}px`;
-        }
-
-        let fieldWidth = this.defaults.FIELD_WIDTH;
-        if (this.width) {
-            fieldWidth = this.width;
-        }
-        if (fieldWidth) {
-            this.render.setStyle(this.elemRef.nativeElement, 'width', fieldWidth);
-        }
-        if (this.type === 'HID') {
-            this.render.addClass(this.elemRef.nativeElement, 'hidden');
-        }
-
-        if (labelMargin) {
-            const margin: string = `${labelMargin}px`;
-            let marginSide: string = 'margin-top';
-
-            switch (this.labelPosition) {
-                case 'bottom': {
-                    marginSide = 'margin-top';
-                    break;
-                }
-                case 'left': {
-                    marginSide = 'margin-right';
-                    break;
-                }
-                case 'right': {
-                    marginSide = 'margin-left';
-                    break;
-                }
-                default: {
-                    marginSide = 'margin-top';
-                    break;
-                }
-            }
-            fieldLabelContainerStyle[marginSide] = margin;
-        }
-
-        if (this.labelWidth) {
-            fieldLabelContainerStyle['width'] = this.labelWidth;
-        }
-
-        if (this.marginLeft) {
-            fieldMainWrapperStyle['margin-left'] = this.marginLeft;
-        }
-
-        if (this.marginRight) {
-            fieldMainWrapperStyle['margin-right'] = this.marginRight;
-        }
-
-        if (this.marginTop) {
-            fieldMainWrapperStyle['margin-top'] = this.marginTop;
-        }
-
-        if (this.marginBottom) {
-            fieldMainWrapperStyle['margin-bottom'] = this.marginBottom;
-        }
-
-        let inlineStyle = {
-            fieldMainWrapperStyle,
-            fieldWrapperStyle: {},
-            fieldDescWrapperStyle: {},
-            fieldDescContainerStyle: {},
-            fieldLabelContainerStyle,
-            fieldContainerdStyle: {},
-            labelStyle: {},
-            fieldStyle: {},
-            nestedFieldContainerStyle: {}
-
-        };
-        inlineStyle = this.beforeSetDefaultStyle(inlineStyle);
-        return inlineStyle;
-    }
 
     beforeSetDefaultStyle(styleObj) {
         return styleObj;
