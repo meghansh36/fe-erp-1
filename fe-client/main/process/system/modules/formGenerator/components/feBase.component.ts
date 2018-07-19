@@ -1,7 +1,6 @@
 import { OnInit, Injectable, Renderer2, ElementRef, OnDestroy, AfterViewInit, SimpleChange } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import { ValidatorsService } from '@L3Process/system/modules/formGenerator/services/validators.service';
 import { UtilityService } from '@L3Process/system/services/Utility.service';
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
@@ -35,7 +34,8 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
 
 
-    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2, public utility: UtilityService, public defaults: DefaultsService) {
+    constructor(public elemRef: ElementRef, public validator: ValidatorsService, public render: Renderer2, public utility: UtilityService) {
+        this.utility.renderer = this.render;
     }
 
     ngOnInit(): void {
@@ -51,7 +51,7 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
 
     ngAfterViewInit() {
         this.bindEvents();
-        this.addDisplayProps();
+        this.utility.addDisplayProps( this );
     }
 
 
@@ -60,16 +60,6 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this.$valueChange.unsubscribe();
         this.$simpleConditionChange.unsubscribe();
         this.$groupValueChange.unsubscribe();
-    }
-
-    addDisplayProps() {
-        if (this.type == 'HID') {
-            this.render.addClass(this.elemRef.nativeElement, 'hidden');
-        }
-        if ( this.disabled ) {
-            this.control.disable( { onlySelf: true, emitEvent: true } );
-        }
-        this.render.addClass(this.elemRef.nativeElement, 'fe-field-component');
     }
 
     bindEvents() {

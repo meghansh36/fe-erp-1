@@ -1,7 +1,6 @@
 import { FormMasterService } from "@L3Process/system/modules/formBuilder/services/formMaster.service";
 import { FieldControlService } from "@L3Process/system/modules/formBuilder/services/fieldControl.service";
 import { Injectable, OnInit, Renderer2, ElementRef, DoCheck, AfterViewInit } from "@angular/core";
-import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/formJson.service";
 import { UtilityService } from '@L3Process/system/services/Utility.service';
 import * as _ from 'lodash';
@@ -183,9 +182,10 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		public masterFormService: FormMasterService,
 		public formJsonService: FormJsonService,
 		public render: Renderer2,
-		public defaults: DefaultsService,
 		public utility: UtilityService
-	) { }
+	) {
+		this.utility.renderer = this.render;
+	 }
 
 	ngOnInit() {
 		console.log("initialized a new instance 1", this.properties);
@@ -196,12 +196,12 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.addDisplayProps();
+		this.utility.addDisplayProps( this );
 	}
 
 	ngDoCheck() {
 		this.initFieldStyle();
-		this.addDisplayProps();
+		this.utility.addDisplayProps( this );
 	}
 
 	initFieldStyle() {
@@ -209,14 +209,6 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
         this.style = this.utility.getFieldStyles( this );
 	}
 	
-	addDisplayProps() {
-        if (this.type == 'HID') {
-            this.render.addClass(this.elemRef.nativeElement, 'hidden');
-		}
-		
-        this.render.addClass(this.elemRef.nativeElement, 'fe-field-component');
-    }
-
 	public beforeSetDefaultClasses(classes) {
         return classes;
     }

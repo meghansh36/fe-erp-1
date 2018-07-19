@@ -104,7 +104,7 @@
                           Width
                         </label>
                         <input id='width' class='form-control' name='width' placeholder='Field Width e.g. 100px or 50%' ngModel [(ngModel)]='componentData.width'
-                          placeholder='enter width' />
+                          placeholder='Width e.g. 300px or 80%' />
                       </div>
 
 
@@ -294,14 +294,14 @@
                       <!-- Input box for Input masking -->
                       <div *ngIf='instance.applicableProperties.mask'>
                         <label for='mask' class='mt-3'>Input Mask</label>
-                        <input type="text" class="form-control" id='mask' placeholder='input mask' [(ngModel)]='componentData.mask' ngModel name='mask'>
+                        <input type="text" class="form-control" id='mask' placeholder="['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]" [(ngModel)]='componentData.mask' ngModel name='mask'>
                       </div>
 
 
                       <!-- Input box for Prefix -->
                       <div *ngIf='instance.applicableProperties.prefix'>
                         <label for='prefix' class='mt-3'>Prefix</label>
-                        <input type="text" class="form-control" id='prefix' placeholder="example '$','@'" [(ngModel)]='componentData.prefix' ngModel
+                        <input type="text" class="form-control" id='prefix' placeholder="Example: '$','@'" [(ngModel)]='componentData.prefix' ngModel
                           name='prefix' change-event='replace'>
                       </div>
 
@@ -309,7 +309,7 @@
                       <!-- input box for suffix -->
                       <div *ngIf='instance.applicableProperties.suffix'>
                         <label for='suffix' class='mt-3'>Suffix</label>
-                        <input type="text" class="form-control" id='suffix' placeholder="example '$','@'" [(ngModel)]='componentData.suffix' ngModel
+                        <input type="text" class="form-control" id='suffix' placeholder="Example: 'Currency'" [(ngModel)]='componentData.suffix' ngModel
                           name='suffix' change-event='replace'>
                       </div>
 
@@ -317,7 +317,7 @@
                       <!-- input box for custom classes -->
                       <div *ngIf='instance.applicableProperties.customCssClass'>
                         <label for='custom' class='mt-3'>Custom CssClass</label>
-                        <input type="text" class="form-control" id='custom' placeholder="add custom classes" [(ngModel)]='componentData.customCssClass'
+                        <input type="text" class="form-control" id='custom' placeholder="e.g. 'my-class-field'" [(ngModel)]='componentData.customCssClass'
                           ngModel name='customCss'>
                       </div>
 
@@ -326,7 +326,7 @@
                       <!-- Input box for Tab index  -->
                       <div *ngIf='instance.applicableProperties.tabIndex'>
                         <label for='tab-index' class='mt-3'>Tab Index</label>
-                        <input type="text" class="form-control" id='tab-index' placeholder='tab Index' [(ngModel)]='componentData.tabIndex' ngModel
+                        <input type="text" class="form-control" id='tab-index' placeholder="Default: '0'" [(ngModel)]='componentData.tabIndex' ngModel
                           name='tabIndex'>
                       </div>
 
@@ -688,14 +688,14 @@
                       <!-- input text for minimum length -->
                       <div *ngIf='instance.applicableProperties.minimumLength'>
                         <label for='min-length' class='mt-3'>Minimum Length</label>
-                        <input type="number" class="form-control" id='min-lenght' placeholder='minimum length' [(ngModel)]='componentData.minimumLength'
+                        <input type="number" class="form-control" id='min-lenght' placeholder='e.g. 100' [(ngModel)]='componentData.minimumLength'
                           ngModel name='minimumLenght'>
                       </div>
 
                       <!-- input text for maximum length -->
                       <div *ngIf='instance.applicableProperties.maximumLength'>
                         <label for='max-length' class='mt-3'>Maximum Length</label>
-                        <input type="number" class="form-control" id='max-lenght' placeholder='maximum length' ngModel [(ngModel)]='componentData.maximumLength'
+                        <input type="number" class="form-control" id='max-lenght' placeholder='e.g. 1000' ngModel [(ngModel)]='componentData.maximumLength'
                           name='maximumLength'>
                       </div>
 

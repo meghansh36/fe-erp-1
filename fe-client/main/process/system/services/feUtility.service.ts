@@ -1,10 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FeUtilityService {
-   
+   public renderer: Renderer2;//initialized from field components
+    constructor( public defaults: DefaultsService ) {
+
+    }
+
     evalFnArgs(argsStr) {
         try {
             const evaluatedArgsArr = [];
@@ -56,7 +61,7 @@ export class FeUtilityService {
 
     getFieldClasses( fieldComponent ) {
         const type = fieldComponent.type;
-        let labelPosition = fieldComponent.defaults.LABEL_POSITION;
+        let labelPosition = this.defaults.LABEL_POSITION;
         const customCssClass = fieldComponent.customCssClass || '';
 
         if (!fieldComponent.hideLabel && fieldComponent.labelPosition) {
@@ -133,8 +138,10 @@ export class FeUtilityService {
             fieldClasses,
             nestedFieldContainerClasses
         };
-
-        classes = fieldComponent.beforeSetDefaultClasses(classes);
+        if ( fieldComponent.type === 'BTN' ) {
+            classes = this.addButtonProps( fieldComponent, classes );
+        }
+        classes = fieldComponent.beforeSetDefaultClasses( classes );
         return classes;
     }
 
@@ -158,15 +165,15 @@ export class FeUtilityService {
             fieldLabelContainerStyle.width = `${labelWidth}px`;
         }
 
-        let fieldWidth = fieldComponent.defaults.FIELD_WIDTH;
+        let fieldWidth = this.defaults.FIELD_WIDTH;
         if (fieldComponent.width) {
             fieldWidth = fieldComponent.width;
         }
         if (fieldWidth) {
-            fieldComponent.render.setStyle(fieldComponent.elemRef.nativeElement, 'width', fieldWidth);
+            this.renderer.setStyle(fieldComponent.elemRef.nativeElement, 'width', fieldWidth);
         }
         if (fieldComponent.type === 'HID') {
-            fieldComponent.render.addClass(fieldComponent.elemRef.nativeElement, 'hidden');
+            this.renderer.addClass(fieldComponent.elemRef.nativeElement, 'hidden');
         }
 
         if (labelMargin) {
@@ -229,4 +236,31 @@ export class FeUtilityService {
         inlineStyle = fieldComponent.beforeSetDefaultStyle(inlineStyle);
         return inlineStyle;
     }
+
+    addDisplayProps( fieldComponent ) {
+        if (fieldComponent.type == 'HID') {
+            this.renderer.addClass(fieldComponent.elemRef.nativeElement, 'hidden');
+        }
+        if ( fieldComponent.disabled ) {
+            fieldComponent.control.disable( { onlySelf: true, emitEvent: true } );
+        }
+        this.renderer.addClass(fieldComponent.elemRef.nativeElement, 'fe-field-component');
+    }
+
+    addButtonProps( fieldComponent, classesObj ) {
+        const buttonThemeClasses = this.defaults.BUTTON_THEMES;
+        let themeClass = buttonThemeClasses[fieldComponent.theme];
+        if (!themeClass) {
+          themeClass = buttonThemeClasses[this.defaults.BUTTON_THEME];
+        }
+        classesObj['fieldClasses'][themeClass] = true;
+            const buttonSizeClasses = this.defaults.BUTTON_SIZES; 
+            
+        if (fieldComponent.size) {
+          classesObj['fieldClasses'][buttonSizeClasses[fieldComponent.size]] = true;
+        } else {
+                classesObj['fieldClasses'][buttonSizeClasses[this.defaults.BUTTON_SIZE]] = true;
+            }
+        return classesObj;
+        }
 }
