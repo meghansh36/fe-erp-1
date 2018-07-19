@@ -80,12 +80,12 @@ export class FeFormJsonService {
 
     removeComponent(key) {
         // tslint:disable-next-line:forin
+        const parent = this.MasterJSON.components[key].instance.properties.parent;
         if (this.MasterJSON.components[key] !== undefined) {
             // tslint:disable-next-line:forin
             for (const comp in this.MasterJSON.components) {
                 const parentID = this.MasterJSON.components[comp].instance.properties.parent;
-                if (parentID === key)
-                 {
+                if (parentID === key) {
                    const indexToDelete =  this.MasterJSON.components[comp].instance.properties.order;
                      _.unset(this.MasterJSON.components, comp);
                     this.MasterJSON.components[parentID].instance.properties.components.splice(indexToDelete, 1);
@@ -109,15 +109,16 @@ export class FeFormJsonService {
         } else if (this.MasterJSON.buttons[key] !== undefined) {
             _.unset(this.MasterJSON.buttons, key);
         }
-        
+        this.updateMasterJSON(document.querySelector(`#${parent}`));
     }
 
     updateMasterJSON(parent) {
         console.log(this.MasterJSON);
-        console.log('update', parent);
+        console.log('update', parent.children);
         for (let i = 0; i < parent.children.length; i++) {
            const childKey = parent.children[i].generatedKey;
            const parentKey = parent.children[i].parentComponent;
+           console.log('child', childKey, 'parent', parentKey);
            this.MasterJSON.components[childKey].instance.properties.order = i;
            this.MasterJSON.components[childKey].instance.properties.parent = parentKey;
            // cases for moving and dropping from 1 container to another

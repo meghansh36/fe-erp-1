@@ -9,6 +9,7 @@ import { FormBuilderService } from '@L3Process/system/modules/formBuilder/servic
 import { FstComponent } from '@L3Process/system/modules/formBuilder/components/formElements/fst/fst.component';
 import * as _ from 'lodash';
 import { MasterFormComponent } from '@L3Process/system/modules/formBuilder/components/Master/masterForm.component';
+import { reject } from 'q';
 
 // import { FieldRenderDirective } from '@L3Process/system/modules/formBuilder/directives/fieldRender.directive';
 @Component({
@@ -216,7 +217,11 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     //console.log(this.formJsonService.getMasterJSON());
   }
 
-  createComponentsFromJSON(componentProps) {
+   createComponentsFromJSON(componentProps) {
+     return new Promise((res,rej) => {
+      const copy = _.assign({}, componentProps); 
+      const key = componentProps.key;
+    this.masterFormService.setCurrentKey(key);
     const parentID = componentProps.parent;
     let viewContainerRef;
     if (parentID === 'root_drop') {
@@ -227,20 +232,184 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       viewContainerRef = this.fieldControlService.getFstCollection(parentID);
     }
     const component = this.formBuilderService.getComponent(componentProps.componentName).component;
-    const key = componentProps.key;
+    
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    componentRef.instance.properties = copy;
+    this.fieldControlService.setFieldRef(componentRef, this, {component});
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order, false);
+    const target = document.querySelector(`#${componentProps.parent}`);
+    console.log('target', target);
+    target.children[componentProps.order].generatedKey = key;
+    target.children[componentProps.order].parentComponent = target.id;
+    setTimeout(() => {
+      res();
+    }, 10);
+     });
   }
 
-  populateFormBuilder(json) {
-    for (let i = 0; i < json.components.length; i++) {
-      if (json.components[i].components === undefined) {
-        this.createComponentsFromJSON(json.components[i]);
+ async populateFormBuilder(components) {
+    for (let i = 0; i < components.length; i++) {
+      if (components[i].components === undefined) {
+        await this.createComponentsFromJSON(components[i]);
       } else {
-        this.populateFormBuilder(json.components[i]);
+        await this.createComponentsFromJSON(components[i]);
+        this.populateFormBuilder(components[i].components);
       }
     }
+    // if (i === components.length) {
+    //   return;
+    // }
+    // if (components[i].components === undefined) {
+    //   this.tempFunc(components, i);
+    // } else {
+    //   this.populateFormBuilder(components[i].components, 0 );
+    // }
 
+   // this.formJsonService.buildFinalJSON();
     return;
+  }
+
+  /* tempFunc(components, index) {
+    this.createComponentsFromJSON( components[index] ).then(() => {
+      this.populateFormBuilder( components, index + 1 );
+    } );
+  } */
+  runBuilder() {
+    this.host.clear();
+    this.buttonHost.clear();
+
+    const json =  {
+      "id": "",
+      "code": "",
+      "formLabel": "",
+      "name": "",
+      "display": "",
+      "disabled": false,
+      "hidden": false,
+      "conditionalHidden": "",
+      "conditionalDisabled": "",
+      "active": true,
+      "help": "",
+      "components": [
+        {
+          "type": "FST",
+          "label": "Fieldset",
+          "description": "",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "flexiLabel": "",
+          "active": true,
+          "components": [
+            {
+              "type": "EML",
+              "hideLabel": false,
+              "labelPosition": "top",
+              "marginTop": "",
+              "marginRight": "",
+              "marginLeft": "",
+              "marginBottom": "",
+              "defaultValueType": "none",
+              "defaultValueSqlQuery": "",
+              "defaultValueString": "",
+              "lovType": "none",
+              "lovSqlQuery": "",
+              "lovJson": "",
+              "nonPersistent": false,
+              "hidden": false,
+              "clearWhenHidden": false,
+              "disabled": false,
+              "prefix": "",
+              "suffix": "",
+              "validations": "",
+              "customFuncValidationVal": "",
+              "jsonLogicVal": "",
+              "formClassValidationVal": "",
+              "events": "",
+              "condition": "",
+              "fldDisabledCondition": "",
+              "active": true,
+              "required": false,
+              "labelWidth": "",
+              "labelMargin": "",
+              "width": "",
+              "mask": [],
+              "description": "",
+              "icon": "",
+              "key": "_lupweaoyx",
+              "order": 0,
+              "parent": "_qatfbfy2t",
+              "componentName": "EmlComponent"
+            },
+            {
+              "type": "FST",
+              "label": "Fieldset",
+              "description": "",
+              "hideLabel": false,
+              "labelPosition": "top",
+              "flexiLabel": "",
+              "active": true,
+              "components": [
+                {
+                  "type": "ADR",
+                  "allowMultipleAddress": false,
+                  "hideLabel": false,
+                  "labelPosition": "top",
+                  "marginTop": "",
+                  "marginRight": "",
+                  "marginLeft": "",
+                  "marginBottom": "",
+                  "defaultValueType": "none",
+                  "defaultValueSqlQuery": "",
+                  "defaultValueString": "",
+                  "lovType": "none",
+                  "lovSqlQuery": "",
+                  "lovJson": "",
+                  "nonPersistent": false,
+                  "hidden": false,
+                  "clearWhenHidden": false,
+                  "disabled": false,
+                  "prefix": "",
+                  "suffix": "",
+                  "validations": "",
+                  "customFuncValidationVal": "",
+                  "jsonLogicVal": "",
+                  "formClassValidationVal": "",
+                  "events": "",
+                  "condition": "",
+                  "fldDisabledCondition": "",
+                  "active": true,
+                  "required": false,
+                  "labelWidth": "",
+                  "labelMargin": "",
+                  "width": "",
+                  "mask": [],
+                  "description": "",
+                  "icon": "",
+                  "key": "_ysk4oqc8p",
+                  "order": 0,
+                  "parent": "_iqv2xuie7",
+                  "componentName": "AdrComponent"
+                }
+              ],
+              "key": "_iqv2xuie7",
+              "order": 1,
+              "parent": "_qatfbfy2t",
+              "componentName": "FstComponent"
+            }
+          ],
+          "key": "_qatfbfy2t",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "FstComponent"
+        }
+      ],
+      "buttons": []
+    };
+    this.populateFormBuilder(json.components);
+    console.log(this.formJsonService.getMasterJSON());
+    this.formJsonService.buildFinalJSON();
   }
 
   save() {
