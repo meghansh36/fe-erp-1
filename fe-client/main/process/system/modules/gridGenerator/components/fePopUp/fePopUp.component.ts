@@ -12,7 +12,7 @@ export class FePopUpComponent implements OnInit {
 	@Input() value: any;
 	@Output() close: EventEmitter<any> = new EventEmitter<any>();
 	@Output() filterString: EventEmitter<any> = new EventEmitter<any>();
-	private _filter: string;
+	protected _filter: string;
 
 	set filter(filter) {
 		this._filter = filter;
@@ -45,7 +45,7 @@ export class FePopUpComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.filter = this.value
+		this.filter = this.value;
 	}
 
 	selectItem(event: any) {
@@ -65,7 +65,8 @@ export class FePopUpComponent implements OnInit {
 			'code': this.id,
 			'type': this.type,
 			'label': this.label,
-			'lov': this.lov
+			'lov': this.lov,
+			'flexiLabel': this.flexiLabel
 		}
 		this.filterString.emit(obj);
 	}

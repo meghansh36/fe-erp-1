@@ -10,9 +10,11 @@ import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/
 export class FeChipComponent implements OnInit {
 	@Input() chipData: any;
 	@Output() closeChip: EventEmitter<any> = new EventEmitter<any>();
-	private _filteredCol: any;
-	private checked: boolean = false;
-	chipCmp: ComponentRef<FeChipComponent>;
+	@Output() addThisFilter: EventEmitter<any> = new EventEmitter<any>();
+	protected _filteredCol: any;
+	protected checked: boolean = false;
+	protected _obj: any;
+	protected chipCmp: ComponentRef<FeChipComponent>;
 
 	get filteredCol() {
 		return this._filteredCol;
@@ -37,9 +39,45 @@ export class FeChipComponent implements OnInit {
 	set name(name) {
 		this.chipData.name = name;
 	}
+	get label() {
+		return this.chipData.label;
+	}
+
+	get code() {
+		return this.chipData.code;
+	}
+
+	get type() {
+		return this.chipData.type;
+	}
+
+	get flexiLabel() {
+		return this.chipData.flexiLabel;
+	}
+
+	get lov() {
+		if (this.chipData.lov) {
+			return this.chipData.lov;
+		}
+	}
+	get obj() {
+		return this._obj;
+	}
+
+	set obj(obj) {
+		this._obj = obj;
+	}
 
 	ngOnInit() {
-
+		this.obj = {
+			'name': this.label,
+			'filter': this.filter,
+			'code': this.code,
+			'type': this.type,
+			'label': this.label,
+			'lov': this.lov,
+			'flexiLabel': this.flexiLabel
+		}
 	}
 
 	popUp() {
@@ -51,10 +89,13 @@ export class FeChipComponent implements OnInit {
 	}
 	addFilter(event: any) {
 		this.filter = event.filter;
+		this.obj['filter'] = this.filter;
+		this.addThisFilter.emit(this.obj);
 		this.checked = !this.checked;
 	}
-	removeFilter() {
-		this.closeChip.emit(this.chipData);
+	removeChip() {
+		this.chipData.filter = undefined;
+		this.closeChip.emit(this.obj);
 	}
 }
 
