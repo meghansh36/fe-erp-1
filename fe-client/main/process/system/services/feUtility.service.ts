@@ -106,7 +106,7 @@ export class FeUtilityService {
 
         let labelClasses = {};
         classesStr = `field-label ${type}-label`;
-        if (fieldComponent.isMandatory) {
+        if (fieldComponent.required) {
             classesStr += ` mandatory-field-label`;
         }
         labelClasses = this._makeCssClassesObj(classesStr);
@@ -117,7 +117,7 @@ export class FeUtilityService {
 
         let fieldClasses = {};
         classesStr = `form-field ${type}-field ${customCssClass}`;
-        if (fieldComponent.isMandatory) {
+        if (fieldComponent.required) {
             classesStr += ` mandatory-field`;
         }
         fieldClasses = this._makeCssClassesObj(classesStr);
@@ -162,7 +162,7 @@ export class FeUtilityService {
         const labelMargin = fieldComponent.labelMargin;
 
         if (labelWidth) {
-            fieldLabelContainerStyle.width = `${labelWidth}px`;
+            fieldLabelContainerStyle.width = `${labelWidth}`;
         }
 
         let fieldWidth = this.defaults.FIELD_WIDTH;
@@ -177,7 +177,7 @@ export class FeUtilityService {
         }
 
         if (labelMargin) {
-            const margin: string = `${labelMargin}px`;
+            const margin: string = `${labelMargin}`;
             let marginSide: string = 'margin-top';
 
             switch (fieldComponent.labelPosition) {

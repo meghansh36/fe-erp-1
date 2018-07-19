@@ -7,8 +7,359 @@ import { AbstractControl } from '@angular/forms';
 export class FeFormSchemaService {
 
   constructor() { }
+  private _schema =   {
+    "id": "",
+    "code": "",
+    "formLabel": "",
+    "name": "",
+    "display": "",
+    "disabled": false,
+    "hidden": false,
+    "conditionalHidden": "",
+    "conditionalDisabled": "",
+    "active": true,
+    "help": "",
+    "components": [
+      {
+        "type": "TXT",
+        "label": "ASDA",
+        "hideLabel": false,
+        "labelPosition": "top",
+        "marginTop": "",
+        "marginRight": "",
+        "marginLeft": "",
+        "marginBottom": "",
+        "defaultValueType": "string",
+        "defaultValueSqlQuery": "",
+        "defaultValueString": "",
+        "lovType": "none",
+        "lovSqlQuery": "",
+        "lovJson": "",
+        "nonPersistent": true,
+        "dbColumn": "sdfsd",
+        "hidden": false,
+        "clearWhenHidden": true,
+        "disabled": false,
+        "flexiLabel": "asfasd",
+        "prefix": "",
+        "suffix": "",
+        "validations": [
+          "number+",
+          "number-",
+          "alphabet"
+        ],
+        "customFuncValidationVal": {
+          "yearlimit": {
+            "validatorFn": " if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; ",
+            "message": "Year should be greater than 2010"
+          },
+          "agelimit": {
+            "validatorFn": "if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; ",
+            "message": "Age should be greater than 50"
+          }
+        },
+        "jsonLogicVal": {
+          "condition1": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "username.value"
+                  },
+                  "cool"
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "number.value"
+                  },
+                  155
+                ]
+              }
+            ]
+          },
+          "condition2": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "someFieldControl.value"
+                  },
+                  "value"
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "someOtherFieldControl.value"
+                  },
+                  155
+                ]
+              }
+            ]
+          }
+        },
+        "formClassValidationVal": {
+          "customPattern": {
+            "message": "Custom pattern is not correct.",
+            "validatorFuncName": "asyncCustomPatternValidator"
+          },
+          "someOtherValidationName": {
+            "message": "Error Message",
+            "validatorFuncName": "formClassFunctionName"
+          }
+        },
+        "minimumLength": 10,
+        "maximumLength": 100,
+        "events": {
+          "change": {
+            "handlerOwner": "form",
+            "handlerName": "",
+            "args": "'arg one','arg2' ,'arg 3'"
+          },
+          "focus": {
+            "handlerOwner": "resource",
+            "handlerName": "onUserNameFocus",
+            "args": "'arg one','arg2' ,'arg 3'"
+          }
+        },
+        "condition": {
+          "simple": {
+            "show": false,
+            "when": "number",
+            "eq": 15
+          },
+          "advanced": [
+            "var show; return show = controls.number.value == 150 ? true : false;",
+            "var show1; return show1 = controls.otherControl.value == 150 ? true : false;"
+          ],
+          "json": {
+            "condition": {
+              "and": [
+                {
+                  "===": [
+                    {
+                      "var": "username.value"
+                    },
+                    "apple"
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "number.value"
+                    },
+                    15
+                  ]
+                }
+              ]
+            },
+            "condition1": {
+              "and": [
+                {
+                  "===": [
+                    {
+                      "var": "someControl.value"
+                    },
+                    "someValue"
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "someOtherControl.value"
+                    },
+                    "value"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "fldDisabledCondition": {
+          "simple": {
+            "show": false,
+            "when": "number",
+            "eq": 15
+          },
+          "advanced": [
+            "var disable; return disable = controls.number.value == 150 ? true : false;",
+            "var disable; return disable = controls.otherControl.value == 150 ? true : false;"
+          ],
+          "json": {
+            "condition": {
+              "and": [
+                {
+                  "===": [
+                    {
+                      "var": "username.value"
+                    },
+                    "apple"
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "number.value"
+                    },
+                    15
+                  ]
+                }
+              ]
+            },
+            "condition1": {
+              "and": [
+                {
+                  "===": [
+                    {
+                      "var": "someControl.value"
+                    },
+                    "someValue"
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "someOtherControl.value"
+                    },
+                    "value"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "active": true,
+        "required": true,
+        "labelWidth": "",
+        "labelMargin": "",
+        "width": "",
+        "mask": [],
+        "description": "",
+        "icon": "",
+        "key": "_n2866fr2s",
+        "order": 0,
+        "parent": "root_drop",
+        "componentName": "TxtComponent"
+      },
+      {
+        "type": "FST",
+        "label": "Fieldset",
+        "description": "",
+        "hideLabel": false,
+        "labelPosition": "top",
+        "flexiLabel": "",
+        "active": true,
+        "components": [
+          {
+            "useDelimeter": true,
+            "requiredDecimal": true,
+            "type": "NUM",
+            "hideLabel": false,
+            "labelPosition": "top",
+            "marginTop": "",
+            "marginRight": "",
+            "marginLeft": "",
+            "marginBottom": "",
+            "defaultValueType": "none",
+            "defaultValueSqlQuery": "",
+            "defaultValueString": "",
+            "lovType": "none",
+            "lovSqlQuery": "",
+            "lovJson": "",
+            "nonPersistent": false,
+            "hidden": false,
+            "clearWhenHidden": false,
+            "disabled": false,
+            "prefix": "",
+            "suffix": "",
+            "validations": "",
+            "customFuncValidationVal": "",
+            "jsonLogicVal": "",
+            "formClassValidationVal": "",
+            "events": "",
+            "condition": "",
+            "fldDisabledCondition": "",
+            "active": true,
+            "required": false,
+            "labelWidth": "",
+            "labelMargin": "",
+            "width": "",
+            "mask": [],
+            "description": "",
+            "icon": "",
+            "key": "_qet75ghtz",
+            "order": 0,
+            "parent": "_zqtspco63",
+            "componentName": "NumComponent"
+          },
+          {
+            "type": "FST",
+            "label": "Fieldset",
+            "description": "",
+            "hideLabel": false,
+            "labelPosition": "top",
+            "flexiLabel": "",
+            "active": true,
+            "components": [
+              {
+                "type": "SEL",
+                "hideLabel": false,
+                "labelPosition": "top",
+                "marginTop": "",
+                "marginRight": "",
+                "marginLeft": "",
+                "marginBottom": "",
+                "defaultValueType": "none",
+                "defaultValueSqlQuery": "",
+                "defaultValueString": "",
+                "lovType": "none",
+                "lovSqlQuery": "",
+                "lovJson": "",
+                "nonPersistent": false,
+                "hidden": false,
+                "clearWhenHidden": false,
+                "disabled": false,
+                "prefix": "",
+                "suffix": "",
+                "validations": "",
+                "customFuncValidationVal": "",
+                "jsonLogicVal": "",
+                "formClassValidationVal": "",
+                "events": "",
+                "condition": "",
+                "fldDisabledCondition": "",
+                "active": true,
+                "required": false,
+                "labelWidth": "",
+                "labelMargin": "",
+                "width": "",
+                "mask": [],
+                "description": "",
+                "icon": "",
+                "key": "_13ej2wqp3",
+                "order": 0,
+                "parent": "_40i0w9o1f",
+                "componentName": "SelComponent"
+              }
+            ],
+            "key": "_40i0w9o1f",
+            "order": 1,
+            "parent": "_zqtspco63",
+            "componentName": "FstComponent"
+          }
+        ],
+        "key": "_zqtspco63",
+        "order": 1,
+        "parent": "root_drop",
+        "componentName": "FstComponent"
+      }
+    ],
+    "buttons": []
+  };
 
-  private _schema = {
+  private _schema1 = {
     id: 'FRM000001',
     name: 'form',
     code: 'FRM000001',

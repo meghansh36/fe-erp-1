@@ -3,6 +3,7 @@ import { FieldControlService } from "@L3Process/system/modules/formBuilder/servi
 import { Injectable, OnInit, Renderer2, ElementRef, DoCheck, AfterViewInit } from "@angular/core";
 import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/formJson.service";
 import { UtilityService } from '@L3Process/system/services/Utility.service';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import * as _ from 'lodash';
 
 
@@ -18,36 +19,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	public defaultClasses: any;
 	public style: any;
 	
-	public appliedValidations = [
-		{
-			id: 'required',
-			text: 'Required'
-		},
-		{
-			id: 'number+',
-			text: 'Number Positive'
-		},
-		{
-			id: 'number-',
-			text: 'Number Negative'
-		},
-		{
-			id: 'email',
-			text: 'Email'
-		},
-		{
-			id: 'commaseperatedemail',
-			text: 'Multiple Email'
-		},
-		{
-			id: 'alphabet',
-			text: 'Alphabet'
-		},
-		{
-			id: 'alphanum',
-			text: 'Alphanumeric'
-		}
-	];
+	public appliedValidations: any[];
 
 	public applicableProperties: any = {
 		label: true,
@@ -182,7 +154,8 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		public masterFormService: FormMasterService,
 		public formJsonService: FormJsonService,
 		public render: Renderer2,
-		public utility: UtilityService
+		public utility: UtilityService,
+		public defaults: DefaultsService
 	) {
 		this.utility.renderer = this.render;
 	 }
@@ -193,6 +166,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		this.uniqueKey = this.masterFormService.getCurrentKey();
 		this.masterFormService.setProperties(this.properties);
 		this.initFieldStyle();
+		this.appliedValidations = this.defaults.VALIDATIONS;
 	}
 
 	ngAfterViewInit() {

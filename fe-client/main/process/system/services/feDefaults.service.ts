@@ -4,9 +4,39 @@ import { Injectable } from '@angular/core';
 export class FeDefaultsService {
   
     protected _buttonTheme: string  = 'secondary';
-    protected _fieldWidth: string = '50%';
+    protected _fieldWidth: string = '100%';
     protected _labelPosition: string = 'top';
     protected _buttonSize: string = 'small';
+    protected _validations: any[] = [
+		// {
+		// 	id: 'required',
+		// 	text: 'Required'
+		// },
+		{
+			id: 'number+',
+			text: 'Number Positive'
+		},
+		{
+			id: 'number-',
+			text: 'Number Negative'
+		},
+		{
+			id: 'email',
+			text: 'Email'
+		},
+		{
+			id: 'commaseperatedemail',
+			text: 'Multiple Email'
+		},
+		{
+			id: 'alphabet',
+			text: 'Alphabet'
+		},
+		{
+			id: 'alphanum',
+			text: 'Alphanumeric'
+		}
+	];
     protected _buttonThemeClasses = {
         "primary": "btn btn-primary",
         "secondary": "btn btn-secondary",
@@ -62,6 +92,10 @@ export class FeDefaultsService {
 
     get BUTTON_SIZE() {
         return this._buttonSize; 
+    }
+
+    get VALIDATIONS() {
+        return this._validations;
     }
 
 }
