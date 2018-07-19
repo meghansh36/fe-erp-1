@@ -68,14 +68,14 @@ export class FeUtilityService {
         if (fieldComponent.prefix || fieldComponent.suffix) {
             classesStr += ' input-group';
         }
-        fieldContainerClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldContainerClasses = this._makeCssClassesObj(classesStr);
 
         let fieldMainWrapperClasses = {};
         classesStr = `fe-field ${type}-container form-group ${labelPosition}-labeled-field`;
         if (fieldComponent.hidden) {
             classesStr += ' hidden';
         }
-        fieldMainWrapperClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldMainWrapperClasses = this._makeCssClassesObj(classesStr);
 
         let fieldLabelContainerClasses = {};
         classesStr = `fe-field-container field-label-container ${type}-label-container`;
@@ -85,41 +85,41 @@ export class FeUtilityService {
         if (fieldComponent.hasTextLenghtLimit) {
             classesStr += ' has-text-limit';
         }
-        fieldLabelContainerClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldLabelContainerClasses = this._makeCssClassesObj(classesStr);
 
         let fieldWrapperClasses = {};
         classesStr = `field-wrapper ${type}-field-wrapper field-label-${labelPosition}`;
-        fieldWrapperClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldWrapperClasses = this._makeCssClassesObj(classesStr);
 
         let fieldDescWrapperClasses = {};
         classesStr = `field-desc-container ${type}-desc-cont`;
-        fieldDescWrapperClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldDescWrapperClasses = this._makeCssClassesObj(classesStr);
 
         let fieldDescContainerClasses = {};
         classesStr = `form-text text-muted field-desc ${type}-desc`;
-        fieldDescContainerClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldDescContainerClasses = this._makeCssClassesObj(classesStr);
 
         let labelClasses = {};
         classesStr = `field-label ${type}-label`;
         if (fieldComponent.isMandatory) {
             classesStr += ` mandatory-field-label`;
         }
-        labelClasses = fieldComponent._makeCssClassesObj(classesStr);
+        labelClasses = this._makeCssClassesObj(classesStr);
 
         let fieldErrorWrapperClasses = {};
         classesStr = `field-error-wrapper ${type}-error-wrapper`;
-        fieldErrorWrapperClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldErrorWrapperClasses = this._makeCssClassesObj(classesStr);
 
         let fieldClasses = {};
         classesStr = `form-field ${type}-field ${customCssClass}`;
         if (fieldComponent.isMandatory) {
             classesStr += ` mandatory-field`;
         }
-        fieldClasses = fieldComponent._makeCssClassesObj(classesStr);
+        fieldClasses = this._makeCssClassesObj(classesStr);
 
         let nestedFieldContainerClasses = {};
         classesStr = `fe-field-container fe-${type}-wrapper`;
-        nestedFieldContainerClasses = fieldComponent._makeCssClassesObj(classesStr);
+        nestedFieldContainerClasses = this._makeCssClassesObj(classesStr);
 
         let classes: any = {
             fieldMainWrapperClasses,
