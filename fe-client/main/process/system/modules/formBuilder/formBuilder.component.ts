@@ -239,7 +239,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     componentRef.instance.properties = copy;
     this.fieldControlService.setFieldRef(componentRef, this, {component});
     this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order, false);
-    const target = document.querySelector(`#${componentProps.parent}`);
+    const target: any = document.querySelector(`#${componentProps.parent}`);
     console.log('target', target);
     target.children[componentProps.order].generatedKey = key;
     target.children[componentProps.order].parentComponent = target.id;
