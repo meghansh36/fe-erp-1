@@ -32,10 +32,10 @@ export class FeFormJsonService {
     }
 
     addComponentToMasterJSON(key, componentRef, parent, index, populateMasterForm) {
-        let targetClassesArr;
+        /* let targetClassesArr;
         if (populateMasterForm) {
-            targetClassesArr = parent.className;
-            componentRef.parentClass = targetClassesArr;
+            targetClassesArr = [parent.className];
+            componentRef.parentClass = targetClassesArr[0];
         } else {
             targetClassesArr = parent.className.trim().split(" ");
             componentRef.parentClass = targetClassesArr[1];
@@ -43,23 +43,73 @@ export class FeFormJsonService {
 
         componentRef.parent = parent.id;
         componentRef.order = index;
-        
-
         if (_.includes(targetClassesArr, 'customDropZone') || _.includes(targetClassesArr, 'FSTdropZone')) {
             this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: componentRef});
         } else if (_.includes(targetClassesArr, 'buttonDropZone')) {
             this.MasterJSON.buttons = _.merge(this.MasterJSON.buttons, {[key]: componentRef});
         }
+
+        if (parent.id !== 'root_drop') {
+            this.MasterJSON.components[parent.id].components[index] 
+        } */
+
+        if (parent === 'root_drop') {
+            this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: componentRef});
+            this.MasterJSON.components[key].instance.properties.key = key;
+            this.MasterJSON.components[key].instance.properties.order = index;
+            this.MasterJSON.components[key].instance.properties.parent = parent;
+            this.MasterJSON.components[key].instance.properties.componentName = componentRef.componentType.name;
+        } else if (parent === 'button_drop') {
+            this.MasterJSON.buttons = _.merge(this.MasterJSON.buttons, {[key]: componentRef});
+            this.MasterJSON.buttons[key].instance.properties.key = key;
+            this.MasterJSON.buttons[key].instance.properties.order = index;
+            this.MasterJSON.buttons[key].instance.properties.parent = parent;
+            this.MasterJSON.buttons[key].instance.properties.componentName = componentRef.componentType.name;
+        } else {
+            // create flat json
+            this.MasterJSON.components = _.merge(this.MasterJSON.components, {[key]: componentRef});
+            this.MasterJSON.components[key].instance.properties.key = key;
+            this.MasterJSON.components[key].instance.properties.order = index;
+            this.MasterJSON.components[key].instance.properties.parent = parent;
+            this.MasterJSON.components[key].instance.properties.componentName = componentRef.componentType.name;
+            // copy to container component array
+            this.MasterJSON.components[parent].instance.properties.components[index] = this.MasterJSON.components[key].instance.properties;
+        }
+
     }
 
     removeComponent(key) {
-        for (const comp in this.MasterJSON.components) {
-            if (this.MasterJSON.components[comp].parent === key)
-             {
-                 _.unset(this.MasterJSON.components, comp);
-             }
+        // tslint:disable-next-line:forin
+        if (this.MasterJSON.components[key] !== undefined) {
+            // tslint:disable-next-line:forin
+            for (const comp in this.MasterJSON.components) {
+                const parentID = this.MasterJSON.components[comp].instance.properties.parent;
+                if (parentID === key)
+                 {
+                   const indexToDelete =  this.MasterJSON.components[comp].instance.properties.order;
+                     _.unset(this.MasterJSON.components, comp);
+                    this.MasterJSON.components[parentID].instance.properties.components.splice(indexToDelete, 1);
+                 }
+            }
+            const parentID = this.MasterJSON.components[key].instance.properties.parent;
+            const indexToDelete =  this.MasterJSON.components[key].instance.properties.order;
+            if (parentID === 'root_drop') {
+            _.unset(this.MasterJSON.components, key);
+            } else {
+                _.unset(this.MasterJSON.components, key);
+            this.MasterJSON.components[parentID].instance.properties.components.splice(indexToDelete, 1);
+            }
+            // tslint:disable-next-line:forin
+            for (const comp in this.MasterJSON.components) {
+                const parentID = this.MasterJSON.components[comp].instance.properties.parent;
+                if (this.MasterJSON.components[parentID] === undefined && parentID !== 'root_drop') {
+                    _.unset(this.MasterJSON.components, comp);
+                }
+            }
+        } else if (this.MasterJSON.buttons[key] !== undefined) {
+            _.unset(this.MasterJSON.buttons, key);
         }
-        _.unset(this.MasterJSON.components, key);
+        
     }
 
     updateMasterJSON(parent) {
@@ -68,8 +118,17 @@ export class FeFormJsonService {
         for (let i = 0; i < parent.children.length; i++) {
            const childKey = parent.children[i].generatedKey;
            const parentKey = parent.children[i].parentComponent;
-           this.MasterJSON.components[childKey].order = i;
-           this.MasterJSON.components[childKey].parent = parentKey;
+           this.MasterJSON.components[childKey].instance.properties.order = i;
+           this.MasterJSON.components[childKey].instance.properties.parent = parentKey;
+           // cases for moving and dropping from 1 container to another
+           // internal within fst - change original component order/parent and move in fst array
+           // fst to fst - change original component order/parent and move in fst array, delete from original fst array
+           // root to fst- change
+           // fst to root
+           // root to button
+           // button to root
+           // fst to button
+           // button to fst
         }
     }
 
@@ -78,54 +137,23 @@ export class FeFormJsonService {
             ...this.MasterJSON
         };
        let tempComponents = [];
-       let tempNestedComponents = [];
-        /* for (const key in this.MasterJSON.components) {
-            if (key) {
-                tempComponents.push(this.MasterJSON.components[key].instance.properties);
-                tempComponents[tempComponents.length - 1].key = key;
-                tempComponents[tempComponents.length - 1].parent = this.MasterJSON.components[key].parent;
-                tempComponents[tempComponents.length - 1].order = this.MasterJSON.components[key].order;
-                tempComponents[tempComponents.length - 1].parentClass = this.MasterJSON.components[key].parentClass;
-            }
-        } */
-
-        // first add all components in root_drop, then add in nested containers
+    //    let tempNestedComponents = [];
         for (const key in this.MasterJSON.components) {
-            if (this.MasterJSON.components[key].parent === 'root_drop') {
-                tempComponents[this.MasterJSON.components[key].order] = this.MasterJSON.components[key].instance.properties;
-                tempComponents[this.MasterJSON.components[key].order].key = key;
-                tempComponents[this.MasterJSON.components[key].order].parent = this.MasterJSON.components[key].parent;
-                tempComponents[this.MasterJSON.components[key].order].parentClass = this.MasterJSON.components[key].parentClass;
-            } /* else {
-                let i;
-                for ( i = 0; i < tempComponents.length; i++ ) {
-                    if (tempComponents[i].key === this.MasterJSON.components[key].parent) {
-                        tempNestedComponents = tempComponents[i].components;
-                        break;
-                    }
-                }
-                tempNestedComponents[this.MasterJSON.components[key].order] = this.MasterJSON.components[key].instance.properties;
-                tempNestedComponents[this.MasterJSON.components[key].order].key = key;
-                tempNestedComponents[this.MasterJSON.components[key].order].parent = this.MasterJSON.components[key].parent;
-                tempNestedComponents[this.MasterJSON.components[key].order].parentClass = this.MasterJSON.components[key].parentClass;
-                tempComponents[i].components = tempComponents;
-            } */
-
-            
+            if (this.MasterJSON.components[key].instance.properties.parent === 'root_drop') {
+                const index = this.MasterJSON.components[key].instance.properties.order;
+                tempComponents[index] = this.MasterJSON.components[key].instance.properties;
+            }
         }
         finalJSON.components = tempComponents;
         tempComponents = [];
         for (const key in this.MasterJSON.buttons) {
             if (key) {
-                tempComponents.push(this.MasterJSON.buttons[key].instance.properties);
-                tempComponents[tempComponents.length - 1].key = key;
-                tempComponents[tempComponents.length - 1].parent = this.MasterJSON.buttons[key].parent;
-                tempComponents[tempComponents.length - 1].order = this.MasterJSON.buttons[key].order;
+                const index = this.MasterJSON.buttons[key].instance.properties.order;
+                tempComponents[index] = this.MasterJSON.buttons[key].instance.properties;
             }
         }
         finalJSON.buttons = tempComponents;
         this.finalJSON = finalJSON;
-        console.log('final json', this.finalJSON);
     }
 
     getFinalJSON() {

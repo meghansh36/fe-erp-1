@@ -208,7 +208,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
     const componentRef = viewContainerRef.createComponent(componentFactory, index);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, target, index, false);
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index, false);
     target.children[index].generatedKey = key;
     target.children[index].parentComponent = target.id;
     this.formJsonService.updateMasterJSON(target);
@@ -221,10 +221,14 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     let viewContainerRef;
     if (parentID === 'root_drop') {
       viewContainerRef = this.host;
+    } else if (parentID === 'button_drop') {
+      viewContainerRef = this.buttonHost;
     } else {
       viewContainerRef = this.fieldControlService.getFstCollection(parentID);
     }
-    
+    const component = this.formBuilderService.getComponent(componentProps.componentName).component;
+    const key = componentProps.key;
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
   }
 
   populateFormBuilder(json) {
