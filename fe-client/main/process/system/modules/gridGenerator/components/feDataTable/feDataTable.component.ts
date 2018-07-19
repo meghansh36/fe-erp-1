@@ -376,13 +376,13 @@ export class FeDataTableComponent implements OnInit {
 		});
 	}
 
-	updateFilter(event) {
+	/* updateFilter(event) {
 		const val = event.target.value.toLowerCase();
 		const temp = this.temp.filter(function (d) {
 			return d.username.toLowerCase().indexOf(val) !== -1 || !val;
 		});
 		this.rows = temp;
-	}
+	} */
 
 	toggle(col) {
 		const isChecked = this.isChecked(col);
@@ -408,7 +408,7 @@ export class FeDataTableComponent implements OnInit {
 
 	getLimitedData(event) {
 		let limit = event.target.value;
-		let pageNumber = this.offset;
+		let pageNumber = this.table.offset;
 		let prevLimit = this.limit;
 		this.dataTableService.fetchLimitData(limit, pageNumber, prevLimit);
 	}
@@ -494,7 +494,7 @@ export class FeDataTableComponent implements OnInit {
 		this.manipulateStructureOfFilter(event);
 	}
 
-	addFilter(event: any) {
+	addFirstFilter(event: any) {
 		this.filterableCol.push(event);
 		this.checked = event.checked;
 		this.manipulateStructureOfFilter(event);
@@ -517,6 +517,7 @@ export class FeDataTableComponent implements OnInit {
 		if (filter.filter != undefined) {
 			let obj = {
 				[filter.flexiLabel]: {
+					operator: filter.operator,
 					value: filter.filter
 				}
 			}
@@ -551,7 +552,7 @@ export class FeDataTableComponent implements OnInit {
 
 	applyFilter() {
 		let obj = {
-			page: this.offset,
+			page: this.table.offset,
 			recordsPerPage: this.limit,
 			filters: this.filterData,
 			formCode: this.formCode,

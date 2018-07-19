@@ -1,6 +1,6 @@
 import { FieldControlService } from '@L3Process/system/modules/formBuilder/services/fieldControl.service';
 import { Component, ViewEncapsulation, OnInit,
-  ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+  ComponentFactoryResolver, ViewContainerRef, ViewChild, DoCheck } from '@angular/core';
 import { NgBootstrapService } from '@L3Process/system/services/NgBootstrap.service';
 import { NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FormMasterService } from '@L3Process/system/modules/formBuilder/services/formMaster.service';
@@ -16,7 +16,7 @@ import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/
 }
 )
 
-export class FeMasterFormComponent implements OnInit, OnDestroy{
+export class FeMasterFormComponent implements OnInit,  DoCheck {
 
   Json = {id: 'FRM000001', name: '',code:'FRM000001',formLabel:'',display:'',hidden: false, disabled: false,conditionalHidden: '', conditionalDisabled: '', active:true, help: '', components: []};
   backupProps;
@@ -41,13 +41,19 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.modalRef = this.masterFormService.getModalRef();
     const component = this.fieldControlService.getFieldRef().component.component;
+    //const component = this.fieldControlService.getFieldRef().viewRef;
     this.createComponentFunc(component);
     this.init();
   }
 
+  ngDoCheck() {
+    this.formJsonService.buildFinalJSON();
+    //this.finalJSON = this.formJsonService.getFinalJSON();
+  }
+
   init() {
     this.jsonEditorConfig = {
-       mode: 'code', onChange: this.update 
+       mode: 'code', onChange: this.update
     };
     this.jsonHelp = {
         lovHelp: 
@@ -167,12 +173,13 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
   }
 
   onReset() {
-    this.instance.properties = _.assign({}, this.backupProps);
+    //this.instance.properties = _.assign({}, this.backupProps);
     this.componentData = _.assignIn({}, this.backupProps);
     console.log("Component data in reset", this.componentData);
   }
 
   onSubmit(form) {
+    console.log("Component data in submit", this.componentData);
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
     this.masterFormService.setCurrentKey(this.currentKey);
@@ -182,13 +189,17 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
   }
 
   createComponentFunc(component) {
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    const viewContainerRef = this.preview;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+       const view = this.preview;
+    //console.log("master form view container", view);
+    //viewContainerRef.clear();
+    const componentRef = view.createComponent(componentFactory, 0, view.injector);
+    console.log('master form component ref', componentRef);
     this.instance = componentRef.instance;
     this.currentKey = this.masterFormService.getCurrentKey();
-    this.initInstance();
+   this.initInstance();
+    //view.insert(component);
   }
 
   initInstance() {
@@ -199,12 +210,19 @@ export class FeMasterFormComponent implements OnInit, OnDestroy{
     this.componentData = this.instance.properties;
   }
 
+  deleteInput(index) {
+    this.instance.deleteInput(index);
+  }
+  
+  addInput(event) {
+    event.preventDefault();
+    this.instance.addInput();
+    console.log(this.componentData);
+  }
+
   update(event) {
     console.log(this.componentData);
     console.log('instance props', this.instance.properties);
   }
 
-  ngOnDestroy() {
-    console.log(' destroy called show edit ',this.instance.showEdit);
-  }
 }

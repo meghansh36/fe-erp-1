@@ -1,8 +1,3 @@
-<!-- <div class="fe-field fe-text TXT form-group " [formGroup]="group">
-    <label for="{{ id }}">{{ config.label }}</label>
-    &nbsp;
-    <a href="{{defaultValue}}">{{label}}</a>
-</div> -->
 
 <div [ngClass]="defaultClasses.fieldMainWrapperClasses" [formGroup]="group" [ngStyle]="style.fieldMainWrapperStyle">
         <div [ngClass]="defaultClasses.fieldWrapperClasses" [ngStyle]="defaultClasses.fieldWrapperStyle">
@@ -18,7 +13,7 @@
             </div>
             <div [ngClass]="defaultClasses.nestedFieldContainerClasses" [ngStyle]="style.nestedFieldContainerStyle">
                 <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-                    <a href="{{defaultValue}}" [ngClass]="defaultClasses.fieldClasses"  [ngStyle]="defaultClasses.fieldStyle" 
+                    <a [attr.href]="defaultValue" [attr.flexilabel]="flexiLabel" target="_blank" [class.disabled]="disabled" [ngClass]="defaultClasses.fieldClasses"  [ngStyle]="defaultClasses.fieldStyle" 
                     [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" 
                     [attr.id]="id">{{label}}</a>
                 </div>

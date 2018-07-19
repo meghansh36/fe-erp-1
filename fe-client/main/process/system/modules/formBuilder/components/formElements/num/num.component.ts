@@ -8,12 +8,13 @@ import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/f
 export class FeNumComponent extends TxtComponent {
 
   properties = {
-    type: 'NUM',
+    
     minimumValue: undefined,
     maximumValue: undefined,
     useDelimeter: true,
     requiredDecimal: true,
-    ...this.properties
+    ...this.properties,
+    type: 'NUM',
   };
 
   applicableProperties = {

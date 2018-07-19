@@ -7,7 +7,7 @@ import { FeBaseField } from '../baseField/baseField.component';
   styleUrls: ['./txt.component.css', '../baseField/baseField.component.css']
 })
 export class FeTxtComponent extends FeBaseField  {
-  
+  public length;
   public properties = {
     type: 'TXT',
     ...this.properties
@@ -18,6 +18,32 @@ export class FeTxtComponent extends FeBaseField  {
     suffix: true,
     minimumLength:true,
     maximumLength:true,
+    mask: true,
     ...this.applicableProperties
   };
+
+  get maskConfig() {
+    if (this.mask) {
+      let mask = this.mask;
+      if ( typeof mask === 'string' ) {
+        (<any>window).inputMask = [];
+        const strExpr = `window.inputMask = ${mask}`;
+        eval( strExpr );
+        mask = (<any>window).inputMask;
+      } 
+
+      if ( mask.constructor === Array ) {
+        return { mask };
+      }
+    }
+    return { mask: null };
+  }
+
+  get len() {
+    return this.length;
+  }
+  set len(len) {
+    this.length = len;
+  }
+
 }

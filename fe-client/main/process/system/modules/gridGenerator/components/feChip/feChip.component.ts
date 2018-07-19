@@ -14,7 +14,6 @@ export class FeChipComponent implements OnInit {
 	protected _filteredCol: any;
 	protected checked: boolean = false;
 	protected _obj: any;
-	protected chipCmp: ComponentRef<FeChipComponent>;
 
 	get filteredCol() {
 		return this._filteredCol;
@@ -68,15 +67,24 @@ export class FeChipComponent implements OnInit {
 		this._obj = obj;
 	}
 
+	get operator() {
+		return this.chipData.operator;
+	}
+
+	set operator(operator) {
+		this.chipData.operator = operator;
+	}
+
 	ngOnInit() {
 		this.obj = {
-			'name': this.label,
-			'filter': this.filter,
-			'code': this.code,
-			'type': this.type,
-			'label': this.label,
-			'lov': this.lov,
-			'flexiLabel': this.flexiLabel
+			name: this.label,
+			filter: this.filter,
+			operator: this.operator,
+			code: this.code,
+			type: this.type,
+			label: this.label,
+			lov: this.lov,
+			flexiLabel: this.flexiLabel
 		}
 	}
 
@@ -89,7 +97,9 @@ export class FeChipComponent implements OnInit {
 	}
 	addFilter(event: any) {
 		this.filter = event.filter;
+		this.operator = event.operator
 		this.obj['filter'] = this.filter;
+		this.obj['operator'] = this.operator;
 		this.addThisFilter.emit(this.obj);
 		this.checked = !this.checked;
 	}

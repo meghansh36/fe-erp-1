@@ -5,6 +5,7 @@
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
 .hidden {
     display: none !important;
 }
@@ -12,6 +13,9 @@
 .field-wrapper {
     display: flex;
     width: 100%;
+}
+.flex {
+    display: flex;
 }
 
 .field-label-top {
@@ -56,7 +60,7 @@
     padding-top: 32px !important;
   } */
 
-.feForm .fe-field-component {
+.fe-field-component {
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -227,6 +231,31 @@ fe-fieldset {
     cursor: pointer;
     outline: none;
 }
+.field-tool {
+    list-style: none;
+    display: flex;
+}
+
+.field-tool li {
+    cursor: pointer;
+}
+
+.field-tool-container {
+    position: absolute;
+    right: 0%;
+    z-index: 100;
+    /* visibility: hidden; */
+    transition: 0.5s linear;
+    -o-transition: 0.5s linear;
+    -moz-transition: 0.5s linear;
+    -webkit-transition: 0.5s linear;
+}
+
+a.disabled {
+    color: gray;
+    cursor: not-allowed;
+    text-decoration: underline;
+}
 
 .gray_clr {
     color: gray;
@@ -292,4 +321,11 @@ fe-fieldset {
     font-weight: 300;
 }
 
+.radio-field {
+    padding-top: 3px;
+}
+
+.radio-label {
+    padding-left: 5px;
+}
 /*-------------------------}          */

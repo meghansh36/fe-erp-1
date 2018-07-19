@@ -9,18 +9,17 @@ import { TxtComponent } from '@L3Process/system/modules/formBuilder/components/f
 export class FeTxaComponent extends TxtComponent   {
   showEdit = true;
   properties = {
-    type: 'TXA',
+    
     enableCk: true,
     ckSettings: '',
     enableSpellCheck: true,
     rows: 5,
-    ...this.properties
+    ...this.properties,
+    type: 'TXA',
   };
 
   public applicableProperties: any = {
     enableSpellCheck: true,
-    enableCk:true,
-    ckSettings:true,
     rows: true,
     ...this.applicableProperties
   };

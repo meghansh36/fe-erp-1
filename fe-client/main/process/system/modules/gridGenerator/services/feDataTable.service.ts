@@ -40,11 +40,11 @@ export class FeDataTableService {
 			{ icon: "md-settings", clickEvent: "dropDownOpenClose", type: 'dropdown', customCssClass: 'gray_clr mr_10 pointer' },
 		],
 		columns: [
-			{ prop: "username", name: "username", sortable: true, resizeable: true, width: '100', frozenLeft: true },
-			{ prop: "email", name: "email", sortable: true, resizeable: true, filterable: true, width: '200', align: 'left' },
-			{ prop: "country", name: "country", sortable: true, resizeable: false, filterable: true, width: '200', align: 'left' },
-			{ prop: "state", name: "state", sortable: true, resizeable: true, width: '200' },
-			{ prop: "date", name: "date", sortable: false, resizeable: true, width: '200' }
+			{ prop: "username", name: "Username", sortable: true, resizeable: true, width: '100', frozenLeft: true },
+			{ prop: "email", name: "Email", sortable: true, resizeable: true, filterable: true, width: '200', align: 'left' },
+			{ prop: "name", name: "Name", sortable: true, resizeable: false, filterable: true, width: '200', align: 'left' },
+			{ prop: "state", name: "State", sortable: true, resizeable: true, width: '200' },
+			{ prop: "age", name: "Age", sortable: false, resizeable: true, width: '200' }
 		],
 		rowActions: [
 			{ icon: 'md-create', clickEvent: 'detail', handlerOwner: 'form', customCssClass: 'gray_clr mr_10 pointer' },
@@ -55,13 +55,13 @@ export class FeDataTableService {
 		],
 		applicableFilters: [
 			{
-				type: "TXT", code: "FLD0001001", flexiLabel: "email", label: 'email'
+				type: "TXT", code: "FLD0001001", flexiLabel: "email", label: 'Email'
 			},
 			{
-				type: "TXT", code: "FLD0001002", flexiLabel: "country", label: 'country'
+				type: "TXT", code: "FLD0001002", flexiLabel: "name", label: 'Name'
 			},
 			{
-				type: "SEL", code: "FLD0001003", flexiLabel: "date", label: 'date', lov: ['25 may', '14 june', '12 jan']
+				type: "SEL", code: "FLD0001003", flexiLabel: "state", label: 'State', lov: ['Delhi', 'Mumbai', 'Kerela']
 			}
 		]
 	}

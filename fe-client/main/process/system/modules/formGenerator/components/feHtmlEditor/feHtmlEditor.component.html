@@ -24,7 +24,10 @@
             </span>
         </span>
         <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-            <ckeditor [formControlName]="flexiLabel" (change)="_onChange($event)">
+            <ckeditor [formControlName]="flexiLabel" (change)="_onChange($event)" [attr.flexilabel]="flexiLabel"   [ngClass]="defaultClasses.fieldClasses" [ngStyle]="defaultClasses.fieldStyle"
+            [attr.placeholder]="placeholder"   
+               [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" 
+               [attr.id]="id">
             </ckeditor>
         </div>
     </div>

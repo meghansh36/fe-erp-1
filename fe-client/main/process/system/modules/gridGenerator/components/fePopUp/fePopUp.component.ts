@@ -13,6 +13,8 @@ export class FePopUpComponent implements OnInit {
 	@Output() close: EventEmitter<any> = new EventEmitter<any>();
 	@Output() filterString: EventEmitter<any> = new EventEmitter<any>();
 	protected _filter: string;
+	protected _operators = ['Greater', 'Equals', 'Exclude'];
+	protected _operator: string;
 
 	set filter(filter) {
 		this._filter = filter;
@@ -44,13 +46,29 @@ export class FePopUpComponent implements OnInit {
 		}
 	}
 
+	get operators() {
+		return this._operators;
+	}
+
+	get operator() {
+		return this._operator;
+	}
+
+	set operator(operator) {
+		this._operator = operator;
+	}
+
 	ngOnInit() {
 		this.filter = this.value;
+		this.operator = 'Contains';
 	}
 
 	selectItem(event: any) {
 		this.filter = event.target.value;
-		console.log(this.filter);
+	}
+
+	selectOperator(event: any) {
+		this.operator = event.target.value;
 	}
 
 	closePopUp() {
@@ -59,14 +77,15 @@ export class FePopUpComponent implements OnInit {
 
 	applyFilter() {
 		let obj = {
-			'name': this.label,
-			'filter': this.filter,
-			'checked': false,
-			'code': this.id,
-			'type': this.type,
-			'label': this.label,
-			'lov': this.lov,
-			'flexiLabel': this.flexiLabel
+			name: this.label,
+			filter: this.filter,
+			operator: this.operator,
+			checked: false,
+			code: this.id,
+			type: this.type,
+			label: this.label,
+			lov: this.lov,
+			flexiLabel: this.flexiLabel
 		}
 		this.filterString.emit(obj);
 	}
