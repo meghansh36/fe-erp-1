@@ -191,6 +191,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		console.log("initialized a new instance 1", this.properties);
 		this.setRef(this.fieldControlService.getFieldRef().ref);
 		this.uniqueKey = this.masterFormService.getCurrentKey();
+		console.log(this.uniqueKey);
 		this.masterFormService.setProperties(this.properties);
 		this.initFieldStyle();
 	}
@@ -222,8 +223,8 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	}
 
 	public close() {
-		this.formJsonService.removeComponent(this.uniqueKey);
 		this.refObj.destroy();
+		this.formJsonService.removeComponent(this.uniqueKey);
 		this.formJsonService.buildFinalJSON();
 	}
 
