@@ -31,24 +31,6 @@ export class FeBtnComponent extends FeBaseField implements OnInit{
 		defaultValueType: false,
 	};
 
-	
-  beforeSetDefaultClasses(classesObj) {
-    const buttonThemeClasses = this.defaults.BUTTON_THEMES;
-    let themeClass = buttonThemeClasses[this.theme];
-    if (!themeClass) {
-      themeClass = buttonThemeClasses[this.defaults.BUTTON_THEME];
-    }
-    classesObj['fieldClasses'][themeClass] = true;
-		const buttonSizeClasses = this.defaults.BUTTON_SIZES; 
-		
-    if (this.size) {
-      classesObj['fieldClasses'][buttonSizeClasses[this.size]] = true;
-    } else {
-			classesObj['fieldClasses'][buttonSizeClasses[this.defaults.BUTTON_SIZE]] = true;
-		}
-    return classesObj;
-	}
-	
 	get icon() {
 		return this.properties.icon;
 	}
