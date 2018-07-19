@@ -11,22 +11,40 @@
 					<small> Selected
 					</small>
 				</ng-template>
-				<div class="float-right" *ngIf="selected?.length">
+				<span class="float-right" *ngIf="selected?.length">
 					<i *ngFor="let action of actionButtons" [ngClass]="[action.icon , action.customCssClass]" (click)="onAction(action,selected)"></i>&nbsp;&nbsp;
-				</div>
+				</span>
 			</div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-10">
 						<div class="row" *ngIf="filterable">
-							<div class="col-md-4">
-								<input placeholder='filter by username' (keyup)='updateFilter($event)' />
+							<div class="filter-action-container col-sm-10 col-md-11 col-xl-11">
+								<div class="grid-filters">
+									<div class="filter-chip-container">
+										<div class="filter-edit-form-container filter-form-container hidden"></div>
+										<fe-chip *ngFor="let chip of filterableCol" [attr.id]="'chip' + chip.code" [chipData]="chip" (closeChip)="closeThisChip($event)"
+										 (addThisFilter)="applyModifiedFilter($event)"></fe-chip>
+									</div>
+								</div>
 							</div>
 						</div>
+						<div class="row" *ngIf="filterable">
+							<div class="name-container" ngbDropdown #myDrop="ngbDropdown" [hidden]="checked">
+								<div class="add-filter-container" id="dropdownManual" ngbDropdownToggle>
+									<i class="icon md-add"></i>
+									<span>Search</span>
+								</div>
+								<div ngbDropdownMenu aria-labelledby="dropdownManual">
+									<button *ngFor='let col of columnsFiltersTobeApplied' class="dropdown-item button" [attr.id]="'btn'+ col.code" (click)="popUp(col)">{{col.label}}</button>
+								</div>
+							</div>
+							<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [value]="" (close)="closePopUp($event)" (filterString)="addFirstFilter($event)"></fe-popUp>
+						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<div class="float-right">
-							<i *ngFor="let btn of buttons" [ngClass]="btn.icon" (click)="btnAction(btn)"></i>
+							<i *ngFor="let btn of buttons" [ngClass]="[btn.icon , btn.customCssClass]" (click)="btnAction(btn)"></i>
 							<div ngbDropdown #dropdown="ngbDropdown">
 								<span id="dropdownManual" ngbDropdownAnchor></span>
 								<div ngbDropdownMenu aria-labelledby="dropdownManual">
@@ -43,16 +61,16 @@
 		</div>
 		<ngx-datatable #table [id]="formCode" class='material' [rows]='rows' [rowHeight]="rowHeight" [scrollbarH]="scrollbarH" [headerHeight]="headerHeight"
 		 [offset]="offset" [footerHeight]="footerHeight" [messages]="message" [selected]="selected" [selectionType]="selectionType"
-		 [selectAllRowsOnPage]="selectAllRowsOnPage" (select)='onSelect($event)'>
+		 [selectAllRowsOnPage]="selectAllRowsOnPage" (select)='onSelect($event)' (reorder)="reorderColumn($event)" (sort)="filterOnSorting($event)">
 
 			<ngx-datatable-column [width]="50" *ngIf="checkboxable" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
 			 [headerCheckboxable]="headerCheckboxable" [checkboxable]="checkboxable" [frozenLeft]="true">
 			</ngx-datatable-column>
 
-			<ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [width]="col.width" [sortable]="col.sortable" [frozenLeft]="col.frozenLeft"
-			 [resizeable]="col.resizeable"></ngx-datatable-column>
+			<ngx-datatable-column *ngFor="let col of columns" [columnMode]="'force'" [name]="col.name" [cellClass]="col.align" [width]="col.width"
+			 [sortable]="col.sortable" [frozenLeft]="col.frozenLeft" [resizeable]="col.resizeable"></ngx-datatable-column>
 
-			<ngx-datatable-column>
+			<ngx-datatable-column *ngIf="rowActions?.length">
 				<ng-template let-column="column" ngx-datatable-header-template>
 				</ng-template>
 				<ng-template let-row="row" let-value="value" ngx-datatable-cell-template>

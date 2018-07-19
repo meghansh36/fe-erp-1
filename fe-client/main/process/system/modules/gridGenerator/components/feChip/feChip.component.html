@@ -1,0 +1,12 @@
+<div class="chip">
+	<div class="chip-label-container pointer" (click)="popUp()">
+		<span>{{ name }}&nbsp;"{{ operator }}" "{{ filter }}"
+		</span>
+	</div>
+	<div class="filter-chip-close mx-auto">
+		<button class="btn btn-flat filter-chip-close-btn mx-auto" (click)="removeChip()">
+			<i class="icon md-cancel"></i>
+		</button>
+	</div>
+</div>
+<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [value]="filter" (close)="closePopUp($event)" (filterString)="addFilter($event)"></fe-popUp>
