@@ -30,7 +30,6 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
   component: any;
   finalJSON;
   formJson: any;
-  rootDrop;
   jsonEditorConfig;
   DOMArray: any = [];
   public formJsonHelp;
@@ -53,7 +52,8 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       accepts: function(el, target, source, sibling) {
         const targetClassesArr = target.className.trim().split(' ');
         const fieldClassesArr = el.className.trim().split(' ');
-        if (_.includes(targetClassesArr, 'buttonDropZone') && _.includes(fieldClassesArr, 'button')) {
+        if (_.includes(targetClassesArr, 'buttonDropZone') &&
+        (_.includes(fieldClassesArr, 'button') || _.includes(fieldClassesArr, 'button-input'))) {
           return true;
         } else if (_.includes(targetClassesArr, 'FSTdropZone') || _.includes(targetClassesArr, 'customDropZone')) {
           return true;
@@ -62,20 +62,17 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     });
 
     this.dragulaService.drop.subscribe((value) => {
-      // const componentName = value[1].attributes[2].nodeValue;
-     // console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
-      if (this.rootDrop === undefined) {
-        this.rootDrop = value[2];
-      }
       if (value[1].nodeName === 'LI') {
-        // value[1].innerHTML = '';
-        // value[1].outerHTML = '';
-        
         const componentName = value[1].attributes.getNamedItem('componentName').nodeValue;
         console.log("componentName", componentName);
         const index = this.calculateIndex(value);
         value[1].remove();
         this.dropComplete(this.formBuilderService.getComponent(componentName), index, value);
+      } else {
+        const newIndex = this.calculateIndex(value);
+        value[1].parentComponent = value[2].id;
+        this.formJsonService.updateMasterJSONOnMove(value[2], value[3], value[1], newIndex);
+        this.formJsonService.buildFinalJSON();
       }
     });
   }
@@ -191,6 +188,11 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
+  moveDOMNode(parent, nextSibling, el) {
+    console.log(parent);
+    parent.insertBefore(el, nextSibling);
+  }
+
   createComponentFunc(componentObj, index, target, value) {
 
     const key = this.generateNewKey();
@@ -207,12 +209,13 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       viewContainerRef = this.host;
     }
 
-    const componentRef = viewContainerRef.createComponent(componentFactory, index);
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    this.moveDOMNode(target, value[4], componentRef.location.nativeElement);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index, false);
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index);
     target.children[index].generatedKey = key;
     target.children[index].parentComponent = target.id;
-    this.formJsonService.updateMasterJSON(target);
+    this.formJsonService.updateMasterJSONOnDrop(target, key, false);
     this.formJsonService.buildFinalJSON();
     //console.log(this.formJsonService.getMasterJSON());
   }
@@ -238,7 +241,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     const componentRef = viewContainerRef.createComponent(componentFactory);
     componentRef.instance.properties = copy;
     this.fieldControlService.setFieldRef(componentRef, this, {component});
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order, false);
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order);
     const target: any = document.querySelector(`#${componentProps.parent}`);
     console.log('target', target);
     target.children[componentProps.order].generatedKey = key;
