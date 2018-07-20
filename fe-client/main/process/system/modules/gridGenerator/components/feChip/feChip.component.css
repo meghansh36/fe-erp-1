@@ -62,6 +62,9 @@
 .chip-close-btn {
     padding: 3px 5px 0px 10px !important;
     color: inherit;
+    margin: 0;
+    font-family: inherit;
+    text-transform: none;
 }
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
@@ -70,6 +73,10 @@
     background: none;
     border: none;
     box-shadow: none;
+}
+
+.inline{
+    display: inline;
 }
 
 

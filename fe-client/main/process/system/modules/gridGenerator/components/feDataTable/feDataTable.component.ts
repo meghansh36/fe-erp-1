@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Output, EventEmitter, TemplateRef, Renderer2 } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { DataTableService } from '@L3Process/system/modules/gridGenerator/services/DataTable.service';
-import { FeFilteredDataService } from '@L1Process/system/modules/gridGenerator/services/feFilteredData.service';
+import { FilteredDataService } from '@L3Process/system/modules/gridGenerator/services/FilteredData.service';
 import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
@@ -284,7 +284,7 @@ export class FeDataTableComponent implements OnInit {
 		this._sortedData = sortedData;
 	}
 
-	constructor(protected dataTableService: DataTableService, protected modalService: NgbModal, protected config: NgbDropdownConfig, protected filterService: FeFilteredDataService) {
+	constructor(protected dataTableService: DataTableService, protected modalService: NgbModal, protected config: NgbDropdownConfig, protected filterService: FilteredDataService) {
 		config.autoClose = false;
 	}
 
@@ -430,15 +430,19 @@ export class FeDataTableComponent implements OnInit {
 		this.selected = [];
 	}
 	//----------------------buttons actions ----------------------------
-	dropDownOpenClose(type: any) {
+	dropDownOpenClose() {
 		if (this.openOrClose) {
-			this[type].open();
+			this.dropdown.open();
 			this.openOrClose = !this.openOrClose;
 		}
 		else {
-			this[type].close();
+			this.dropdown.close();
 			this.openOrClose = !this.openOrClose;
 		}
+	}
+
+	download() {
+		console.log('download');
 	}
 
 	onAction(action: any, arg: any) {
@@ -459,14 +463,9 @@ export class FeDataTableComponent implements OnInit {
 		}
 	}
 
-	btnAction(action: any) {
-		try {
-			if (this[action.clickEvent]) {
-				this[action.clickEvent](action.type);
-			}
-		}
-		catch (error) {
-			console.log(error);
+	onDefaultAction(action: any) {
+		if (this[action.clickEvent]) {
+			this[action.clickEvent]();
 		}
 	}
 	//----------------------***************** ----------------------------
@@ -513,16 +512,59 @@ export class FeDataTableComponent implements OnInit {
 
 
 	convertToValidFilterJson(filter: any) {
+
 		this.filterData = this.filterData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
+		console.log(filter.dependentKeys);
+		if (filter.dependentKeys) {
+			filter.dependentKeys.forEach((flt) => {
+				this.filterData = this.filterData.filter((ele) => Object.keys(ele) != flt);
+			})
+		}
+
 		if (filter.filter != undefined) {
-			let obj = {
+			let getObj = this.valuesOfFilter(filter);
+			getObj.forEach((ele) => {
+				this.filterData.push(ele);
+			})
+		}
+	}
+
+	removePrevValues(filter: any) {
+		if (filter.filter) {
+			this.filterData = this.filterData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
+		}
+		if (filter.dependentFilter) {
+			console.log(filter.dependentFilter);
+			/* filter.dependentFilter.forEach((flt)=>{
+				console.log(flt);
+				this.filterData = this.filterData.filter((ele) => Object.keys(ele).toString() != Object.keys(flt).toString());
+			}) */
+		}
+	}
+
+	valuesOfFilter(filter: any) {
+		let obj = [];
+		if (filter.filter) {
+			let flt = {
 				[filter.flexiLabel]: {
 					operator: filter.operator,
 					value: filter.filter
 				}
 			}
-			this.filterData.push(obj);
+			obj.push(flt);
 		}
+		if (filter.dependentFilter.length > 0) {
+			filter.dependentFilter.forEach((flt) => {
+				obj.push(flt);
+			})
+		}
+		return obj;
+		/* if (filter.dependentFilter.length > 0) {
+			return [filter.filter].concat(filter.dependentFilter);
+		}
+		else {
+			return [filter.filter];
+		} */
 	}
 
 	enableElement(code: any) {

@@ -9,7 +9,7 @@
 				<div class="row">
 					<div class="col">
 
-						<span class="form-group flex" id="TXT" *ngIf="type == 'TXT'">
+						<span class="form-group flex" id="TXT" #d1 *ngIf="type == 'TXT'">
 							<label class="form-control-label" for="'TXT_'+ id">{{label}}</label>&nbsp;
 							<select class="form-control" (change)="selectOperator($event)">
 								<option value="operator">{{operator}}</option>
@@ -18,17 +18,17 @@
 							<input type="text" [attr.id]="'TXT_'+ id" [(ngModel)]="filter" class="form-control">
 						</span>
 
-						<span class="form-group flex" id="TXT" *ngIf="type == 'SEL'">
+						<div class="form-group flex flex-direction" #d2 id="SEL" *ngIf="type == 'SEL'">
 							<label class="form-control-label" for="'SEL_'+ id">{{label}}</label>&nbsp;
 							<select class="form-control" (change)="selectOperator($event)">
 								<option value="Contains">Contains</option>
 								<option *ngFor="let opr of operators" value="{{opr}}">{{opr}}</option>
 							</select>&nbsp;
-							<select [attr.id]="'TXT_'+ id" class="form-control" (change)="selectItem($event)">
+							<select [attr.id]="'SEL_'+ id" class="form-control" (change)="selectItem($event)">
 								<option value="">--select--</option>
-								<option *ngFor="let opt of lov" value="{{opt}}">{{opt}}</option>
+								<option *ngFor="let opt of lov" value="{{opt.code}}">{{opt.meaning}}</option>
 							</select>
-						</span>
+						</div>
 					</div>
 				</div>
 			</div>

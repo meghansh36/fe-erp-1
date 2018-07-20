@@ -1,12 +1,12 @@
 <div class="chip">
-	<div class="chip-label-container pointer" (click)="popUp()">
-		<span>{{ name }}&nbsp;"{{ operator }}" "{{ filter }}"
+	<div class="chip-label-container pointer flex" (click)="popUp()">
+		<span>{{ name }}:&nbsp;"{{ operator }}" : "{{ filter }}" <p class="inline" *ngFor="let flt of dependentValues">"{{flt}}"</p>
 		</span>
 	</div>
-	<div class="filter-chip-close mx-auto">
-		<button class="btn btn-flat filter-chip-close-btn mx-auto" (click)="removeChip()">
+	<div class="filter-chip-close">
+		<button class="btn btn-flat chip-close-btn" (click)="removeChip()">
 			<i class="icon md-cancel"></i>
 		</button>
 	</div>
 </div>
-<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [value]="filter" (close)="closePopUp($event)" (filterString)="addFilter($event)"></fe-popUp>
+<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [modify]="true" [value]="filter" (close)="closePopUp($event)" (filterString)="addFilter($event)"></fe-popUp>

@@ -37,12 +37,13 @@ export class FeDataTableService {
 			emptyMessage: "No Data to Show"
 		},
 		buttons: [
-			{ icon: "md-settings", clickEvent: "dropDownOpenClose", type: 'dropdown', customCssClass: 'gray_clr mr_10 pointer' },
+			{ icon: "md-get_app", clickEvent: "download", customCssClass: 'gray_clr mr_10 pointer' },
 		],
 		columns: [
 			{ prop: "username", name: "Username", sortable: true, resizeable: true, width: '100', frozenLeft: true },
-			{ prop: "email", name: "Email", sortable: true, resizeable: true, filterable: true, width: '200', align: 'left' },
-			{ prop: "name", name: "Name", sortable: true, resizeable: false, filterable: true, width: '200', align: 'left' },
+			{ prop: "email", name: "Email", sortable: true, resizeable: true, width: '200', align: 'left' },
+			{ prop: "name", name: "Name", sortable: true, resizeable: false, width: '200', align: 'left' },
+			{ prop: "country", name: "Country", sortable: true, resizeable: true, width: '200' },
 			{ prop: "state", name: "State", sortable: true, resizeable: true, width: '200' },
 			{ prop: "age", name: "Age", sortable: false, resizeable: true, width: '200' }
 		],
@@ -55,19 +56,29 @@ export class FeDataTableService {
 		],
 		applicableFilters: [
 			{
-				type: "TXT", code: "FLD0001001", flexiLabel: "email", label: 'Email'
+				type: "TXT", code: "FLD0001001", flexiLabel: "email", label: "Email"
 			},
 			{
-				type: "TXT", code: "FLD0001002", flexiLabel: "name", label: 'Name'
+				type: "TXT", code: "FLD0001002", flexiLabel: "name", label: "Name"
 			},
 			{
-				type: "SEL", code: "FLD0001003", flexiLabel: "state", label: 'State', lov: ['Delhi', 'Mumbai', 'Kerela']
+				type: "SEL", code: "FLD0001004", flexiLabel: "country", label: "Country", lov: [{
+					'code': 'IND',
+					'meaning': 'India',
+					'tip': 'India',
+				}, {
+					'code': 'USA',
+					'meaning': 'USA',
+					'tip': 'USA'
+				}],
+				isParent: 'Y',
+				children: []
 			}
 		]
 	}
 
 	fetch() {
-		return this.http.get('https://raw.githubusercontent.com/Dhruv1996oct1/dodo_wisdom/master/data.json')
+		return this.http.get('https://raw.githubusercontent.com/Dhruv1996oct1/dodo_wisdom/2f9777ffb54fa2afa86a80e3e0cc0db85bd43924/data.json')
 			.pipe(
 				map(data => data['key'])
 			);

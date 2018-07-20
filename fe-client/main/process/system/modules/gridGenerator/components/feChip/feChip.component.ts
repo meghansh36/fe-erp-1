@@ -14,6 +14,8 @@ export class FeChipComponent implements OnInit {
 	protected _filteredCol: any;
 	protected checked: boolean = false;
 	protected _obj: any;
+	protected _dependentKeys: any;
+	protected _depValues: any;
 
 	get filteredCol() {
 		return this._filteredCol;
@@ -29,6 +31,14 @@ export class FeChipComponent implements OnInit {
 
 	set filter(filterString) {
 		this.chipData.filter = filterString;
+	}
+
+	get dependentFilter() {
+		return this.chipData.dependentFilter;
+	}
+
+	set dependentFilter(dependentFilter) {
+		this.chipData.dependentFilter = dependentFilter;
 	}
 
 	get name() {
@@ -75,6 +85,22 @@ export class FeChipComponent implements OnInit {
 		this.chipData.operator = operator;
 	}
 
+	get dependentValues() {
+		return this.chipData.dependentValues;
+	}
+
+	set dependentValues(depValues) {
+		this.chipData.dependentValues = depValues
+	}
+
+	get dependentKeys() {
+		return this.chipData.dependentKeys;
+	}
+
+	set dependentKeys(dependentKeys) {
+		this.chipData.dependentKeys = dependentKeys; 
+	}
+
 	ngOnInit() {
 		this.obj = {
 			name: this.label,
@@ -84,7 +110,9 @@ export class FeChipComponent implements OnInit {
 			type: this.type,
 			label: this.label,
 			lov: this.lov,
-			flexiLabel: this.flexiLabel
+			flexiLabel: this.flexiLabel,
+			dependentFilter: this.dependentValues,
+			dependentKeys: this.dependentKeys
 		}
 	}
 
@@ -97,9 +125,14 @@ export class FeChipComponent implements OnInit {
 	}
 	addFilter(event: any) {
 		this.filter = event.filter;
-		this.operator = event.operator
+		this.operator = event.operator;
+		this.dependentValues = event.dependentValues;
+		this.dependentFilter = event.dependentFilter;
+		this.dependentKeys = event.dependentKeys;
 		this.obj['filter'] = this.filter;
+		this.obj['dependentFilter'] = this.dependentFilter;
 		this.obj['operator'] = this.operator;
+		this.obj['dependentKeys'] = this.dependentKeys;
 		this.addThisFilter.emit(this.obj);
 		this.checked = !this.checked;
 	}

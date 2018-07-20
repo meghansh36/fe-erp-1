@@ -5,8 +5,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { DataTableComponent } from '@L3Process/system/modules/gridGenerator/components/DataTable/DataTable.component';
-import { FePopUpComponent } from '@L1Process/system/modules/gridGenerator/components/fePopUp/fePopUp.component';
-import { FeChipComponent } from '@L1Process/system/modules/gridGenerator/components/feChip/feChip.component';
+import { PopUpComponent } from '@L3Process/system/modules/gridGenerator/components/PopUp/PopUp.component';
+import { ChipComponent } from '@L3Process/system/modules/gridGenerator/components/Chip/Chip.component';
 
 @NgModule({
   imports: [
@@ -19,8 +19,8 @@ import { FeChipComponent } from '@L1Process/system/modules/gridGenerator/compone
   exports: [DataTableComponent],
   declarations: [
     DataTableComponent,
-    FePopUpComponent,
-    FeChipComponent
+    PopUpComponent,
+    ChipComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
