@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
 @Component({
-  selector: 'btn-input',
+  selector: 'btn-input.button-input',
   templateUrl: './btn.component.html',
   styleUrls: ['./btn.component.css', '../baseField/baseField.component.css']
 })
