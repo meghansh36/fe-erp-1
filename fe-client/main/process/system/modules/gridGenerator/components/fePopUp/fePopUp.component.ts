@@ -31,7 +31,7 @@ export class FePopUpComponent implements OnInit {
 	protected _depKeys = [];
 	protected element: any;
 	protected _currentDependentNotInNext = [];
-	protected _childOperator: any;
+	protected _childOperatorAndValue = [];
 	protected childMeaning: string;
 	protected filterValue: string;
 
@@ -138,12 +138,20 @@ export class FePopUpComponent implements OnInit {
 		this.filteredCol.currentDependentNotInNext = currentDependentNotInNext;
 	}
 
+	get childOperatorAndValue() {
+		return this._childOperatorAndValue;
+	}
+
+	set childOperatorAndValue(childOperators) {
+		this._childOperatorAndValue = childOperators
+	}
+
 	constructor(public dependent: FeDependentService, public render: Renderer2) { }
 
 	ngOnInit() {
 		this.filter = this.selectedValue = this.value;
 		this.operatorValue = this.operator;
-		this._childOperator = 'equals';
+		//this._childOperator = 'equals';
 	}
 
 	selectItem(event: any, element?: any) {
@@ -241,15 +249,41 @@ export class FePopUpComponent implements OnInit {
 		let fieldRef = document.querySelector(`#child_${element.code}`);
 		let oprFieldRef = document.querySelector(`#OPR_${element.code}`);
 		fieldRef.addEventListener('change', this.selectItemsForChildField.bind(this, [element]));
-		oprFieldRef.addEventListener('change', this.selectOperatorForChildField.bind(this, [element]))
+		if (this.type == "SEL") {
+			this.selectOperatorForChild(element);
+		}
+		else {
+			oprFieldRef.addEventListener('change', this.selectOperatorForChild.bind(this, [element]));
+		}
 	}
 
 	selectItemsForChildField(element: any, event: any) {
 		this.selectItem(event, element);
 	}
 
-	selectOperatorForChildField(element: any, event: any) {
-		this._childOperator = event.target.value;
+	selectOperatorForChild(element: any, event?: any) {
+		let obj = this.getTargetValuesForFilter(element, event);
+		/* let obj = {
+			[this.type]: event.target.value
+		} */
+		this.childOperatorAndValue.push(obj);
+		console.log(this.childOperatorAndValue);
+	}
+
+	getTargetValuesForFilter(element: any, event: any) {
+		let obj;
+		if (this.type == "SEL") {
+			obj = {
+				[this.type]: 'equals'
+			}
+		}
+		else {
+			obj = {
+				[this.type]: event.target.value
+			}
+		}
+
+		return obj;
 	}
 
 	selectOperator(event: any) {
@@ -278,7 +312,7 @@ export class FePopUpComponent implements OnInit {
 			isParent: this.isParent,
 			children: this.childrenLen,
 			currentDependentNotInNext: this._currentDependentNotInNext,
-			childOperators: this._childOperator,
+			childOperators: this.childOperatorAndValue,
 			childMeaning: this.childMeaning
 		}
 		this.filterString.emit(obj);

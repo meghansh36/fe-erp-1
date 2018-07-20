@@ -11,7 +11,7 @@
 
 						<span class="form-group flex" id="TXT" #TxtTag *ngIf="type == 'TXT'">
 							<label class="form-control-label" for="'TXT_'+ id">{{label}}</label>&nbsp;
-							<select class="form-control" (change)="selectOperator($event)">
+							<select class="form-control" [(ngModel)]="operatorValue" (change)="selectOperator($event)">
 								<option *ngFor="let opr of operators" value="{{opr}}">{{opr}}</option>
 							</select>&nbsp;
 							<input type="text" [attr.id]="'TXT_'+ id" [(ngModel)]="filterValue" class="form-control">
@@ -20,7 +20,7 @@
 						<div class="form-group flex" #SelTag id="SEL" *ngIf="type == 'SEL'">
 							<label class="form-control-label" for="'SEL_'+ id">{{label}}</label>&nbsp;
 							<select class="form-control" [(ngModel)]="operatorValue" [attr.id]="'OPR_'+ id" (change)="selectOperator($event)">
-								<option value="equals">equals</option>
+								<option value="equals" selected>equals</option>
 							</select>&nbsp;
 							<select [attr.id]="'SEL_'+ id" [(ngModel)]='selectedValue' class="form-control" (change)="selectItem($event)">
 								<option value="">--select--</option>

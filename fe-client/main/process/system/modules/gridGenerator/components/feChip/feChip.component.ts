@@ -16,6 +16,7 @@ export class FeChipComponent implements OnInit {
 	protected _obj: any;
 	protected _dependentKeys: any;
 	protected _depValues: any;
+	protected _childOperator: any;
 
 	get filteredCol() {
 		return this._filteredCol;
@@ -89,11 +90,11 @@ export class FeChipComponent implements OnInit {
 		return this.chipData.dependentValues;
 	}
 
-	
+
 	set dependentValues(depValues) {
 		this.chipData.dependentValues = depValues
 	}
-	
+
 	get childOperators() {
 		return this.chipData.childOperators;
 	}
@@ -115,7 +116,7 @@ export class FeChipComponent implements OnInit {
 	}
 
 	set dependentKeys(dependentKeys) {
-		this.chipData.dependentKeys = dependentKeys; 
+		this.chipData.dependentKeys = dependentKeys;
 	}
 
 	get filterValue() {
@@ -127,6 +128,7 @@ export class FeChipComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.retrieveOperator();
 		this.obj = {
 			name: this.label,
 			filter: this.filter,
@@ -141,6 +143,13 @@ export class FeChipComponent implements OnInit {
 			dependentKeys: this.dependentKeys,
 			childOperators: this.childOperators,
 			childMeaning: this.childMeaning
+		}
+	}
+
+	retrieveOperator() {
+		if (this.dependentKeys.length) {
+			let opr = this.childOperators.filter((ele) => Object.keys(ele) == this.type);
+			this._childOperator = opr[0][this.type];
 		}
 	}
 
