@@ -89,8 +89,25 @@ export class FeChipComponent implements OnInit {
 		return this.chipData.dependentValues;
 	}
 
+	
 	set dependentValues(depValues) {
 		this.chipData.dependentValues = depValues
+	}
+	
+	get childOperators() {
+		return this.chipData.childOperators;
+	}
+
+	set childOperators(childOperators) {
+		this.chipData.childOperators = childOperators;
+	}
+
+	get childMeaning() {
+		return this.chipData.childMeaning;
+	}
+
+	set childMeaning(childMeaning) {
+		this.chipData.childMeaning = childMeaning
 	}
 
 	get dependentKeys() {
@@ -101,10 +118,19 @@ export class FeChipComponent implements OnInit {
 		this.chipData.dependentKeys = dependentKeys; 
 	}
 
+	get filterValue() {
+		return this.chipData.filterValue;
+	}
+
+	set filterValue(filterValue) {
+		this.chipData.filterValue = filterValue;
+	}
+
 	ngOnInit() {
 		this.obj = {
 			name: this.label,
 			filter: this.filter,
+			filterValue: this.filterValue,
 			operator: this.operator,
 			code: this.code,
 			type: this.type,
@@ -112,7 +138,9 @@ export class FeChipComponent implements OnInit {
 			lov: this.lov,
 			flexiLabel: this.flexiLabel,
 			dependentFilter: this.dependentValues,
-			dependentKeys: this.dependentKeys
+			dependentKeys: this.dependentKeys,
+			childOperators: this.childOperators,
+			childMeaning: this.childMeaning
 		}
 	}
 
@@ -129,10 +157,16 @@ export class FeChipComponent implements OnInit {
 		this.dependentValues = event.dependentValues;
 		this.dependentFilter = event.dependentFilter;
 		this.dependentKeys = event.dependentKeys;
+		this.childOperators = event.childOperators;
+		this.filterValue = event.filterValue;
+		this.childMeaning = event.childMeaning;
 		this.obj['filter'] = this.filter;
 		this.obj['dependentFilter'] = this.dependentFilter;
 		this.obj['operator'] = this.operator;
 		this.obj['dependentKeys'] = this.dependentKeys;
+		this.obj['childOperators'] = this.childOperators;
+		this.obj['childMeaning'] = this.childMeaning;
+		this.obj['filterValue'] = this.filterValue
 		this.addThisFilter.emit(this.obj);
 		this.checked = !this.checked;
 	}

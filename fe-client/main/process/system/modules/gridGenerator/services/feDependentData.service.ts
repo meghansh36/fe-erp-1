@@ -6,7 +6,10 @@ import { Injectable } from '@angular/core';
 export class FeDependentService {
 
     getHtmlSEL(element) {
-        let html = `<label class="form-control-label" for='child_${element.code}'>${element.label}</label>
+        let html = `<label class="form-control-label" id='LAB_${element.code}' for='child_${element.code}'>${element.label}</label>
+        <select class="form-control" id="OPR_${element.code}">
+        <option selected>equals</option>
+        </select>&nbsp;
          <select class="form-control" id='child_${element.code}' >
          <option value="">--select--</option>`;
         const options = element.lov;

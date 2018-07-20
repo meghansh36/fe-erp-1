@@ -53,6 +53,7 @@ export class FeDataTableComponent implements OnInit {
 	protected _filteredCol: any;
 	protected _filterJsonData = [];
 	protected _sortedData = [];
+	protected _currentDependentNotInNext: any;
 
 	get rows() {
 		return this._rows;
@@ -475,10 +476,10 @@ export class FeDataTableComponent implements OnInit {
 	popUp(col: any) {
 		this.checked = !this.checked;
 		this.filteredCol = col;
-		if(col.type == "TXT") {
+		if (col.type == "TXT") {
 			this.InitialValue = 'filter';
 		}
-		if(col.type == "SEL") {
+		if (col.type == "SEL") {
 			this.InitialValue = " ";
 		}
 		this.myDrop.close();
@@ -490,7 +491,7 @@ export class FeDataTableComponent implements OnInit {
 
 	closeThisChip(event: any) {
 		let code = event.code;
-		event.filter = undefined;
+		event.filterValue = undefined;
 		let element = document.querySelector(`#chip${code}`);
 		this.filterableCol = this.filterableCol.filter((ele) => ele.code != code);
 		element.remove();
@@ -500,6 +501,7 @@ export class FeDataTableComponent implements OnInit {
 
 	addFirstFilter(event: any) {
 		this.filterableCol.push(event);
+		console.log(event);
 		this.checked = event.checked;
 		this.manipulateStructureOfFilter(event);
 		let element = document.querySelector(`#btn${event.code}`);
@@ -517,8 +519,9 @@ export class FeDataTableComponent implements OnInit {
 
 
 	convertToValidFilterJson(filter: any) {
-		this.removePrevSamneValues(filter);
-		if (filter.filter != undefined) {
+		this.removePrevSameValues(filter);
+		if (filter.filterValue != undefined) {
+			console.log(filter.filterValue);
 			let getObj = this.valuesOfFilter(filter);
 			getObj.forEach((ele) => {
 				this.filterJsonData.push(ele);
@@ -526,10 +529,12 @@ export class FeDataTableComponent implements OnInit {
 		}
 	}
 
-	removePrevSamneValues(filter: any) {
+	removePrevSameValues(filter: any) {
 		this.filterJsonData = this.filterJsonData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
-		if (filter.dependentKeys) {
+		if (filter.dependentKeys.length) {
+			console.log(filter.dependentKeys);
 			filter.dependentKeys.forEach((flt) => {
+				console.log(flt);
 				this.filterJsonData = this.filterJsonData.filter((ele) => Object.keys(ele) != flt);
 			})
 		}
@@ -537,18 +542,24 @@ export class FeDataTableComponent implements OnInit {
 
 	valuesOfFilter(filter: any) {
 		let obj = [];
-		if (filter.filter) {
+		if (filter.filterValue) {
 			let flt = {
 				[filter.flexiLabel]: {
 					operator: filter.operator,
-					value: filter.filter
+					value: filter.filterValue
 				}
 			}
 			obj.push(flt);
 		}
 		if (filter.dependentFilter.length > 0) {
 			filter.dependentFilter.forEach((flt) => {
-				obj.push(flt);
+				let temp = {
+					[flt.flexi]: {
+						operator: flt.operator,
+						value: flt.value
+					}
+				}
+				obj.push(temp);
 			})
 		}
 		return obj;

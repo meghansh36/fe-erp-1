@@ -20,7 +20,7 @@ export class FePopUpComponent implements OnInit {
 	protected _filter: string;
 	protected selectedValue: string;
 	protected operatorValue: string;
-	protected _operators = ['Contains', 'Greater', 'Equals', 'Exclude'];
+	protected _operators = ['contains', 'greater', 'equals', 'exclude'];
 	protected _operator: string;
 	protected _childItem: any;
 	protected _dependentData: any;
@@ -30,6 +30,10 @@ export class FePopUpComponent implements OnInit {
 	protected _depVal = [];
 	protected _depKeys = [];
 	protected element: any;
+	protected _currentDependentNotInNext = [];
+	protected _childOperator: any;
+	protected childMeaning: string;
+	protected filterValue: string;
 
 	set filter(filter) {
 		this._filter = filter;
@@ -126,77 +130,96 @@ export class FePopUpComponent implements OnInit {
 		this._depKeys = dependentKeys;
 	}
 
+	get currentDependentNotInNext() {
+		return this.filteredCol.currentDependentNotInNext;
+	}
+
+	set currentDependentNotInNext(currentDependentNotInNext) {
+		this.filteredCol.currentDependentNotInNext = currentDependentNotInNext;
+	}
+
 	constructor(public dependent: FeDependentService, public render: Renderer2) { }
 
 	ngOnInit() {
 		this.filter = this.selectedValue = this.value;
 		this.operatorValue = this.operator;
+		this._childOperator = 'equals';
 	}
 
 	selectItem(event: any, element?: any) {
 		if (event.target.value) {
 			if (element == undefined) {
 				if (this.isParent == 'Y') {
-					this.filter = event.target.value;
-					this.children = this.dependent.getChild(this.filter);
+					let label = this.lov.filter((ele) => ele.code == event.target.value);
+					this.filterValue = event.target.value;
+					this.filter = label[0].meaning;
+					this.children = this.dependent.getChild(this.filterValue);
 					this.createChildren();
 				}
 				else {
-					this.filter = event.target.value;
+					let label = this.lov.filter((ele) => ele.code == event.target.value);
+					this.filter = label[0].meaning;
 				}
 			}
 			else {
 				this.element = element;
 				if (element.isParent == 'Y') {
-					let obj = {
-						[element.flexiLabel]: {
-							operator: this.operator,
-							value: event.target.value
-						}
-					}
-					this.dependentField.push(obj);
+					this.createObject(event, element);
 					this.children = this.dependent.getChild(this.filter);
 					this.createChildren();
-					this.childrenLen = 1;
 				}
 				else {
-					let flexi = element[0]['flexiLabel'];
-					let obj = {
-						[flexi]: {
-							operator: this.operator,
-							value: event.target.value
-						}
-					}
-					this.repeatedValsRemove(flexi);
-					this.dependentValues.push(obj[flexi].value);
-					this.dependentKeys.push(flexi);
-					this.dependentField.push(obj);
+					this.createObject(event, element);
 				}
 			}
 		}
 		else {
-			if (this.element) {
-				let fieldRef = document.querySelector(`#child_${this.element[0].code}`);
-				console.log(fieldRef);
-				this.removeFieldAndCurrentData()
-				fieldRef.remove();
-			}
-			else {
-				this.removeFieldAndCurrentData();
-			}
+			this.checkToRemoveChildField(element);
+		}
+	}
+
+	createObject(event: any, element: any) {
+		let flexi = element[0]['flexiLabel'];
+		let label = this.element[0].lov.filter((ele) => ele.code == event.target.value);
+		this.childMeaning = label[0].meaning;
+		let obj = {
+			operator: this.operatorValue,
+			value: event.target.value,
+			label: this.childMeaning,
+			flexi: flexi
+		}
+		this.repeatedValsRemove(flexi);
+		this.dependentValues.push(this.childMeaning);
+		this.dependentKeys.push(flexi);
+		this.dependentField.push(obj);
+	}
+
+	checkToRemoveChildField(element: any) {
+		if (this.element) {
+			let fieldRef = document.querySelector(`#child_${this.element[0].code}`);
+			let oprRef = document.querySelector(`#OPR_${this.element[0].code}`);
+			let labRef = document.querySelector(`#LAB_${this.element[0].code}`);
+			console.log(fieldRef);
+			this.removeFieldAndCurrentData();
+			this.filter = null;
+			fieldRef.remove();
+			oprRef.remove();
+			labRef.remove();
+		}
+		else {
+			this.removeFieldAndCurrentData();
+			this.filter = null;
 		}
 	}
 
 	removeFieldAndCurrentData() {
-		this.dependentValues.length = 0;
-		this.dependentKeys.length = 0;
 		this.dependentField.length = 0;
 	}
 
 	repeatedValsRemove(flexi: any) {
 		this.dependentValues.length = 0;
-		this.dependentKeys.filter((ele) => ele != flexi);
-		this.dependentField = this.dependentField.filter((ele) => Object.keys(ele) != flexi);
+		this.dependentKeys = this.dependentKeys.filter((ele) => ele != flexi);
+		this.dependentField = this.dependentField.filter((ele) => ele.flexi != flexi);
 	}
 
 	createChildren() {
@@ -216,11 +239,17 @@ export class FePopUpComponent implements OnInit {
 			childContainer.innerHTML = childHtml;
 		}
 		let fieldRef = document.querySelector(`#child_${element.code}`);
-		fieldRef.addEventListener('change', this.selectItemsForChildField.bind(this, [element]))
+		let oprFieldRef = document.querySelector(`#OPR_${element.code}`);
+		fieldRef.addEventListener('change', this.selectItemsForChildField.bind(this, [element]));
+		oprFieldRef.addEventListener('change', this.selectOperatorForChildField.bind(this, [element]))
 	}
 
 	selectItemsForChildField(element: any, event: any) {
 		this.selectItem(event, element);
+	}
+
+	selectOperatorForChildField(element: any, event: any) {
+		this._childOperator = event.target.value;
 	}
 
 	selectOperator(event: any) {
@@ -235,6 +264,7 @@ export class FePopUpComponent implements OnInit {
 		let obj = {
 			name: this.label,
 			filter: this.filter,
+			filterValue: this.filterValue,
 			dependentFilter: this.dependentField,
 			dependentValues: this.dependentValues,
 			dependentKeys: this.dependentKeys,
@@ -246,7 +276,10 @@ export class FePopUpComponent implements OnInit {
 			lov: this.lov,
 			flexiLabel: this.flexiLabel,
 			isParent: this.isParent,
-			children: this.childrenLen
+			children: this.childrenLen,
+			currentDependentNotInNext: this._currentDependentNotInNext,
+			childOperators: this._childOperator,
+			childMeaning: this.childMeaning
 		}
 		this.filterString.emit(obj);
 	}

@@ -42,7 +42,7 @@
 									<button *ngFor='let col of columnsFiltersTobeApplied' class="dropdown-item button" [attr.id]="'btn'+ col.code" (click)="popUp(col)">{{col.label}}</button>
 								</div>
 							</div>
-							<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [value]="InitialValue" [operator]="'Contains'" (close)="closePopUp($event)" (filterString)="addFirstFilter($event)"></fe-popUp>
+							<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [value]="InitialValue" (close)="closePopUp($event)" (filterString)="addFirstFilter($event)"></fe-popUp>
 						</div>
 					</div>
 					<div class="col-md-2">
