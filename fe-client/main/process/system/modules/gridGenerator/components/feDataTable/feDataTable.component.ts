@@ -473,7 +473,6 @@ export class FeDataTableComponent implements OnInit {
 	//-------------------------- Filters ---------------------------------
 
 	popUp(col: any) {
-		console.log(col);
 		this.checked = !this.checked;
 		this.filteredCol = col;
 		this.myDrop.close();
@@ -512,15 +511,7 @@ export class FeDataTableComponent implements OnInit {
 
 
 	convertToValidFilterJson(filter: any) {
-
-		this.filterData = this.filterData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
-		console.log(filter.dependentKeys);
-		if (filter.dependentKeys) {
-			filter.dependentKeys.forEach((flt) => {
-				this.filterData = this.filterData.filter((ele) => Object.keys(ele) != flt);
-			})
-		}
-
+		this.removePrevSamneValues(filter);
 		if (filter.filter != undefined) {
 			let getObj = this.valuesOfFilter(filter);
 			getObj.forEach((ele) => {
@@ -529,16 +520,12 @@ export class FeDataTableComponent implements OnInit {
 		}
 	}
 
-	removePrevValues(filter: any) {
-		if (filter.filter) {
-			this.filterData = this.filterData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
-		}
-		if (filter.dependentFilter) {
-			console.log(filter.dependentFilter);
-			/* filter.dependentFilter.forEach((flt)=>{
-				console.log(flt);
-				this.filterData = this.filterData.filter((ele) => Object.keys(ele).toString() != Object.keys(flt).toString());
-			}) */
+	removePrevSamneValues(filter: any) {
+		this.filterData = this.filterData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
+		if (filter.dependentKeys) {
+			filter.dependentKeys.forEach((flt) => {
+				this.filterData = this.filterData.filter((ele) => Object.keys(ele) != flt);
+			})
 		}
 	}
 
@@ -559,12 +546,6 @@ export class FeDataTableComponent implements OnInit {
 			})
 		}
 		return obj;
-		/* if (filter.dependentFilter.length > 0) {
-			return [filter.filter].concat(filter.dependentFilter);
-		}
-		else {
-			return [filter.filter];
-		} */
 	}
 
 	enableElement(code: any) {

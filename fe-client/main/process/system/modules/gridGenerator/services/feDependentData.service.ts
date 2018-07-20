@@ -27,6 +27,7 @@ export class FeDependentService {
                 "flexiLabel": "state",
                 "type": "SEL",
                 "code": "FLD0008170",
+                "children": [],
                 "lov": [
                     {
                         "code": "102",
@@ -61,6 +62,7 @@ export class FeDependentService {
                 "flexiLabel": "state",
                 "type": "SEL",
                 "code": "FLD0008170",
+                "children": [],
                 "lov": [
                     {
                         "code": "102",

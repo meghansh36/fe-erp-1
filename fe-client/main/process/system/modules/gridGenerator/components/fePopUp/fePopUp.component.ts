@@ -113,6 +113,22 @@ export class FePopUpComponent implements OnInit {
 		this._dependentField = dependentField;
 	}
 
+	get dependentValues() {
+		return this._depVal;
+	}
+
+	set dependentValues(dependentValue) {
+		this._depVal = dependentValue
+	}
+
+	get dependentKeys() {
+		return this._depKeys;
+	}
+
+	set dependentKeys(dependentKeys) {
+		this._depKeys = dependentKeys;
+	}
+
 	constructor(public dependent: FeDependentService, public render: Renderer2) { }
 
 	ngOnInit() {
@@ -133,37 +149,37 @@ export class FePopUpComponent implements OnInit {
 		}
 		else {
 			if (element.isParent == 'Y') {
-				if (this.childrenLen == 0 || this.modify == 'true') {
-					let obj = {
-						[element.flexiLabel]: {
-							operator: this.operator,
-							value: event.target.value
-						}
+				let obj = {
+					[element.flexiLabel]: {
+						operator: this.operator,
+						value: event.target.value
 					}
-					this.dependentField.push(obj);
-					this.children = this.dependent.getChild(this.filter);
-					this.createChildren();
-					this.childrenLen = 1;
 				}
+				this.dependentField.push(obj);
+				this.children = this.dependent.getChild(this.filter);
+				this.createChildren();
+				this.childrenLen = 1;
 			}
 			else {
-				if (this.childrenLen == 0 || this.modify == 'true') {
-					let flexi = element[0]['flexiLabel'];
-					let obj = {
-						[flexi]: {
-							operator: this.operator,
-							value: event.target.value
-						}
+				let flexi = element[0]['flexiLabel'];
+				let obj = {
+					[flexi]: {
+						operator: this.operator,
+						value: event.target.value
 					}
-					console.log(obj);
-					this._depVal.push(obj[flexi].value);
-					this._depKeys.push(flexi);
-					console.log(this._depKeys);
-					console.log(this._depVal);
-					this.dependentField.push(obj);
 				}
+				this.repeatedValsRemove(flexi);
+				this.dependentValues.push(obj[flexi].value);
+				this.dependentKeys.push(flexi);
+				this.dependentField.push(obj);
 			}
 		}
+	}
+
+	repeatedValsRemove(flexi: any) {
+		this.dependentValues.length = 0;
+		this.dependentKeys.filter((ele) => ele != flexi);
+		this.dependentField = this.dependentField.filter((ele) => Object.keys(ele) != flexi);
 	}
 
 	createChildren() {
@@ -203,8 +219,8 @@ export class FePopUpComponent implements OnInit {
 			name: this.label,
 			filter: this.filter,
 			dependentFilter: this.dependentField,
-			dependentValues: this._depVal,
-			dependentKeys: this._depKeys,
+			dependentValues: this.dependentValues,
+			dependentKeys: this.dependentKeys,
 			operator: this.operator,
 			checked: false,
 			code: this.id,
@@ -215,7 +231,6 @@ export class FePopUpComponent implements OnInit {
 			isParent: this.isParent,
 			children: this.childrenLen
 		}
-		console.log(obj);
 		this.filterString.emit(obj);
 	}
 
