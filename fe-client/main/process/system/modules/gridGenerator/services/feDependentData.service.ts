@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 export class FeDependentService {
 
     getHtmlSEL(element) {
-        let html = `<select class="form-control" id='child_${element.code}' >`;
+        let html = `<label class="form-control-label" for='child_${element.code}'>${element.label}</label>
+         <select class="form-control" id='child_${element.code}' >
+         <option value="">--select--</option>`;
         const options = element.lov;
         options.forEach((ele) => {
             html += `<option value='${ele.code}'>${ele.meaning}</option>`;
@@ -25,6 +27,7 @@ export class FeDependentService {
         "IND": [
             {
                 "flexiLabel": "state",
+                "label": "State",
                 "type": "SEL",
                 "code": "FLD0008170",
                 "children": [],
@@ -61,6 +64,7 @@ export class FeDependentService {
             {
                 "flexiLabel": "state",
                 "type": "SEL",
+                "label": "State",
                 "code": "FLD0008170",
                 "children": [],
                 "lov": [

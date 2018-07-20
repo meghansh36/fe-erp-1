@@ -37,7 +37,7 @@ export class FeDataTableService {
 			emptyMessage: "No Data to Show"
 		},
 		buttons: [
-			{ icon: "md-get_app", clickEvent: "download", customCssClass: 'gray_clr mr_10 pointer' },
+			{ icon: "md-get_app", clickEvent: "download",handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
 		],
 		columns: [
 			{ prop: "username", name: "Username", sortable: true, resizeable: true, width: '100', frozenLeft: true },

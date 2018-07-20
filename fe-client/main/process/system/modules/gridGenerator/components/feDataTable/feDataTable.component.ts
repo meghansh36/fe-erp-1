@@ -47,10 +47,11 @@ export class FeDataTableComponent implements OnInit {
 	protected _title: string;
 	protected _subTitle: string;
 	protected _filterableCol = [];
+	protected _initialValue: string;
 	protected _columnsFiltersTobeApplied = [];
 	protected checked: boolean = false;
 	protected _filteredCol: any;
-	protected _filterData = [];
+	protected _filterJsonData = [];
 	protected _sortedData = [];
 
 	get rows() {
@@ -264,16 +265,24 @@ export class FeDataTableComponent implements OnInit {
 		return this._columnsFiltersTobeApplied
 	}
 
+	get InitialValue() {
+		return this._initialValue;
+	}
+
+	set InitialValue(InitialValue) {
+		this._initialValue = InitialValue;
+	}
+
 	set columnsFiltersTobeApplied(columnsFiltersTobeApplied) {
 		this._columnsFiltersTobeApplied = columnsFiltersTobeApplied;
 	}
 
-	get filterData() {
-		return this._filterData;
+	get filterJsonData() {
+		return this._filterJsonData;
 	}
 
-	set filterData(filterData) {
-		this._filterData = filterData;
+	set filterJsonData(filterJsonData) {
+		this._filterJsonData = filterJsonData;
 	}
 
 	get sortedData() {
@@ -441,10 +450,6 @@ export class FeDataTableComponent implements OnInit {
 		}
 	}
 
-	download() {
-		console.log('download');
-	}
-
 	onAction(action: any, arg: any) {
 		try {
 			if (action.handlerOwner == 'form') {
@@ -463,11 +468,6 @@ export class FeDataTableComponent implements OnInit {
 		}
 	}
 
-	onDefaultAction(action: any) {
-		if (this[action.clickEvent]) {
-			this[action.clickEvent]();
-		}
-	}
 	//----------------------***************** ----------------------------
 
 	//-------------------------- Filters ---------------------------------
@@ -475,6 +475,12 @@ export class FeDataTableComponent implements OnInit {
 	popUp(col: any) {
 		this.checked = !this.checked;
 		this.filteredCol = col;
+		if(col.type == "TXT") {
+			this.InitialValue = 'filter';
+		}
+		if(col.type == "SEL") {
+			this.InitialValue = " ";
+		}
 		this.myDrop.close();
 	}
 
@@ -486,8 +492,8 @@ export class FeDataTableComponent implements OnInit {
 		let code = event.code;
 		event.filter = undefined;
 		let element = document.querySelector(`#chip${code}`);
-		element.remove();
 		this.filterableCol = this.filterableCol.filter((ele) => ele.code != code);
+		element.remove();
 		this.enableElement(code);
 		this.manipulateStructureOfFilter(event);
 	}
@@ -515,16 +521,16 @@ export class FeDataTableComponent implements OnInit {
 		if (filter.filter != undefined) {
 			let getObj = this.valuesOfFilter(filter);
 			getObj.forEach((ele) => {
-				this.filterData.push(ele);
+				this.filterJsonData.push(ele);
 			})
 		}
 	}
 
 	removePrevSamneValues(filter: any) {
-		this.filterData = this.filterData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
+		this.filterJsonData = this.filterJsonData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
 		if (filter.dependentKeys) {
 			filter.dependentKeys.forEach((flt) => {
-				this.filterData = this.filterData.filter((ele) => Object.keys(ele) != flt);
+				this.filterJsonData = this.filterJsonData.filter((ele) => Object.keys(ele) != flt);
 			})
 		}
 	}
@@ -577,7 +583,7 @@ export class FeDataTableComponent implements OnInit {
 		let obj = {
 			page: this.table.offset,
 			recordsPerPage: this.limit,
-			filters: this.filterData,
+			filters: this.filterJsonData,
 			formCode: this.formCode,
 			sorting: this.sortedData
 		}

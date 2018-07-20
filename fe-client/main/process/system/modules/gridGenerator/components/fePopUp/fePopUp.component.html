@@ -7,24 +7,23 @@
 			</div>
 			<div class="card-body" [attr.id]="'filterPopUpBody'+ id">
 				<div class="row">
-					<div class="col">
+					<div class="col" #tag>
 
-						<span class="form-group flex" id="TXT" #d1 *ngIf="type == 'TXT'">
+						<span class="form-group flex" id="TXT" #TxtTag *ngIf="type == 'TXT'">
 							<label class="form-control-label" for="'TXT_'+ id">{{label}}</label>&nbsp;
-							<select class="form-control" (change)="selectOperator($event)">
+							<select class="form-control" [(ngModel)]='operatorValue' (change)="selectOperator($event)">
 								<option value="operator">{{operator}}</option>
 								<option *ngFor="let opr of operators" value="{{opr}}">{{opr}}</option>
 							</select>&nbsp;
 							<input type="text" [attr.id]="'TXT_'+ id" [(ngModel)]="filter" class="form-control">
 						</span>
 
-						<div class="form-group flex flex-direction" #d2 id="SEL" *ngIf="type == 'SEL'">
+						<div class="form-group flex" #SelTag id="SEL" *ngIf="type == 'SEL'">
 							<label class="form-control-label" for="'SEL_'+ id">{{label}}</label>&nbsp;
-							<select class="form-control" (change)="selectOperator($event)">
-								<option value="Contains">Contains</option>
+							<select class="form-control" [(ngModel)]='operator' [attr.id]="'OPR_'+ id" (change)="selectOperator($event)">
 								<option *ngFor="let opr of operators" value="{{opr}}">{{opr}}</option>
 							</select>&nbsp;
-							<select [attr.id]="'SEL_'+ id" class="form-control" (change)="selectItem($event)">
+							<select [attr.id]="'SEL_'+ id" [(ngModel)]='selectedValue' class="form-control" (change)="selectItem($event)">
 								<option value="">--select--</option>
 								<option *ngFor="let opt of lov" value="{{opt.code}}">{{opt.meaning}}</option>
 							</select>

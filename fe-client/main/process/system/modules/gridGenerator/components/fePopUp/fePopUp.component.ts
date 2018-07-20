@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, TemplateRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, TemplateRef, Renderer2, AfterViewInit } from '@angular/core';
 import { FeDependentService } from '@L1Process/system/modules/gridGenerator/services/feDependentData.service';
 import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,15 +8,19 @@ import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/
 	templateUrl: 'fePopUp.component.html'
 })
 export class FePopUpComponent implements OnInit {
-	@ViewChild('d1') d1: ElementRef;
-	@ViewChild('d2') d2: ElementRef;
+	@ViewChild('TxtTag') TxtTag: ElementRef;
+	@ViewChild('SelTag') SelTag: ElementRef;
+	@ViewChild('tag') tag: ElementRef;
 	@Input() filteredCol: any;
 	@Input() modify: any;
 	@Input() value: any;
+	@Input() operator: any;
 	@Output() close: EventEmitter<any> = new EventEmitter<any>();
 	@Output() filterString: EventEmitter<any> = new EventEmitter<any>();
 	protected _filter: string;
-	protected _operators = ['Greater', 'Equals', 'Exclude'];
+	protected selectedValue: string;
+	protected operatorValue: string;
+	protected _operators = ['Contains', 'Greater', 'Equals', 'Exclude'];
 	protected _operator: string;
 	protected _childItem: any;
 	protected _dependentData: any;
@@ -25,6 +29,7 @@ export class FePopUpComponent implements OnInit {
 	protected _dependentField = [];
 	protected _depVal = [];
 	protected _depKeys = [];
+	protected element: any;
 
 	set filter(filter) {
 		this._filter = filter;
@@ -64,14 +69,6 @@ export class FePopUpComponent implements OnInit {
 
 	get operators() {
 		return this._operators;
-	}
-
-	get operator() {
-		return this._operator;
-	}
-
-	set operator(operator) {
-		this._operator = operator;
 	}
 
 	get childItem() {
@@ -132,48 +129,68 @@ export class FePopUpComponent implements OnInit {
 	constructor(public dependent: FeDependentService, public render: Renderer2) { }
 
 	ngOnInit() {
-		this.filter = this.value;
-		this.operator = 'Contains';
+		this.filter = this.selectedValue = this.value;
+		this.operatorValue = this.operator;
 	}
 
 	selectItem(event: any, element?: any) {
-		if (element == undefined) {
-			if (this.isParent == 'Y') {
-				this.filter = event.target.value;
-				this.children = this.dependent.getChild(this.filter);
-				this.createChildren();
+		if (event.target.value) {
+			if (element == undefined) {
+				if (this.isParent == 'Y') {
+					this.filter = event.target.value;
+					this.children = this.dependent.getChild(this.filter);
+					this.createChildren();
+				}
+				else {
+					this.filter = event.target.value;
+				}
 			}
 			else {
-				this.filter = event.target.value;
+				this.element = element;
+				if (element.isParent == 'Y') {
+					let obj = {
+						[element.flexiLabel]: {
+							operator: this.operator,
+							value: event.target.value
+						}
+					}
+					this.dependentField.push(obj);
+					this.children = this.dependent.getChild(this.filter);
+					this.createChildren();
+					this.childrenLen = 1;
+				}
+				else {
+					let flexi = element[0]['flexiLabel'];
+					let obj = {
+						[flexi]: {
+							operator: this.operator,
+							value: event.target.value
+						}
+					}
+					this.repeatedValsRemove(flexi);
+					this.dependentValues.push(obj[flexi].value);
+					this.dependentKeys.push(flexi);
+					this.dependentField.push(obj);
+				}
 			}
 		}
 		else {
-			if (element.isParent == 'Y') {
-				let obj = {
-					[element.flexiLabel]: {
-						operator: this.operator,
-						value: event.target.value
-					}
-				}
-				this.dependentField.push(obj);
-				this.children = this.dependent.getChild(this.filter);
-				this.createChildren();
-				this.childrenLen = 1;
+			if (this.element) {
+				let fieldRef = document.querySelector(`#child_${this.element[0].code}`);
+				console.log(fieldRef);
+				this.removeFieldAndCurrentData()
+				fieldRef.remove();
 			}
 			else {
-				let flexi = element[0]['flexiLabel'];
-				let obj = {
-					[flexi]: {
-						operator: this.operator,
-						value: event.target.value
-					}
-				}
-				this.repeatedValsRemove(flexi);
-				this.dependentValues.push(obj[flexi].value);
-				this.dependentKeys.push(flexi);
-				this.dependentField.push(obj);
+				this.removeFieldAndCurrentData();
 			}
 		}
+	}
+
+	removeFieldAndCurrentData() {
+		this.dependentValues.length = 0;
+		this.dependentKeys.length = 0;
+		this.dependentField.length = 0;
 	}
 
 	repeatedValsRemove(flexi: any) {
@@ -193,8 +210,8 @@ export class FePopUpComponent implements OnInit {
 		const childHtml = this.dependent.getFieldHtml(element.type, element);
 		let childContainer = document.querySelector(`#${containerId}`);
 		if (!childContainer) {
-			const container = `<div id='${containerId}' >${childHtml}</div>`
-			this.d2.nativeElement.insertAdjacentHTML('beforeend', container);
+			const container = `<div class="flex" id='${containerId}' >${childHtml}</div>`
+			this.tag.nativeElement.insertAdjacentHTML('beforeend', container);
 		} else {
 			childContainer.innerHTML = childHtml;
 		}
