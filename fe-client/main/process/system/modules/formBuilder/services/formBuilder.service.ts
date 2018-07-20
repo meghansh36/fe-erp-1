@@ -371,8 +371,8 @@ export class FeFormBuilderService {
     return this.component[name];
   }
 
-  postData(data){
-    return this.httpClient.post('http://jsonplaceholder.typicode.com/posts',data)
+  postData(data) {
+    return this.httpClient.post('http://localhost:3222/fe/api/default/save', data)
   }
 
 }

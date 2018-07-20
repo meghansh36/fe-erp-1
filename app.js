@@ -90,6 +90,11 @@ app.get("/fe/*", (req, res) => {
   console.log(req.session);
   return res.sendFile(path.join(__dirname, "dist", "fe", "index.html"));
 });
+app.post("/fe/api/default/save", (req,res,next) => {
+  console.log("hit received");
+  console.log(req.body);
+  res.status(200).send()
+})
 
 // const models = require("./fe-server/main/process/default/models");
 // models.sequelize.authenticate().then(() => {
