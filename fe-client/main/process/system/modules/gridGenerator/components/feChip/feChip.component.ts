@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter, TemplateRef, ComponentRef, ElementRef, ViewContainerRef, Renderer2 } from '@angular/core';
 import { DataTableService } from '@L3Process/system/modules/gridGenerator/services/DataTable.service';
+import { FeParentChildService } from '@L1Process/system/modules/gridGenerator/services/feParentChild.service';
 import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -15,8 +16,6 @@ export class FeChipComponent implements OnInit {
 	protected checked: boolean = false;
 	protected _obj: any;
 	protected _dependentKeys: any;
-	protected _depValues: any;
-	protected _childOperator: any;
 
 	get filteredCol() {
 		return this._filteredCol;
@@ -86,21 +85,13 @@ export class FeChipComponent implements OnInit {
 		this.chipData.operator = operator;
 	}
 
-	get dependentValues() {
-		return this.chipData.dependentValues;
+	get dependentFilters() {
+		return this.chipData.dependentFilter;
 	}
 
 
-	set dependentValues(depValues) {
-		this.chipData.dependentValues = depValues
-	}
-
-	get childOperators() {
-		return this.chipData.childOperators;
-	}
-
-	set childOperators(childOperators) {
-		this.chipData.childOperators = childOperators;
+	set dependentFilters(depFil) {
+		this.chipData.dependentFilter = depFil
 	}
 
 	get childMeaning() {
@@ -127,8 +118,27 @@ export class FeChipComponent implements OnInit {
 		this.chipData.filterValue = filterValue;
 	}
 
+	get parent() {
+		return this.chipData.parent;
+	}
+
+	get child() {
+		return this.chipData.child;
+	}
+
+	get columnsFiltersTobeApplied() {
+		return this.chipData.columnsFiltersTobeApplied
+	}
+
+	get labelIfParent() {
+		return this.chipData.labelIfParent;
+	}
+
+	constructor(public parentChildService: FeParentChildService) { }
+
 	ngOnInit() {
-		this.retrieveOperator();
+		this.checkForParent();
+		this.addChild();
 		this.obj = {
 			name: this.label,
 			filter: this.filter,
@@ -139,17 +149,25 @@ export class FeChipComponent implements OnInit {
 			label: this.label,
 			lov: this.lov,
 			flexiLabel: this.flexiLabel,
-			dependentFilter: this.dependentValues,
 			dependentKeys: this.dependentKeys,
-			childOperators: this.childOperators,
-			childMeaning: this.childMeaning
+			childMeaning: this.childMeaning,
+			parent: this.parent,
+			child: this.child,
+			columnsFiltersTobeApplied: this.columnsFiltersTobeApplied,
+			labelIfParent: this.labelIfParent
 		}
 	}
 
-	retrieveOperator() {
-		if (this.dependentKeys.length) {
-			let opr = this.childOperators.filter((ele) => Object.keys(ele) == this.type);
-			this._childOperator = opr[0][this.type];
+	checkForParent() {
+		if (this.parent) {
+			this.name = this.labelIfParent;
+		}
+	}
+
+	addChild() {
+		if (this.child) {
+			this.parentChildService.setLovCode(this.lov);
+			this.parentChildService.storeValueOfChild(this.code, this.filter);
 		}
 	}
 
@@ -163,17 +181,14 @@ export class FeChipComponent implements OnInit {
 	addFilter(event: any) {
 		this.filter = event.filter;
 		this.operator = event.operator;
-		this.dependentValues = event.dependentValues;
 		this.dependentFilter = event.dependentFilter;
 		this.dependentKeys = event.dependentKeys;
-		this.childOperators = event.childOperators;
 		this.filterValue = event.filterValue;
 		this.childMeaning = event.childMeaning;
 		this.obj['filter'] = this.filter;
 		this.obj['dependentFilter'] = this.dependentFilter;
 		this.obj['operator'] = this.operator;
 		this.obj['dependentKeys'] = this.dependentKeys;
-		this.obj['childOperators'] = this.childOperators;
 		this.obj['childMeaning'] = this.childMeaning;
 		this.obj['filterValue'] = this.filterValue
 		this.addThisFilter.emit(this.obj);

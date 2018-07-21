@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Output, EventEm
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { DataTableService } from '@L3Process/system/modules/gridGenerator/services/DataTable.service';
 import { FilteredDataService } from '@L3Process/system/modules/gridGenerator/services/FilteredData.service';
+import { FeParentChildService } from '@L1Process/system/modules/gridGenerator/services/feParentChild.service';
 import { DataTable } from '@L1Process/system/modules/gridGenerator/models/data-table.interface';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
@@ -54,6 +55,7 @@ export class FeDataTableComponent implements OnInit {
 	protected _filterJsonData = [];
 	protected _sortedData = [];
 	protected _currentDependentNotInNext: any;
+	protected allColumnsForFilter: any;
 
 	get rows() {
 		return this._rows;
@@ -294,7 +296,11 @@ export class FeDataTableComponent implements OnInit {
 		this._sortedData = sortedData;
 	}
 
-	constructor(protected dataTableService: DataTableService, protected modalService: NgbModal, protected config: NgbDropdownConfig, protected filterService: FilteredDataService) {
+	constructor(protected dataTableService: DataTableService,
+		protected modalService: NgbModal,
+		protected config: NgbDropdownConfig,
+		protected filterService: FilteredDataService,
+		protected parentChildService: FeParentChildService) {
 		config.autoClose = false;
 	}
 
@@ -476,6 +482,7 @@ export class FeDataTableComponent implements OnInit {
 	popUp(col: any) {
 		this.checked = !this.checked;
 		this.filteredCol = col;
+		this.allColumnsForFilter = this.columnsFiltersTobeApplied;
 		if (col.type == "TXT") {
 			this.InitialValue = 'filter';
 		}
@@ -491,11 +498,11 @@ export class FeDataTableComponent implements OnInit {
 
 	closeThisChip(event: any) {
 		let code = event.code;
-		event.filterValue = undefined;
+		event.filter = undefined;
 		let element = document.querySelector(`#chip${code}`);
 		this.filterableCol = this.filterableCol.filter((ele) => ele.code != code);
 		element.remove();
-		this.enableElement(code);
+		this.enableElement(event);
 		this.manipulateStructureOfFilter(event);
 	}
 
@@ -506,6 +513,10 @@ export class FeDataTableComponent implements OnInit {
 		this.manipulateStructureOfFilter(event);
 		let element = document.querySelector(`#btn${event.code}`);
 		element.setAttribute('disabled', 'true');
+		if (event.parent) {
+			let field = document.querySelector(`#btn${event.parent}`);
+			field.setAttribute('disabled', 'true');
+		}
 	}
 
 	applyModifiedFilter(event: any) {
@@ -514,18 +525,34 @@ export class FeDataTableComponent implements OnInit {
 
 	manipulateStructureOfFilter(event: any) {
 		this.convertToValidFilterJson(event);
+		this.checkIfParentHasChild(event);
 		this.applyFilter();
 	}
 
 
 	convertToValidFilterJson(filter: any) {
 		this.removePrevSameValues(filter);
-		if (filter.filterValue != undefined) {
-			console.log(filter.filterValue);
+		if (filter.filter != undefined) {
+			console.log(filter.filter);
 			let getObj = this.valuesOfFilter(filter);
 			getObj.forEach((ele) => {
 				this.filterJsonData.push(ele);
 			})
+		}
+	}
+
+	checkIfParentHasChild(event: any) {
+		if (event.parent) {
+			let val = event.parent;
+			let temp = this.parentChildService.getChild(val);
+			if (temp) {
+				if (document.querySelector(`#CHIP_${temp.code}`)) {
+					let chip = document.querySelector(`#CHIP_${temp.code}`);
+					if (chip != null) {
+						chip.remove();
+					}
+				}
+			}
 		}
 	}
 
@@ -542,11 +569,11 @@ export class FeDataTableComponent implements OnInit {
 
 	valuesOfFilter(filter: any) {
 		let obj = [];
-		if (filter.filterValue) {
+		if (filter.filter) {
 			let flt = {
 				[filter.flexiLabel]: {
 					operator: filter.operator,
-					value: filter.filterValue
+					value: filter.filter
 				}
 			}
 			obj.push(flt);
@@ -565,9 +592,13 @@ export class FeDataTableComponent implements OnInit {
 		return obj;
 	}
 
-	enableElement(code: any) {
-		let field = document.querySelector(`#btn${code}`);
+	enableElement(event: any) {
+		let field = document.querySelector(`#btn${event.code}`);
 		field.removeAttribute('disabled');
+		if (event.parent) {
+			let parent = document.querySelector(`#btn${event.parent}`);
+			parent.removeAttribute('disabled');
+		}
 	}
 
 	//-------------------------- *********** ---------------------------------

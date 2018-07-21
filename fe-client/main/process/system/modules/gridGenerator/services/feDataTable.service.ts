@@ -62,7 +62,20 @@ export class FeDataTableService {
 				type: "TXT", code: "FLD0001002", flexiLabel: "name", label: "Name"
 			},
 			{
-				type: "SEL", code: "FLD0001004", flexiLabel: "country", label: "Country", lov: [{
+				type: "SEL", code: "FLD0001004", flexiLabel: "state", parent:'FLD0001005', label: "State", lov: [{
+					'code': 'DEL',
+					'meaning': 'Delhi',
+					'tip': 'Delhi',
+				}, {
+					'code': 'FLO',
+					'meaning': 'Florida',
+					'tip': 'Florida'
+				}],
+				isParent: 'Y',
+				children: []
+			},
+			{
+				type: "SEL", code: "FLD0001005", flexiLabel: "country", child:'FLD0001004', label: "Country", lov: [{
 					'code': 'IND',
 					'meaning': 'India',
 					'tip': 'India',
@@ -71,7 +84,6 @@ export class FeDataTableService {
 					'meaning': 'USA',
 					'tip': 'USA'
 				}],
-				isParent: 'Y',
 				children: []
 			}
 		]

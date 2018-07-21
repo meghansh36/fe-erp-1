@@ -22,18 +22,11 @@
 				<div class="row">
 					<div class="col-md-10">
 						<div class="row" *ngIf="filterable">
-							<div class="filter-action-container col-sm-10 col-md-11 col-xl-11">
-								<div class="grid-filters">
-									<div class="filter-chip-container">
-										<div class="filter-edit-form-container filter-form-container hidden"></div>
-										<fe-chip *ngFor="let chip of filterableCol" [attr.id]="'chip' + chip.code" [chipData]="chip" (closeChip)="closeThisChip($event)"
-										 (addThisFilter)="applyModifiedFilter($event)"></fe-chip>
-									</div>
-								</div>
-							</div>
+							<fe-chip *ngFor="let chip of filterableCol" [attr.id]="'chip'+chip.code" [chipData]="chip" (closeChip)="closeThisChip($event)"
+							 (addThisFilter)="applyModifiedFilter($event)"></fe-chip>
 						</div>
 						<div class="row" *ngIf="filterable">
-							<div class="name-container" ngbDropdown #myDrop="ngbDropdown" [hidden]="checked">
+							<div class="name-container" ngbDropdown [autoClose]="'outside'" #myDrop="ngbDropdown" [hidden]="checked">
 								<div class="add-filter-container" id="dropdownManual" ngbDropdownToggle>
 									<i class="icon md-add"></i>
 									<span>Search</span>
@@ -42,7 +35,7 @@
 									<button *ngFor='let col of columnsFiltersTobeApplied' class="dropdown-item button" [attr.id]="'btn'+ col.code" (click)="popUp(col)">{{col.label}}</button>
 								</div>
 							</div>
-							<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [value]="InitialValue" (close)="closePopUp($event)" (filterString)="addFirstFilter($event)"></fe-popUp>
+							<fe-popUp *ngIf="checked" [filteredCol]="filteredCol" [columnsFiltersTobeApplied]="columnsFiltersTobeApplied" [value]="InitialValue" (close)="closePopUp($event)" (filterObject)="addFirstFilter($event)"></fe-popUp>
 						</div>
 					</div>
 					<div class="col-md-2">
