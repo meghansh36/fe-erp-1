@@ -16,12 +16,14 @@ export class FeTxaComponent extends TxtComponent   {
     rows: 5,
     ...this.properties,
     type: 'TXA',
+    
   };
 
   public applicableProperties: any = {
     enableSpellCheck: true,
     rows: true,
-    ...this.applicableProperties
+    ...this.applicableProperties,
+    inputMask: false
   };
 
 }
