@@ -392,14 +392,6 @@ export class FeDataTableComponent implements OnInit {
 		});
 	}
 
-	/* updateFilter(event) {
-		const val = event.target.value.toLowerCase();
-		const temp = this.temp.filter(function (d) {
-			return d.username.toLowerCase().indexOf(val) !== -1 || !val;
-		});
-		this.rows = temp;
-	} */
-
 	toggle(col) {
 		const isChecked = this.isChecked(col);
 
@@ -508,9 +500,9 @@ export class FeDataTableComponent implements OnInit {
 
 	addFirstFilter(event: any) {
 		this.filterableCol.push(event);
-		console.log(event);
 		this.checked = event.checked;
 		this.manipulateStructureOfFilter(event);
+
 		let element = document.querySelector(`#btn${event.code}`);
 		element.setAttribute('disabled', 'true');
 		if (event.parent) {
@@ -533,7 +525,6 @@ export class FeDataTableComponent implements OnInit {
 	convertToValidFilterJson(filter: any) {
 		this.removePrevSameValues(filter);
 		if (filter.filter != undefined) {
-			console.log(filter.filter);
 			let getObj = this.valuesOfFilter(filter);
 			getObj.forEach((ele) => {
 				this.filterJsonData.push(ele);
@@ -541,28 +532,10 @@ export class FeDataTableComponent implements OnInit {
 		}
 	}
 
-	checkIfParentHasChild(event: any) {
-		if (event.parent) {
-			console.log(event);
-			let val = event.parent;
-			let temp = this.parentChildService.getChild(val);
-			if (temp) {
-				if (document.querySelector(`#CHIP_${temp.code}`)) {
-					let chip = document.querySelector(`#CHIP_${temp.code}`);
-					if (chip != null) {
-						chip.remove();
-					}
-				}
-			}
-		}
-	}
-
 	removePrevSameValues(filter: any) {
 		this.filterJsonData = this.filterJsonData.filter((ele) => Object.keys(ele) != filter.flexiLabel);
 		if (filter.dependentKeys.length) {
-			console.log(filter.dependentKeys);
 			filter.dependentKeys.forEach((flt) => {
-				console.log(flt);
 				this.filterJsonData = this.filterJsonData.filter((ele) => Object.keys(ele) != flt);
 			})
 		}
@@ -574,7 +547,7 @@ export class FeDataTableComponent implements OnInit {
 			let flt = {
 				[filter.flexiLabel]: {
 					operator: filter.operator,
-					value: filter.filter
+					value: this.filterByType(filter)
 				}
 			}
 			obj.push(flt);
@@ -592,6 +565,31 @@ export class FeDataTableComponent implements OnInit {
 		}
 		return obj;
 	}
+
+	filterByType(filter: any) {
+		if (filter.type == "SEL") {
+			console.log(filter);
+			return filter.filterValue;
+		}
+		return filter.filter;
+	}
+
+	checkIfParentHasChild(event: any) {
+		if (event.parent) {
+			let val = event.parent;
+			let temp = this.parentChildService.getChild(val);
+			if (temp) {
+				if (document.querySelector(`#CHIP_${temp.code}`)) {
+					let chip = document.querySelector(`#CHIP_${temp.code}`);
+					if (chip != null) {
+						chip.remove();
+					}
+				}
+			}
+		}
+	}
+
+
 
 	enableElement(event: any) {
 		let field = document.querySelector(`#btn${event.code}`);

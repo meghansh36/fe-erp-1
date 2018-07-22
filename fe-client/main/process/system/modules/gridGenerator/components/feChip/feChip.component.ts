@@ -150,7 +150,6 @@ export class FeChipComponent implements OnInit {
 			lov: this.lov,
 			flexiLabel: this.flexiLabel,
 			dependentKeys: this.dependentKeys,
-			childMeaning: this.childMeaning,
 			parent: this.parent,
 			child: this.child,
 			columnsFiltersTobeApplied: this.columnsFiltersTobeApplied,
@@ -184,13 +183,13 @@ export class FeChipComponent implements OnInit {
 		this.dependentFilter = event.dependentFilter;
 		this.dependentKeys = event.dependentKeys;
 		this.filterValue = event.filterValue;
-		this.childMeaning = event.childMeaning;
+
 		this.obj['filter'] = this.filter;
 		this.obj['dependentFilter'] = this.dependentFilter;
 		this.obj['operator'] = this.operator;
 		this.obj['dependentKeys'] = this.dependentKeys;
-		this.obj['childMeaning'] = this.childMeaning;
-		this.obj['filterValue'] = this.filterValue
+		this.obj['filterValue'] = this.filterValue;
+
 		this.addThisFilter.emit(this.obj);
 		this.checked = !this.checked;
 	}

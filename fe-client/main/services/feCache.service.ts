@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
+const counter = 10;
+
 @Injectable({
     providedIn: 'root'
 })
@@ -12,6 +14,9 @@ export class FeCacheService {
     protected stack = [];
 
     setStackData(data: any, value: string) {
+        if (this.stack.length == counter) {
+            this.stack.shift();
+        }
         this.stack.push({ [value]: data });
     }
 

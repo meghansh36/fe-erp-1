@@ -8,7 +8,7 @@ import { NgbModal, ModalDismissReasons, NgbDropdownConfig } from '@ng-bootstrap/
 	styleUrls: ['fePopUp.component.css'],
 	templateUrl: 'fePopUp.component.html'
 })
-export class FePopUpComponent implements OnInit, AfterViewInit {
+export class FePopUpComponent implements OnInit {
 	@ViewChild('TxtTag') TxtTag: ElementRef;
 	@ViewChild('SelTag') SelTag: ElementRef;
 	@ViewChild('tag') tag: ElementRef;
@@ -32,8 +32,6 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 	protected element: any;
 	protected childMeaning: string;
 	protected filterValue: string;
-	protected _parent: string;
-	protected _child: string;
 	protected Parentfield: any;
 	protected _label: any;
 	protected _lov: any;
@@ -48,10 +46,6 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 
 	get label() {
 		return this.filteredCol.label;
-	}
-
-	set label(label) {
-		this.filteredCol.label = label;
 	}
 
 	get conditionalLabel() {
@@ -80,10 +74,6 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 
 	get lov() {
 		return this.filteredCol.lov;
-	}
-
-	set lov(lov) {
-		this.filteredCol.lov = lov;
 	}
 
 	get conditionalLov() {
@@ -156,9 +146,6 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 		this.checkForParent();
 		this.checkForChildDefault();
 	}
-	ngAfterViewInit() {
-
-	}
 
 	checkForParent() {
 		this.conditionalLov = this.lov;
@@ -193,9 +180,6 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 		if (event.target.value) {
 			if (element == undefined) {
 				if (this.isParent == 'Y') {
-					if (this.parent) {
-						this._parent = this.parent;
-					}
 					let label = this.conditionalLov.filter((ele) => ele.code == event.target.value);
 					this.filterValue = event.target.value;
 					this.filter = label[0].meaning;
@@ -203,28 +187,20 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 					this.createChildren();
 				}
 				else {
-					if (this.child) {
-						this._child = this.child;
-					}
 					let label = this.conditionalLov.filter((ele) => ele.code == event.target.value);
 					this.filter = label[0].meaning;
+					this.filterValue = event.target.value;
 				}
 			}
 			else {
 				this.element = element;
 				if (element.isParent == 'Y') {
-					if (element.parent) {
-						this._parent = this.parent;
-					}
-					this.createObject(event, element);
 					this.filterValue = event.target.value;
+					this.createObject(event, element);
 					this.children = this.dependent.getChild(this.filterValue);
 					this.createChildren();
 				}
 				else {
-					if (this.child) {
-						this._child = this.child;
-					}
 					this.createObject(event, element);
 				}
 			}
@@ -356,8 +332,8 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 			flexiLabel: this.flexiLabel,
 			isParent: this.isParent,
 			childMeaning: this.childMeaning,
-			parent: this._parent,
-			child: this._child,
+			parent: this.parent,
+			child: this.child,
 			columnsFiltersTobeApplied: this.columnsFiltersTobeApplied
 		}
 		this.filterObject.emit(obj);
