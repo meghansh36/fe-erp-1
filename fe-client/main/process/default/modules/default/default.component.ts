@@ -30,4 +30,8 @@ export class FeDefaultComponent {
     console.log(row);
   }
 
+  download(arg: any) {
+		console.log('download');
+	}
+
 }

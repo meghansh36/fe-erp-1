@@ -1,7 +1,7 @@
 import { Component, Renderer2, ElementRef } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { DefaultFormComponent } from '@L3Main/forms/DefaultForm.component';
-import { FormSchemaService } from '@L3Main/services/FormSchema.service';
+import { FormSchemaService } from '@L3Main/services/formSchema.service';
 import { DependentService } from '@L3Process/system/modules/formGenerator/services/dependent.service';
 
 @Component({

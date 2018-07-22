@@ -17,6 +17,9 @@
 .flex {
     display: flex;
 }
+.flex-direction {
+    flex-direction: column;
+}
 
 .field-label-top {
     flex-direction: column;

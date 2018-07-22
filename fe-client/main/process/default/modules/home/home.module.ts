@@ -15,7 +15,7 @@ import { routes  } from '@L3Process/default/modules/home/home.routing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FormGeneratorModule } from '@L3Process/system/modules/formGenerator/formGenerator.module';
-import { FeGridGeneratorModule } from '@L1Process/system/modules/gridGenerator/feGridGenerator.module';
+import { GridGeneratorModule } from '@L3Process/system/modules/gridGenerator/gridGenerator.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -45,7 +45,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(routes);
   ],
   imports: [
     BrowserModule,
-    FeGridGeneratorModule,
+    GridGeneratorModule,
     FormGeneratorModule,
     NgbModule.forRoot(),
     routing,
