@@ -9,14 +9,15 @@ import { FeBaseField } from '../baseField/baseField.component';
 })
 export class FeRadComponent extends FeBaseField  {
   public properties = {
-    type: 'CHK',
+    
     inputPropsArray: [
       {
         label: 'test',
         value: ''
       }
     ],
-    ...this.properties
+    ...this.properties,
+    type: 'CHK',
   };
 
   public applicableProperties = {

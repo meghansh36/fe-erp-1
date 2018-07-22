@@ -2,34 +2,38 @@ import { Component, OnInit } from '@angular/core';
 import { FeBaseField } from '../baseField/baseField.component';
 
 @Component({
-  selector: 'btn-input.button-input',
-  templateUrl: './btn.component.html',
-  styleUrls: ['./btn.component.css', '../baseField/baseField.component.css']
+	selector: 'btn-input.button-input',
+	templateUrl: './btn.component.html',
+	styleUrls: ['./btn.component.css', '../baseField/baseField.component.css']
 })
-export class FeBtnComponent extends FeBaseField implements OnInit{
+export class FeBtnComponent extends FeBaseField implements OnInit {
 
 	public properties = {
 		theme: 'default',
 		size: 'small',
-		btnLeftIcon:  '',
+		btnLeftIcon: '',
 		btnRightIcon: '',
+		...this.properties,
 		type: 'BTN',
-		...this.properties
+
 	};
 
-  public applicableProperties = {
+	public applicableProperties = {
 		theme: true,
-    size: true,
-  	btnLeftIcon:  true,
+		size: true,
+		btnLeftIcon: true,
 		btnRightIcon: true,
 		...this.applicableProperties,
 		labelPosition: false,
 		labelWidth: false,
 		labelMargin: false,
 		hideLabel: false,
-		width: false,
+		width: true,
 		defaultValueType: false,
+		label: true
 	};
+
+	//9627233491
 
 	get icon() {
 		return this.properties.icon;

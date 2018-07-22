@@ -310,6 +310,16 @@ a.disabled {
     justify-content: space-between;
 }
 
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.field-tool-wrapper, .position-relative{
+    position: relative;
+}
+
 .filter-form-container {
     position: absolute !important;
     z-index: 1000;
@@ -324,6 +334,10 @@ a.disabled {
 .form-control-label {
     padding: 0.429rem 0;
     font-weight: 300;
+}
+
+.fieldset-wrapper {
+    padding: 10px;
 }
 
 .radio-field {

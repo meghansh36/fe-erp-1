@@ -378,7 +378,7 @@ export class FeFormComponent implements OnChanges, OnInit, AfterViewInit, OnDest
     const control = this.getControl(flexiLabel);
     if (control) {
       const fldCompObj = this.componentInstances[flexiLabel];
-      fldCompObj.options = options;
+      fldCompObj.lov = options;
     }
   }
 

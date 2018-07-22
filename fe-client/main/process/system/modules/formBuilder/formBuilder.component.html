@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class='row mt-2'>
-          <div class="col-md-4 txa-container">
+          <div class="col-md-6 txa-container">
             <div class="json-help-container">
               <ng-template #formHiddenContditionHelp>
                 <div class="json-help-wrapper">
@@ -59,7 +59,7 @@
 
           </div>
 
-          <div class="col-md-4 txa-container">
+          <div class="col-md-6 txa-container">
             <div class="json-help-container">
               <ng-template #formDisabledHelp>
                 <div class="json-help-wrapper">
@@ -84,13 +84,16 @@
             </json-editor>
           </div>
 
-          <div class="col-md-4 txa-container">
-            <label for="formHelp" class='mt-3'>Form Help Text</label>
-            <!-- <textarea class="form-control" rows="3" id="formHelp" placeholder='Text/Html' [(ngModel)]='formJson.help' ngModel name='help'>
-            </textarea> -->
-            <ckeditor class="form-control"  [(ngModel)]='formJson.help' ngModel name='help'  id="formHelp">
-            </ckeditor>
-          </div>
+          
+        </div>
+        <div class='row mt-2'>
+          <div class="col-md-12 txa-container">
+              <label for="formHelp" class='mt-3'>Form Help Text</label>
+              <!-- <textarea class="form-control" rows="3" id="formHelp" placeholder='Text/Html' [(ngModel)]='formJson.help' ngModel name='help'>
+              </textarea> -->
+              <ckeditor class="form-control"  [(ngModel)]='formJson.help' ngModel name='help'  id="formHelp">
+              </ckeditor>
+            </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -187,7 +190,7 @@
         <div class="card-header">
           Drag And Drop Fields
         </div>
-         <div class="card-body customDropZone" [dragula]='"bag-one"' id="root_drop" (hostRef) = 'fstHandler($event)'>
+         <div class="card-body customDropZone flex-container" [dragula]='"bag-one"' id="root_drop" (hostRef) = 'fstHandler($event)'>
             <ng-template #host></ng-template>
          </div>
       </div>

@@ -25,6 +25,10 @@ import { IconicButtonComponent } from '@L3Process/system/modules/formGenerator/c
 import { PasswordComponent } from '@L3Process/system/modules/formGenerator/components/Password/Password.component';
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
+import { CurrencyComponent } from '@L3Process/system/modules/formGenerator/components/currency/currency.component';
+import { PhoneComponent } from '@L3Process/system/modules/formGenerator/components/phone/phone.component';
+import { AddressComponent } from '@L3Process/system/modules/formGenerator/components/address/address.component';
+
 
 const components: { [type: string]: Type<Field> } = {
   BTN: ButtonComponent,
@@ -39,14 +43,17 @@ const components: { [type: string]: Type<Field> } = {
   RAD: RadioComponent,
   MSL: MultiSelectComponent,
   EML: EmailComponent,
-  FIL: FileComponent,
+  FILE: FileComponent,
   FST: FieldSetComponent,
   ANC: AnchorComponent,
   BLK: BlankComponent,
   HID: HiddenComponent,
   ICB: IconicButtonComponent,
-  EDT: HtmlEditorComponent,
-  PWD: PasswordComponent
+  HTML: HtmlEditorComponent,
+  PWD: PasswordComponent,
+  PHN: PhoneComponent,
+  CUR: CurrencyComponent,
+  ADR: AddressComponent,
 };
 
 @Directive({

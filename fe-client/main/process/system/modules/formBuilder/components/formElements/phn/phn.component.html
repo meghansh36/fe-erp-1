@@ -33,7 +33,7 @@
                   <span class="input-group-text"> {{ prefix }} </span>
               </div>
               <!-- [textMask]="maskConfig" attribute creating problem. -->
-              <input type="text"  maxlength="10" minlength="10" [attr.flexilabel]="flexiLabel" class="form-control" [ngClass]="defaultClasses.fieldClasses" [ngStyle]="style.fieldStyle"
+              <input type="number"   [attr.flexilabel]="flexiLabel" class="form-control" [ngClass]="defaultClasses.fieldClasses" [ngStyle]="style.fieldStyle"
                   [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder"  [attr.id]="id" [disabled]="disabled">
               <div class="input-group-append" *ngIf="suffix ">
                   <span class="input-group-text"> {{ suffix }} </span>

@@ -55,12 +55,19 @@ export class FeTextAreaComponent extends BaseComponent {
         }
         return 0;
     }
-
+    
     get len() {
         return this.length;
     }
     set len(len) {
         this.length = len;
+    }
+
+    get spellcheck() {
+        return this._config.spellcheck;
+    }
+    set spellcheck(spellcheck) {
+        this._config.spellcheck = spellcheck;
     }
 
     set _Class(changeClass) {

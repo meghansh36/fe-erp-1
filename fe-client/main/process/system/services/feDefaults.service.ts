@@ -19,37 +19,37 @@ export class FeDefaultsService {
         'number_positive': /^\d*[1-9]\d*$/,
         'number_negative': /^-?\d{2}(\.\d+)?$/,
         'alphanumeric': /^[a-z0-9]+$/i,
-        'alphabet': /^[a-zA-Z]*$/
+        'alphabet': /^[a-zA-Z_]*$/
     };
    
     protected _validations: any[] = [
         {
-            id: 'required',
-            text: 'Required'
+            code: 'required',
+            meaning: 'Required'
         },
         {
-            id: 'number+',
-            text: 'Number Positive'
+            code: 'number_positive',
+            meaning: 'Number Positive'
         },
         {
-            id: 'number-',
-            text: 'Number Negative'
+            code: 'number_negative',
+            meaning: 'Number Negative'
         },
         {
-            id: 'email',
-            text: 'Email'
+            code: 'email',
+            meaning: 'Email'
         },
         {
-            id: 'commaseperatedemail',
-            text: 'Multiple Email'
+            code: 'commaseperatedemail',
+            meaning: 'Multiple Email'
         },
         {
-            id: 'alphabet',
-            text: 'Alphabet'
+            code: 'alphabet',
+            meaning: 'Alphabet'
         },
         {
-            id: 'alphanum',
-            text: 'Alphanumeric'
+            code: 'alphanum',
+            meaning: 'Alphanumeric'
         }
     ];
 

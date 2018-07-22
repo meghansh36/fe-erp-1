@@ -32,6 +32,9 @@ import { BlankComponent } from '@L3Process/system/modules/formGenerator/componen
 import { HtmlEditorComponent } from '@L3Process/system/modules/formGenerator/components/HtmlEditor/HtmlEditor.component';
 import { IconicButtonComponent } from '@L3Process/system/modules/formGenerator/components/IconicButton/IconicButton.component';
 import { FormButtonsComponent } from '@L3Process/system/modules/formGenerator/components/FormButtons/FormButton.component';
+import { CurrencyComponent } from '@L3Process/system/modules/formGenerator/components/currency/currency.component';
+import { PhoneComponent } from '@L3Process/system/modules/formGenerator/components/phone/phone.component';
+import { AddressComponent } from '@L3Process/system/modules/formGenerator/components/address/address.component';
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
   optionValueField: 'code',
@@ -72,7 +75,10 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     BlankComponent,
     IconicButtonComponent,
     HtmlEditorComponent,
-    FormButtonsComponent
+    FormButtonsComponent,
+    CurrencyComponent,
+    PhoneComponent,
+    AddressComponent
   ],
   exports: [
     FormComponent,
@@ -90,7 +96,12 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     MultiSelectComponent,
     FieldSetComponent,
     EmailComponent,
-    FileComponent
+    FileComponent,
+    FormButtonsComponent,
+    CurrencyComponent,
+    PhoneComponent,
+    AddressComponent,
+    HtmlEditorComponent
   ],
   entryComponents: [
     ButtonComponent,
@@ -113,7 +124,11 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     AnchorComponent,
     BlankComponent,
     IconicButtonComponent,
-    HtmlEditorComponent
+    HtmlEditorComponent,
+    FormButtonsComponent,
+    CurrencyComponent,
+    PhoneComponent,
+    AddressComponent,
   ],
   providers: [ DefaultsService ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]

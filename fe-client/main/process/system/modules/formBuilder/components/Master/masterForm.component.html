@@ -332,20 +332,20 @@
 
 
                       <!-- check box for enableCk     -->
-                      <div *ngIf='instance.applicableProperties.enableCk'>
-                        <div class='for-check mt-3 ml-4'>
+                      <!-- <div *ngIf='instance.applicableProperties.enableCk'> -->
+                       <!--  <div class='for-check mt-3 ml-4'>
                           <input class='form-check-input' type='checkbox' ngModel name='enableCk' id='enableCk' [(ngModel)]="componentData.enableCk"
                             #enableCk='ngModel'>
                           <label for='enableck' class='form-check-label' value='enableCk'>
                             Enable CK Editor
                           </label>
-                        </div>
+                        </div> -->
 
 
 
                         <!-- text area for cksetting -->
 
-                        <div class='mt-2' *ngIf='enableCk.value'>
+                        <div class='mt-2' *ngIf='instance.applicableProperties.ckSettings'>
                           <div class="json-help-container">
                             <ng-template #enableCkHelp>
                               <div class="json-help-wrapper">
@@ -369,7 +369,7 @@
                             #ckSetting='ngModel'>
                           </json-editor>
                         </div>
-                      </div>
+                      <!-- </div> -->
 
 
 
@@ -677,9 +677,9 @@
                       <div *ngIf='instance.applicableProperties.appliedValidations'>
                         <label for="appliedValidations" class="mt-3">Applied Validation</label>
                         
-                        <ngx-select name='appliedValidations' id="appliedValidations" class="appliedValidations-msl" optionValueField="id" optionTextField="text" [multiple]="true"
-                          [items]="instance.appliedValidations" [(ngModel)]="componentData.appliedValidations" placeholder="Select Validations">
-                        </ngx-select>
+                       
+                        <ngx-select [multiple]="true" name='appliedValidations' [(ngModel)]="componentData.appliedValidations" [items]="instance.systemValidations" id="appliedValidations" placeholder="Select Validations">
+                          </ngx-select>
                       </div>
 
                       <div class='form-check mt-3' *ngIf='instance.applicableProperties.required'>

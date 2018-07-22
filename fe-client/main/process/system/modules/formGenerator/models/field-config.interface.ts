@@ -11,8 +11,8 @@ export interface FieldConfig {
   description?: string;
   code: string;
   flexiLabel: string;
-  lov?: string[];
-  isParent?: string;
+  lov?: any[];
+  isParent?: any;
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
@@ -62,5 +62,6 @@ export interface FieldConfig {
   maximumDate?: any,
   inputPropsArray?: any,
   submit?: any,
+  spellcheck?: any
 }
 

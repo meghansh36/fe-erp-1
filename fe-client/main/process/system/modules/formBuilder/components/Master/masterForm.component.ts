@@ -7,6 +7,7 @@ import { FormMasterService } from '@L3Process/system/modules/formBuilder/service
 import { builderFieldCompInterface } from './masterForm.interface';
 import * as _ from 'lodash';
 import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 @Component(
 {
   selector: 'form-master',
@@ -33,7 +34,8 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
               public fieldControlService: FieldControlService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private formJsonService: FormJsonService,
-              private _ngBootstrap: NgBootstrapService
+              private _ngBootstrap: NgBootstrapService,
+              protected  _defaults: DefaultsService
     ) {
   }
 
@@ -171,8 +173,8 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
 
   onReset() {
     //this.instance.properties = _.assign({}, this.backupProps);
-    this.componentData = _.assignIn({}, this.backupProps);
-    console.log("Component data in reset", this.componentData);
+    //this.componentData = _.assignIn({}, this.backupProps);
+   // console.log("Component data in reset", this.componentData);
   }
 
   onSubmit(form) {
@@ -205,6 +207,7 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
     this.backupProps = propsFromBuilder;
     this.instance.properties = _.assignIn({}, propsFromBuilder);
     this.componentData = this.instance.properties;
+    
   }
 
   deleteInput(index) {

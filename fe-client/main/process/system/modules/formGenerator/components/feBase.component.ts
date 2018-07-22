@@ -887,4 +887,11 @@ export class FeBaseComponent implements Field, OnInit, OnDestroy, AfterViewInit 
         this._config.inputPropsArray = customFuncValidation;
     }
 
+    get spellcheck() {
+        return this._config.spellcheck;
+    }
+    set spellcheck(spellcheck) {
+        this._config.spellcheck = spellcheck;
+    }
+
 }

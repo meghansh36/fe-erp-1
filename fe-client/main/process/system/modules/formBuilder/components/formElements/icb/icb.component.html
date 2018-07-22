@@ -1,28 +1,22 @@
-<div class="feField feButton" [ngClass]="defaultClasses.fieldMainWrapperClasses" [ngStyle]="style.fieldMainWrapperStyle">
-        <div class="field-tool-wrapper">
-                <span *ngIf='showEdit' class=" field-tool-container">
-                    <ul class=" field-tool">
-                      <li (click)='openModal()'>
-                        <i class="material-icons icon-size">settings</i>
-                      </li>
-                      <li>
-                        <i class="material-icons icon-size">open_with</i>
-                      </li>
-                      <li (click)="close($event)">
-                        <i class="material-icons icon-size">clear</i>
-                      </li>
-                    </ul>
-                  </span>
-            </div>
-    <div [ngClass]="defaultClasses.fieldLabelContainerClasses" [ngStyle]="style.fieldLabelContainerStyle">
-    </div>
-    <div class="label">
-        <label></label>
-    </div>
-    <div [ngClass]="defaultClasses.fieldContainerClasses" [ngStyle]="style.fieldContainerStyle">
-        <button [disabled]="disabled" [attr.flexilabel]="flexiLabel" [ngClass]="defaultClasses.fieldClasses" [attr.id]="id" [ngStyle]="style.fieldStyle">
-            <i *ngIf="!!icon" [ngClass]="icon"></i>
-        </button>
-    </div>
 
+<div class="feField feButton" [ngClass]="defaultClasses.fieldMainWrapperClasses"  [ngStyle]="style.fieldMainWrapperStyle">
+    <div class="field-tool-wrapper">
+        <span *ngIf='showEdit' class=" field-tool-container">
+            <ul class=" field-tool">
+              <li (click)='openModal()'>
+                <i class="material-icons icon-size">settings</i>
+              </li>
+              <li>
+                <i class="material-icons icon-size">open_with</i>
+              </li>
+              <li (click)="close($event)">
+                <i class="material-icons icon-size">clear</i>
+              </li>
+            </ul>
+          </span>
+    </div>
+    <button [disabled]="disabled" [attr.flexilabel]="flexiLabel" [ngClass]="defaultClasses.fieldClasses" [attr.id]="id" [ngStyle]="style.fieldStyle" >
+      <i *ngIf="!!icon" [ngClass]="icon" ></i> 
+    </button>
 </div>
+

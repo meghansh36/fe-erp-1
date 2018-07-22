@@ -10,8 +10,6 @@ export class FeTxaComponent extends TxtComponent   {
   showEdit = true;
   properties = {
     
-    enableCk: true,
-    ckSettings: '',
     enableSpellCheck: true,
     rows: 5,
     ...this.properties,
@@ -27,3 +25,6 @@ export class FeTxaComponent extends TxtComponent   {
   };
 
 }
+
+
+
