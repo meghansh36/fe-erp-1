@@ -66,6 +66,11 @@
 .fe-field-component {
     padding-left: 10px;
     padding-right: 10px;
+    display: block;
+}
+
+.space-around {
+    justify-content: space-around;
 }
 
 .field-label-right .field-label {

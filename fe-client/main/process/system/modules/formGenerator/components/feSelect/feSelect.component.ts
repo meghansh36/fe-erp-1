@@ -8,18 +8,11 @@ import { BaseComponent } from '@L3Process/system/modules/formGenerator/component
 })
 export class FeSelectComponent extends BaseComponent implements OnInit {
 
-  protected _options: any;
+  // protected _options: any;
 
-  ngOnInit() {
-    super.ngOnInit();
-    this.options = this.config.options;
-  }
+  // ngOnInit() {
+  //   super.ngOnInit();
+  //   this.lov = this.config.lov;
+  // }
 
-  get options() {
-    return this._options;
-  }
-
-  set options(option) {
-    this._options = option;
-  }
 }

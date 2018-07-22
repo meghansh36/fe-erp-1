@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { NgbDateParserFormatter, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
+
 function padNumber(value: number) {
     if (isNumber(value)) {
         return `0${value}`.slice(-2);
@@ -27,11 +28,13 @@ function monTomm( monMonth ) {
     return padNumber( monthIndexArr.indexOf( monMonth ) );
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class FeDateFormatterService extends NgbDateParserFormatter {
 
     formatters = {
-        'dd/mm/yyyy': this.formatDDMMYYYY,
+        //'dd/mm/yyyy': this.formatDDMMYYYY,
         'dd-Mon-yyyy': this.formatDMonY,
         'dd-mm-yyyy': this.formatDDMMYY
     };

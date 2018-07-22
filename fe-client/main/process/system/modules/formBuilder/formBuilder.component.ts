@@ -19,18 +19,18 @@ import { reject } from 'q';
 })
 export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
-  @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
-  @ViewChild('buttonHost', {read: ViewContainerRef}) buttonHost: ViewContainerRef;
+  @ViewChild('host', { read: ViewContainerRef }) host: ViewContainerRef;
+  @ViewChild('buttonHost', { read: ViewContainerRef }) buttonHost: ViewContainerRef;
   @ViewChild('content') content;
   cond: Boolean = false;
   basic: String = 'basic';
   advanced: String = 'advanced';
   modalRef: any;
   //formSettingModalRef: 
+  rootDrop: any;
   component: any;
   finalJSON;
   formJson: any;
-  rootDrop;
   jsonEditorConfig;
   DOMArray: any = [];
   public formJsonHelp;
@@ -50,10 +50,11 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       copy: function (el, source) {
         return source.id === 'not_copy';
       },
-      accepts: function(el, target, source, sibling) {
+      accepts: function (el, target, source, sibling) {
         const targetClassesArr = target.className.trim().split(' ');
         const fieldClassesArr = el.className.trim().split(' ');
-        if (_.includes(targetClassesArr, 'buttonDropZone') && _.includes(fieldClassesArr, 'button')) {
+        if (_.includes(targetClassesArr, 'buttonDropZone') &&
+          (_.includes(fieldClassesArr, 'button') || _.includes(fieldClassesArr, 'button-input'))) {
           return true;
         } else if (_.includes(targetClassesArr, 'FSTdropZone') || _.includes(targetClassesArr, 'customDropZone')) {
           return true;
@@ -62,24 +63,23 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     });
 
     this.dragulaService.drop.subscribe((value) => {
-      // const componentName = value[1].attributes[2].nodeValue;
-     // console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
       if (this.rootDrop === undefined) {
         this.rootDrop = value[2];
       }
       if (value[1].nodeName === 'LI') {
-        // value[1].innerHTML = '';
-        // value[1].outerHTML = '';
-        
         const componentName = value[1].attributes.getNamedItem('componentName').nodeValue;
         console.log("componentName", componentName);
         const index = this.calculateIndex(value);
         value[1].remove();
         this.dropComplete(this.formBuilderService.getComponent(componentName), index, value);
+      } else {
+        const newIndex = this.calculateIndex(value);
+        value[1].parentComponent = value[2].id;
+        this.formJsonService.updateMasterJSONOnMove(value[2], value[3], value[1], newIndex);
+        this.formJsonService.buildFinalJSON();
       }
     });
   }
-
 
   ngDoCheck() {
     this.formJsonService.buildFinalJSON();
@@ -87,11 +87,11 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
   }
 
   onHidden() {
-    this.hideFields( this.hidden );
+    this.hideFields(this.hidden);
   }
 
   onDisabled() {
-    this.disableFields( this.disabled );
+    this.disableFields(this.disabled);
   }
 
   ngOnInit() {
@@ -116,46 +116,72 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
 
   applyDisplayProps() {
-    this.disableFields( this.disabled );
-    this.hideFields( this.hidden );
+    this.disableFields(this.disabled);
+    this.hideFields(this.hidden);
   }
 
-  disableFields( disableFlag ) {
+  disableFields(disableFlag) {
     const fieldComponents = this.components;
-    for( let keyRef in fieldComponents ) {
-      const componentInstance = fieldComponents[ keyRef ].instance;
+    for (let keyRef in fieldComponents) {
+      const componentInstance = fieldComponents[keyRef].instance;
       componentInstance.formDisabled = disableFlag;
     }
   }
 
-  hideFields( hiddenFlag ) {
+  hideFields(hiddenFlag) {
     const fieldComponents = this.components;
-    for( let keyRef in fieldComponents ) {
-      const componentInstance = fieldComponents[ keyRef ].instance;
+    for (let keyRef in fieldComponents) {
+      const componentInstance = fieldComponents[keyRef].instance;
       componentInstance.formHidden = hiddenFlag;
     }
   }
 
   initFormJsonHelp() {
     this.formJsonHelp = {
-      'simple': {
-        'show': false,
-        'when': 'number',
-        'eq': 15
-      },
-      'advanced': ['var show; return show = controls.number.value == 150 ? true : false;', 'var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
-      "json": {
-        "condition": {
-          "and": [
-            { "===": [{ "var": "username.value" }, 'apple'] },
-            { "===": [{ "var": "number.value" }, 15] }
-          ]
+      show: {
+        'simple': {
+          "show": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
         },
-        "condition1": {
-          "and": [
-            { "===": [{ "var": "someControl.value" }, 'someValue'] },
-            { "===": [{ "var": "someOtherControl.value" }, 'value'] }
-          ]
+        'advanced': ['var show; return show = controls.number.value == 150 ? true : false;', 'var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
+        "json": {
+          "condition": {
+            "and": [
+              { "===": [{ "var": "username.value" }, 'apple'] },
+              { "===": [{ "var": "number.value" }, 15] }
+            ]
+          },
+          "condition1": {
+            "and": [
+              { "===": [{ "var": "someControl.value" }, 'someValue'] },
+              { "===": [{ "var": "someOtherControl.value" }, 'value'] }
+            ]
+          }
+        }
+      },
+      disable: {
+        'simple': {
+          "disable": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
+        },
+        'advanced': ['var show; return show = controls.number.value == 150 ? true : false;', 'var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
+        "json": {
+          "condition": {
+            "and": [
+              { "===": [{ "var": "username.value" }, 'apple'] },
+              { "===": [{ "var": "number.value" }, 15] }
+            ]
+          },
+          "condition1": {
+            "and": [
+              { "===": [{ "var": "someControl.value" }, 'someValue'] },
+              { "===": [{ "var": "someOtherControl.value" }, 'value'] }
+            ]
+          }
         }
       }
     };
@@ -166,7 +192,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     const children = target.children;
     console.log(value);
     if (sibling === null) {
-      return children.length - 1 ;
+      return children.length - 1;
     } else {
       return Array.prototype.indexOf.call(children, sibling) - 1;
     }
@@ -191,65 +217,71 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
+  moveDOMNode(parent, nextSibling, el) {
+    console.log(parent);
+    parent.insertBefore(el, nextSibling);
+  }
+
   createComponentFunc(componentObj, index, target, value) {
 
     const key = this.generateNewKey();
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
-    let  viewContainerRef;
+    let viewContainerRef;
     const targetClassesArr = target.className.trim().split(" ");
-    if ( _.includes(targetClassesArr, 'FSTdropZone')) {
+    if (_.includes(targetClassesArr, 'FSTdropZone')) {
       viewContainerRef = this.fieldControlService.getFstCollection(target.id);
       console.log('..................');
-    } else if (_.includes(targetClassesArr, 'buttonDropZone')){
+    } else if (_.includes(targetClassesArr, 'buttonDropZone')) {
       viewContainerRef = this.buttonHost;
     } else {
       viewContainerRef = this.host;
     }
 
-    const componentRef = viewContainerRef.createComponent(componentFactory, index);
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    this.moveDOMNode(target, value[4], componentRef.location.nativeElement);
     this.fieldControlService.setFieldRef(componentRef, this, componentObj);
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index, false);
+    this.formJsonService.addComponentToMasterJSON(key, componentRef, target.id, index);
     target.children[index].generatedKey = key;
     target.children[index].parentComponent = target.id;
-    this.formJsonService.updateMasterJSON(target);
+    this.formJsonService.updateMasterJSONOnDrop(target, key, false);
     this.formJsonService.buildFinalJSON();
     //console.log(this.formJsonService.getMasterJSON());
   }
 
-   createComponentsFromJSON(componentProps) {
-     return new Promise((res,rej) => {
-      const copy = _.assign({}, componentProps); 
+  createComponentsFromJSON(componentProps) {
+    return new Promise((res, rej) => {
+      const copy = _.assign({}, componentProps);
       const key = componentProps.key;
-    this.masterFormService.setCurrentKey(key);
-    const parentID = componentProps.parent;
-    let viewContainerRef;
-    if (parentID === 'root_drop') {
-      viewContainerRef = this.host;
-    } else if (parentID === 'button_drop') {
-      viewContainerRef = this.buttonHost;
-    } else {
-      viewContainerRef = this.fieldControlService.getFstCollection(parentID);
-    }
-    const component = this.formBuilderService.getComponent(componentProps.componentName).component;
-    
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    componentRef.instance.properties = copy;
-    this.fieldControlService.setFieldRef(componentRef, this, {component});
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order, false);
-    const target: any = document.querySelector(`#${componentProps.parent}`);
-    console.log('target', target);
-    target.children[componentProps.order].generatedKey = key;
-    target.children[componentProps.order].parentComponent = target.id;
-    setTimeout(() => {
-      res();
-    }, 10);
-     });
+      this.masterFormService.setCurrentKey(key);
+      const parentID = componentProps.parent;
+      let viewContainerRef;
+      if (parentID === 'root_drop') {
+        viewContainerRef = this.host;
+      } else if (parentID === 'button_drop') {
+        viewContainerRef = this.buttonHost;
+      } else {
+        viewContainerRef = this.fieldControlService.getFstCollection(parentID);
+      }
+      const component = this.formBuilderService.getComponent(componentProps.componentName).component;
+
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+
+      const componentRef = viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.properties = copy;
+      this.fieldControlService.setFieldRef(componentRef, this, { component });
+      this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order);
+      const target: any = document.querySelector(`#${componentProps.parent}`);
+      console.log('target', target);
+      target.children[componentProps.order].generatedKey = key;
+      target.children[componentProps.order].parentComponent = target.id;
+      setTimeout(() => {
+        res();
+      }, 10);
+    });
   }
 
- async populateFormBuilder(components) {
+  async populateFormBuilder(components) {
     for (let i = 0; i < components.length; i++) {
       if (components[i].components === undefined) {
         await this.createComponentsFromJSON(components[i]);
@@ -258,29 +290,15 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
         this.populateFormBuilder(components[i].components);
       }
     }
-    // if (i === components.length) {
-    //   return;
-    // }
-    // if (components[i].components === undefined) {
-    //   this.tempFunc(components, i);
-    // } else {
-    //   this.populateFormBuilder(components[i].components, 0 );
-    // }
-
-   // this.formJsonService.buildFinalJSON();
     return;
   }
 
-  /* tempFunc(components, index) {
-    this.createComponentsFromJSON( components[index] ).then(() => {
-      this.populateFormBuilder( components, index + 1 );
-    } );
-  } */
+
   runBuilder() {
     this.host.clear();
     this.buttonHost.clear();
 
-    const json =  {
+    const json = {
       "id": "",
       "code": "",
       "formLabel": "",
@@ -414,8 +432,8 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
   save() {
     this.formBuilderService.postData(this.finalJSON)
-      .subscribe((res) => { console.log('resolve data') },
-        (err) => { console.log('getting error') });
+      .subscribe((res) => { alert('data received') },
+        (err) => { console.log('getting error', err) });
   }
 
   reset() {
@@ -473,51 +491,51 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     return this.formJson.components;
   }
 
-  set id( id ) {
+  set id(id) {
     this.formJson.id = id;
   }
 
-  set code( code ) {
+  set code(code) {
     this.formJson.code = code;
   }
 
-  set formLabel( formLabel ) {
+  set formLabel(formLabel) {
     this.formJson.formLabel = formLabel;
   }
 
-  set name( name ) {
+  set name(name) {
     this.formJson.name = name;
   }
 
-  set display( display ) {
+  set display(display) {
     this.formJson.display = display;
   }
 
-  set disabled( disabled ) {
+  set disabled(disabled) {
     this.formJson.disabled = disabled;
   }
 
-  set hidden( hidden ) {
+  set hidden(hidden) {
     this.formJson.hidden = hidden;
   }
 
-  set conditionalHidden( conditionalHidden ) {
+  set conditionalHidden(conditionalHidden) {
     this.formJson.conditionalHidden = conditionalHidden;
   }
 
-  set conditionalDisabled( conditionalDisabled ) {
+  set conditionalDisabled(conditionalDisabled) {
     this.formJson.conditionalDisabled = conditionalDisabled;
   }
 
-  set active( active ) {
+  set active(active) {
     this.formJson.active = active;
   }
 
-  set help( help ) {
+  set help(help) {
     this.formJson.help = help;
   }
 
-  set components( components ) {
+  set components(components) {
     this.formJson.components = components;
   }
 }

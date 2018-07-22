@@ -17,7 +17,7 @@
             </div>
             <input  class="form-control" [attr.flexilabel]="flexiLabel"
                 [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" [formControlName]="flexiLabel"
-                [attr.id]="id"  ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+                [attr.id]="id"  ngbDatepicker #d="ngbDatepicker"   (click)="d.toggle()">
             <div class="input-group-append" *ngIf="suffix ">
                 <span class="input-group-text"> {{ suffix }} </span>
             </div>

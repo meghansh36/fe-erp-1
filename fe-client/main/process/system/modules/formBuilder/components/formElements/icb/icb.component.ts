@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FeBtnComponent } from '../btn/btn.component';
 
 @Component({
-  selector: 'icb-input',
+  selector: 'icb-input.button-input',
   templateUrl: './icb.component.html',
   styleUrls: ['./icb.component.css', '../baseField/baseField.component.css']
 })

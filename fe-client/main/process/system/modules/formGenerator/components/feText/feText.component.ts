@@ -12,6 +12,8 @@ import { BaseComponent } from '@L3Process/system/modules/formGenerator/component
 export class FeTextComponent extends BaseComponent implements OnInit {
 
   public length: number = 0;
+  protected _$changeObserver: any;
+  protected _conditionClass: string;
   _onKeypress(e) {
     if (this.hasMaxLength) {
       const limit = +this.len;
@@ -19,9 +21,14 @@ export class FeTextComponent extends BaseComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    super.ngOnInit();
-    this.control.valueChanges.subscribe(this.changeLength.bind(this))
+  protected _afterNgOnDestroy() {
+    super._afterNgOnDestroy();
+    this._$changeObserver.unsubscribe();
+  }
+
+  protected _afterNgOnInit() {
+    super._afterNgOnInit();
+    this._$changeObserver = this.control.valueChanges.subscribe(this.changeLength.bind(this));
   }
 
   changeLength(data: string) {
@@ -29,8 +36,7 @@ export class FeTextComponent extends BaseComponent implements OnInit {
       this.len = data.length;
       if (this.len < this.minLength) {
         this._Class = 'badge-danger';
-      }
-      else {
+      } else {
         this._Class = 'badge-success';
       }
     }
@@ -45,22 +51,22 @@ export class FeTextComponent extends BaseComponent implements OnInit {
   }
   get minLength() {
     if (this.hasMinLength) {
-      return this.config.validations.minLength.value;
+      return this._config.validations.minLength.value;
     }
     return 0;
   }
 
   get maxLength() {
     if (this.hasMaxLength) {
-      return this.config.validations.maxLength.value;
+      return this._config.validations.maxLength.value;
     }
     return 0;
   }
 
   get maskConfig() {
+    //console.log("maskConfig", this.mask);
     if (this.mask) {
-      let mask = this.mask;
-      return { mask };
+      return { mask: this.mask };
     }
     return { mask: false };
   }
@@ -73,9 +79,9 @@ export class FeTextComponent extends BaseComponent implements OnInit {
   }
 
   set _Class(changeClass) {
-    this.conditionClass = changeClass;
+    this._conditionClass = changeClass;
   }
   get _Class() {
-    return this.conditionClass;
+    return this._conditionClass;
   }
 }

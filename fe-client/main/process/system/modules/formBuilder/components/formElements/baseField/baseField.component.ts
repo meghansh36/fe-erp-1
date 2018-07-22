@@ -3,6 +3,7 @@ import { FieldControlService } from "@L3Process/system/modules/formBuilder/servi
 import { Injectable, OnInit, Renderer2, ElementRef, DoCheck, AfterViewInit } from "@angular/core";
 import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/formJson.service";
 import { UtilityService } from '@L3Process/system/services/Utility.service';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import * as _ from 'lodash';
 
 
@@ -14,46 +15,15 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	componentname: string;
 	public formDisabled: boolean;
 	public formHidden: boolean;
-	protected _cssClasses: any;
 	public defaultClasses: any;
 	public style: any;
 	
-	public appliedValidations = [
-		{
-			id: 'required',
-			text: 'Required'
-		},
-		{
-			id: 'number+',
-			text: 'Number Positive'
-		},
-		{
-			id: 'number-',
-			text: 'Number Negative'
-		},
-		{
-			id: 'email',
-			text: 'Email'
-		},
-		{
-			id: 'commaseperatedemail',
-			text: 'Multiple Email'
-		},
-		{
-			id: 'alphabet',
-			text: 'Alphabet'
-		},
-		{
-			id: 'alphanum',
-			text: 'Alphanumeric'
-		}
-	];
 
 	public applicableProperties: any = {
 		label: true,
 		hideLabel: true,
 		labelPosition: true,
-		tooltip: false,
+		tooltip: true,
 		customCssClass: true,
 		tabIndex: true,
 		marginTop: true,
@@ -66,27 +36,32 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		nonPersistent: true,
 		dbColumn: true,
 		hidden: true,
-		clearWhenHidden: true,
+		clearWhenHidden: false,
 		disabled: true,
 		flexiLabel: true,
-		validations: true,
-		customFuncValidationVal: true,
+		appliedValidations: true,
+		customFuncValidation: true,
 		jsonLogicVal: true,
-		formClassValidationVal: true,
+		formClassValidation: true,
 		events: true,
-		condition: true,
+		showCondition: true,
 		type: true,
-		fldDisabledCondition: true,
+		disableCondition: true,
 		active: true,
 		required: true,
 		labelWidth: true,
 		labelMargin: true,
 		width: true,
-		description: true
+		description: true,
+		hasParent: true,
+		parentName: true,
+		filterSqlQuery: true
 	};
 
+	
 	//All properties 
 	/* public applicableProperties: any = {
+		hasParent:true,
 		label: true,
 		hideLabel: true,
 		labelPosition: true,
@@ -111,26 +86,29 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		flexiLabel: true,
 		prefix: true,
 		suffix: true,
-		validations: true,
-		customFuncValidationVal: true,
+		appliedValidations: true,
+		customFuncValidation: true,
 		jsonLogicVal: true,
-		formClassValidationVal: true,
+		formClassValidation: true,
 		minimumLength: true,
 		maximumLength: true,
 		events: true,
-		condition: true,
+		showCondition: true,
 		type: true,
-		fldDisabledCondition: true,
+		disableCondition: true,
 		active: true,
 		required: true,
 		labelWidth: true,
 		labelMargin: true,
 		width: true,
-		icon: true
+		icon: true,
+		parentName: true,
+		filterSqlQuery: true
 
 	}; */
 
 	public properties: any = {
+		hasParent: false,
 		label: undefined,
 		hideLabel: false,
 		labelPosition: 'top',
@@ -157,15 +135,15 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		flexiLabel: undefined,
 		prefix: '',
 		suffix: '',
-		validations: '',
-		customFuncValidationVal: '',
+		appliedValidations: '',
+		customFuncValidation: '',
 		jsonLogicVal: '',
-		formClassValidationVal: '',
+		formClassValidation: '',
 		minimumLength: undefined,
 		maximumLength: undefined,
 		events: '',
-		condition: '',
-		fldDisabledCondition: '',
+		showCondition: '',
+		disableCondition: '',
 		active: true,
 		required: false,
 		labelWidth: '',
@@ -173,16 +151,19 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		width: '',
 		mask: [],
 		description: '',
-		icon: ''
+		icon: '',
+		parentName: '',
+		filterSqlQuery: ''
 	};
 
 	constructor(
-		public elemRef: ElementRef,
+		public _elemRef: ElementRef,
 		public fieldControlService: FieldControlService,
 		public masterFormService: FormMasterService,
 		public formJsonService: FormJsonService,
 		public render: Renderer2,
-		public utility: UtilityService
+		public utility: UtilityService,
+		public defaults: DefaultsService
 	) {
 		this.utility.renderer = this.render;
 	 }
@@ -194,6 +175,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		console.log(this.uniqueKey);
 		this.masterFormService.setProperties(this.properties);
 		this.initFieldStyle();
+		this.appliedValidations = this.defaults.VALIDATIONS;
 	}
 
 	ngAfterViewInit() {
@@ -210,11 +192,11 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
         this.style = this.utility.getFieldStyles( this );
 	}
 	
-	public beforeSetDefaultClasses(classes) {
+	protected _beforeSetDefaultClasses(classes) {
         return classes;
     }
 
-    beforeSetDefaultStyle(styleObj) {
+    protected _beforeSetDefaultStyle(styleObj) {
         return styleObj;
     }
 
@@ -222,19 +204,19 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		this.refObj = reference;
 	}
 
-	public close() {
+	protected close() {
 		this.refObj.destroy();
 		this.formJsonService.removeComponent(this.uniqueKey);
 		this.formJsonService.buildFinalJSON();
 	}
 
-	public openModal() {
+	openModal() {
 		this.masterFormService.setCurrentKey(this.uniqueKey);
 		this.masterFormService.setProperties(this.properties);
 		this.fieldControlService.getFieldRef().parent.openModal();
 	}
 
-	public update(propsFromMasterForm) {
+	protected update(propsFromMasterForm) {
 		this.properties = _.assignIn({}, propsFromMasterForm);
 	}
 	
@@ -335,20 +317,20 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		return this.properties.suffix;
 	}
 
-	get validations() {
-		return this.properties.validations;
+	get appliedValidations() {
+		return this.properties.appliedValidations;
 	}
 
-	get customFuncValidationVal() {
-		return this.properties.customFuncValidationVal;
+	get customFuncValidation() {
+		return this.properties.customFuncValidation;
 	}
 
 	get jsonLogicVal() {
 		return this.properties.jsonLogicVal;
 	}
 
-	get formClassValidationVal() {
-		return this.properties.formClassValidationVal;
+	get formClassValidation() {
+		return this.properties.formClassValidation;
 	}
 
 	get minimumLength() {
@@ -363,16 +345,16 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		return this.properties.events;
 	}
 
-	get condition() {
-		return this.properties.condition;
+	get showCondition() {
+		return this.properties.showCondition;
 	}
 
 	get type() {
 		return this.properties.type;
 	}
 
-	get fldDisabledCondition() {
-		return this.properties.fldDisabledCondition;
+	get disableCondition() {
+		return this.properties.disableCondition;
 	}
 
 	get active() {
@@ -403,13 +385,13 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		return this.properties.labelMargin;
 	}
 
-	get cssClasses() {
+	/* get cssClasses() {
 		return this._cssClasses;
 	}
 
 	set label( label ) {
 		this.properties.label = label;
-	}
+	} */
 
 	set hideLabel( hideLabel ) {
 		this.properties.hideLabel = hideLabel;
@@ -503,20 +485,20 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		this.properties.suffix = suffix;
 	}
 
-	set validations( validations ) {
-		this.properties.validations = validations;
+	set appliedValidations( appliedValidations ) {
+		this.properties.appliedValidations = appliedValidations;
 	}
 
-	set customFuncValidationVal( customFuncValidationVal ) {
-		this.properties.customFuncValidationVal = customFuncValidationVal;
+	set customFuncValidation( customFuncValidation ) {
+		this.properties.customFuncValidation = customFuncValidation;
 	}
 
 	set jsonLogicVal( jsonLogicVal ) {
 		this.properties.jsonLogicVal = jsonLogicVal;
 	}
 
-	set formClassValidationVal( formClassValidationVal ) {
-		this.properties.formClassValidationVal = formClassValidationVal;
+	set formClassValidation( formClassValidation ) {
+		this.properties.formClassValidation = formClassValidation;
 	}
 
 	set minimumLength( minimumLength ) {
@@ -531,16 +513,16 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		this.properties.events = events;
 	}
 
-	set condition( condition ) {
-		this.properties.condition = condition;
+	set showCondition( showCondition ) {
+		this.properties.showCondition = showCondition;
 	}
 
 	set type( type ) {
 		this.properties.type = type;
 	}
 
-	set fldDisabledCondition( fldDisabledCondition ) {
-		this.properties.fldDisabledCondition = fldDisabledCondition;
+	set disableCondition( disableCondition ) {
+		this.properties.disableCondition = disableCondition;
 	}
 
 	set active( active ) {
@@ -563,8 +545,8 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		this.properties.width = width;
 	}
 
-	set cssClasses( classes ) {
+	/* set cssClasses( classes ) {
 		this._cssClasses = classes;
-	}
+	} */
 
 }
