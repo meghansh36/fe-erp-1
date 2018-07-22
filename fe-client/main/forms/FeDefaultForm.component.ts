@@ -1,5 +1,5 @@
 import { OnInit, Input, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
-import { FormSchemaService } from '@L3Main/services/FormSchema.service';
+import { FormSchemaService } from '@L3Main/services/formSchema.service';
 import { DependentService } from '@L3Process/system/modules/formGenerator/services/dependent.service';
 import * as _ from 'lodash';
 
