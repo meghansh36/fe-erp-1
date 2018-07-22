@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FeCacheService } from '@L1Main/services/feCache.service';
 
 @Injectable({
     providedIn: 'root'
@@ -91,8 +92,18 @@ export class FeDependentService {
         ]
     }
 
+    constructor(protected cache: FeCacheService) { }
+
     getChild(value) {
-        return this.dependentDataOfparent[value];
+        let cache = this.cache.getDataFromStack(value);
+        if (cache) {
+            return cache[value];
+        }
+        else {
+            let data = this.dependentDataOfparent[value];
+            this.cache.setStackData(data, value);
+            return data;
+        }
     }
 
     getFieldHtml(type, element) {

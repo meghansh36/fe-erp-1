@@ -179,7 +179,11 @@ export class FePopUpComponent implements OnInit, AfterViewInit {
 			if (temp) {
 				let value = this.parentChildService.getLovCode(temp.val);
 				setTimeout(() => {
+					this.filter = temp.val;
+					this.filterValue = value.code;
 					this.selectedValue = value.code;
+					this.children = this.dependent.getChild(value.code);
+					this.createChildren();
 				})
 			}
 		}

@@ -543,6 +543,7 @@ export class FeDataTableComponent implements OnInit {
 
 	checkIfParentHasChild(event: any) {
 		if (event.parent) {
+			console.log(event);
 			let val = event.parent;
 			let temp = this.parentChildService.getChild(val);
 			if (temp) {
