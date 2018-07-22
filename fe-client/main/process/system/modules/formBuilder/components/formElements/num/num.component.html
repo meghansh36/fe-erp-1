@@ -32,7 +32,7 @@
             </div>
             <input type="number" class="form-control" [ngClass]="defaultClasses.fieldClasses"  [ngStyle]="style.fieldStyle"
                 [attr.tabindex]="tabIndex" [attr.placeholder]="placeholder" 
-                [attr.id]="id" [attr.flexilabel]="flexiLabel">
+                [attr.id]="id" [disabled]="disabled" [attr.flexilabel]="flexiLabel">
             <div class="input-group-append" *ngIf="suffix ">
                 <span class="input-group-text"> {{ suffix }} </span>
             </div>

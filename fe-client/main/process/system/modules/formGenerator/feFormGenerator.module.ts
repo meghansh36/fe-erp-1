@@ -12,6 +12,7 @@ import { FieldDirective } from '@L3Process/system/modules/formGenerator/directiv
 import { FormComponent } from '@L3Process/system/modules/formGenerator/components/Form/Form.component';
 import { ButtonComponent } from '@L3Process/system/modules/formGenerator/components/Button/Button.component';
 import { TextComponent } from '@L3Process/system/modules/formGenerator/components/Text/Text.component';
+import { PasswordComponent } from '@L3Process/system/modules/formGenerator/components/Password/Password.component';
 import { TextAreaComponent } from '@L3Process/system/modules/formGenerator/components/TextArea/TextArea.component';
 import { SelectComponent } from '@L3Process/system/modules/formGenerator/components/Select/Select.component';
 import { MultiSelectComponent } from '@L3Process/system/modules/formGenerator/components/MultiSelect/MultiSelect.component';
@@ -45,13 +46,14 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     TextMaskModule,
     EditorModule,
     CKEditorModule,
-    NgxSelectModule.forRoot(CustomSelectOptions)
+    NgxSelectModule.forRoot(CustomSelectOptions),
   ],
   declarations: [
     FieldDirective,
     FormComponent,
     ButtonComponent,
     TextComponent,
+    PasswordComponent,
     SelectComponent,
     TextAreaComponent,
     DateComponent,
@@ -76,6 +78,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     FormComponent,
     ButtonComponent,
     TextComponent,
+    PasswordComponent,
     SelectComponent,
     TextAreaComponent,
     DateComponent,
@@ -92,6 +95,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
   entryComponents: [
     ButtonComponent,
     TextComponent,
+    PasswordComponent,
     SelectComponent,
     TextAreaComponent,
     DateComponent,

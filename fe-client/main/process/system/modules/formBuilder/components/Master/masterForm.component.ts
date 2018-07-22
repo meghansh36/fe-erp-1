@@ -86,18 +86,13 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
         },
         jsonLogicValHelp: 
         {
-          condition1: {
+          json: {
             "and": [
               { "===": [{ "var": "username.value" }, 'cool'] },
               { "===": [{ "var": "number.value" }, 155] }
             ]
           },
-          condition2: {
-            "and": [
-              { "===": [{ "var": "someFieldControl.value" }, 'value'] },
-              { "===": [{ "var": "someOtherFieldControl.value" }, 155] }
-            ]
-          }
+          condition2: 'Error Message.'
       },
       formClassValidationValHelp: {//{valName:'Message'}
         customPattern: {
@@ -123,13 +118,14 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
       },
       conditionHelp: {
         'simple': {
-          'show': false,
-          'when': 'number',
-          'eq': 15
+          "show": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
         },
         'advanced': ['var show; return show = controls.number.value == 150 ? true : false;','var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
         "json": {
-          "condition": {
+          "showCondition": {
             "and": [
               { "===": [{ "var": "username.value" }, 'apple'] },
               { "===": [{ "var": "number.value" }, 15] }
@@ -145,13 +141,14 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
       },
       fldDisabledConditionHelp: {
         'simple': {
-          'show': false,
-          'when': 'number',
-          'eq': 15
+          "disable": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
         },
         'advanced': ['var disable; return disable = controls.number.value == 150 ? true : false;','var disable; return disable = controls.otherControl.value == 150 ? true : false;'],
         "json": {
-          "condition": {
+          "showCondition": {
             "and": [
               { "===": [{ "var": "username.value" }, 'apple'] },
               { "===": [{ "var": "number.value" }, 15] }

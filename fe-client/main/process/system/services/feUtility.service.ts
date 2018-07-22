@@ -1,12 +1,14 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { DefaultsService } from '@L3Process/system/services/Defaults.service';
+import { FormGroup, FormBuilder } from '../../../../../node_modules/@angular/forms';
+import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FeUtilityService {
-   public renderer: Renderer2;//initialized from field components
-    constructor( public defaults: DefaultsService ) {
+    public renderer: Renderer2;//initialized from field components
+    constructor(public defaults: DefaultsService) {
 
     }
 
@@ -31,24 +33,24 @@ export class FeUtilityService {
             const handlerFnName = handlerData.handlerName;
             const args = handlerData.args;
             let ownerObject: any = {};
-            if (!handlerOwnerType || handlerOwnerType == 'form' ) {
+            if (!handlerOwnerType || handlerOwnerType == 'form') {
                 handlerOwnerType = 'form';
-            } else if ( handlerOwnerType == 'resource' ) {
+            } else if (handlerOwnerType == 'resource') {
                 handlerOwnerType = 'resource';
             } else {
                 console.log(`Handler owner type ${handlerOwnerType} is not supported.`);
                 return;
             }
-            ownerObject = fieldComponent[ handlerOwnerType ]; //this.resource or this.form
+            ownerObject = fieldComponent[handlerOwnerType]; //this.resource or this.form
             if (!ownerObject) {
                 console.log(`Event handler function owner ${handlerOwnerType} object does not exist in current field component object. So can not call bound function.`);
                 return;
             }
-            
+
             if (ownerObject[handlerFnName] && typeof ownerObject[handlerFnName] == 'function') {
                 const argsArr = this.evalFnArgs(args);
-                argsArr.push( fieldComponent );
-                argsArr.push( event );
+                argsArr.push(fieldComponent);
+                argsArr.push(event);
                 ownerObject[handlerFnName].apply(ownerObject, argsArr)
             } else {
                 console.log(`Event handler ${handlerFnName} does not exist in ${handlerOwnerType} class for event ${eventName}`);
@@ -59,7 +61,7 @@ export class FeUtilityService {
         }
     }
 
-    getFieldClasses( fieldComponent ) {
+    getFieldClasses(fieldComponent) {
         const type = fieldComponent.type;
         let labelPosition = this.defaults.LABEL_POSITION;
         const customCssClass = fieldComponent.customCssClass || '';
@@ -73,14 +75,14 @@ export class FeUtilityService {
         if (fieldComponent.prefix || fieldComponent.suffix) {
             classesStr += ' input-group';
         }
-        fieldContainerClasses = this._makeCssClassesObj(classesStr);
+        fieldContainerClasses = this.makeCssClassesObj(classesStr);
 
         let fieldMainWrapperClasses = {};
         classesStr = `fe-field ${type}-container form-group ${labelPosition}-labeled-field`;
         if (fieldComponent.hidden) {
             classesStr += ' hidden';
         }
-        fieldMainWrapperClasses = this._makeCssClassesObj(classesStr);
+        fieldMainWrapperClasses = this.makeCssClassesObj(classesStr);
 
         let fieldLabelContainerClasses = {};
         classesStr = `fe-field-container field-label-container ${type}-label-container`;
@@ -90,41 +92,41 @@ export class FeUtilityService {
         if (fieldComponent.hasTextLenghtLimit) {
             classesStr += ' has-text-limit';
         }
-        fieldLabelContainerClasses = this._makeCssClassesObj(classesStr);
+        fieldLabelContainerClasses = this.makeCssClassesObj(classesStr);
 
         let fieldWrapperClasses = {};
         classesStr = `field-wrapper ${type}-field-wrapper field-label-${labelPosition}`;
-        fieldWrapperClasses = this._makeCssClassesObj(classesStr);
+        fieldWrapperClasses = this.makeCssClassesObj(classesStr);
 
         let fieldDescWrapperClasses = {};
         classesStr = `field-desc-container ${type}-desc-cont`;
-        fieldDescWrapperClasses = this._makeCssClassesObj(classesStr);
+        fieldDescWrapperClasses = this.makeCssClassesObj(classesStr);
 
         let fieldDescContainerClasses = {};
         classesStr = `form-text text-muted field-desc ${type}-desc`;
-        fieldDescContainerClasses = this._makeCssClassesObj(classesStr);
+        fieldDescContainerClasses = this.makeCssClassesObj(classesStr);
 
         let labelClasses = {};
         classesStr = `field-label ${type}-label`;
         if (fieldComponent.required) {
             classesStr += ` mandatory-field-label`;
         }
-        labelClasses = this._makeCssClassesObj(classesStr);
+        labelClasses = this.makeCssClassesObj(classesStr);
 
         let fieldErrorWrapperClasses = {};
         classesStr = `field-error-wrapper ${type}-error-wrapper`;
-        fieldErrorWrapperClasses = this._makeCssClassesObj(classesStr);
+        fieldErrorWrapperClasses = this.makeCssClassesObj(classesStr);
 
         let fieldClasses = {};
         classesStr = `form-field ${type}-field ${customCssClass}`;
         if (fieldComponent.required) {
             classesStr += ` mandatory-field`;
         }
-        fieldClasses = this._makeCssClassesObj(classesStr);
+        fieldClasses = this.makeCssClassesObj(classesStr);
 
         let nestedFieldContainerClasses = {};
         classesStr = `fe-field-container fe-${type}-wrapper`;
-        nestedFieldContainerClasses = this._makeCssClassesObj(classesStr);
+        nestedFieldContainerClasses = this.makeCssClassesObj(classesStr);
 
         let classes: any = {
             fieldMainWrapperClasses,
@@ -138,14 +140,14 @@ export class FeUtilityService {
             fieldClasses,
             nestedFieldContainerClasses
         };
-        if ( fieldComponent.type === 'BTN' ) {
-            classes = this.addButtonProps( fieldComponent, classes );
+        if (fieldComponent.type === 'BTN') {
+            classes = this.addButtonProps(fieldComponent, classes);
         }
-        classes = fieldComponent.beforeSetDefaultClasses( classes );
+        classes = fieldComponent._beforeSetDefaultClasses(classes);
         return classes;
     }
 
-    _makeCssClassesObj(cssClassesStr: string): any {
+    makeCssClassesObj(cssClassesStr: string): any {
         const cssClassesObj = {};
         const cssClassArr = cssClassesStr.trim().split(' ')
         cssClassArr.forEach((cssClass) => {
@@ -154,7 +156,7 @@ export class FeUtilityService {
         return cssClassesObj;
     }
 
-    getFieldStyles( fieldComponent ) {
+    getFieldStyles(fieldComponent) {
         const fieldLabelContainerStyle: any = {};
         const fieldMainWrapperStyle = {};
 
@@ -170,10 +172,10 @@ export class FeUtilityService {
             fieldWidth = fieldComponent.width;
         }
         if (fieldWidth) {
-            this.renderer.setStyle(fieldComponent.elemRef.nativeElement, 'width', fieldWidth);
+            this.renderer.setStyle(fieldComponent._elemRef.nativeElement, 'width', fieldWidth);
         }
         if (fieldComponent.type === 'HID') {
-            this.renderer.addClass(fieldComponent.elemRef.nativeElement, 'hidden');
+            this.renderer.addClass(fieldComponent._elemRef.nativeElement, 'hidden');
         }
 
         if (labelMargin) {
@@ -233,34 +235,62 @@ export class FeUtilityService {
             nestedFieldContainerStyle: {}
 
         };
-        inlineStyle = fieldComponent.beforeSetDefaultStyle(inlineStyle);
+        inlineStyle = fieldComponent._beforeSetDefaultStyle(inlineStyle);
         return inlineStyle;
     }
 
-    addDisplayProps( fieldComponent ) {
+    addDisplayProps(fieldComponent) {
         if (fieldComponent.type == 'HID') {
-            this.renderer.addClass(fieldComponent.elemRef.nativeElement, 'hidden');
+            this.renderer.addClass(fieldComponent._elemRef.nativeElement, 'hidden');
         }
-        if ( fieldComponent.disabled ) {
-            fieldComponent.control.disable( { onlySelf: true, emitEvent: true } );
-        }
-        this.renderer.addClass(fieldComponent.elemRef.nativeElement, 'fe-field-component');
+
+        this.renderer.addClass(fieldComponent._elemRef.nativeElement, 'fe-field-component');
     }
 
-    addButtonProps( fieldComponent, classesObj ) {
+    addButtonProps(fieldComponent, classesObj) {
         const buttonThemeClasses = this.defaults.BUTTON_THEMES;
         let themeClass = buttonThemeClasses[fieldComponent.theme];
         if (!themeClass) {
-          themeClass = buttonThemeClasses[this.defaults.BUTTON_THEME];
+            themeClass = buttonThemeClasses[this.defaults.BUTTON_THEME];
         }
         classesObj['fieldClasses'][themeClass] = true;
-            const buttonSizeClasses = this.defaults.BUTTON_SIZES; 
-            
+        const buttonSizeClasses = this.defaults.BUTTON_SIZES;
+
         if (fieldComponent.size) {
-          classesObj['fieldClasses'][buttonSizeClasses[fieldComponent.size]] = true;
+            classesObj['fieldClasses'][buttonSizeClasses[fieldComponent.size]] = true;
         } else {
-                classesObj['fieldClasses'][buttonSizeClasses[this.defaults.BUTTON_SIZE]] = true;
-            }
-        return classesObj;
+            classesObj['fieldClasses'][buttonSizeClasses[this.defaults.BUTTON_SIZE]] = true;
         }
+        return classesObj;
+    }
+
+    createFormGroup(  fb: FormBuilder, schemaControls , group?: FormGroup  ) {
+        if ( !fb ) {
+            console.log(`Can not create form group without form builder`);
+            return;
+        }
+        
+        if ( !group ) {
+            group = fb.group({});
+        }
+       
+        this.createControls(fb, group, schemaControls);
+        return group;
+    }
+
+    createControls(fb: FormBuilder, group: FormGroup, schemaControls: any) {
+        schemaControls.forEach((config) => {
+            if (config.type && config.type == 'FST') {
+                this.createControls(fb, group, config.components)
+            } else {
+                group.addControl(config.flexiLabel, this.createControl(fb, config));
+            }
+        });
+    }
+
+    createControl(fb: FormBuilder, config: FieldConfig) {
+        const { disabled, validation } = config;
+        return fb.control({ disabled, value: undefined }, validation);
+    }
+
 }

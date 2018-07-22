@@ -19,8 +19,8 @@ import { reject } from 'q';
 })
 export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
-  @ViewChild('host', {read: ViewContainerRef}) host: ViewContainerRef;
-  @ViewChild('buttonHost', {read: ViewContainerRef}) buttonHost: ViewContainerRef;
+  @ViewChild('host', { read: ViewContainerRef }) host: ViewContainerRef;
+  @ViewChild('buttonHost', { read: ViewContainerRef }) buttonHost: ViewContainerRef;
   @ViewChild('content') content;
   cond: Boolean = false;
   basic: String = 'basic';
@@ -50,7 +50,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       copy: function (el, source) {
         return source.id === 'not_copy';
       },
-      accepts: function(el, target, source, sibling) {
+      accepts: function (el, target, source, sibling) {
         const targetClassesArr = target.className.trim().split(' ');
         const fieldClassesArr = el.className.trim().split(' ');
         if (_.includes(targetClassesArr, 'buttonDropZone') && _.includes(fieldClassesArr, 'button')) {
@@ -63,14 +63,14 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
     this.dragulaService.drop.subscribe((value) => {
       // const componentName = value[1].attributes[2].nodeValue;
-     // console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
+      // console.log("dragulaService.drop.subscribe", value, 'rootDrop', this.rootDrop);
       if (this.rootDrop === undefined) {
         this.rootDrop = value[2];
       }
       if (value[1].nodeName === 'LI') {
         // value[1].innerHTML = '';
         // value[1].outerHTML = '';
-        
+
         const componentName = value[1].attributes.getNamedItem('componentName').nodeValue;
         console.log("componentName", componentName);
         const index = this.calculateIndex(value);
@@ -87,11 +87,11 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
   }
 
   onHidden() {
-    this.hideFields( this.hidden );
+    this.hideFields(this.hidden);
   }
 
   onDisabled() {
-    this.disableFields( this.disabled );
+    this.disableFields(this.disabled);
   }
 
   ngOnInit() {
@@ -116,46 +116,72 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
 
   applyDisplayProps() {
-    this.disableFields( this.disabled );
-    this.hideFields( this.hidden );
+    this.disableFields(this.disabled);
+    this.hideFields(this.hidden);
   }
 
-  disableFields( disableFlag ) {
+  disableFields(disableFlag) {
     const fieldComponents = this.components;
-    for( let keyRef in fieldComponents ) {
-      const componentInstance = fieldComponents[ keyRef ].instance;
+    for (let keyRef in fieldComponents) {
+      const componentInstance = fieldComponents[keyRef].instance;
       componentInstance.formDisabled = disableFlag;
     }
   }
 
-  hideFields( hiddenFlag ) {
+  hideFields(hiddenFlag) {
     const fieldComponents = this.components;
-    for( let keyRef in fieldComponents ) {
-      const componentInstance = fieldComponents[ keyRef ].instance;
+    for (let keyRef in fieldComponents) {
+      const componentInstance = fieldComponents[keyRef].instance;
       componentInstance.formHidden = hiddenFlag;
     }
   }
 
   initFormJsonHelp() {
     this.formJsonHelp = {
-      'simple': {
-        'show': false,
-        'when': 'number',
-        'eq': 15
-      },
-      'advanced': ['var show; return show = controls.number.value == 150 ? true : false;', 'var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
-      "json": {
-        "condition": {
-          "and": [
-            { "===": [{ "var": "username.value" }, 'apple'] },
-            { "===": [{ "var": "number.value" }, 15] }
-          ]
+      show: {
+        'simple': {
+          "show": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
         },
-        "condition1": {
-          "and": [
-            { "===": [{ "var": "someControl.value" }, 'someValue'] },
-            { "===": [{ "var": "someOtherControl.value" }, 'value'] }
-          ]
+        'advanced': ['var show; return show = controls.number.value == 150 ? true : false;', 'var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
+        "json": {
+          "condition": {
+            "and": [
+              { "===": [{ "var": "username.value" }, 'apple'] },
+              { "===": [{ "var": "number.value" }, 15] }
+            ]
+          },
+          "condition1": {
+            "and": [
+              { "===": [{ "var": "someControl.value" }, 'someValue'] },
+              { "===": [{ "var": "someOtherControl.value" }, 'value'] }
+            ]
+          }
+        }
+      },
+      disable: {
+        'simple': {
+          "disable": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
+        },
+        'advanced': ['var show; return show = controls.number.value == 150 ? true : false;', 'var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
+        "json": {
+          "condition": {
+            "and": [
+              { "===": [{ "var": "username.value" }, 'apple'] },
+              { "===": [{ "var": "number.value" }, 15] }
+            ]
+          },
+          "condition1": {
+            "and": [
+              { "===": [{ "var": "someControl.value" }, 'someValue'] },
+              { "===": [{ "var": "someOtherControl.value" }, 'value'] }
+            ]
+          }
         }
       }
     };
@@ -166,7 +192,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     const children = target.children;
     console.log(value);
     if (sibling === null) {
-      return children.length - 1 ;
+      return children.length - 1;
     } else {
       return Array.prototype.indexOf.call(children, sibling) - 1;
     }
@@ -196,12 +222,12 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     const key = this.generateNewKey();
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentObj.component);
     this.masterFormService.setCurrentKey(key);
-    let  viewContainerRef;
+    let viewContainerRef;
     const targetClassesArr = target.className.trim().split(" ");
-    if ( _.includes(targetClassesArr, 'FSTdropZone')) {
+    if (_.includes(targetClassesArr, 'FSTdropZone')) {
       viewContainerRef = this.fieldControlService.getFstCollection(target.id);
       console.log('..................');
-    } else if (_.includes(targetClassesArr, 'buttonDropZone')){
+    } else if (_.includes(targetClassesArr, 'buttonDropZone')) {
       viewContainerRef = this.buttonHost;
     } else {
       viewContainerRef = this.host;
@@ -217,39 +243,39 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     //console.log(this.formJsonService.getMasterJSON());
   }
 
-   createComponentsFromJSON(componentProps) {
-     return new Promise((res,rej) => {
-      const copy = _.assign({}, componentProps); 
+  createComponentsFromJSON(componentProps) {
+    return new Promise((res, rej) => {
+      const copy = _.assign({}, componentProps);
       const key = componentProps.key;
-    this.masterFormService.setCurrentKey(key);
-    const parentID = componentProps.parent;
-    let viewContainerRef;
-    if (parentID === 'root_drop') {
-      viewContainerRef = this.host;
-    } else if (parentID === 'button_drop') {
-      viewContainerRef = this.buttonHost;
-    } else {
-      viewContainerRef = this.fieldControlService.getFstCollection(parentID);
-    }
-    const component = this.formBuilderService.getComponent(componentProps.componentName).component;
-    
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    componentRef.instance.properties = copy;
-    this.fieldControlService.setFieldRef(componentRef, this, {component});
-    this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order, false);
-    const target: any = document.querySelector(`#${componentProps.parent}`);
-    console.log('target', target);
-    target.children[componentProps.order].generatedKey = key;
-    target.children[componentProps.order].parentComponent = target.id;
-    setTimeout(() => {
-      res();
-    }, 10);
-     });
+      this.masterFormService.setCurrentKey(key);
+      const parentID = componentProps.parent;
+      let viewContainerRef;
+      if (parentID === 'root_drop') {
+        viewContainerRef = this.host;
+      } else if (parentID === 'button_drop') {
+        viewContainerRef = this.buttonHost;
+      } else {
+        viewContainerRef = this.fieldControlService.getFstCollection(parentID);
+      }
+      const component = this.formBuilderService.getComponent(componentProps.componentName).component;
+
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+
+      const componentRef = viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.properties = copy;
+      this.fieldControlService.setFieldRef(componentRef, this, { component });
+      this.formJsonService.addComponentToMasterJSON(key, componentRef, componentProps.parent, componentProps.order, false);
+      const target: any = document.querySelector(`#${componentProps.parent}`);
+      console.log('target', target);
+      target.children[componentProps.order].generatedKey = key;
+      target.children[componentProps.order].parentComponent = target.id;
+      setTimeout(() => {
+        res();
+      }, 10);
+    });
   }
 
- async populateFormBuilder(components) {
+  async populateFormBuilder(components) {
     for (let i = 0; i < components.length; i++) {
       if (components[i].components === undefined) {
         await this.createComponentsFromJSON(components[i]);
@@ -267,7 +293,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     //   this.populateFormBuilder(components[i].components, 0 );
     // }
 
-   // this.formJsonService.buildFinalJSON();
+    // this.formJsonService.buildFinalJSON();
     return;
   }
 
@@ -280,7 +306,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     this.host.clear();
     this.buttonHost.clear();
 
-    const json =  {
+    const json = {
       "id": "",
       "code": "",
       "formLabel": "",
@@ -473,51 +499,51 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     return this.formJson.components;
   }
 
-  set id( id ) {
+  set id(id) {
     this.formJson.id = id;
   }
 
-  set code( code ) {
+  set code(code) {
     this.formJson.code = code;
   }
 
-  set formLabel( formLabel ) {
+  set formLabel(formLabel) {
     this.formJson.formLabel = formLabel;
   }
 
-  set name( name ) {
+  set name(name) {
     this.formJson.name = name;
   }
 
-  set display( display ) {
+  set display(display) {
     this.formJson.display = display;
   }
 
-  set disabled( disabled ) {
+  set disabled(disabled) {
     this.formJson.disabled = disabled;
   }
 
-  set hidden( hidden ) {
+  set hidden(hidden) {
     this.formJson.hidden = hidden;
   }
 
-  set conditionalHidden( conditionalHidden ) {
+  set conditionalHidden(conditionalHidden) {
     this.formJson.conditionalHidden = conditionalHidden;
   }
 
-  set conditionalDisabled( conditionalDisabled ) {
+  set conditionalDisabled(conditionalDisabled) {
     this.formJson.conditionalDisabled = conditionalDisabled;
   }
 
-  set active( active ) {
+  set active(active) {
     this.formJson.active = active;
   }
 
-  set help( help ) {
+  set help(help) {
     this.formJson.help = help;
   }
 
-  set components( components ) {
+  set components(components) {
     this.formJson.components = components;
   }
 }

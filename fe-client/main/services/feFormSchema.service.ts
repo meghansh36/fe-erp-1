@@ -1,72 +1,40 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class FeFormSchemaService {
 
-  constructor() { }
-  private _schema =   {
-    "id": "",
-    "code": "",
-    "formLabel": "",
-    "name": "",
-    "display": "",
-    "disabled": false,
-    "hidden": false,
-    "conditionalHidden": "",
-    "conditionalDisabled": "",
-    "active": true,
-    "help": "",
-    "components": [
-      {
-        "type": "TXT",
-        "label": "ASDA",
-        "hideLabel": false,
-        "labelPosition": "top",
-        "marginTop": "",
-        "marginRight": "",
-        "marginLeft": "",
-        "marginBottom": "",
-        "defaultValueType": "string",
-        "defaultValueSqlQuery": "",
-        "defaultValueString": "",
-        "lovType": "none",
-        "lovSqlQuery": "",
-        "lovJson": "",
-        "nonPersistent": true,
-        "dbColumn": "sdfsd",
-        "hidden": false,
-        "clearWhenHidden": true,
-        "disabled": false,
-        "flexiLabel": "asfasd",
-        "prefix": "",
-        "suffix": "",
-        "validations": [
-          "number+",
-          "number-",
-          "alphabet"
+  private _schema = {
+    FRM0000001: {
+      "id": "FRM0000001",
+      "code": "FRM0000001",
+      "formLabel": "Form Label Would be here.",
+      "name": "sfsadfasdf",
+      "type": "conventional",
+      "disabled": false,
+      "hidden": false,
+      "showCondition": {
+        "simple": {
+          "show": false,
+          "when": "text-field-grh",
+          "value": 'rathor',
+          "operator": '=='
+        }/* ,
+        "advanced": [
+          "var show; return show = controls.number2.value == 100 ? true : false;",
+          "var show1; return show1 = controls.nuumber3.value == 200 ? true : false;"
         ],
-        "customFuncValidationVal": {
-          "yearlimit": {
-            "validatorFn": " if (control.value !== undefined && (isNaN(control.value.year) || control.value.year < 2010)) { return { 'yearlimit': true }; } return null; ",
-            "message": "Year should be greater than 2010"
-          },
-          "agelimit": {
-            "validatorFn": "if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; ",
-            "message": "Age should be greater than 50"
-          }
-        },
-        "jsonLogicVal": {
-          "condition1": {
+        "json": {
+          "showCondition": {
             "and": [
               {
                 "===": [
                   {
                     "var": "username.value"
                   },
-                  "cool"
+                  "harishrathor"
                 ]
               },
               {
@@ -74,290 +42,750 @@ export class FeFormSchemaService {
                   {
                     "var": "number.value"
                   },
-                  155
+                  169
                 ]
               }
             ]
           },
-          "condition2": {
+          "condition1": {
             "and": [
               {
                 "===": [
                   {
-                    "var": "someFieldControl.value"
+                    "var": "first_name.value"
                   },
-                  "value"
+                  "harish"
                 ]
               },
               {
                 "===": [
                   {
-                    "var": "someOtherFieldControl.value"
+                    "var": "username.value"
                   },
-                  155
+                  "harishrathor"
                 ]
               }
             ]
           }
-        },
-        "formClassValidationVal": {
-          "customPattern": {
-            "message": "Custom pattern is not correct.",
-            "validatorFuncName": "asyncCustomPatternValidator"
-          },
-          "someOtherValidationName": {
-            "message": "Error Message",
-            "validatorFuncName": "formClassFunctionName"
-          }
-        },
-        "minimumLength": 10,
-        "maximumLength": 100,
-        "events": {
-          "change": {
-            "handlerOwner": "form",
-            "handlerName": "",
-            "args": "'arg one','arg2' ,'arg 3'"
-          },
-          "focus": {
-            "handlerOwner": "resource",
-            "handlerName": "onUserNameFocus",
-            "args": "'arg one','arg2' ,'arg 3'"
-          }
-        },
-        "condition": {
-          "simple": {
-            "show": false,
-            "when": "number",
-            "eq": 15
-          },
-          "advanced": [
-            "var show; return show = controls.number.value == 150 ? true : false;",
-            "var show1; return show1 = controls.otherControl.value == 150 ? true : false;"
-          ],
-          "json": {
-            "condition": {
-              "and": [
-                {
-                  "===": [
-                    {
-                      "var": "username.value"
-                    },
-                    "apple"
-                  ]
-                },
-                {
-                  "===": [
-                    {
-                      "var": "number.value"
-                    },
-                    15
-                  ]
-                }
-              ]
-            },
-            "condition1": {
-              "and": [
-                {
-                  "===": [
-                    {
-                      "var": "someControl.value"
-                    },
-                    "someValue"
-                  ]
-                },
-                {
-                  "===": [
-                    {
-                      "var": "someOtherControl.value"
-                    },
-                    "value"
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "fldDisabledCondition": {
-          "simple": {
-            "show": false,
-            "when": "number",
-            "eq": 15
-          },
-          "advanced": [
-            "var disable; return disable = controls.number.value == 150 ? true : false;",
-            "var disable; return disable = controls.otherControl.value == 150 ? true : false;"
-          ],
-          "json": {
-            "condition": {
-              "and": [
-                {
-                  "===": [
-                    {
-                      "var": "username.value"
-                    },
-                    "apple"
-                  ]
-                },
-                {
-                  "===": [
-                    {
-                      "var": "number.value"
-                    },
-                    15
-                  ]
-                }
-              ]
-            },
-            "condition1": {
-              "and": [
-                {
-                  "===": [
-                    {
-                      "var": "someControl.value"
-                    },
-                    "someValue"
-                  ]
-                },
-                {
-                  "===": [
-                    {
-                      "var": "someOtherControl.value"
-                    },
-                    "value"
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "active": true,
-        "required": true,
-        "labelWidth": "",
-        "labelMargin": "",
-        "width": "",
-        "mask": [],
-        "description": "",
-        "icon": "",
-        "key": "_n2866fr2s",
-        "order": 0,
-        "parent": "root_drop",
-        "componentName": "TxtComponent"
+        } */
       },
-      {
-        "type": "FST",
-        "label": "Fieldset",
-        "description": "",
-        "hideLabel": false,
-        "labelPosition": "top",
-        "flexiLabel": "",
-        "active": true,
-        "components": [
-          {
-            "useDelimeter": true,
-            "requiredDecimal": true,
-            "type": "NUM",
-            "hideLabel": false,
-            "labelPosition": "top",
-            "marginTop": "",
-            "marginRight": "",
-            "marginLeft": "",
-            "marginBottom": "",
-            "defaultValueType": "none",
-            "defaultValueSqlQuery": "",
-            "defaultValueString": "",
-            "lovType": "none",
-            "lovSqlQuery": "",
-            "lovJson": "",
-            "nonPersistent": false,
-            "hidden": false,
-            "clearWhenHidden": false,
-            "disabled": false,
-            "prefix": "",
-            "suffix": "",
-            "validations": "",
-            "customFuncValidationVal": "",
-            "jsonLogicVal": "",
-            "formClassValidationVal": "",
-            "events": "",
-            "condition": "",
-            "fldDisabledCondition": "",
-            "active": true,
-            "required": false,
-            "labelWidth": "",
-            "labelMargin": "",
-            "width": "",
-            "mask": [],
-            "description": "",
-            "icon": "",
-            "key": "_qet75ghtz",
-            "order": 0,
-            "parent": "_zqtspco63",
-            "componentName": "NumComponent"
+      "disableCondition": {
+        "simple": {
+          "disable": true,
+          "when": "text-field-grh",
+          "value": 'harish',
+          "operator": '=='
+        }
+      },
+      "active": true,
+      "help": "<ul><li>Help 1</li><li>Help 2</li></ul>",
+      "components": [
+        {
+          "type": "TXT",
+          "label": "Text FieldLabel",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "tooltip": "This is tooltip",
+          "marginTop": "10px",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValue": "This is default value",
+          "nonPersistent": true,
+          "dbColumn": "Db -field",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "text-field-grh",
+          "prefix": "@",
+          "suffix": "",
+          "appliedValidations": [
+            "required"
+          ],
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "minimumLength": 10,
+          "maximumLength": 24,
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": true,
+          "labelWidth": "",
+          "labelMargin": "10px",
+          "width": "",
+          "mask": [],
+          "description": "This is description of the field",
+          "icon": "",
+          "key": "_4lv8at4iu",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "TxtComponent"
+        },
+        {
+          "type": "TXT",
+          "label": "First Name",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          description: `We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else.`,
+          "defaultValue": "Default value",
+          /* "defaultValueType": "none",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "", */
+          appliedValidations: ['required'],
+          validations: {},
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": false,
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "first_name",
+          "prefix": "",
+          "suffix": "",
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": true,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "50%",
+          "mask": ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+          "icon": "",
+          "key": "_xhawl6mlx",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "TxtComponent"
+        },
+        {
+          "type": "TXT",
+          "label": "User Name",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          description: `We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else.`,
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          validations: {},
+          "defaultValueType": "none",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": false,
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          appliedValidations: ['required', 'email', 'commaseparatedemail'],
+          "flexiLabel": "username123",
+          "prefix": "",
+          "suffix": "",
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": true,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "50%",
+          "mask": [],
+          "icon": "",
+          "key": "_xhawl6mlx",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "TxtComponent"
+        },
+        {
+          "type": "DAT",
+          "label": "Date",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "none",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": false,
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          appliedValidations: ['required'],
+          "flexiLabel": "dob",
+          "prefix": "",
+          "suffix": "",
+          description: `We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else. We'll never share your email with anyone else.`,
+          "validations": {},
+          minimumDate: '01-Jan-2012',
+          maximumDate: '01-Jan-2024',
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": true,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "icon": "",
+          "key": "_xhawl6mlx",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "TxtComponent"
+        },
+        {
+          "type": "TXT",
+          "label": "Last Name",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          appliedValidations: ['required', 'email', 'commaseparatedemail'],
+          "defaultValueType": "string",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "fasdfsdfsfsdf",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": true,
+          "dbColumn": "fsdfsdf",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "last_name",
+          "prefix": "",
+          "suffix": "",
+          "validations": {
+
+            minLength: {
+              'value': 8,
+              'message': 'Minimum length should be XXLENGTHXX'
+            },
+            maxLength: {
+              'value': 19,
+              'message': 'Minimum length should be XXLENGTHXX'
+            }
           },
-          {
-            "type": "FST",
-            "label": "Fieldset",
-            "description": "",
-            "hideLabel": false,
-            "labelPosition": "top",
-            "flexiLabel": "",
-            "active": true,
-            "components": [
-              {
-                "type": "SEL",
-                "hideLabel": false,
-                "labelPosition": "top",
-                "marginTop": "",
-                "marginRight": "",
-                "marginLeft": "",
-                "marginBottom": "",
-                "defaultValueType": "none",
-                "defaultValueSqlQuery": "",
-                "defaultValueString": "",
-                "lovType": "none",
-                "lovSqlQuery": "",
-                "lovJson": "",
-                "nonPersistent": false,
-                "hidden": false,
-                "clearWhenHidden": false,
-                "disabled": false,
-                "prefix": "",
-                "suffix": "",
-                "validations": "",
-                "customFuncValidationVal": "",
-                "jsonLogicVal": "",
-                "formClassValidationVal": "",
-                "events": "",
-                "condition": "",
-                "fldDisabledCondition": "",
-                "active": true,
-                "required": false,
-                "labelWidth": "",
-                "labelMargin": "",
-                "width": "",
-                "mask": [],
-                "description": "",
-                "icon": "",
-                "key": "_13ej2wqp3",
-                "order": 0,
-                "parent": "_40i0w9o1f",
-                "componentName": "SelComponent"
-              }
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": {//{valName:'Message'}
+            customPattern: {
+              message: 'Custom pattern is not correct.',
+              validatorFuncName: 'asyncCustomPatternValidator'
+            }
+          },
+          "events": {
+            "change": {
+              "handlerOwner": "form",
+              "handlerName": "onUserNameChanged",
+              "args": "'arg one','arg2' ,'arg 3'"
+            },
+            "focus": {
+              "handlerOwner": "resource",
+              "handlerName": "onUserNameFocus",
+              "args": "'arg one','arg2' ,'arg 3'"
+            }
+          },
+          "showCondition": "", /* {
+            "simple": {
+              "show": false,
+              "when": "number1",
+              "value": 15,
+              "operator": '<='
+            },
+            "advanced": [
+              "var show; return show = controls.number2.value == 100 ? true : false;",
+              "var show1; return show1 = controls.nuumber3.value == 200 ? true : false;"
             ],
-            "key": "_40i0w9o1f",
-            "order": 1,
-            "parent": "_zqtspco63",
-            "componentName": "FstComponent"
+            "json": {
+              "showCondition": {
+                "and": [
+                  {
+                    "===": [
+                      {
+                        "var": "username.value"
+                      },
+                      "harishrathor"
+                    ]
+                  },
+                  {
+                    "===": [
+                      {
+                        "var": "number.value"
+                      },
+                      169
+                    ]
+                  }
+                ]
+              },
+              "condition1": {
+                "and": [
+                  {
+                    "===": [
+                      {
+                        "var": "first_name.value"
+                      },
+                      "harish"
+                    ]
+                  },
+                  {
+                    "===": [
+                      {
+                        "var": "username.value"
+                      },
+                      "harishrathor"
+                    ]
+                  }
+                ]
+              }
+            }
+          } ,*/
+          "disableCondition": ''/* {
+            "simple": {
+              "disable": true,
+              "when": "number1",
+              "value": 15,
+              "operator": '<='
+            },
+            "advanced": [
+              "var show; return show = controls.number2.value == 100 ? true : false;",
+              "var show1; return show1 = controls.nuumber3.value == 200 ? true : false;"
+            ],
+            "json": {
+              "showCondition": {
+                "and": [
+                  {
+                    "===": [
+                      {
+                        "var": "username.value"
+                      },
+                      "harishrathor"
+                    ]
+                  },
+                  {
+                    "===": [
+                      {
+                        "var": "number.value"
+                      },
+                      169
+                    ]
+                  }
+                ]
+              },
+              "condition1": {
+                "and": [
+                  {
+                    "===": [
+                      {
+                        "var": "first_name.value"
+                      },
+                      "harish"
+                    ]
+                  },
+                  {
+                    "===": [
+                      {
+                        "var": "username.value"
+                      },
+                      "harishrathor"
+                    ]
+                  }
+                ]
+              }
+            }
+          } */,
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "50%",
+          "mask": [],
+          "icon": "",
+          "key": "_9hj8j94zh",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "TxtComponent"
+        },
+        {
+          "minimumValue": 100,
+          "maximumValue": 200,
+          "useDelimeter": true,
+          "requiredDecimal": true,
+          "type": "NUM",
+          "label": "Number field",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "string",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "123",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": true,
+          "dbColumn": "adas",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "number123",
+          "prefix": "",
+          "suffix": "",
+          "appliedValidations": ['number_positive', 'required'],
+          "validations": {},
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "50%",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "key": "_rl3o427ke",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "NumComponent"
+        },
+        {
+          "minimumValue": 100,
+          "maximumValue": 200,
+          "useDelimeter": true,
+          "requiredDecimal": true,
+          "type": "NUM",
+          "label": "Number 1",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          /* "defaultValueType": "string",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "123", */
+          "defaultValue": '',
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": true,
+          "dbColumn": "adas",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "number1",
+          "prefix": "",
+          "suffix": "",
+          "validations": {},
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          appliedValidations: ['required'],
+          "description": "",
+          "icon": "",
+          "key": "_rl3o427ke",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "NumComponent"
+        },
+        {
+          "minimumValue": 100,
+          "maximumValue": 200,
+          "useDelimeter": true,
+          "requiredDecimal": true,
+          "type": "NUM",
+          "label": "Number 2",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          /* "defaultValueType": "string",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "123", */
+          "defaultValue": '',
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": true,
+          "dbColumn": "adas",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "number2",
+          "prefix": "",
+          "suffix": "",
+          "validations": {},
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "key": "_rl3o427ke",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "NumComponent"
+        },
+        {
+          "minimumValue": 100,
+          "maximumValue": 200,
+          "useDelimeter": true,
+          "requiredDecimal": true,
+          "type": "NUM",
+          "label": "Number 3",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "string",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "123",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": true,
+          "dbColumn": "adas",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "number3",
+          "prefix": "",
+          "suffix": "",
+          "validations": {},
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "key": "_rl3o427ke",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "NumComponent"
+        },
+        {
+          "type": "EML",
+          "label": "Single Email",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "string",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "123",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": true,
+          "dbColumn": "adas",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "email",
+          "prefix": "",
+          "suffix": "",
+          appliedValidations: ['email'],
+          "validations": {},
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "key": "_rl3o427ke",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "NumComponent"
+        },
+        {
+          "type": "EML",
+          "label": "Multiple Email",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "string",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "123",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": true,
+          "dbColumn": "adas",
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "commaseperatedemail",
+          "prefix": "",
+          "suffix": "",
+          appliedValidations: ['commaseperatedemail'],
+          "validations": {},
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "key": "_rl3o427ke",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "NumComponent"
+        }
+      ],
+      "buttons": [
+        {
+          "theme": "primary",
+          "size": "large",
+          "btnLeftIcon": "",
+          "btnRightIcon": "",
+          "type": "BTN",
+          "label": "adad",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "none",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": false,
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": true,
+          "flexiLabel": "dasdasd",
+          "prefix": "",
+          "suffix": "",
+          "validations": "",
+          "customFuncValidation": {},
+          events: {
+            click: {
+              handlerOwner: 'form',
+              handlerName: 'submitForm',
+              args: "'change event','My' ,'Name  ',   'Is','Khan'"
+            }
+          },
+          "formClassValidation": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "key": "_id7kyj8mv",
+          "order": 0,
+          "parent": "button_drop",
+          "componentName": "BtnComponent"
+        },
+        {
+          id: 'BTN00001',
+          label: 'Submit',
+          icon: 'md-save',
+          events: {
+            click: {
+              handlerOwner: 'form',
+              handlerName: 'submitForm',
+              args: "'change event','My' ,'Name  ',   'Is','Khan'"
+            }
           }
-        ],
-        "key": "_zqtspco63",
-        "order": 1,
-        "parent": "root_drop",
-        "componentName": "FstComponent"
-      }
-    ],
-    "buttons": []
-  };
+        },
+        {
+          id: 'BTN00002',
+          label: 'Hover',
+          icon: 'md-save',
+          events: '',
+          submit: true
+        }
+      ]
+    }
+  }
+    ;
 
   private _schema1 = {
     id: 'FRM000001',
@@ -417,6 +845,7 @@ export class FeFormSchemaService {
         customCssClass: 'custom-css-class1',
         label: 'Username',
         disabled: false,
+        appliedValidations: ['alphabet'],
         prefix: '@',
         defaultValue: 'harish.rathor',
         hidden: false,
@@ -470,6 +899,50 @@ export class FeFormSchemaService {
 
         //formcontrol: 'password-form',
         type: 'TXT',
+        label: 'EMAIL',
+        prefix: '#',
+        suffix: '&',
+        defaultValue: 'harishrathor',
+        customCssClass: 'custom-css-class2',
+        labelWidth: 0,
+        labelPosition: 'top',
+        labelMargin: 0,
+        appliedValidations: ['alphanumeric'],
+        description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
+        width: '50%',
+        placeholder: 'Enter your Password',
+        events: {
+          input: {
+            //event:'input',
+            handlerOwner: 'form',
+            handlerName: 'onPassWordInput',
+            args: "'input','Harish','  Rathor'"
+          },
+          blur: {
+            //event:'blur',
+            handlerOwner: 'resource',
+            handlerName: 'onPassWordBlur',
+            args: "'blur','event', 'Harish'   , 'Rathor'"
+          }
+        },
+        validations: {
+          required: {
+            'value': true,
+            'message': 'This Field is required'
+          },
+          pattern: {
+            'value': '^[a-z0-9_-]{8,15}$',
+            'message': 'The Pattern is not correct'
+          }
+        }
+      },
+      {
+        code: 'FLD000002',
+        flexiLabel: 'password',
+        id: 'FRM000001-FLD000002',
+
+        //formcontrol: 'password-form',
+        type: 'TXT',
         label: 'Password',
         prefix: '#',
         suffix: '&',
@@ -478,7 +951,7 @@ export class FeFormSchemaService {
         labelWidth: 0,
         labelPosition: 'top',
         labelMargin: 0,
-
+        appliedValidations: ['alphanumeric'],
         description: 'This is a dummy field. Field description would be here.asdfasdfsadfsdfsdfsfsfsf',
         width: '50%',
         placeholder: 'Enter your Password',
@@ -536,24 +1009,24 @@ export class FeFormSchemaService {
             message: 'Please give comma separated emails.'
           }
         },
-       /*  customValidations: {
-          commaseperatedemail: {
-            name: 'commaseperatedemail',
-            validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null {
-              let regExp = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4})(,[\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}){0,4}$/;
-              if (control.value !== undefined) {
-                if (regExp.test(control.value)) {
-                  return null;
-                }
-                else {
-                  return { 'commaseperatedemail': true };
-                }
-              }
-            },
-            message: 'Email should be correct'
-          }
-        }*/
-      }, 
+        /*  customValidations: {
+           commaseperatedemail: {
+             name: 'commaseperatedemail',
+             validatorFn: function (control: AbstractControl): { [key: string]: boolean } | null {
+               let regExp = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4})(,[\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}){0,4}$/;
+               if (control.value !== undefined) {
+                 if (regExp.test(control.value)) {
+                   return null;
+                 }
+                 else {
+                   return { 'commaseperatedemail': true };
+                 }
+               }
+             },
+             message: 'Email should be correct'
+           }
+         }*/
+      },
       {
         type: 'NUM',
         code: 'FLD000009',
@@ -574,7 +1047,7 @@ export class FeFormSchemaService {
         },
         customValidations: {
           agelimit: {
-            validatorFn:`if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; `,
+            validatorFn: `if (control.value !== undefined && (isNaN(control.value) || control.value < 50)) { return { 'agelimit': true }; } return null; `,
             message: 'Age should be greater than 50'
           }
         },
@@ -612,7 +1085,7 @@ export class FeFormSchemaService {
           },
           'advanced': 'var show; return show = controls.number.value == 150 ? true : false;',
           "json": {
-            "condition": {
+            "showCondition": {
               "and": [
                 { "===": [{ "var": "username.value" }, 'apple'] },
                 { "===": [{ "var": "number.value" }, 15] }
@@ -892,8 +1365,8 @@ export class FeFormSchemaService {
             width: '100%',
             placeholder: 'Enter your Username',
             formClassValidations: {
-              customPattern: { 
-                message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator' 
+              customPattern: {
+                message: 'Custom pattern is not correct.', validatorFuncName: 'asyncCustomPatternValidator'
               }
             },
             events: {
@@ -1461,7 +1934,7 @@ export class FeFormSchemaService {
         type: 'EDT',
         code: 'FLD000016',
         flexiLabel: 'editor',
-        id: 'FRM000001-FRM000016',
+        id: 'FRM000001-FRM00000016',
 
         //formcontrol: 'description-form',
         label: 'Html Description',
@@ -1493,7 +1966,28 @@ export class FeFormSchemaService {
     ]
   };
 
-  getFormSchema = function (code: String) {
-    return this._schema;
+  addProps(components, code) {
+    if (components.length !== 0) {
+      for (let i in components) {
+        const field = components[i];
+        const index: string = i.toString();
+        const fieldCode = `${field.type}000${index}`;
+        const fieldId = code + "_" + fieldCode;
+        field.code = fieldCode;
+        field.id = fieldId;
+        if (field.type === 'FST') {
+          this.addProps(field.components, code);
+        }
+      }
+    }
+  };
+
+
+  getFormSchema(code) {
+    let form = this._schema[code];
+    console.log("Form", form);
+    this.addProps(form.components, code);
+    this.addProps(form.buttons, code);
+    return form;
   };
 }

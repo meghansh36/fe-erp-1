@@ -1,5 +1,7 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+import { UtilityService } from '@L3Process/system/services/Utility.service';
 
 import { ButtonComponent } from '@L3Process/system/modules/formGenerator/components/Button/Button.component';
 import { TextComponent } from '@L3Process/system/modules/formGenerator/components/Text/Text.component';
@@ -20,7 +22,7 @@ import { HiddenComponent } from '@L3Process/system/modules/formGenerator/compone
 import { BlankComponent } from '@L3Process/system/modules/formGenerator/components/Blank/Blank.component';
 import { HtmlEditorComponent } from '@L3Process/system/modules/formGenerator/components/HtmlEditor/HtmlEditor.component';
 import { IconicButtonComponent } from '@L3Process/system/modules/formGenerator/components/IconicButton/IconicButton.component';
-
+import { PasswordComponent } from '@L3Process/system/modules/formGenerator/components/Password/Password.component';
 import { Field } from '@L1Process/system/modules/formGenerator/models/field.interface';
 import { FieldConfig } from '@L1Process/system/modules/formGenerator/models/field-config.interface';
 
@@ -43,60 +45,104 @@ const components: { [type: string]: Type<Field> } = {
   BLK: BlankComponent,
   HID: HiddenComponent,
   ICB: IconicButtonComponent,
-  EDT: HtmlEditorComponent
+  EDT: HtmlEditorComponent,
+  PWD: PasswordComponent
 };
 
 @Directive({
   selector: '[feField]'
 })
 export class FeFieldDirective implements Field, OnChanges, OnInit {
-  @Input()
-  config: FieldConfig;
 
   @Input()
-  schema: any;
+  config?: FieldConfig;
 
   @Input()
-  group: FormGroup;
+  schema?: any;
 
   @Input()
-  form: any;
+  group?: FormGroup;
 
   @Input()
-  formComponent: any;
+  form?: any;
+
+  @Input()
+  formComponent?: any;
 
   component: ComponentRef<Field>;
 
   constructor(
-    private resolver: ComponentFactoryResolver,
-    private container: ViewContainerRef
+    protected _resolver: ComponentFactoryResolver,
+    protected _container: ViewContainerRef,
+    protected _utility: UtilityService,
+    protected _fb: FormBuilder
   ) { }
 
+  protected _beforeNgOnChanges() {
+
+  }
+
+  protected _afterNgOnChanges() {
+
+  }
+
   ngOnChanges() {
+    this._beforeNgOnChanges();
     if (this.component) {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
       this.component.instance.form = this.form;
       this.component.instance.formComponent = this.formComponent;
     }
+    this._afterNgOnChanges();
+  }
+
+  protected _beforeNgOnInit() {
+
+  }
+
+  protected _afterNgOnInit() {
+
   }
 
   ngOnInit() {
+    this._beforeNgOnInit();
+    this._createFieldComponent();
+    this._afterNgOnInit();
+  }
+
+  protected _beforeCreateField() {
+    if (!this.group) {
+      this.group = this._utility.createFormGroup(this._fb, this.config);
+    }
+  }
+
+  protected _createFieldComponent() {
+    
+    this._beforeCreateField();
+    
     if (!components[this.config.type]) {
       const supportedTypes = Object.keys(components).join(', ');
-      throw new Error(
+      console.log(
         `Trying to use an unsupported type (${this.config.type}).
         Supported types: ${supportedTypes}`
       );
+      return;
     }
 
-    const component = this.resolver.resolveComponentFactory<Field>(components[this.config.type]);
-    this.component = this.container.createComponent(component);
+    const component = this._resolver.resolveComponentFactory<Field>(components[this.config.type]);
+    this.component = this._container.createComponent(component);
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
     this.component.instance.form = this.form;
     this.component.instance.formComponent = this.formComponent;
-    this.form.formComponent = this.formComponent;
-    this.formComponent.componentInstances[ this.config.flexiLabel ] = this.component.instance;
+    if (this.form) {
+      this.form.formComponent = this.formComponent;
+    }
+
+    if (this.formComponent) {
+      this.formComponent.componentInstances[this.config.flexiLabel] = this.component.instance;
+    }
+
   }
 }

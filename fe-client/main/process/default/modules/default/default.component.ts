@@ -11,6 +11,7 @@ export class FeDefaultComponent {
 
   constructor() {
     this.instance = this;
+    (<any>window).curResObj = this;
   }
 
   onUserNameFocus(...args) {

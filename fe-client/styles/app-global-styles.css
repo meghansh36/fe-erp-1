@@ -66,6 +66,10 @@
     display: block;
 }
 
+.space-around {
+    justify-content: space-around;
+}
+
 .field-label-right .field-label {
     float: right;
 }

@@ -1,42 +1,60 @@
 import { Injectable } from '@angular/core';
 
+
+
 @Injectable()
 export class FeDefaultsService {
-  
-    protected _buttonTheme: string  = 'secondary';
+
+    protected _buttonTheme: string = 'secondary';
     protected _fieldWidth: string = '100%';
     protected _labelPosition: string = 'top';
     protected _buttonSize: string = 'small';
+    protected _decimalLimit: number = 5;
+    protected _integerLimit : number = 10;
+    protected _calendarMinDate: string = '01-Jan-2009';
+    protected _calendarMaxDate: string = '31-Dec-2025';
+
+
+    public  PATTERN = {
+        'number_positive': /^\d*[1-9]\d*$/,
+        'number_negative': /^-?\d{2}(\.\d+)?$/,
+        'alphanumeric': /^[a-z0-9]+$/i,
+        'alphabet': /^[a-zA-Z]*$/
+    };
+   
     protected _validations: any[] = [
-		// {
-		// 	id: 'required',
-		// 	text: 'Required'
-		// },
-		{
-			id: 'number+',
-			text: 'Number Positive'
-		},
-		{
-			id: 'number-',
-			text: 'Number Negative'
-		},
-		{
-			id: 'email',
-			text: 'Email'
-		},
-		{
-			id: 'commaseperatedemail',
-			text: 'Multiple Email'
-		},
-		{
-			id: 'alphabet',
-			text: 'Alphabet'
-		},
-		{
-			id: 'alphanum',
-			text: 'Alphanumeric'
-		}
-	];
+        {
+            id: 'required',
+            text: 'Required'
+        },
+        {
+            id: 'number+',
+            text: 'Number Positive'
+        },
+        {
+            id: 'number-',
+            text: 'Number Negative'
+        },
+        {
+            id: 'email',
+            text: 'Email'
+        },
+        {
+            id: 'commaseperatedemail',
+            text: 'Multiple Email'
+        },
+        {
+            id: 'alphabet',
+            text: 'Alphabet'
+        },
+        {
+            id: 'alphanum',
+            text: 'Alphanumeric'
+        }
+    ];
+
+    
+
     protected _buttonThemeClasses = {
         "primary": "btn btn-primary",
         "secondary": "btn btn-secondary",
@@ -62,13 +80,14 @@ export class FeDefaultsService {
         "primary btn-lg btn-block": "btn btn-primary btn-lg btn-block",
         "secondary btn-lg btn-block": "btn btn-secondary btn-lg btn-block",
         "lg btn-primary": "btn btn-lg btn-primary"
-      };
-      
-      protected _buttonSizeClasses = {
+    };
+
+    protected _buttonSizeClasses = {
         'large': 'btn-lg',
         'small': 'btn-sm',
         'medium': 'btn-md'
-      };
+    };
+
 
     get BUTTON_THEME() {
         return this._buttonTheme;
@@ -87,15 +106,32 @@ export class FeDefaultsService {
     }
 
     get BUTTON_SIZES() {
-        return this._buttonSizeClasses; 
+        return this._buttonSizeClasses;
     }
 
     get BUTTON_SIZE() {
-        return this._buttonSize; 
+        return this._buttonSize;
     }
 
     get VALIDATIONS() {
         return this._validations;
     }
+
+    get DECIMAL_LIMIT() {
+        return this._decimalLimit;
+    }
+
+    get INTEGER_LIMIT() {
+        return this._integerLimit;
+    }
+
+    get MIN_DATE() {
+        return this._calendarMinDate;
+    }
+
+    get MAX_DATE() {
+        return this._calendarMaxDate;
+    }
+    
 
 }
