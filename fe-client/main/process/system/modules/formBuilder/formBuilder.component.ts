@@ -76,7 +76,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
         const newIndex = this.calculateIndex(value);
         value[1].parentComponent = value[2].id;
         this.formJsonService.updateMasterJSONOnMove(value[2], value[3], value[1], newIndex);
-        this.formJsonService.buildFinalJSON();
+       // this.formJsonService.buildFinalJSON();
       }
     });
   }
@@ -245,7 +245,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     target.children[index].generatedKey = key;
     target.children[index].parentComponent = target.id;
     this.formJsonService.updateMasterJSONOnDrop(target, key, false);
-    this.formJsonService.buildFinalJSON();
+    //this.formJsonService.buildFinalJSON();
     //console.log(this.formJsonService.getMasterJSON());
   }
 
@@ -277,7 +277,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       target.children[componentProps.order].parentComponent = target.id;
       setTimeout(() => {
         res();
-      }, 10);
+      }, 1000);
     });
   }
 
@@ -303,16 +303,15 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       "code": "",
       "formLabel": "",
       "name": "",
-      "display": "",
+      "type": "",
       "disabled": false,
       "hidden": false,
-      "conditionalHidden": "",
-      "conditionalDisabled": "",
+      "disableCondition": "",
+      "showCondition": "",
       "active": true,
       "help": "",
       "components": [
         {
-          "type": "FST",
           "label": "Fieldset",
           "description": "",
           "hideLabel": false,
@@ -322,6 +321,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
           "components": [
             {
               "type": "EML",
+              "hasParent": false,
               "hideLabel": false,
               "labelPosition": "top",
               "marginTop": "",
@@ -340,13 +340,13 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
               "disabled": false,
               "prefix": "",
               "suffix": "",
-              "validations": "",
-              "customFuncValidationVal": "",
+              "appliedValidations": "",
+              "customFuncValidation": "",
               "jsonLogicVal": "",
-              "formClassValidationVal": "",
+              "formClassValidation": "",
               "events": "",
-              "condition": "",
-              "fldDisabledCondition": "",
+              "showCondition": "",
+              "disableCondition": "",
               "active": true,
               "required": false,
               "labelWidth": "",
@@ -355,70 +355,80 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
               "mask": [],
               "description": "",
               "icon": "",
-              "key": "_lupweaoyx",
+              "parentName": "",
+              "filterSqlQuery": "",
+              "key": "_nbnfsgszr",
               "order": 0,
-              "parent": "_qatfbfy2t",
+              "parent": "_cjbhzms8n",
               "componentName": "EmlComponent"
-            },
-            {
-              "type": "FST",
-              "label": "Fieldset",
-              "description": "",
-              "hideLabel": false,
-              "labelPosition": "top",
-              "flexiLabel": "",
-              "active": true,
-              "components": [
-                {
-                  "type": "ADR",
-                  "allowMultipleAddress": false,
-                  "hideLabel": false,
-                  "labelPosition": "top",
-                  "marginTop": "",
-                  "marginRight": "",
-                  "marginLeft": "",
-                  "marginBottom": "",
-                  "defaultValueType": "none",
-                  "defaultValueSqlQuery": "",
-                  "defaultValueString": "",
-                  "lovType": "none",
-                  "lovSqlQuery": "",
-                  "lovJson": "",
-                  "nonPersistent": false,
-                  "hidden": false,
-                  "clearWhenHidden": false,
-                  "disabled": false,
-                  "prefix": "",
-                  "suffix": "",
-                  "validations": "",
-                  "customFuncValidationVal": "",
-                  "jsonLogicVal": "",
-                  "formClassValidationVal": "",
-                  "events": "",
-                  "condition": "",
-                  "fldDisabledCondition": "",
-                  "active": true,
-                  "required": false,
-                  "labelWidth": "",
-                  "labelMargin": "",
-                  "width": "",
-                  "mask": [],
-                  "description": "",
-                  "icon": "",
-                  "key": "_ysk4oqc8p",
-                  "order": 0,
-                  "parent": "_iqv2xuie7",
-                  "componentName": "AdrComponent"
-                }
-              ],
-              "key": "_iqv2xuie7",
-              "order": 1,
-              "parent": "_qatfbfy2t",
-              "componentName": "FstComponent"
             }
           ],
-          "key": "_qatfbfy2t",
+          "type": "FST",
+          "width": "100%",
+          "hidden": false,
+          "key": "_cjbhzms8n",
           "order": 0,
+          "parent": "root_drop",
+          "componentName": "FstComponent"
+        },
+        {
+          "label": "Fieldset",
+          "description": "",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "flexiLabel": "",
+          "active": true,
+          "components": [
+            {
+              "type": "ADR",
+              "allowMultipleAddress": false,
+              "hasParent": false,
+              "hideLabel": false,
+              "labelPosition": "top",
+              "marginTop": "",
+              "marginRight": "",
+              "marginLeft": "",
+              "marginBottom": "",
+              "defaultValueType": "none",
+              "defaultValueSqlQuery": "",
+              "defaultValueString": "",
+              "lovType": "none",
+              "lovSqlQuery": "",
+              "lovJson": "",
+              "nonPersistent": false,
+              "hidden": false,
+              "clearWhenHidden": false,
+              "disabled": false,
+              "prefix": "",
+              "suffix": "",
+              "appliedValidations": "",
+              "customFuncValidation": "",
+              "jsonLogicVal": "",
+              "formClassValidation": "",
+              "events": "",
+              "showCondition": "",
+              "disableCondition": "",
+              "active": true,
+              "required": false,
+              "labelWidth": "",
+              "labelMargin": "",
+              "width": "",
+              "mask": [],
+              "description": "",
+              "icon": "",
+              "parentName": "",
+              "filterSqlQuery": "",
+              "key": "_xoq33dqs3",
+              "order": 0,
+              "parent": "_wol6kzpew",
+              "componentName": "AdrComponent"
+            }
+          ],
+          "type": "FST",
+          "width": "100%",
+          "hidden": false,
+          "key": "_wol6kzpew",
+          "order": 1,
           "parent": "root_drop",
           "componentName": "FstComponent"
         }
@@ -427,7 +437,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
     };
     this.populateFormBuilder(json.components);
     console.log(this.formJsonService.getMasterJSON());
-    this.formJsonService.buildFinalJSON();
+    //this.formJsonService.buildFinalJSON();
   }
 
   save() {

@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
-	showEdit: boolean = true;
+	showEdit = true;
 	uniqueKey: string;
 	refObj: any;
 	componentname: string;
