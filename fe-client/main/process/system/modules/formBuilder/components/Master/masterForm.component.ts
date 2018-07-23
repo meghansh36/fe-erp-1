@@ -49,7 +49,7 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
   }
 
   ngDoCheck() {
-    this.formJsonService.buildFinalJSON();
+   // this.formJsonService.buildFinalJSON();
     //this.finalJSON = this.formJsonService.getFinalJSON();
   }
 
