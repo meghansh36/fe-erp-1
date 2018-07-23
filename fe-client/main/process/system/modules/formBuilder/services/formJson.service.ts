@@ -74,9 +74,10 @@ export class FeFormJsonService {
             this.MasterJSON.components[key].instance.properties.componentName = componentRef.componentType.name;
             // copy to container component array
             // tslint:disable-next-line:max-line-length
-            //this.MasterJSON.components[parent].instance.properties.components.splice(index, 0, this.MasterJSON.components[key].instance.properties);
-            console.log("possible error in addComponent", parent);
-            this.MasterJSON.components[parent].instance.properties.components.splice(index, 0, key);
+            this.MasterJSON.components[parent].instance.properties.components.splice(index, 0, this.MasterJSON.components[key].instance.properties);
+            console.log("possible error in addComponent", this.MasterJSON.components[parent].instance.properties);
+            //this.MasterJSON.components[parent].instance.properties.components.splice(index, 0, key);
+            
         }
     }
 
@@ -259,22 +260,17 @@ export class FeFormJsonService {
         let tempComponents = [];
         //    let tempNestedComponents = [];
         const pushInFSTContainer = (parent, key) => {
-            // const container = this.MasterJSON.components[parent].instance.properties.components;
-            let container = [];
-            container = _.concat(container, this.MasterJSON.components[parent].instance.properties.components);
-            console.log('possible error?', container);
-            container[this.MasterJSON.components[key].instance.properties.order] = this.MasterJSON.components[key].instance.properties;
-            this.MasterJSON.components[parent].instance.properties.components = container;
+
         };
+
         for (const key in this.MasterJSON.components) {
             if (this.MasterJSON.components[key].instance.properties.parent === 'root_drop' ) {
                 const index = this.MasterJSON.components[key].instance.properties.order;
                 tempComponents[index] = this.MasterJSON.components[key].instance.properties;
-            } else {
-                const parent = this.MasterJSON.components[key].instance.properties.parent;
-                pushInFSTContainer(parent, key);
             }
         }
+        
+
         finalJSON.components = tempComponents;
         tempComponents = [];
         for (const key in this.MasterJSON.buttons) {
