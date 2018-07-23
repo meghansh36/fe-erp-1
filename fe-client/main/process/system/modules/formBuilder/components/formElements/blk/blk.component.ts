@@ -10,12 +10,14 @@ export class FeBlkComponent extends FeBaseField  {
   applicableProperties={
     flexiLabel: true,
     label: true,
-    type:true
+    type:true,
+    width: true,
   };
 
   properties = {
     flexiLabel: '',
     label: '',
-    type:'BLK'
+    type:'BLK',
+    width: ''
   };
 }

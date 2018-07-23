@@ -2,7 +2,8 @@ import { FormMasterService } from "@L3Process/system/modules/formBuilder/service
 import { FieldControlService } from "@L3Process/system/modules/formBuilder/services/fieldControl.service";
 import { Injectable, OnInit, Renderer2, ElementRef, DoCheck, AfterViewInit } from "@angular/core";
 import { FormJsonService } from "@L3Process/system/modules/formBuilder/services/formJson.service";
-import { UtilityService } from '@L3Process/system/services/Utility.service';
+import { UtilityService } from '@L3Process/system/services/utility.service';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 import * as _ from 'lodash';
 
 
@@ -14,46 +15,16 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	componentname: string;
 	public formDisabled: boolean;
 	public formHidden: boolean;
-	protected _cssClasses: any;
 	public defaultClasses: any;
 	public style: any;
-	
-	public appliedValidations = [
-		{
-			id: 'required',
-			text: 'Required'
-		},
-		{
-			id: 'number+',
-			text: 'Number Positive'
-		},
-		{
-			id: 'number-',
-			text: 'Number Negative'
-		},
-		{
-			id: 'email',
-			text: 'Email'
-		},
-		{
-			id: 'commaseperatedemail',
-			text: 'Multiple Email'
-		},
-		{
-			id: 'alphabet',
-			text: 'Alphabet'
-		},
-		{
-			id: 'alphanum',
-			text: 'Alphanumeric'
-		}
-	];
+	protected _systemValidations: any;
+
 
 	public applicableProperties: any = {
 		label: true,
 		hideLabel: true,
 		labelPosition: true,
-		tooltip: false,
+		tooltip: true,
 		customCssClass: true,
 		tabIndex: true,
 		marginTop: true,
@@ -66,27 +37,32 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		nonPersistent: true,
 		dbColumn: true,
 		hidden: true,
-		clearWhenHidden: true,
+		clearWhenHidden: false,
 		disabled: true,
 		flexiLabel: true,
-		validations: true,
-		customFuncValidationVal: true,
+		appliedValidations: true,
+		customFuncValidation: true,
 		jsonLogicVal: true,
-		formClassValidationVal: true,
+		formClassValidation: true,
 		events: true,
-		condition: true,
+		showCondition: true,
 		type: true,
-		fldDisabledCondition: true,
+		disableCondition: true,
 		active: true,
 		required: true,
 		labelWidth: true,
 		labelMargin: true,
 		width: true,
-		description: true
+		description: true,
+		hasParent: true,
+		parentName: true,
+		filterSqlQuery: true
 	};
+
 
 	//All properties 
 	/* public applicableProperties: any = {
+		hasParent:true,
 		label: true,
 		hideLabel: true,
 		labelPosition: true,
@@ -111,26 +87,29 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		flexiLabel: true,
 		prefix: true,
 		suffix: true,
-		validations: true,
-		customFuncValidationVal: true,
+		appliedValidations: true,
+		customFuncValidation: true,
 		jsonLogicVal: true,
-		formClassValidationVal: true,
+		formClassValidation: true,
 		minimumLength: true,
 		maximumLength: true,
 		events: true,
-		condition: true,
+		showCondition: true,
 		type: true,
-		fldDisabledCondition: true,
+		disableCondition: true,
 		active: true,
 		required: true,
 		labelWidth: true,
 		labelMargin: true,
 		width: true,
-		icon: true
+		icon: true,
+		parentName: true,
+		filterSqlQuery: true
 
 	}; */
 
 	public properties: any = {
+		hasParent: false,
 		label: undefined,
 		hideLabel: false,
 		labelPosition: 'top',
@@ -157,15 +136,15 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		flexiLabel: undefined,
 		prefix: '',
 		suffix: '',
-		validations: '',
-		customFuncValidationVal: '',
+		appliedValidations: '',
+		customFuncValidation: '',
 		jsonLogicVal: '',
-		formClassValidationVal: '',
+		formClassValidation: '',
 		minimumLength: undefined,
 		maximumLength: undefined,
 		events: '',
-		condition: '',
-		fldDisabledCondition: '',
+		showCondition: '',
+		disableCondition: '',
 		active: true,
 		required: false,
 		labelWidth: '',
@@ -173,71 +152,106 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		width: '',
 		mask: [],
 		description: '',
-		icon: ''
+		icon: '',
+		parentName: '',
+		filterSqlQuery: ''
 	};
 
 	constructor(
-		public elemRef: ElementRef,
+		public _elemRef: ElementRef,
 		public fieldControlService: FieldControlService,
 		public masterFormService: FormMasterService,
 		public formJsonService: FormJsonService,
 		public render: Renderer2,
-		public utility: UtilityService
+		public utility: UtilityService,
+		public defaults: DefaultsService
 	) {
 		this.utility.renderer = this.render;
-	 }
+		this.systemValidations = this.defaults.VALIDATIONS;
+	}
+
+	protected _beforeNgOnInit() {
+
+	}
+
+	protected _afterNgOnInit() {
+
+	}
 
 	ngOnInit() {
+		this._beforeNgOnInit();
 		console.log("initialized a new instance 1", this.properties);
 		this.setRef(this.fieldControlService.getFieldRef().ref);
 		this.uniqueKey = this.masterFormService.getCurrentKey();
 		console.log(this.uniqueKey);
 		this.masterFormService.setProperties(this.properties);
 		this.initFieldStyle();
+		this.systemValidations = this.defaults.VALIDATIONS;
+		this._afterNgOnInit();
+	}
+
+	protected _beforeNgAfterViewInit() {
+
 	}
 
 	ngAfterViewInit() {
-		this.utility.addDisplayProps( this );
+		this._beforeNgAfterViewInit();
+		this.utility.addDisplayProps(this);
+		this._afterNgAfterViewInit();
+	}
+
+	protected _afterNgAfterViewInit() {
+
+	}
+
+	protected _beforeNgDoCheck() {
+
+	}
+
+	protected _afterNgDoCheck() {
+
 	}
 
 	ngDoCheck() {
+		this._beforeNgDoCheck();
 		this.initFieldStyle();
-		this.utility.addDisplayProps( this );
+		this.utility.addDisplayProps(this);
+		this._afterNgDoCheck();
 	}
 
 	initFieldStyle() {
-        this.defaultClasses = this.utility.getFieldClasses( this );
-        this.style = this.utility.getFieldStyles( this );
+		this.defaultClasses = this.utility.getFieldClasses(this);
+		this.style = this.utility.getFieldStyles(this);
 	}
-	
-	public beforeSetDefaultClasses(classes) {
-        return classes;
-    }
 
-    beforeSetDefaultStyle(styleObj) {
-        return styleObj;
-    }
+	protected _beforeSetDefaultClasses(classes) {
+		return classes;
+	}
+
+	protected _beforeSetDefaultStyle(styleObj) {
+		return styleObj;
+	}
 
 	public setRef(reference) {
 		this.refObj = reference;
 	}
 
-	public close() {
+	protected close() {
 		this.refObj.destroy();
 		this.formJsonService.removeComponent(this.uniqueKey);
 		this.formJsonService.buildFinalJSON();
 	}
 
-	public openModal() {
+	openModal() {
 		this.masterFormService.setCurrentKey(this.uniqueKey);
 		this.masterFormService.setProperties(this.properties);
 		this.fieldControlService.getFieldRef().parent.openModal();
 	}
 
-	public update(propsFromMasterForm) {
+	protected update(propsFromMasterForm) {
 		this.properties = _.assignIn({}, propsFromMasterForm);
 	}
-	
+
 	//Properties getters
 	get label() {
 		return this.properties.label;
@@ -312,7 +326,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	}
 
 	get hidden() {
-		return ( this.properties.hidden || this.formHidden );
+		return (this.properties.hidden || this.formHidden);
 	}
 
 	get clearWhenHidden() {
@@ -335,20 +349,20 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		return this.properties.suffix;
 	}
 
-	get validations() {
-		return this.properties.validations;
+	get appliedValidations() {
+		return this.properties.appliedValidations;
 	}
 
-	get customFuncValidationVal() {
-		return this.properties.customFuncValidationVal;
+	get customFuncValidation() {
+		return this.properties.customFuncValidation;
 	}
 
 	get jsonLogicVal() {
 		return this.properties.jsonLogicVal;
 	}
 
-	get formClassValidationVal() {
-		return this.properties.formClassValidationVal;
+	get formClassValidation() {
+		return this.properties.formClassValidation;
 	}
 
 	get minimumLength() {
@@ -363,16 +377,16 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		return this.properties.events;
 	}
 
-	get condition() {
-		return this.properties.condition;
+	get showCondition() {
+		return this.properties.showCondition;
 	}
 
 	get type() {
 		return this.properties.type;
 	}
 
-	get fldDisabledCondition() {
-		return this.properties.fldDisabledCondition;
+	get disableCondition() {
+		return this.properties.disableCondition;
 	}
 
 	get active() {
@@ -390,7 +404,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	get labelWidth() {
 		return this.properties.labelWidth;
 	}
-	
+
 	get width() {
 		return this.properties.width;
 	}
@@ -403,168 +417,168 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		return this.properties.labelMargin;
 	}
 
-	get cssClasses() {
-		return this._cssClasses;
+	get systemValidations() {
+		return this._systemValidations;
 	}
 
-	set label( label ) {
-		this.properties.label = label;
+	set systemValidations(systemValidations) {
+		this._systemValidations = systemValidations;
 	}
 
-	set hideLabel( hideLabel ) {
+	set hideLabel(hideLabel) {
 		this.properties.hideLabel = hideLabel;
 	}
 
-	set labelPosition( labelPosition ) {
+	set labelPosition(labelPosition) {
 		this.properties.labelPosition = labelPosition;
 	}
 
-	set tooltip( tooltip ) {
+	set tooltip(tooltip) {
 		this.properties.tooltip = tooltip;
 	}
 
-	set customCssClass( customCssClass ) {
+	set customCssClass(customCssClass) {
 		this.properties.customCssClass = customCssClass;
 	}
 
-	set tabIndex( tabIndex ) {
+	set tabIndex(tabIndex) {
 		this.properties.tabIndex = tabIndex;
 	}
 
-	set marginTop( marginTop ) {
+	set marginTop(marginTop) {
 		this.properties.marginTop = marginTop;
 	}
 
-	set marginRight( marginRight ) {
+	set marginRight(marginRight) {
 		this.properties.marginRight = marginRight;
 	}
 
-	set marginLeft( marginLeft ) {
+	set marginLeft(marginLeft) {
 		this.properties.marginLeft = marginLeft;
 	}
 
-	set marginBottom( marginBottom ) {
+	set marginBottom(marginBottom) {
 		this.properties.marginBottom = marginBottom;
 	}
 
-	set defaultValueType( defaultValueType ) {
+	set defaultValueType(defaultValueType) {
 		this.properties.defaultValueType = defaultValueType;
 	}
 
-	set defaultValueSqlQuery( defaultValueSqlQuery ) {
+	set defaultValueSqlQuery(defaultValueSqlQuery) {
 		this.properties.defaultValueSqlQuery = defaultValueSqlQuery;
 	}
 
-	set defaultValueString( defaultValueString ) {
+	set defaultValueString(defaultValueString) {
 		this.properties.defaultValueString = defaultValueString;
 	}
 
-	set lovType( lovType ) {
+	set lovType(lovType) {
 		this.properties.lovType = lovType;
 	}
 
-	set lovSqlQuery( lovSqlQuery ) {
+	set lovSqlQuery(lovSqlQuery) {
 		this.properties.lovSqlQuery = lovSqlQuery;
 	}
 
-	set lovJson( lovJson ) {
+	set lovJson(lovJson) {
 		this.properties.lovJson = lovJson;
 	}
 
-	set nonPersistent( nonPersistent ) {
+	set nonPersistent(nonPersistent) {
 		this.properties.nonPersistent = nonPersistent;
 	}
 
-	set dbColumn( dbColumn ) {
+	set dbColumn(dbColumn) {
 		this.properties.dbColumn = dbColumn;
 	}
 
-	set hidden( hidden ) {
+	set hidden(hidden) {
 		this.properties.hidden = hidden;
 	}
 
-	set clearWhenHidden( clearWhenHidden ) {
+	set clearWhenHidden(clearWhenHidden) {
 		this.properties.clearWhenHidden = clearWhenHidden;
 	}
 
-	set disabled( disabled ) {
+	set disabled(disabled) {
 		this.properties.disabled = disabled;
 	}
 
-	set flexiLabel( flexiLabel ) {
+	set flexiLabel(flexiLabel) {
 		this.properties.flexiLabel = flexiLabel;
 	}
 
-	set prefix( prefix ) {
+	set prefix(prefix) {
 		this.properties.prefix = prefix;
 	}
 
-	set suffix( suffix ) {
+	set suffix(suffix) {
 		this.properties.suffix = suffix;
 	}
 
-	set validations( validations ) {
-		this.properties.validations = validations;
+	set appliedValidations(appliedValidations) {
+		this.properties.appliedValidations = appliedValidations;
 	}
 
-	set customFuncValidationVal( customFuncValidationVal ) {
-		this.properties.customFuncValidationVal = customFuncValidationVal;
+	set customFuncValidation(customFuncValidation) {
+		this.properties.customFuncValidation = customFuncValidation;
 	}
 
-	set jsonLogicVal( jsonLogicVal ) {
+	set jsonLogicVal(jsonLogicVal) {
 		this.properties.jsonLogicVal = jsonLogicVal;
 	}
 
-	set formClassValidationVal( formClassValidationVal ) {
-		this.properties.formClassValidationVal = formClassValidationVal;
+	set formClassValidation(formClassValidation) {
+		this.properties.formClassValidation = formClassValidation;
 	}
 
-	set minimumLength( minimumLength ) {
+	set minimumLength(minimumLength) {
 		this.properties.minimumLength = minimumLength;
 	}
 
-	set maximumLength( maximumLength ) {
+	set maximumLength(maximumLength) {
 		this.properties.maximumLength = maximumLength;
 	}
 
-	set events( events ) {
+	set events(events) {
 		this.properties.events = events;
 	}
 
-	set condition( condition ) {
-		this.properties.condition = condition;
+	set showCondition(showCondition) {
+		this.properties.showCondition = showCondition;
 	}
 
-	set type( type ) {
+	set type(type) {
 		this.properties.type = type;
 	}
 
-	set fldDisabledCondition( fldDisabledCondition ) {
-		this.properties.fldDisabledCondition = fldDisabledCondition;
+	set disableCondition(disableCondition) {
+		this.properties.disableCondition = disableCondition;
 	}
 
-	set active( active ) {
+	set active(active) {
 		this.properties.active = active;
 	}
 
-	set required( required ) {
+	set required(required) {
 		this.properties.required = required;
 	}
 
-	set labelWidth( labelWidth ) {
+	set labelWidth(labelWidth) {
 		this.properties.labelWidth = labelWidth;
 	}
 
-	set labelMargin( labelMargin ) {
+	set labelMargin(labelMargin) {
 		this.properties.labelMargin = labelMargin;
 	}
 
-	set width( width ) {
+	set width(width) {
 		this.properties.width = width;
 	}
 
-	set cssClasses( classes ) {
+	/* set cssClasses( classes ) {
 		this._cssClasses = classes;
-	}
+	} */
 
 }

@@ -1,13 +1,13 @@
 import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
-import { FeBtnComponent } from '../btn/btn.component';
+import { BtnComponent } from '@L3Process/system/modules/formBuilder/components/formElements/btn/btn.component';
 
 @Component({
   selector: 'icb-input.button-input',
   templateUrl: './icb.component.html',
   styleUrls: ['./icb.component.css', '../baseField/baseField.component.css']
 })
-export class FeIcbComponent extends FeBtnComponent  {
+export class FeIcbComponent extends BtnComponent  {
   
   public properties = {
    

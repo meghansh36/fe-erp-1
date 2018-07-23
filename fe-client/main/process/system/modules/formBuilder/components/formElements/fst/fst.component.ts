@@ -11,14 +11,17 @@ export class FeFstComponent extends FeBaseField implements OnInit {
   @Output() hostRef = new EventEmitter<ViewContainerRef>();
 
   public properties = {
-    type: 'FST',
+    
     label: 'Fieldset',
     description: '',
     hideLabel: false,
     labelPosition: 'top',
     flexiLabel: '',
     active: true,
-    components: []
+    components: [],
+    type: 'FST',
+    width: '100%',
+    hidden: false
   };
 
   applicableProperties = {
@@ -28,7 +31,9 @@ export class FeFstComponent extends FeBaseField implements OnInit {
     components: true,
     type: true,
     flexiLabel: true,
-    active: true
+    active: true,
+    width: true,
+    hidden: true
   };
 
 

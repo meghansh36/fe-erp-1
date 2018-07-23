@@ -39,11 +39,17 @@ import { SelComponent } from '@L3Process/system/modules/formBuilder/components/f
 import { MslComponent } from '@L3Process/system/modules/formBuilder/components/formElements/msl/msl.component';
 import { IcbComponent } from '@L3Process/system/modules/formBuilder/components/formElements/icb/icb.component';
 import { AcsComponent } from '@L3Process/system/modules/formBuilder/components/formElements/acs/acs.component';
-import { NgxSelectModule } from 'ngx-select-ex';
+import { NgxSelectModule, INgxSelectOptions } from 'ngx-select-ex';
 import { JSONEditorModule } from 'ngx-jsoneditor';
 import { HTMLComponent } from "@L3Process/system/modules/formBuilder/components/formElements/html/html.component";
 import { FileComponent } from "@L3Process/system/modules/formBuilder/components/formElements/file/file.component";
 import { CKEditorModule } from 'ng2-ckeditor';
+
+
+const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
+  optionValueField: 'code',
+  optionTextField: 'meaning'
+};
 @NgModule({
   declarations: [
     FormBuilderComponent,
@@ -77,7 +83,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
   ],
   imports: [
     CommonModule,
-    NgxSelectModule,
+    NgxSelectModule.forRoot(CustomSelectOptions),
     NgbModule,
     DndModule.forRoot(),
     FormBuilderRoutes,

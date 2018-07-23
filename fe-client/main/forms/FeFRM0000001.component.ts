@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { DefaultFormComponent } from '@L3Main/forms/DefaultForm.component';
-import { FormSchemaService } from '@L3Main/services/FormSchema.service';
+import { FormSchemaService } from '@L3Main/services/formSchema.service';
 import { DependentService } from '@L3Process/system/modules/formGenerator/services/dependent.service';
 
 @Component({
@@ -9,11 +9,17 @@ import { DependentService } from '@L3Process/system/modules/formGenerator/servic
     templateUrl: 'DefaultForm.component.html'
 })
 export class FeFRM0000001Component extends DefaultFormComponent {
-    constructor(public formSchemaService: FormSchemaService, public dependent: DependentService) {
-        super(formSchemaService);
+    public code = 'FRM0000001';
+    /* public instance;
+    constructor(public formSchemaService: FormSchemaService, public dependent: DependentService, protected _elemRef: ElementRef, protected _renderer: Renderer2) {
+        super( formSchemaService, this._elemRef, this._renderer );
         this.instance = this;
-        this.code = 'FRM0000001';
+       // this.code = 'FRM0000001';
 
+    } */
+    constructor(public formSchemaService: FormSchemaService, public dependent: DependentService, protected _elemRef: ElementRef, protected _renderer: Renderer2) {
+        super( formSchemaService, dependent, _elemRef, _renderer );
+        this.instance = this;
     }
 
     asyncCustomPatternValidator(control: AbstractControl): { [key: string]: any } {

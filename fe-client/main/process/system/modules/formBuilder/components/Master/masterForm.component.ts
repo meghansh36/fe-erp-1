@@ -7,6 +7,7 @@ import { FormMasterService } from '@L3Process/system/modules/formBuilder/service
 import { builderFieldCompInterface } from './masterForm.interface';
 import * as _ from 'lodash';
 import { FormJsonService } from '@L3Process/system/modules/formBuilder/services/formJson.service';
+import { DefaultsService } from '@L3Process/system/services/Defaults.service';
 @Component(
 {
   selector: 'form-master',
@@ -33,7 +34,8 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
               public fieldControlService: FieldControlService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private formJsonService: FormJsonService,
-              private _ngBootstrap: NgBootstrapService
+              private _ngBootstrap: NgBootstrapService,
+              protected  _defaults: DefaultsService
     ) {
   }
 
@@ -86,18 +88,13 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
         },
         jsonLogicValHelp: 
         {
-          condition1: {
+          json: {
             "and": [
               { "===": [{ "var": "username.value" }, 'cool'] },
               { "===": [{ "var": "number.value" }, 155] }
             ]
           },
-          condition2: {
-            "and": [
-              { "===": [{ "var": "someFieldControl.value" }, 'value'] },
-              { "===": [{ "var": "someOtherFieldControl.value" }, 155] }
-            ]
-          }
+          condition2: 'Error Message.'
       },
       formClassValidationValHelp: {//{valName:'Message'}
         customPattern: {
@@ -123,13 +120,14 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
       },
       conditionHelp: {
         'simple': {
-          'show': false,
-          'when': 'number',
-          'eq': 15
+          "show": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
         },
         'advanced': ['var show; return show = controls.number.value == 150 ? true : false;','var show1; return show1 = controls.otherControl.value == 150 ? true : false;'],
         "json": {
-          "condition": {
+          "showCondition": {
             "and": [
               { "===": [{ "var": "username.value" }, 'apple'] },
               { "===": [{ "var": "number.value" }, 15] }
@@ -145,13 +143,14 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
       },
       fldDisabledConditionHelp: {
         'simple': {
-          'show': false,
-          'when': 'number',
-          'eq': 15
+          "disable": true,
+          "when": "field-flexilabel",
+          "value": 'rathor',
+          "operator": '=='
         },
         'advanced': ['var disable; return disable = controls.number.value == 150 ? true : false;','var disable; return disable = controls.otherControl.value == 150 ? true : false;'],
         "json": {
-          "condition": {
+          "showCondition": {
             "and": [
               { "===": [{ "var": "username.value" }, 'apple'] },
               { "===": [{ "var": "number.value" }, 15] }
@@ -174,8 +173,8 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
 
   onReset() {
     //this.instance.properties = _.assign({}, this.backupProps);
-    this.componentData = _.assignIn({}, this.backupProps);
-    console.log("Component data in reset", this.componentData);
+    //this.componentData = _.assignIn({}, this.backupProps);
+   // console.log("Component data in reset", this.componentData);
   }
 
   onSubmit(form) {
@@ -208,6 +207,7 @@ export class FeMasterFormComponent implements OnInit,  DoCheck {
     this.backupProps = propsFromBuilder;
     this.instance.properties = _.assignIn({}, propsFromBuilder);
     this.componentData = this.instance.properties;
+    
   }
 
   deleteInput(index) {

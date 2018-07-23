@@ -9,14 +9,12 @@ import { TxaComponent } from '@L3Process/system/modules/formBuilder/components/f
 export class FeHTMLComponent extends TxaComponent   {
 
   properties = {
-    enableCk: true,
     ckSettings: '',
     ...this.properties,
     type: 'HTML',
   };
 
   public applicableProperties: any = {
-    enableCk: false,
     ckSettings:true,
     ...this.applicableProperties,
     rows: false,

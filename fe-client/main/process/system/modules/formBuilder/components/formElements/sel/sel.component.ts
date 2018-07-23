@@ -21,7 +21,7 @@ export class FeSelComponent extends FeBaseField {
   };
 
   get options() {
-    return this.properties.lovJson.options;
+    return this.properties.lovJson || [];
   }
 
 }

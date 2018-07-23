@@ -11,6 +11,7 @@ export class FeDefaultComponent {
 
   constructor() {
     this.instance = this;
+    (<any>window).curResObj = this;
   }
 
   onUserNameFocus(...args) {
@@ -28,5 +29,9 @@ export class FeDefaultComponent {
   addPerson(row: any) {
     console.log(row);
   }
+
+  download(arg: any) {
+		console.log('download');
+	}
 
 }

@@ -13,6 +13,8 @@ export class FeTxtComponent extends FeBaseField  {
     ...this.properties
   };
 
+  
+
   public applicableProperties: any = {
     prefix: true,
     suffix: true,

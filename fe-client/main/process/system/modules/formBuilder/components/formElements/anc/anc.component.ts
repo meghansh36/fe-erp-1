@@ -9,8 +9,9 @@ import { FeBaseField } from '../baseField/baseField.component';
 })
 export class FeAncComponent extends FeBaseField  {
   public properties = {
-    type: 'ANC',
-    ...this.properties
+    
+		...this.properties,
+		type: 'ANC',
   };
 
   public applicableProperties: any = {
@@ -42,7 +43,8 @@ export class FeAncComponent extends FeBaseField  {
 		condition: true,
 		type: true,
 		fldDisabledCondition: true,
-		active: true
+		active: true,
+		width: true,
   };
 
 }

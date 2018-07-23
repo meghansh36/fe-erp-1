@@ -10,18 +10,21 @@ export class FeTxaComponent extends TxtComponent   {
   showEdit = true;
   properties = {
     
-    enableCk: true,
-    ckSettings: '',
     enableSpellCheck: true,
     rows: 5,
     ...this.properties,
     type: 'TXA',
+    
   };
 
   public applicableProperties: any = {
     enableSpellCheck: true,
     rows: true,
-    ...this.applicableProperties
+    ...this.applicableProperties,
+    inputMask: false
   };
 
 }
+
+
+
