@@ -220,8 +220,8 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 	}
 
 	initFieldStyle() {
-		this.defaultClasses = this.utility.getFieldClasses(this);
-		this.style = this.utility.getFieldStyles(this);
+		this.defaultClasses = this.utility.getFieldClasses(this, true);
+		this.style = this.utility.getFieldStyles(this, true);
 	}
 
 	protected _beforeSetDefaultClasses(classes) {

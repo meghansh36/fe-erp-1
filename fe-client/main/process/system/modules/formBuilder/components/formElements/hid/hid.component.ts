@@ -8,8 +8,9 @@ import { FeBaseField } from '../baseField/baseField.component';
 export class FeHidComponent extends FeBaseField  {
   
   public properties = {
+    
+    ...this.properties,
     type: 'HID',
-    ...this.properties
   };
 
   public applicableProperties: any = {

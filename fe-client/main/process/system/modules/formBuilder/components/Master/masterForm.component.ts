@@ -58,9 +58,7 @@ export class FeMasterFormComponent implements OnInit,  DoCheck , OnDestroy{
        mode: 'code', onChange: this.update
     };
     this.jsonHelp = {
-        lovHelp: 
-        {
-          'options':[{
+        lovHelp: [{
             'code': 'IND',
             'meaning': 'India',
             'tip': 'India'
@@ -70,7 +68,7 @@ export class FeMasterFormComponent implements OnInit,  DoCheck , OnDestroy{
             'meaning': 'USA',
             'tip': 'USA'
           }]
-        },
+        ,
         customFuncValidationHelp: 
         {
           yearlimit: {

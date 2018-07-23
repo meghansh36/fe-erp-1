@@ -13,6 +13,7 @@ export class FeDefaultsService {
     protected _integerLimit : number = 10;
     protected _calendarMinDate: string = '01-Jan-2009';
     protected _calendarMaxDate: string = '31-Dec-2025';
+    protected _btnTooltipSide: string = 'top';
 
 
     public  PATTERN = {
@@ -131,6 +132,10 @@ export class FeDefaultsService {
 
     get MAX_DATE() {
         return this._calendarMaxDate;
+    }
+
+    get BTN_TOOLTIP_PLACEMENT() {
+        return this._btnTooltipSide;
     }
     
 
