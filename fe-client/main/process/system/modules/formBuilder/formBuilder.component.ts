@@ -259,9 +259,9 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       let viewContainerRef;
       if (parentID === 'root_drop') {
         viewContainerRef = this.host;
-        // if (copy.componentName === 'FstComponent') {
-        //   copy.components = [];
-        // }
+        if (copy.componentName === 'FstComponent') {
+          copy.components = [];
+        }
       } else if (parentID === 'button_drop') {
         viewContainerRef = this.buttonHost;
       } else {
