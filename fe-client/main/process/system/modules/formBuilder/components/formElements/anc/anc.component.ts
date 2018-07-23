@@ -9,7 +9,6 @@ import { FeBaseField } from '../baseField/baseField.component';
 })
 export class FeAncComponent extends FeBaseField  {
   public properties = {
-    
 		...this.properties,
 		type: 'ANC',
   };
@@ -26,7 +25,7 @@ export class FeAncComponent extends FeBaseField  {
   	marginRight:true,
   	marginLeft:true,
   	marginBottom:true,
-  	defaultValueType:true,
+  	defaultValueType:false,
   	defaultValueSqlQuery:true,
   	defaultValueString: true,
   	nonPersistent:true,
@@ -38,13 +37,13 @@ export class FeAncComponent extends FeBaseField  {
   	validations: true,
   	customFuncValidationVal: true,
   	jsonLogicVal: true,
-		formClassValidationVal: true,
-		events: true,
-		condition: true,
-		type: true,
-		fldDisabledCondition: true,
-		active: true,
-		width: true,
+	formClassValidationVal: true,
+	events: true,
+	condition: true,
+	type: true,
+	fldDisabledCondition: true,
+	active: true,
+	width: true,
   };
 
 }

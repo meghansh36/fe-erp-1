@@ -466,9 +466,20 @@
                       </div>
 
                       <!-- Text Area for Default String Value -->
+                      <div *ngIf="componentData.type == 'ANC'">
+                        <label for="Sql" class='mt-1 requiredClass'>Link</label>
+                        <textarea class="form-control" rows="3" id="link-anc" placeholder='String' [(ngModel)]='componentData.defaultValueString'
+                          ngModel name='defaultValueStringLink' #defaultValueStringLink='ngModel' required></textarea>
+
+                        <div class="alert alert-danger" *ngIf='defaultValueStringLink.touched && defaultValueStringLink.invalid'>
+                          This field is required.
+                        </div>
+                      </div>
+
+
                       <div *ngIf="componentData.defaultValueType=='string'">
                         <label for="Sql" class='mt-1 requiredClass'>String Value</label>
-                        <textarea class="form-control" rows="3" id="error-label" placeholder='String' [(ngModel)]='componentData.defaultValueString'
+                        <textarea class="form-control" id="link-label" placeholder='String' [(ngModel)]='componentData.defaultValueString'
                           ngModel name='defaultValueString' #defaultValueString='ngModel' required></textarea>
 
                         <div class="alert alert-danger" *ngIf='defaultValueString.touched && defaultValueString.invalid'>

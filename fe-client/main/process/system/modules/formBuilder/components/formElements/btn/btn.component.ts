@@ -30,10 +30,14 @@ export class FeBtnComponent extends FeBaseField implements OnInit {
 		hideLabel: false,
 		width: true,
 		defaultValueType: false,
-		label: true
+		label: true,
 	};
 
 	//9627233491
+
+	get tooltipPlacement() {
+		return this.defaults.BTN_TOOLTIP_PLACEMENT;
+	  }
 
 	get icon() {
 		return this.properties.icon;

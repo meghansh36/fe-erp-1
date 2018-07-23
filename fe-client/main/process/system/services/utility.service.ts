@@ -61,7 +61,7 @@ export class FeUtilityService {
         }
     }
 
-    getFieldClasses(fieldComponent) {
+    getFieldClasses(fieldComponent, editMode?: boolean) {
         const type = fieldComponent.type;
         let labelPosition = this.defaults.LABEL_POSITION;
         const customCssClass = fieldComponent.customCssClass || '';
@@ -79,7 +79,7 @@ export class FeUtilityService {
 
         let fieldMainWrapperClasses = {};
         classesStr = `fe-field ${type}-container form-group ${labelPosition}-labeled-field`;
-        if (fieldComponent.hidden) {
+        if (fieldComponent.hidden && !editMode) {
             classesStr += ' hidden';
         }
         fieldMainWrapperClasses = this.makeCssClassesObj(classesStr);
@@ -140,7 +140,7 @@ export class FeUtilityService {
             fieldClasses,
             nestedFieldContainerClasses
         };
-        if (fieldComponent.type === 'BTN') {
+        if (fieldComponent.type === 'BTN' || fieldComponent.type === 'ICB') {
             classes = this.addButtonProps(fieldComponent, classes);
         }
         classes = fieldComponent._beforeSetDefaultClasses(classes);
@@ -156,7 +156,7 @@ export class FeUtilityService {
         return cssClassesObj;
     }
 
-    getFieldStyles(fieldComponent) {
+    getFieldStyles(fieldComponent, editMode?: boolean  ) {
         const fieldLabelContainerStyle: any = {};
         const fieldMainWrapperStyle = {};
 

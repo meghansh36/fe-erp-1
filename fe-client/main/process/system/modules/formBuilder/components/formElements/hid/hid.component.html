@@ -1,4 +1,4 @@
-
+jalsdjflsjdflsd
 
 <div [ngClass]="defaultClasses.fieldMainWrapperClasses"  [ngStyle]="style.fieldMainWrapperStyle">
         <div class="field-tool-wrapper">
@@ -44,14 +44,7 @@
                     <span class="input-group-text"> {{ suffix }} </span>
                 </div>
             </div>
-            <div *ngIf="hasError" [ngStyle]="style.fieldErrorWrapperStyle">
-                <span *ngFor="let err of errors">
-                    <small class="text-danger error-message error-{{err.name}}" *ngIf="group.controls[flexiLabel].errors[err.name]">
-                        {{err.message}}
-                        <br>
-                    </small>
-                </span>
-            </div>
+           
         </div>
     </div>
 </div>

@@ -74,8 +74,7 @@ export class FeFormSchemaService {
           "disable": true,
           "when": "text-field-grh",
           "value": 'harish',
-          "operator": '=='iiiiiiiiiiiiiiii
-
+          "operator": '=='
         }
       },
       "active": true,
@@ -395,7 +394,7 @@ export class FeFormSchemaService {
         },
         {
           "type": "TXT",
-          "label": "First Name",
+          "label": " Contru",
           "hideLabel": false,
           "labelPosition": "top",
           "marginTop": "",
@@ -430,7 +429,7 @@ export class FeFormSchemaService {
           "labelWidth": "",
           "labelMargin": "",
           "width": "50%",
-          "mask": ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+          "mask": [],
           "icon": "",
           "key": "_xhawl6mlx",
           "order": 0,
@@ -1477,7 +1476,7 @@ export class FeFormSchemaService {
               "labelWidth": "",
               "labelMargin": "",
               "width": "50%",
-              "mask": [],
+              "mask": ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
               "description": "",
               "icon": "",
               "parentName": "",
@@ -2324,6 +2323,7 @@ export class FeFormSchemaService {
                               "label": "Button",
                               "hideLabel": false,
                               "labelPosition": "top",
+                              tooltip: "This is button tooltip.",
                               "marginTop": "",
                               "marginRight": "",
                               "marginLeft": "",
@@ -3768,6 +3768,7 @@ export class FeFormSchemaService {
           events: '',
           submit: true
         },
+        {
         "theme": "primary",
         "size": "medium",
         "btnLeftIcon": "md-save",
@@ -3815,6 +3816,7 @@ export class FeFormSchemaService {
         "order": 0,
         "parent": "button_drop",
         "componentName": "BtnComponent"
+        }
       ]
     }
   }
@@ -3825,7 +3827,7 @@ export class FeFormSchemaService {
       if (components.length !== 0) {
         for (let i in components) {
           const field = components[i];
-          const int = (Math.random() * 10000000).toString();
+          const int: string = (Math.random() * 10000000).toString();
           const fieldCode = `${field.type}000${int}`;
           const fieldId = code + "_" + fieldCode;
           field.code = fieldCode;
