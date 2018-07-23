@@ -8,7 +8,7 @@ export class FeFormSchemaService {
 
   private _schema = {
     FRM0000001: {
-      "id": "FRM0000001",
+      "id":"1",
       "code": "FRM0000001",
       "formLabel": "Form Label Would be here.",
       "name": "sfsadfasdf",
@@ -74,7 +74,8 @@ export class FeFormSchemaService {
           "disable": true,
           "when": "text-field-grh",
           "value": 'harish',
-          "operator": '=='
+          "operator": '=='iiiiiiiiiiiiiiii
+
         }
       },
       "active": true,
@@ -3766,18 +3767,66 @@ export class FeFormSchemaService {
           icon: 'md-save',
           events: '',
           submit: true
-        }
+        },
+        "theme": "primary",
+        "size": "medium",
+        "btnLeftIcon": "md-save",
+        "btnRightIcon": "",
+        "hasParent": false,
+        "label": "sdfsdfsdf",
+        "hideLabel": false,
+        "labelPosition": "top",
+        "marginTop": "",
+        "marginRight": "",
+        "marginLeft": "",
+        "marginBottom": "",
+        "defaultValueType": "none",
+        "defaultValueSqlQuery": "",
+        "defaultValueString": "",
+        "lovType": "none",
+        "lovSqlQuery": "",
+        "lovJson": "",
+        "nonPersistent": false,
+        "hidden": false,
+        "clearWhenHidden": false,
+        "disabled": true,
+        "flexiLabel": "sfsdf",
+        "prefix": "",
+        "suffix": "",
+        "appliedValidations": "",
+        "customFuncValidation": "",
+        "jsonLogicVal": "",
+        "formClassValidation": "",
+        "events": "",
+        "showCondition": "",
+        "disableCondition": "",
+        "active": true,
+        "required": false,
+        "labelWidth": "",
+        "labelMargin": "",
+        "width": "",
+        "mask": [],
+        "description": "",
+        "icon": "",
+        "parentName": "",
+        "filterSqlQuery": "",
+        "type": "BTN",
+        "key": "_pobs53u45",
+        "order": 0,
+        "parent": "button_drop",
+        "componentName": "BtnComponent"
       ]
     }
   }
     ;
 
     addProps(components, code) {
+      
       if (components.length !== 0) {
         for (let i in components) {
           const field = components[i];
-          const index: string = i.toString();
-          const fieldCode = `${field.type}000${index}`;
+          const int = (Math.random() * 10000000).toString();
+          const fieldCode = `${field.type}000${int}`;
           const fieldId = code + "_" + fieldCode;
           field.code = fieldCode;
           field.id = fieldId;
