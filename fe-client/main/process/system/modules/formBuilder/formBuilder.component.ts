@@ -171,7 +171,7 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
 
   dropComplete(componentObj, index, value) {
     this.createComponentFunc(componentObj, index, value[2], value);
-    //this.openModal();
+    this.openModal();
   }
 
   openModal() {
