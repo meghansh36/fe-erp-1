@@ -40,15 +40,11 @@ export class FeDataTableService {
 			{ icon: "md-get_app", clickEvent: "download",handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
 		],
 		columns: [
-			{ prop: "username", name: "Username", sortable: true, resizeable: true, width: '100', frozenLeft: true },
-			{ prop: "email", name: "Email", sortable: true, resizeable: true, width: '200', align: 'left' },
-			{ prop: "name", name: "Name", sortable: true, resizeable: false, width: '200', align: 'left' },
-			{ prop: "country", name: "Country", sortable: true, resizeable: true, width: '200' },
-			{ prop: "state", name: "State", sortable: true, resizeable: true, width: '200' },
-			{ prop: "age", name: "Age", sortable: false, resizeable: true, width: '200' }
+			{ prop: "formcode", name: "Formcode", sortable: true, resizeable: true, width: '300', frozenLeft: true },
+			{ prop: "label", name: "Label", sortable: true, resizeable: true, width: '400', align: 'left' },
 		],
 		rowActions: [
-			{ icon: 'md-create', clickEvent: 'detail', handlerOwner: 'form', customCssClass: 'gray_clr mr_10 pointer' },
+			{ icon: 'md-create', clickEvent: 'detail', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
 		],
 		actionButtons: [
 			{ icon: 'md-email', clickEvent: 'sendMail', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
@@ -56,11 +52,11 @@ export class FeDataTableService {
 		],
 		applicableFilters: [
 			{
-				type: "TXT", code: "FLD0001001", flexiLabel: "email", label: "Email"
+				type: "TXT", code: "FLD0001001", flexiLabel: "formcode", label: "Form Code"
 			},
 			{
-				type: "TXT", code: "FLD0001002", flexiLabel: "name", label: "Name"
-			},
+				type: "TXT", code: "FLD0001002", flexiLabel: "label", label: "Label"
+			}/* ,
 			{
 				type: "SEL", code: "FLD0001004", flexiLabel: "state", parent:'FLD0001005', label: "State", lov: [{
 					'code': 'DEL',
@@ -85,12 +81,12 @@ export class FeDataTableService {
 					'tip': 'USA'
 				}],
 				children: []
-			}
+			} */
 		]
 	}
 
 	fetch() {
-		return this.http.get('https://raw.githubusercontent.com/Dhruv1996oct1/dodo_wisdom/2f9777ffb54fa2afa86a80e3e0cc0db85bd43924/data.json')
+		return this.http.get('https://raw.githubusercontent.com/Dhruv1996oct1/dodo_wisdom/c81c4ef21686e83d81720843c1ebb2e67a820ba4/data.json')
 			.pipe(
 				map(data => data['key'])
 			);

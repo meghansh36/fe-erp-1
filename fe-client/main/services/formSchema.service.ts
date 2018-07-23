@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class FeFormSchemaService {
 
   private _schema = {
-    FRM0000001: {
+    101: {
       "id": "FRM0000001",
       "code": "FRM0000001",
       "formLabel": "Form Label Would be here.",
@@ -80,7 +81,7 @@ export class FeFormSchemaService {
       "active": true,
       "help": "<ul><li>Help 1</li><li>Help 2</li></ul>",
       "components": [
-        
+
         {
           "type": "CHK",
           "inputPropsArray": [
@@ -141,51 +142,51 @@ export class FeFormSchemaService {
           "componentName": "ChkComponent"
         },
         {
-        "type": "PWD",
-        "hasParent": false,
-        "label": "Password",
-        "hideLabel": false,
-        "labelPosition": "right",
-        "tooltip": "Tooltip",
-        "marginTop": "",
-        "marginRight": "",
-        "marginLeft": "",
-        "marginBottom": "",
-        "defaultValueType": "none",
-        "defaultValueSqlQuery": "",
-        "defaultValueString": "",
-        "lovType": "none",
-        "lovSqlQuery": "",
-        "lovJson": "",
-        "nonPersistent": false,
-        "hidden": false,
-        "clearWhenHidden": false,
-        "disabled": false,
-        "flexiLabel": "password-field",
-        "prefix": "",
-        "suffix": "",
-        "appliedValidations": [],
-        "customFuncValidation": "",
-        "jsonLogicVal": "",
-        "formClassValidation": "",
-        "events": "",
-        "showCondition": "",
-        "disableCondition": "",
-        "active": true,
-        "required": false,
-        "labelWidth": "",
-        "labelMargin": "",
-        "width": "",
-        "mask": [],
-        "description": "",
-        "icon": "",
-        "parentName": "",
-        "filterSqlQuery": "",
-        "key": "_5zsk34wj8",
-        "order": 0,
-        "parent": "root_drop",
-        "componentName": "PwdComponent"
-      },
+          "type": "PWD",
+          "hasParent": false,
+          "label": "Password",
+          "hideLabel": false,
+          "labelPosition": "right",
+          "tooltip": "Tooltip",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "none",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": false,
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": false,
+          "flexiLabel": "password-field",
+          "prefix": "",
+          "suffix": "",
+          "appliedValidations": [],
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "parentName": "",
+          "filterSqlQuery": "",
+          "key": "_5zsk34wj8",
+          "order": 0,
+          "parent": "root_drop",
+          "componentName": "PwdComponent"
+        },
         {
           "useDelimeter": true,
           "requiredDecimal": true,
@@ -205,7 +206,7 @@ export class FeFormSchemaService {
           "flexiLabel": "number-field-asdfsadf",
           "prefix": "prefix",
           "suffix": "",
-          "appliedValidations": ['number_positive','required'],
+          "appliedValidations": ['number_positive', 'required'],
           "customFuncValidation": {
             "yearlimit": {
               "validatorFn": " if (control.value  && (isNaN(control.value) || control.value < 2010)) { return { 'yearlimit': true }; } return null; ",
@@ -262,7 +263,7 @@ export class FeFormSchemaService {
         },
         {
           "type": "TXT",
-          "flexiLabel":'some-field',
+          "flexiLabel": 'some-field',
           "hasParent": false,
           "hideLabel": false,
           "labelPosition": "top",
@@ -369,7 +370,7 @@ export class FeFormSchemaService {
           "prefix": "@",
           "suffix": "",
           "appliedValidations": [
-            "required","alphabet"
+            "required", "alphabet"
           ],
           "customFuncValidation": "",
           "jsonLogicVal": "",
@@ -406,7 +407,7 @@ export class FeFormSchemaService {
           /* "defaultValueType": "none",
           "defaultValueSqlQuery": "",
           "defaultValueString": "", */
-          appliedValidations: ['required','alphanumeric'],
+          appliedValidations: ['required', 'alphanumeric'],
           validations: {},
           "lovType": "none",
           "lovSqlQuery": "",
@@ -726,7 +727,7 @@ export class FeFormSchemaService {
           "flexiLabel": "number123",
           "prefix": "",
           "suffix": "",
-          "appliedValidations": [ 'required'],
+          "appliedValidations": ['required'],
           "validations": {},
           "customFuncValidation": "",
           "jsonLogicVal": "",
@@ -851,7 +852,7 @@ export class FeFormSchemaService {
           "useDelimeter": true,
           "requiredDecimal": true,
           "type": "NUM",
-          "appliedValidations":['number_negative'],
+          "appliedValidations": ['number_negative'],
           "label": "Number 3",
           "hideLabel": false,
           "labelPosition": "top",
@@ -1235,7 +1236,7 @@ export class FeFormSchemaService {
               "order": 0,
               "parent": "_am4bbscaf",
               "componentName": "BlkComponent",
-              "appliedValidations":'',"appliedValidations1": [
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -1361,7 +1362,7 @@ export class FeFormSchemaService {
               "disabled": false,
               "prefix": "",
               "suffix": "",
-              "appliedValidations":'',"appliedValidations1": [
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -1435,7 +1436,7 @@ export class FeFormSchemaService {
               "flexiLabel": "phone-field",
               "prefix": "",
               "suffix": "",
-              "appliedValidations":'',"appliedValidations1": [
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -1510,7 +1511,7 @@ export class FeFormSchemaService {
               "flexiLabel": "address-field",
               "prefix": "",
               "suffix": "",
-              "appliedValidations":'',"appliedValidations1": [
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -1592,7 +1593,7 @@ export class FeFormSchemaService {
                   "flexiLabel": "fst-text",
                   "prefix": "",
                   "suffix": "",
-                  "appliedValidations":'',"appliedValidations1": [
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -1677,7 +1678,7 @@ export class FeFormSchemaService {
                       "flexiLabel": "html-field",
                       "prefix": "",
                       "suffix": "",
-                      "appliedValidations":'',"appliedValidations1": [
+                      "appliedValidations": '', "appliedValidations1": [
                         {
                           "id": "required",
                           "text": "Required"
@@ -1751,7 +1752,7 @@ export class FeFormSchemaService {
                       "flexiLabel": "autocomplete-field",
                       "prefix": "",
                       "suffix": "",
-                      "appliedValidations":'',"appliedValidations1": [
+                      "appliedValidations": '', "appliedValidations1": [
                         {
                           "id": "required",
                           "text": "Required"
@@ -1810,7 +1811,7 @@ export class FeFormSchemaService {
                   "order": 1,
                   "parent": "_pdripm1kc",
                   "componentName": "FstComponent",
-                  "appliedValidations":'',"appliedValidations1": [
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -1924,7 +1925,7 @@ export class FeFormSchemaService {
           "flexiLabel": "file-fi",
           "prefix": "",
           "suffix": "",
-          "appliedValidations":'',"appliedValidations1": [
+          "appliedValidations": '', "appliedValidations1": [
             {
               "id": "required",
               "text": "Required"
@@ -2001,7 +2002,7 @@ export class FeFormSchemaService {
           "flexiLabel": "email-field",
           "prefix": "",
           "suffix": "",
-          "appliedValidations":'',"appliedValidations1": [
+          "appliedValidations": '', "appliedValidations1": [
             {
               "id": "required",
               "text": "Required"
@@ -2075,7 +2076,7 @@ export class FeFormSchemaService {
           "flexiLabel": "currency-field",
           "prefix": "",
           "suffix": "",
-          "appliedValidations":'',"appliedValidations1": [
+          "appliedValidations": '', "appliedValidations1": [
             {
               "id": "required",
               "text": "Required"
@@ -2149,7 +2150,7 @@ export class FeFormSchemaService {
           "flexiLabel": "msl-field",
           "prefix": "",
           "suffix": "",
-          "appliedValidations":'',"appliedValidations1":[
+          "appliedValidations": '', "appliedValidations1": [
             {
               "id": "required",
               "text": "Required"
@@ -2223,7 +2224,7 @@ export class FeFormSchemaService {
           "flexiLabel": "currency-field-yui",
           "prefix": "$",
           "suffix": "",
-          "appliedValidations":'',"appliedValidations1":[
+          "appliedValidations": '', "appliedValidations1": [
             {
               "id": "required",
               "text": "Required"
@@ -2340,7 +2341,7 @@ export class FeFormSchemaService {
                               "flexiLabel": "asdfas",
                               "prefix": "",
                               "suffix": "",
-                              appliedValidations:'',
+                              appliedValidations: '',
                               "appliedValidations1": [
                                 {
                                   "id": "required",
@@ -2426,7 +2427,7 @@ export class FeFormSchemaService {
                                   "flexiLabel": "iconic-button",
                                   "prefix": "",
                                   "suffix": "",
-                                  "appliedValidations":'',"appliedValidations1":[
+                                  "appliedValidations": '', "appliedValidations1": [
                                     {
                                       "id": "required",
                                       "text": "Required"
@@ -2504,7 +2505,7 @@ export class FeFormSchemaService {
                                   "flexiLabel": "html-editor",
                                   "prefix": "",
                                   "suffix": "",
-                                  "appliedValidations":'',"appliedValidations1":[
+                                  "appliedValidations": '', "appliedValidations1": [
                                     {
                                       "id": "required",
                                       "text": "Required"
@@ -2563,7 +2564,7 @@ export class FeFormSchemaService {
                               "order": 0,
                               "parent": "_10syvizk9",
                               "componentName": "FstComponent",
-                              "appliedValidations":'',"appliedValidations1":[
+                              "appliedValidations": '', "appliedValidations1": [
                                 {
                                   "id": "required",
                                   "text": "Required"
@@ -2617,7 +2618,7 @@ export class FeFormSchemaService {
                               "flexiLabel": "password-5",
                               "prefix": "",
                               "suffix": "",
-                              "appliedValidations":'',"appliedValidations1":[
+                              "appliedValidations": '', "appliedValidations1": [
                                 {
                                   "id": "required",
                                   "text": "Required"
@@ -2676,7 +2677,7 @@ export class FeFormSchemaService {
                           "order": 0,
                           "parent": "_ph3ncmpn9",
                           "componentName": "FstComponent",
-                          "appliedValidations":'',"appliedValidations1":[
+                          "appliedValidations": '', "appliedValidations1": [
                             {
                               "id": "required",
                               "text": "Required"
@@ -2730,7 +2731,7 @@ export class FeFormSchemaService {
                           "flexiLabel": "text-5",
                           "prefix": "",
                           "suffix": "",
-                          "appliedValidations":'',"appliedValidations1":[
+                          "appliedValidations": '', "appliedValidations1": [
                             {
                               "id": "required",
                               "text": "Required"
@@ -2789,7 +2790,7 @@ export class FeFormSchemaService {
                       "order": 0,
                       "parent": "_9wu7jtxec",
                       "componentName": "FstComponent",
-                      "appliedValidations":'',"appliedValidations1":[
+                      "appliedValidations": '', "appliedValidations1": [
                         {
                           "id": "required",
                           "text": "Required"
@@ -2828,7 +2829,7 @@ export class FeFormSchemaService {
                   "order": 0,
                   "parent": "_klon1bzp6",
                   "componentName": "FstComponent",
-                  "appliedValidations":'',"appliedValidations1":[
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -2867,7 +2868,7 @@ export class FeFormSchemaService {
               "order": 0,
               "parent": "_ki9dtq6q1",
               "componentName": "FstComponent",
-              "appliedValidations":'',"appliedValidations1":[
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -2906,7 +2907,7 @@ export class FeFormSchemaService {
           "order": 2,
           "parent": "root_drop",
           "componentName": "FstComponent",
-          "appliedValidations":'',"appliedValidations1":[
+          "appliedValidations": '', "appliedValidations1": [
             {
               "id": "required",
               "text": "Required"
@@ -2967,7 +2968,7 @@ export class FeFormSchemaService {
               "flexiLabel": "file-n233",
               "prefix": "",
               "suffix": "",
-              "appliedValidations":'',"appliedValidations1":[
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -3044,7 +3045,7 @@ export class FeFormSchemaService {
               "flexiLabel": "msl-n1443",
               "prefix": "",
               "suffix": "",
-              "appliedValidations":'',"appliedValidations1":[
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -3118,7 +3119,7 @@ export class FeFormSchemaService {
                   "order": 0,
                   "parent": "_f7itnjhwn",
                   "componentName": "FstComponent",
-                  "appliedValidations":'',"appliedValidations1":[
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -3164,7 +3165,7 @@ export class FeFormSchemaService {
                   "order": 1,
                   "parent": "_f7itnjhwn",
                   "componentName": "FstComponent",
-                  "appliedValidations":'',"appliedValidations1":[
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -3244,7 +3245,7 @@ export class FeFormSchemaService {
                       "flexiLabel": "address-n1000",
                       "prefix": "",
                       "suffix": "",
-                      "appliedValidations":'',"appliedValidations1":[
+                      "appliedValidations": '', "appliedValidations1": [
                         {
                           "id": "required",
                           "text": "Required"
@@ -3312,7 +3313,7 @@ export class FeFormSchemaService {
               "order": 3,
               "parent": "_jvs9iq5ee",
               "componentName": "FstComponent",
-              "appliedValidations":'',"appliedValidations1":[
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -3374,7 +3375,7 @@ export class FeFormSchemaService {
                   "flexiLabel": "acs-n1000",
                   "prefix": "",
                   "suffix": "",
-                  "appliedValidations":'',"appliedValidations1":[
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -3448,7 +3449,7 @@ export class FeFormSchemaService {
                   "flexiLabel": "time-n11000",
                   "prefix": "",
                   "suffix": "",
-                  "appliedValidations":'',"appliedValidations1":[
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -3522,7 +3523,7 @@ export class FeFormSchemaService {
                   "flexiLabel": "currency-noiuo",
                   "prefix": "",
                   "suffix": "",
-                  "appliedValidations":'',"appliedValidations1":[
+                  "appliedValidations": '', "appliedValidations1": [
                     {
                       "id": "required",
                       "text": "Required"
@@ -3581,7 +3582,7 @@ export class FeFormSchemaService {
               "order": 4,
               "parent": "_jvs9iq5ee",
               "componentName": "FstComponent",
-              "appliedValidations":'',"appliedValidations1":[
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -3635,7 +3636,7 @@ export class FeFormSchemaService {
               "flexiLabel": "phone-n1231",
               "prefix": "",
               "suffix": "",
-              "appliedValidations":'',"appliedValidations1":[
+              "appliedValidations": '', "appliedValidations1": [
                 {
                   "id": "required",
                   "text": "Required"
@@ -3770,30 +3771,36 @@ export class FeFormSchemaService {
       ]
     }
   }
-    ;
+  constructor(public router: Router, public route: ActivatedRoute) { }
 
-    addProps(components, code) {
-      if (components.length !== 0) {
-        for (let i in components) {
-          const field = components[i];
-          const index: string = i.toString();
-          const fieldCode = `${field.type}000${index}`;
-          const fieldId = code + "_" + fieldCode;
-          field.code = fieldCode;
-          field.id = fieldId;
-          if (field.type === 'FST') {
-            this.addProps(field.components, code);
-          }
+  addProps(components, code) {
+    if (components.length !== 0) {
+      for (let i in components) {
+        const field = components[i];
+        const index: string = i.toString();
+        const fieldCode = `${field.type}000${index}`;
+        const fieldId = code + "_" + fieldCode;
+        field.code = fieldCode;
+        field.id = fieldId;
+        if (field.type === 'FST') {
+          this.addProps(field.components, code);
         }
       }
-    };
+    }
+  };
 
 
   getFormSchema(code) {
+    console.log(code);
     let form = this._schema[code];
-    console.log("Form", form);
+    /* console.log("Form", form);
     this.addProps(form.components, code);
-    this.addProps(form.buttons, code);
+    this.addProps(form.buttons, code); */
     return form;
   };
+
+  navigateToFormGenerator(id: number) {
+    this.router.navigate(['/formGenerator', id]);
+  }
+
 }

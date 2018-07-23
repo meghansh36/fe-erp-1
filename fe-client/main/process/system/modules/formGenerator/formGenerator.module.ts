@@ -1,4 +1,5 @@
-import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA , ModuleWithProviders} from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +8,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { NgxSelectModule, INgxSelectOptions } from 'ngx-select-ex';
 import { DefaultsService } from '@L3Process/system/services/Defaults.service';
+
+import { FeFormGeneratorComponent } from '@L1Process/system/modules/formGenerator/formGenerator.component';
 
 import { FieldDirective } from '@L3Process/system/modules/formGenerator/directives/field/field.directive';
 import { FormComponent } from '@L3Process/system/modules/formGenerator/components/form/form.component';
@@ -36,6 +39,11 @@ import { CurrencyComponent } from '@L3Process/system/modules/formGenerator/compo
 import { PhoneComponent } from '@L3Process/system/modules/formGenerator/components/phone/phone.component';
 import { AddressComponent } from '@L3Process/system/modules/formGenerator/components/address/address.component';
 
+import { routesL1 } from '@L1Process/system/modules/formGenerator/formGenerator.routing';
+
+const routing: ModuleWithProviders = RouterModule.forChild(routesL1);
+
+
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
   optionValueField: 'code',
   optionTextField: 'meaning'
@@ -45,6 +53,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    routing,
     NgbModule,
     TextMaskModule,
     EditorModule,
@@ -52,6 +61,7 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     NgxSelectModule.forRoot(CustomSelectOptions),
   ],
   declarations: [
+    FeFormGeneratorComponent,
     FieldDirective,
     FormComponent,
     ButtonComponent,
