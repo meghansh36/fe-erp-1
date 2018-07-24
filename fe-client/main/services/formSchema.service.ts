@@ -3861,5 +3861,4 @@ export class FeFormSchemaService {
   navigateToFormGenerator(id: number) {
     this.router.navigate(['/formGenerator', id]);
   }
-
 }

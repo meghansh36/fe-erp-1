@@ -130,6 +130,9 @@ export class FeMasterFormComponent implements OnInit {
 
   update(event) {
     console.log(this.componentData);
-    console.log("instance props", this.instance.properties);
+  }
+
+  ngOnDestroy() {
+    this.instance.showEdit = true;
   }
 }

@@ -215,20 +215,15 @@ export class FeFormJsonService {
         };
         let tempComponents = [];
         const pushInFSTContainer = (parent, key) => {
-            let container = [];
-            container = _.concat(container, this.MasterJSON.components[parent].instance.properties.components);
-            container[this.MasterJSON.components[key].instance.properties.order] = this.MasterJSON.components[key].instance.properties;
-            this.MasterJSON.components[parent].instance.properties.components = container;
         };
+
         for (const key in this.MasterJSON.components) {
             if (this.MasterJSON.components[key].instance.properties.parent === 'root_drop' ) {
                 const index = this.MasterJSON.components[key].instance.properties.order;
                 tempComponents[index] = this.MasterJSON.components[key].instance.properties;
-            } else {
-                const parent = this.MasterJSON.components[key].instance.properties.parent;
-                pushInFSTContainer(parent, key);
             }
         }
+
         finalJSON.components = tempComponents;
         tempComponents = [];
         for (const key in this.MasterJSON.buttons) {

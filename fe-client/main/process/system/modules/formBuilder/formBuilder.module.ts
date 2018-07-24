@@ -14,7 +14,6 @@ import { SortablejsModule } from 'angular-sortablejs/dist';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import { DefaultsService } from '@L3Process/system/services/defaults.service';
-import {FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TextComponent } from '@L3Process/system/modules/formBuilder/components/formElements/text/text.component';
 import { TextAreaComponent } from '@L3Process/system/modules/formBuilder/components/formElements/textArea/textArea.component';
 import { TimeComponent } from '@L3Process/system/modules/formBuilder/components/formElements/time/time.component';
@@ -44,6 +43,8 @@ import { JSONEditorModule } from 'ngx-jsoneditor';
 import { HTMLComponent } from "@L3Process/system/modules/formBuilder/components/formElements/html/html.component";
 import { FileComponent } from "@L3Process/system/modules/formBuilder/components/formElements/file/file.component";
 import { CKEditorModule } from 'ng2-ckeditor';
+import { FormGeneratorModule } from '../../../../../legislations/fe/clients/fe/main/process/system/modules/formGenerator/formGenerator.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
@@ -94,7 +95,8 @@ const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more
     ReactiveFormsModule,
     JSONEditorModule,
     TextMaskModule,
-    CKEditorModule
+    CKEditorModule,
+    FormGeneratorModule
   ],
   entryComponents: [TextComponent, TextAreaComponent, TimeComponent, PasswordComponent, PhoneComponent,
                     NumberComponent, MonthComponent, HiddenComponent, EmailComponent, DateTimeComponent,

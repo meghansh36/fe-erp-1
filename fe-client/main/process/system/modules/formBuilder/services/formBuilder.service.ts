@@ -372,7 +372,7 @@ export class FeFormBuilderService {
   }
 
   postData(data) {
-    return this.httpClient.post('http://localhost:3222/fe/api/default/save', data)
+    return this.httpClient.post('http://localhost:3000/fe/api/default/save', data)
   }
 
 }
