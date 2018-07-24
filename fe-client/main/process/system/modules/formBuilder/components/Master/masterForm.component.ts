@@ -85,10 +85,11 @@ export class FeMasterFormComponent implements OnInit {
   }
 
   onSubmit(form) {
-    form.name = this.instance._fieldControlService.component.name;
-    form.type = this.instance._fieldControlService.component.type;
+    console.log("Component data in submit", this.componentData);
+    form.name = this.instance.fieldControlService.component.name;
+    form.type = this.instance.fieldControlService.component.type;
     this._masterFormService.setCurrentKey(this.currentKey);
-    this._masterFormService.setProperties(this.instance.properties);
+    this._masterFormService.setProperties(this.instance.properties, this.currentKey);
     this._formJsonService.buildFinalJSON();
     this.close();
   }
