@@ -45,7 +45,8 @@ export class FeDataTableService {
 			{ prop: "LABEL", name: "Label", sortable: true, resizeable: true, width: '400', align: 'left' },
 		],
 		rowActions: [
-			{ icon: 'md-create', clickEvent: 'getFormById', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
+			{ icon: 'md-create', clickEvent: 'navigateToFormGenerator', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
+			{ icon: 'md-create', clickEvent: 'navigateToFormBuilder', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' }
 		],
 		actionButtons: [
 			{ icon: 'md-email', clickEvent: 'sendMail', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },

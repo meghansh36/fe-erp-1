@@ -14,13 +14,13 @@ export class FeFormsComponent {
     this.instance = this;
   }
 
-  navigate(args: any) {
+  navigateToFormGenerator(args: any) {
     let id = args.ID;
-    this.navigateToFormGenerator(id);
-  }
-
-  navigateToFormGenerator(id: number) {
     this.router.navigate(['/formGenerator', id]);
   }
 
+  navigateToFormBuilder(args: any) {
+    let id = args.ID;
+    this.router.navigate(['/formBuilder', id]);
+  }
 }
