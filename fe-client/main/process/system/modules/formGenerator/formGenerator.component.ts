@@ -42,7 +42,7 @@ export class FeFormGeneratorComponent implements OnInit {
     this._initFormSchema(params.formId);
   }
 
-  protected _initFormSchema(formId?: number) {
+  protected _initFormSchema(formId?: any) {
     if (formId) {
       this._formSchemaService.getFormSchemaById(formId).subscribe(data => {
         const form = [...data.body.data];

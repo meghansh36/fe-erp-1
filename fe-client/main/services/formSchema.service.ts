@@ -3826,7 +3826,6 @@ export class FeFormSchemaService {
   }
   constructor(protected _http: HttpClient ) { }
 
-  constructor(public http: HttpClient) { }
 
   makeId() {
     var text = "";
