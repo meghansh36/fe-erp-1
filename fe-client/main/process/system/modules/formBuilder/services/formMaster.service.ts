@@ -18,11 +18,10 @@ export class FeFormMasterService {
   conditionalHidden: string;
   conditionalDisabled: string;
   active: boolean;
-  help: string; 
+  help: string;
 
 
   constructor(private masterJsonService: FormJsonService) {
-    console.log('formBuider data',this.formLabel,this.name,this.display);
    }
 
   setModalRef(temp) {
@@ -46,7 +45,6 @@ export class FeFormMasterService {
   }
 
   getProperties(key) {
-    //console.log(this.properties);
     const masterJSON = this.masterJsonService.getMasterJSON();
     if (masterJSON.components[key] === undefined) {
       return masterJSON.buttons[key].instance.properties;
