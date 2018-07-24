@@ -184,7 +184,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 		this.setRef(this.fieldControlService.getFieldRef().ref);
 		this.uniqueKey = this.masterFormService.getCurrentKey();
 		console.log(this.uniqueKey);
-		this.masterFormService.setProperties(this.properties);
+		this.masterFormService.setProperties(this.properties, this.uniqueKey);
 		this.initFieldStyle();
 		this.systemValidations = this.defaults.VALIDATIONS;
 		this._afterNgOnInit();
@@ -244,7 +244,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 
 	openModal() {
 		this.masterFormService.setCurrentKey(this.uniqueKey);
-		this.masterFormService.setProperties(this.properties);
+		this.masterFormService.setProperties(this.properties, this.uniqueKey);
 		this.fieldControlService.getFieldRef().parent.openModal();
 	}
 

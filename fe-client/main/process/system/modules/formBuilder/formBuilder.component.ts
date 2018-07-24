@@ -285,11 +285,10 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
   }
 
   async populateFormBuilder(components) {
+    console.log('input compProps', components);
     for (let i = 0; i < components.length; i++) {
-      if (components[i].components === undefined) {
-        await this.createComponentsFromJSON(components[i]);
-      } else {
-        await this.createComponentsFromJSON(components[i]);
+      await this.createComponentsFromJSON(components[i]);
+      if (components[i].components !== undefined) {
         this.populateFormBuilder(components[i].components);
       }
     }

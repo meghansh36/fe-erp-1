@@ -33,16 +33,17 @@ export class FeFormMasterService {
     return this.modalReference;
   }
 
-  setProperties(props) {
-    const masterJSON = this.masterJsonService.getMasterJSON();
-    console.log("master json", masterJSON);
-    if (masterJSON.components[this.key] === undefined) {
-      masterJSON.buttons[this.key].instance.properties = _.assignIn({}, props);
-    } else {
-      masterJSON.components[this.key].instance.properties = _.assignIn({}, props);
-    }
+  setProperties(props, key) {
+    // const masterJSON = this.masterJsonService.getMasterJSON();
+    // console.log("master json", masterJSON);
+    // if (masterJSON.components[key] === undefined) {
+    //   masterJSON.buttons[key].instance.properties = _.assignIn({}, props);
+    // } else {
+    //   masterJSON.components[key].instance.properties = _.assignIn({}, props);
+    // }
 
-    this.masterJsonService.setMasterJSON(masterJSON);
+    // this.masterJsonService.setMasterJSON(masterJSON);
+    this.masterJsonService.setMasterJSON(props, key);
   }
 
   getProperties(key) {

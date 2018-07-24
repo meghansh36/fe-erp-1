@@ -180,7 +180,7 @@ export class FeMasterFormComponent implements OnInit,  DoCheck , OnDestroy{
     form.name = this.instance.fieldControlService.component.name;
     form.type = this.instance.fieldControlService.component.type;
     this.masterFormService.setCurrentKey(this.currentKey);
-    this.masterFormService.setProperties(this.instance.properties);
+    this.masterFormService.setProperties(this.instance.properties, this.currentKey);
     this.formJsonService.buildFinalJSON();
     this.close();
   }

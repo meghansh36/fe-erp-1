@@ -42,7 +42,7 @@ export class FeFstComponent extends FeBaseField implements OnInit {
     console.log("initialized a new instance 1", this.properties);
 		this.setRef(this.fieldControlService.getFieldRef().ref);
 		this.uniqueKey = this.masterFormService.getCurrentKey();
-		this.masterFormService.setProperties(this.properties);
+		this.masterFormService.setProperties(this.properties, this.uniqueKey);
     this.fieldControlService.addToFstCollection(this.fstContainer, this.uniqueKey);
   }
 }
