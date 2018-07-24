@@ -3824,6 +3824,7 @@ export class FeFormSchemaService {
       ]
     }
   }
+  constructor(protected _http: HttpClient ) { }
 
   constructor(public http: HttpClient) { }
 
@@ -3836,28 +3837,38 @@ export class FeFormSchemaService {
 
     return text;
   }
-  addProps(components, code) {
-
-    if (components.length !== 0) {
-      for (let i in components) {
-        const field = components[i];
-        field.code = this.makeId();
-        field.id = this.makeId();
-        if (field.type === 'FST') {
-          this.addProps(field.components, code);
+    addProps(components, code) {
+      if (components.length !== 0) {
+        for (let i in components) {
+          const field = components[i];
+          field.code = this.makeId();
+          field.id = this.makeId();
+          if (field.type === 'FST') {
+            this.addProps(field.components, code);
+          }
         }
       }
     }
-  };
+
+
+  getFormSchema( code ) {
+    let form = this._schema[code];
+    if(!form) {
+      form = this._schema[101];
+    }
+    this.addProps(form.components, code);
+    this.addProps(form.buttons, code);
+    return form;
+  }
 
   getFormSchemaById(id: string): Observable<HttpResponse<any>> {
-    return this.http.post<any>(
+    return this._http.post<any>(
       `/api/form_data`, { 'id': id }, { observe: 'response' });
   }
 
   getFormSchemaByCode(code: string): Observable<HttpResponse<any>> {
-    return this.http.post<any>(
+    return this._http.post<any>(
       `/api/form_data`, { 'code': code }, { observe: 'response' });
   }
-
 }
+
