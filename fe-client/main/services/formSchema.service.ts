@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -3771,59 +3773,59 @@ export class FeFormSchemaService {
           submit: true
         },
         {
-        "theme": "primary",
-        "size": "medium",
-        "btnLeftIcon": "md-save",
-        "btnRightIcon": "",
-        "hasParent": false,
-        "label": "sdfsdfsdf",
-        "hideLabel": false,
-        "labelPosition": "top",
-        "marginTop": "",
-        "marginRight": "",
-        "marginLeft": "",
-        "marginBottom": "",
-        "defaultValueType": "none",
-        "defaultValueSqlQuery": "",
-        "defaultValueString": "",
-        "lovType": "none",
-        "lovSqlQuery": "",
-        "lovJson": "",
-        "nonPersistent": false,
-        "hidden": false,
-        "clearWhenHidden": false,
-        "disabled": true,
-        "flexiLabel": "sfsdf",
-        "prefix": "",
-        "suffix": "",
-        "appliedValidations": "",
-        "customFuncValidation": "",
-        "jsonLogicVal": "",
-        "formClassValidation": "",
-        "events": "",
-        "showCondition": "",
-        "disableCondition": "",
-        "active": true,
-        "required": false,
-        "labelWidth": "",
-        "labelMargin": "",
-        "width": "",
-        "mask": [],
-        "description": "",
-        "icon": "",
-        "parentName": "",
-        "filterSqlQuery": "",
-        "type": "BTN",
-        "key": "_pobs53u45",
-        "order": 0,
-        "parent": "button_drop",
-        "componentName": "ButtonComponent"
+          "theme": "primary",
+          "size": "medium",
+          "btnLeftIcon": "md-save",
+          "btnRightIcon": "",
+          "hasParent": false,
+          "label": "sdfsdfsdf",
+          "hideLabel": false,
+          "labelPosition": "top",
+          "marginTop": "",
+          "marginRight": "",
+          "marginLeft": "",
+          "marginBottom": "",
+          "defaultValueType": "none",
+          "defaultValueSqlQuery": "",
+          "defaultValueString": "",
+          "lovType": "none",
+          "lovSqlQuery": "",
+          "lovJson": "",
+          "nonPersistent": false,
+          "hidden": false,
+          "clearWhenHidden": false,
+          "disabled": true,
+          "flexiLabel": "sfsdf",
+          "prefix": "",
+          "suffix": "",
+          "appliedValidations": "",
+          "customFuncValidation": "",
+          "jsonLogicVal": "",
+          "formClassValidation": "",
+          "events": "",
+          "showCondition": "",
+          "disableCondition": "",
+          "active": true,
+          "required": false,
+          "labelWidth": "",
+          "labelMargin": "",
+          "width": "",
+          "mask": [],
+          "description": "",
+          "icon": "",
+          "parentName": "",
+          "filterSqlQuery": "",
+          "type": "BTN",
+          "key": "_pobs53u45",
+          "order": 0,
+          "parent": "button_drop",
+          "componentName": "ButtonComponent"
         }
       ]
     }
   }
-  constructor(public router: Router, public route: ActivatedRoute) { }
 
+  constructor(public http: HttpClient) { }
 
   makeId() {
     var text = "";
@@ -3834,31 +3836,28 @@ export class FeFormSchemaService {
 
     return text;
   }
-    addProps(components, code) {
+  addProps(components, code) {
 
-      if (components.length !== 0) {
-        for (let i in components) {
-          const field = components[i];
-          field.code = this.makeId();
-          field.id = this.makeId();
-          if (field.type === 'FST') {
-            this.addProps(field.components, code);
-          }
+    if (components.length !== 0) {
+      for (let i in components) {
+        const field = components[i];
+        field.code = this.makeId();
+        field.id = this.makeId();
+        if (field.type === 'FST') {
+          this.addProps(field.components, code);
         }
       }
-  };
-
-  getFormSchema(code) {
-    let form = this._schema[code];
-    if(!code) {
-      form = this._schema[101];
     }
-    this.addProps(form.components, code);
-    this.addProps(form.buttons, code);
-    return form;
   };
 
-  navigateToFormGenerator(id: number) {
-    this.router.navigate(['/formGenerator', id]);
+  getFormSchemaById(id: string): Observable<HttpResponse<any>> {
+    return this.http.post<any>(
+      `/api/form_data`, { 'id': id }, { observe: 'response' });
   }
+
+  getFormSchemaByCode(code: string): Observable<HttpResponse<any>> {
+    return this.http.post<any>(
+      `/api/form_data`, { 'code': code }, { observe: 'response' });
+  }
+
 }

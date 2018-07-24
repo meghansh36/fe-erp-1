@@ -29,24 +29,25 @@ export class FeFormGeneratorComponent implements OnInit {
     constructor(public route: ActivatedRoute, public formSchemaService: FormSchemaService, public location: Location) { }
 
     ngOnInit() {
-      this.schema = this.formSchemaService.getFormSchema(101);
-       /*  this.route.params
+        this.getFormById();
+    }
+
+    getFormById() {
+        this.route.params
             .filter(params => params.id)
             .subscribe(params => {
                 let id = params.id;
                 this.getSchema(id);
-            }) */
+            })
     }
 
-    getSchema(id: number) {
-        //this.schema = this.formSchemaService.getFormSchema(id);
-        /* if (form) {
-            this.schema = form;
-            console.log(this.schema);
-        }
-        else {
-            console.log('no schema found');
-        } */
+    getSchema(id: string) {
+        this.formSchemaService.getFormSchemaById(id)
+            .subscribe((data) => this.setFormSchema(data));
+    }
+
+    setFormSchema(data) {
+        this.schema = [...data.body.data];
     }
 
 }
