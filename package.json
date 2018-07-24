@@ -63,6 +63,7 @@
     "ngx-jsoneditor": "^0.1.1",
     "ngx-select-dropdown": "^0.6.0",
     "ngx-select-ex": "^3.5.9",
+    "node-run-cmd": "^1.0.1",
     "normalize.css": "^8.0.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
