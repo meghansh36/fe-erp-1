@@ -187,8 +187,8 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
   _init() {
     this.setRef(this._fieldControlService.getFieldRef().ref);
     this.uniqueKey = this._masterFormService.getCurrentKey();
-    this._masterFormService.setProperties(this.properties);
-    this.initFieldStyle();
+    this._masterFormService.setProperties(this.properties, this.uniqueKey);
+    this._initFieldStyle();
     this.systemValidations = this._defaults.VALIDATIONS;
   }
 
@@ -208,12 +208,12 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 
   ngDoCheck() {
     this._beforeNgDoCheck();
-    this.initFieldStyle();
+    this._initFieldStyle();
     this._utility.addDisplayProps(this);
     this._afterNgDoCheck();
   }
 
-  initFieldStyle() {
+  protected _initFieldStyle() {
     this.defaultClasses = this._utility.getFieldClasses(this, true);
     this.style = this._utility.getFieldStyles(this, true);
   }
@@ -238,7 +238,7 @@ export class FeBaseField implements OnInit, DoCheck, AfterViewInit {
 
   openModal() {
     this._masterFormService.setCurrentKey(this.uniqueKey);
-    this._masterFormService.setProperties(this.properties);
+    this._masterFormService.setProperties(this.properties, this.uniqueKey);
     this._fieldControlService.getFieldRef().parent.openModal();
   }
 
