@@ -291,7 +291,8 @@ export class FeFormBuilderComponent implements DoCheck, OnInit, AfterViewInit {
       viewContainerRef = this.host;
     }
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+    const componentRef = viewContainerRef.createComponent(componentFactory, null, viewContainerRef.injector);
+    console.log(componentRef);
     this.moveDOMNode(target, value[4], componentRef.location.nativeElement);
     this._fieldControlService.setFieldRef(componentRef, this, componentObj);
     this._formJsonService.addComponentToMasterJSON(

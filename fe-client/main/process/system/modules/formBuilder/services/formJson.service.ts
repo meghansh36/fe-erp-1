@@ -225,7 +225,6 @@ export class FeFormJsonService {
         const finalJSON = {
             ...this.MasterJSON
         };
-        console.log(this.MasterJSON);
         let tempComponents = [];
         for (const key in this.MasterJSON.components) {
             if (this.MasterJSON.components[key].instance.properties.parent === 'root_drop' ) {
@@ -237,10 +236,10 @@ export class FeFormJsonService {
 
         // recursion for nested components
        const pushInFST = (container) => {
-           console.log('push in fst called', container);
+          // console.log('push in fst called', container);
             for (let i = 0; i < container.length; i++) {
                 const key = container[i];
-                console.log('childKey', key);
+               // console.log('childKey', key);
                 container[i] = _.assign({}, this.MasterJSON.components[key].instance.properties);
             }
             return container;
@@ -249,13 +248,12 @@ export class FeFormJsonService {
        const buildNestedComponents = (rootContainer) => {
         for (let i = 0; i < rootContainer.length; i++) {
             if (rootContainer[i].components !== undefined) {
-                console.log('in nested loop');
+               // console.log('in nested loop');
                 rootContainer[i].components = pushInFST(_.concat([], rootContainer[i].components));
                 buildNestedComponents(rootContainer[i].components);
             }
         }
        };
-       console.log('tempComponents', tempComponents);
        buildNestedComponents(tempComponents);
 
 
