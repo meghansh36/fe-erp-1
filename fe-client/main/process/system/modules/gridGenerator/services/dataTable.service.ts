@@ -44,7 +44,7 @@ export class FeDataTableService {
 			{ prop: "LABEL", name: "Label", sortable: true, resizeable: true, width: '400', align: 'left' },
 		],
 		rowActions: [
-			{ icon: 'md-create', clickEvent: 'detail', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
+			{ icon: 'md-create', clickEvent: 'getFormById', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
 		],
 		actionButtons: [
 			{ icon: 'md-email', clickEvent: 'sendMail', handlerOwner: 'resource', customCssClass: 'gray_clr mr_10 pointer' },
@@ -86,7 +86,7 @@ export class FeDataTableService {
 	}
 
 	fetch() {
-		return this.http.get('https://raw.githubusercontent.com/Dhruv1996oct1/dodo_wisdom/data.json')
+		return this.http.get('https://raw.githubusercontent.com/Dhruv1996oct1/dodo_wisdom/2d04497a24d555486e992cf2f6dfdf7ac6db15c7/data.json')
 			.pipe(
 				map(data => data['key'])
 			);
