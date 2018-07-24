@@ -27,8 +27,6 @@ export class FeFormsComponent {
   }
 
   detail(args: any) {
-    let id = args.id;
-    this.formSchemaService.navigateToFormGenerator(id);
   }
 
 }

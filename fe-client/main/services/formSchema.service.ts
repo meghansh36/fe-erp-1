@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -3822,7 +3824,7 @@ export class FeFormSchemaService {
       ]
     }
   }
-  constructor(public router: Router, public route: ActivatedRoute) { }
+  constructor(protected _http: HttpClient ) { }
 
 
   makeId() {
@@ -3835,7 +3837,6 @@ export class FeFormSchemaService {
     return text;
   }
     addProps(components, code) {
-
       if (components.length !== 0) {
         for (let i in components) {
           const field = components[i];
@@ -3856,9 +3857,16 @@ export class FeFormSchemaService {
     this.addProps(form.components, code);
     this.addProps(form.buttons, code);
     return form;
-  };
-
-  navigateToFormGenerator(id: number) {
-    this.router.navigate(['/formGenerator', id]);
   }
+
+  getFormSchemaById( id?: any) {
+    console.log("getForm schema by id", id);
+    return Observable.from([1,2,3]);
+  }
+
+  getFormSchemaByFormCode( formCode?: any) {
+    console.log("getForm schema by formCode", formCode);
+    return Observable.from([1,2,3]);
+  }
+
 }
